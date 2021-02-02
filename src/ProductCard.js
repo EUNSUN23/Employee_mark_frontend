@@ -4,20 +4,23 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import ShareIcon from "@material-ui/icons/Share";
+import AccessAlarmsIcon from "@material-ui/icons/AccessAlarms";
 
 const useStyles = makeStyles(() => ({
-  root: {},
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)",
+  content: {
+    margin: 0,
   },
-  title: {
+  rank: {},
+  info: {
+    marginTop: 10,
+    marginBottom: -10,
+  },
+  lastUpdate: {
     fontSize: 14,
   },
   pos: {
@@ -27,49 +30,47 @@ const useStyles = makeStyles(() => ({
 
 const ProductCard = (props) => {
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
-  const { avatarSrc, title, subtitle, description, imgSrc } = props;
+  const { avatarSrc, title, subheader, description, imgSrc } = props;
 
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
           /*Avatar: 이미지 소스 넣을 수 있음(말그대로 avatar이미지용) */
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
+          <Avatar src={avatarSrc}></Avatar>
         }
         action={
           /*IconButton: 아이콘의 wrapper. 안에 원하는 아이콘 넣기 */
-          <IconButton aria-label="settings">
-            <ShareIcon />
-          </IconButton>
+
+          <AccessAlarmsIcon />
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={title}
+        subheader={subheader}
       />
-      <CardContent>
+      <CardMedia style={{ height: "150px" }} image={imgSrc} />
+      {/*CardMedia:아마도 성과 or 연봉 등 graph이미지*/}
+      <CardContent className={classes.content}>
+        <Typography className={classes.rank} variant="h6" component="h2">
+          1st Ranked
+        </Typography>
         <Typography
-          className={classes.title}
+          className={classes.lastUpdate}
           color="textSecondary"
           gutterBottom
         >
-          Word of the Day
+          last update : 02/02/21
         </Typography>
-        <Typography variant="h5" component="h2">
-          be{bull}nev{bull}o{bull}lent
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
+
+        {/* <Typography className={classes.pos} color="textSecondary">
           adjective
-        </Typography>
-        <Typography variant="body2" component="p">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
+        </Typography> */}
+        <Typography className={classes.info} variant="body2" component="p">
+          "Transfered 2 days ago"
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button size="small">send Message</Button>
+        <Button size="small">profile</Button>
       </CardActions>
     </Card>
   );
