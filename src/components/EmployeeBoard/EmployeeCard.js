@@ -7,9 +7,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-import ContactSupportIcon from "@material-ui/icons/ContactSupport";
-import RecentActorsIcon from "@material-ui/icons/RecentActors";
-import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import useDialog from "../../hooks/useDialog";
 import Contact from "../UI/Contact";
 import PersonIcon from "@material-ui/icons/Person";
@@ -31,11 +28,11 @@ const useStyles = makeStyles(() => ({
       position: "absolute",
       right: -4,
       bottom: 215,
-      fontSize: 13,
+      fontSize: 15,
       fontWeight: "bold",
       color: "#222",
-      width: 26,
-      height: 26,
+      width: 29,
+      height: 29,
       backgroundColor: "#e7e7e7",
       borderRadius: "100%",
       textAlign: "center",
