@@ -4,12 +4,13 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
+
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import useDialog from "../../hooks/useDialog";
 import Contact from "../UI/Contact";
 import PersonIcon from "@material-ui/icons/Person";
+import CardAccordion from "../CardAccordion";
 
 const useStyles = makeStyles(() => ({
   cardHeader: {
@@ -43,15 +44,7 @@ const useStyles = makeStyles(() => ({
     textAlign: "center",
   },
 
-  lastUpdate: {
-    position: "absolute",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    color: "#555",
-    textDecoration: "underLine",
-    fontSize: 13,
-    // textAlign: "right",
-  },
+
   info: {
     position: "relative",
   },
@@ -85,8 +78,6 @@ const EmployeeCard = (props) => {
 
   const subHeader = employeeInfo.department + ", " + employeeInfo.role;
 
-  // const employeeInfo = `<div><div>${name}</div><div>${department},${role}</div></div>`;
-
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -118,19 +109,15 @@ const EmployeeCard = (props) => {
         className={classes.media}
         style={{ height: "180px" }}
         image={chart ? chart /* chart : 성과 or 연봉 등 graph이미지*/ : null}
-      />
+      >
+        <CardAccordion lastUpdate={lastUpdate}/>
+      </CardMedia>
       <CardContent className={classes.content}>
         <div className={classes.rankWrapper}>
           <Typography className={classes.rank} variant="h6" component="h2">
             <span>{rank}</span>
           </Typography>
-          <Typography
-            className={classes.lastUpdate}
-            color="textSecondary"
-            gutterBottom
-          >
-            <span>{lastUpdate} updated</span>
-          </Typography>
+        
         </div>
       </CardContent>
     </Card>

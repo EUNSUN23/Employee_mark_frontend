@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Timeline from "@material-ui/lab/Timeline";
 import TimelineItem from "@material-ui/lab/TimelineItem";
 import TimelineSeparator from "@material-ui/lab/TimelineSeparator";
@@ -11,33 +11,33 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   timeline: {
-    transform: "rotate(270deg)",
-    width: 100,
+    transform: "rotate(-90deg)",
     margin: "0 auto",
+    width: 30,
     padding: 0,
   },
   timelineContentContainer: {
     display: "flex",
     flexDirection: "row",
     textAlign: "left",
+    width: 10,
+    zIndex: 500,
   },
-  timelineTopContent: {
+  timelineYear: {
     position: "relative",
     flex: "2fr",
     alignItems: "flex-start",
-
     display: "inline-block",
-    transform: "rotate(-270deg)",
+    transform: "rotate(90deg)",
     textAlign: "center",
     minWidth: 50,
   },
-  timelineBottomContent: {
+  timelineInfo: {
     position: "relative",
     flex: "2fr",
     alignItems: "flex-end",
-
     display: "inline-block",
-    transform: "rotate(-270deg)",
+    transform: "rotate(90deg)",
     textAlign: "center",
     minWidth: 50,
   },
@@ -52,6 +52,13 @@ const useStyles = makeStyles({
     transform: "translateX(-50%)",
     top: 0,
   },
+  timelineDot_last: {
+    position: "absolute",
+    left: "50%",
+    transform: "translateX(-50%)",
+    top: 0,
+  },
+
   timelineConnector: {
     position: "absolute",
     height: "3.2rem",
@@ -62,61 +69,82 @@ const useStyles = makeStyles({
     bottom: "-44%",
     transform: "translateY(-50%)",
   },
-  timelineTopText_first: {
+  timelineYearText_first: {
     position: "absolute",
-    fontSize: 13,
-    right: "55%",
-    bottom: "50%",
-  },
-  timelineBottomText_first: {
-    position: "absolute",
-    fontSize: 13,
+    fontSize: 10,
+    color: "black",
     right: "60%",
-    top: "50%",
-  },
-  timelineTopText: {
-    position: "absolute",
-    fontSize: 13,
-    right: "40%",
     bottom: "50%",
-    transform: "translateX(-40%)",
+    transform: "translateY(-100%)",
   },
-  timelineBottomText: {
+  timelineInfoText_first: {
     position: "absolute",
-    fontSize: 13,
-    right: "50%",
-    top: "50%",
-    transform: "translateX(-50%)",
-  },
-  timelineTopText_last: {
-    position: "absolute",
-    fontSize: 13,
+    fontSize: 11,
+    color: "black",
     right: "55%",
-    bottom: "50%",
+    top: "50%",
+    transform: "translateY(100%)",
   },
-  timelineBottomText_last: {
+  timelineYearText: {
     position: "absolute",
-    fontSize: 13,
+    fontSize: 10,
+    color: "black",
+    right: "50%",
+    bottom: "50%",
+    transform: "translate(-40%,-100%)",
+  },
+  timelineInfoText: {
+    position: "absolute",
+    fontSize: 11,
+    color: "black",
     right: "40%",
     top: "50%",
+    transform: "translate(-50%,100%)",
+  },
+  timelineYearText_last: {
+    position: "absolute",
+    fontSize: 10,
+    color: "black",
+    fontWeight: "bold",
+    right: "60%",
+    bottom: "10%",
+    transform: "translateY(-100%)",
+  },
+  timelineInfoText_last: {
+    position: "absolute",
+    fontSize: 11,
+    color: "black",
+    right: "40%",
+    top: "50%",
+    transform: "translateY(100%)",
   },
   timelineIcon: {
     transform: "rotate(-90deg)",
   },
 });
 
-const Track = () => {
+const Track = (props) => {
+  const [dotColor, setDotColor] = useState("");
   const classes = useStyles();
+  const { type } = props;
+
+  const typeCheck = () => {
+    if (dotColor === "") {
+      type === "dept" ? setDotColor("primary") : setDotColor("secondary");
+    }
+  };
+
+  typeCheck();
   return (
     <Timeline className={classes.timeline}>
       <TimelineItem
         align="alternate"
         className={classes.timelineContentContainer}
       >
-        <TimelineOppositeContent className={classes.timelineTopContent}>
+        <TimelineOppositeContent className={classes.timelineYear}>
           <Typography
             color="textSecondary"
-            className={classes.timelineTopText_first}
+            className={classes.timelineYearText_first}
           >
             2002
           </Typography>
@@ -128,18 +156,21 @@ const Track = () => {
             variant="text"
           />
         </TimelineSeparator>
-        <TimelineContent className={classes.timelineBottomContent}>
+        <TimelineContent className={classes.timelineInfo}>
           <Typography
             color="textSecondary"
-            className={classes.timelineBottomText_first}
+            className={classes.timelineInfoText_first}
           >
             Finance
           </Typography>
         </TimelineContent>
       </TimelineItem>
       <TimelineItem className={classes.timelineContentContainer}>
-        <TimelineOppositeContent className={classes.timelineTopContent}>
-          <Typography color="textSecondary" className={classes.timelineTopText}>
+        <TimelineOppositeContent className={classes.timelineYear}>
+          <Typography
+            color="textSecondary"
+            className={classes.timelineYearText}
+          >
             2005
           </Typography>
         </TimelineOppositeContent>
@@ -147,18 +178,21 @@ const Track = () => {
           <TimelineDot className={classes.timelineDot} />
           <TimelineConnector className={classes.timelineConnector} />
         </TimelineSeparator>
-        <TimelineContent className={classes.timelineBottomContent}>
+        <TimelineContent className={classes.timelineInfo}>
           <Typography
             color="textSecondary"
-            className={classes.timelineBottomText}
+            className={classes.timelineInfoText}
           >
             Sales
           </Typography>
         </TimelineContent>
       </TimelineItem>{" "}
       <TimelineItem className={classes.timelineContentContainer}>
-        <TimelineOppositeContent className={classes.timelineTopContent}>
-          <Typography color="textSecondary" className={classes.timelineTopText}>
+        <TimelineOppositeContent className={classes.timelineYear}>
+          <Typography
+            color="textSecondary"
+            className={classes.timelineYearText}
+          >
             2005
           </Typography>
         </TimelineOppositeContent>
@@ -166,31 +200,31 @@ const Track = () => {
           <TimelineDot className={classes.timelineDot} />
           <TimelineConnector className={classes.timelineConnector} />
         </TimelineSeparator>
-        <TimelineContent className={classes.timelineBottomContent}>
+        <TimelineContent className={classes.timelineInfo}>
           <Typography
             color="textSecondary"
-            className={classes.timelineBottomText}
+            className={classes.timelineInfoText}
           >
             Sales
           </Typography>
         </TimelineContent>
       </TimelineItem>
       <TimelineItem className={classes.timelineContentContainer}>
-        <TimelineOppositeContent className={classes.timelineTopContent}>
+        <TimelineOppositeContent className={classes.timelineYear}>
           <Typography
             color="textSecondary"
-            className={classes.timelineTopText_last}
+            className={classes.timelineYearText_last}
           >
-            2009
+            2009-현재
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator className={classes.timelineSeparator}>
-          <TimelineDot className={classes.timelineDot} />
+          <TimelineDot className={classes.timelineDot_last} color={dotColor} />
         </TimelineSeparator>
-        <TimelineContent className={classes.timelineBottomContent}>
+        <TimelineContent className={classes.timelineInfo}>
           <Typography
             color="textSecondary"
-            className={classes.timelineBottomText_last}
+            className={classes.timelineInfoText_last}
           >
             Production
           </Typography>
