@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#555",
     textDecoration: "underLine",
     fontSize: 13,
-    // textAlign: "right",
   },
   AccordionDetails: {},
   historyWrapper: {
@@ -41,7 +40,7 @@ const CardAccordion = (props) => {
   const classes = useStyles();
   const { lastUpdate } = props;
   const [expanded, setExpanded] = useState(false);
-  const [selected, setSelected] = useState("부서 이동");
+  const [selected, setSelected] = useState(null);
   const [historyType, setHistoryType] = useState("dept");
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -49,8 +48,13 @@ const CardAccordion = (props) => {
   };
 
   const handleClick = (selected) => {
+    console.log("click");
     setSelected(selected);
   };
+
+  useEffect(() => {
+    expanded === false && setSelected(null);
+  });
 
   return (
     <div className={classes.root}>
@@ -78,7 +82,7 @@ const CardAccordion = (props) => {
               <HistoryButton handleClick={handleClick} selected={selected} />
             </Grid>
             <Grid item className={classes.track}>
-              <Track type="dept" />
+              <Track type={selected} />
             </Grid>
           </Grid>
         </AccordionDetails>

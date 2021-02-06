@@ -7,21 +7,33 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
   },
-  deptButton: {
-    flex: "1fr",
-    padding: 2,
-    color: "#039BE5",
 
-    border: "1px solid #039BE5",
+  initDeptButton: {
+    flex: "1fr",
+    padding: 1,
+    backgroundColor: "#0288D1",
+    color: "white",
+    border: "none",
     cursor: "pointer",
     boxSizing: "content-box",
     alignItems: "flex-start",
-    margin: theme.spacing(1),
-    "&:hover": {
+    margin: 4,
+    "&:focus": {
       backgroundColor: "#0288D1",
       color: "white",
       border: "none",
     },
+  },
+  deptButton: {
+    flex: "1fr",
+    padding: 1,
+    color: "#039BE5",
+    border: "1px solid #039BE5",
+    cursor: "pointer",
+    boxSizing: "content-box",
+    alignItems: "flex-start",
+    margin: 4,
+
     "&:focus": {
       backgroundColor: "#0288D1",
       color: "white",
@@ -32,56 +44,50 @@ const useStyles = makeStyles((theme) => ({
     flex: "1fr",
     color: "#039BE5",
     border: "1px solid #039BE5",
-
-    padding: 2,
+    padding: 1,
     cursor: "pointer",
     boxSizing: "padding-box",
     alignItems: "flex-end",
-    margin: theme.spacing(1),
-    "&:hover": {
-      backgroundColor: "#0288D1",
-      color: "white",
-      border: "none",
-    },
+    margin: 4,
     "&:focus": {
       backgroundColor: "#0288D1",
       color: "white",
       border: "none",
     },
   },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
 }));
 
 const HistoryButton = (props) => {
-  const { handleClick } = props;
+  const { selected, handleClick } = props;
   const classes = useStyles();
 
   return (
     <div className={classes.wrapper}>
       <Button
+        className={
+          selected === null ? classes.initDeptButton : classes.deptButton
+        }
         variant="outlined"
         size="small"
         color="primary"
         disableRipple
-        className={classes.deptButton}
-        onChange={() => {
-          handleClick("부서 이동");
+        onFocus={() => {
+          console.log("click");
+          handleClick("dept");
         }}
       >
         부서 이동
       </Button>
-
       <Button
+        className={classes.salaryButton}
         variant="outlined"
         size="small"
         color="primary"
-        className={classes.salaryButton}
-        onChange={() => {
-          handleClick("연봉 변동");
-        }}
         disableRipple
+        onFocus={() => {
+          console.log("click");
+          handleClick("salary");
+        }}
       >
         연봉 변동
       </Button>

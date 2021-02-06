@@ -124,17 +124,9 @@ const useStyles = makeStyles({
 });
 
 const Track = (props) => {
-  const [dotColor, setDotColor] = useState("");
   const classes = useStyles();
   const { type } = props;
 
-  const typeCheck = () => {
-    if (dotColor === "") {
-      type === "dept" ? setDotColor("primary") : setDotColor("secondary");
-    }
-  };
-
-  typeCheck();
   return (
     <Timeline className={classes.timeline}>
       <TimelineItem
@@ -219,7 +211,10 @@ const Track = (props) => {
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator className={classes.timelineSeparator}>
-          <TimelineDot className={classes.timelineDot_last} color={dotColor} />
+          <TimelineDot
+            className={classes.timelineDot_last}
+            color={type === "dept" || type === null ? "primary" : "secondary"}
+          />
         </TimelineSeparator>
         <TimelineContent className={classes.timelineInfo}>
           <Typography
