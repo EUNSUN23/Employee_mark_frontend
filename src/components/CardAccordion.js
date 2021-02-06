@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 const CardAccordion = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  const [historyType, setHistoryType] = useState(null);
+  const [historyType, setHistoryType] = useState("dept");
   const [historyData, setHistoryData] = useState();
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -73,11 +73,8 @@ const CardAccordion = (props) => {
       "historyType:",
       historyType
     );
-    // expanded === false && setHistoryType(null);
-    if (expanded && historyType === null) {
-      setHistoryType("dept");
-      setHistoryData(history.dept);
-    }
+    expanded === false && setHistoryType("dept");
+    expanded && historyType === "dept" && setHistoryData(history.dept);
     expanded && historyType === "salary" && setHistoryData(history.salary);
   }, [expanded, historyType]);
 
