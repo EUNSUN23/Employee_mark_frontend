@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import HistoryButton from "./HistoryButton";
-import Track from "./Track";
-import Typography from "@material-ui/core/Typography";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { Grid } from "@material-ui/core";
+import History from "./History";
+import Rank from "./Rank";
 
 const history = {
   dept: [
@@ -56,14 +50,20 @@ const CardAccordion = (props) => {
   const [historyType, setHistoryType] = useState("dept");
   const [historyData, setHistoryData] = useState();
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+  const handleChange = useCallback(
+    (panel) => (event, isExpanded) => {
+      setExpanded(isExpanded ? panel : false);
+    },
+    [historyType]
+  );
 
-  const changeHistoryType = (selected) => {
-    console.log("click");
-    setHistoryType(selected);
-  };
+  const changeHistoryType = useCallback(
+    (selected) => {
+      console.log("click");
+      setHistoryType(selected);
+    },
+    [historyType]
+  );
 
   useEffect(() => {
     console.log(
@@ -76,61 +76,21 @@ const CardAccordion = (props) => {
     expanded === false && setHistoryType("dept");
     expanded && historyType === "dept" && setHistoryData(history.dept);
     expanded && historyType === "salary" && setHistoryData(history.salary);
+    /* rank패널 열릴 때에는 historyaccordion 렌더링 되지 않게 하기. : 위에 'rank패널이 열리지 않는 경우'
+    추가하기. */
   }, [expanded, historyType]);
 
   return (
     <div className={classes.root}>
-      <Accordion
-        expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel12bh-content"
-          id="panel12bh-header"
-        >
-          <Typography className={classes.heading}>
-            부서이동 및 연봉변동 기록
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails className={classes.AccordionDetails}>
-          <Grid
-            container
-            item
-            direction="column"
-            className={classes.historyWrapper}
-          >
-            <Grid item>
-              <HistoryButton
-                handleClick={changeHistoryType}
-                selected={historyType}
-              />
-            </Grid>
-            <Grid item className={classes.track}>
-              <Track historyType={historyType} historyData={historyData} />
-            </Grid>
-          </Grid>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion
-        expanded={expanded === "panel2"}
-        onChange={handleChange("panel2")}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="pane6bh-content"
-          id="panel2bh-header"
-        >
-          <Typography className={classes.heading}> 종합 직원 랭킹</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Donec placerat, lectus sed mattis semper, neque lectus feugiat
-            lectus, varius pulvinar diam eros in elit. Pellentesque convallis
-            laoreet laoreet.
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+      <History
+        historyType={historyType}
+        historyData={historyData}
+        expanded={expanded}
+        handleChange={handleChange}
+        changeHistoryType={changeHistoryType}
+        classes={classes}
+      />
+      <Rank expanded={expanded} handleChange={handleChange} classes={classes} />
     </div>
   );
 };
