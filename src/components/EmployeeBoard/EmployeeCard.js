@@ -69,6 +69,37 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+// const data = {
+//   history: {
+//     dept: [
+//       { from: "2002-01-23", to: "2005-02-23", dept: "marketing" },
+//       { from: "2005-02-24", to: "2007-01-24", dept: "service" },
+//       { from: "2007-01-25", to: "2009-02-23", dept: "finance" },
+//       { from: "2009-02-24", to: "2010-02-23", dept: "production" },
+//     ],
+//     salary: [
+//       { from: "2002-01-23", to: "2005-02-23", salary: "20000" },
+//       { from: "2005-02-24", to: "2007-01-24", salary: "30000" },
+//       { from: "2007-01-25", to: "2009-02-23", salary: "40000" },
+//       { from: "2009-02-24", to: "2010-02-23", salary: "20000" },
+//     ],
+//   },
+//   rank: {
+//     working: {
+//       period: 2,
+//       entire: 2,
+//       dept: 1,
+//       role: 3,
+//     },
+//     salary: {
+//       period: 1,
+//       entire: 1,
+//       dept: 1,
+//       role: 1,
+//     },
+//   },
+// };
+
 const EmployeeCard = (props) => {
   const [open, selectedValue, openDialog, handleClickList] = useDialog();
   const classes = useStyles();
@@ -76,6 +107,15 @@ const EmployeeCard = (props) => {
   const { employeeInfo, rank, portrait } = props;
 
   const subHeader = employeeInfo.department + ", " + employeeInfo.role;
+
+  /*
+    Q.)
+    employee 30만명 한번에 불러오는건 무리인데, 무한스크롤로 밑바닥 내려갈때마다
+    일정 숫자만큼의 employee 불러오기? : Board컴포넌트에서. 
+    첫 렌더링 시 history, rank정보 불러오기
+   /api/emp/history?emp_no=10036 [get] 
+   /api/emp/rank?emp_no=10036 [get]
+   */
 
   return (
     <Card className={classes.root}>

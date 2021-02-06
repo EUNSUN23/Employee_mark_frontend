@@ -74,7 +74,7 @@ const useStyles = makeStyles({
     fontSize: 10,
     color: "black",
     right: "60%",
-    bottom: "50%",
+    bottom: "10%",
     transform: "translateY(-100%)",
   },
   timelineInfoText_first: {
@@ -89,8 +89,8 @@ const useStyles = makeStyles({
     position: "absolute",
     fontSize: 10,
     color: "black",
-    right: "50%",
-    bottom: "50%",
+    right: "40%",
+    bottom: "10%",
     transform: "translate(-40%,-100%)",
   },
   timelineInfoText: {
@@ -107,8 +107,8 @@ const useStyles = makeStyles({
     color: "black",
     fontWeight: "bold",
     right: "60%",
-    bottom: "10%",
-    transform: "translateY(-100%)",
+    bottom: 0,
+    transform: "translateY(-50%)",
   },
   timelineInfoText_last: {
     position: "absolute",
@@ -125,108 +125,115 @@ const useStyles = makeStyles({
 
 const Track = (props) => {
   const classes = useStyles();
-  const { type } = props;
+  const { historyType, historyData } = props;
 
-  return (
-    <Timeline className={classes.timeline}>
-      <TimelineItem
-        align="alternate"
-        className={classes.timelineContentContainer}
-      >
-        <TimelineOppositeContent className={classes.timelineYear}>
-          <Typography
-            color="textSecondary"
-            className={classes.timelineYearText_first}
+  console.log("Track render", historyType, historyData);
+
+  const createHistoryTrack = (historyType, historyData) => {
+    let historyTrack = null;
+    if (historyType && historyData) {
+      const slicedHistory = historyData.slice(1, historyData.length - 1);
+      console.log("slicedHistory", slicedHistory);
+      historyTrack = (
+        <Timeline className={classes.timeline}>
+          <TimelineItem
+            align="alternate"
+            className={classes.timelineContentContainer}
           >
-            2002
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator className={classes.timelineSeparator}>
-          <TimelineDot className={classes.timelineDot} />
-          <TimelineConnector
-            className={classes.timelineConnector}
-            variant="text"
-          />
-        </TimelineSeparator>
-        <TimelineContent className={classes.timelineInfo}>
-          <Typography
-            color="textSecondary"
-            className={classes.timelineInfoText_first}
-          >
-            Finance
-          </Typography>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem className={classes.timelineContentContainer}>
-        <TimelineOppositeContent className={classes.timelineYear}>
-          <Typography
-            color="textSecondary"
-            className={classes.timelineYearText}
-          >
-            2005
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator className={classes.timelineSeparator}>
-          <TimelineDot className={classes.timelineDot} />
-          <TimelineConnector className={classes.timelineConnector} />
-        </TimelineSeparator>
-        <TimelineContent className={classes.timelineInfo}>
-          <Typography
-            color="textSecondary"
-            className={classes.timelineInfoText}
-          >
-            Sales
-          </Typography>
-        </TimelineContent>
-      </TimelineItem>{" "}
-      <TimelineItem className={classes.timelineContentContainer}>
-        <TimelineOppositeContent className={classes.timelineYear}>
-          <Typography
-            color="textSecondary"
-            className={classes.timelineYearText}
-          >
-            2005
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator className={classes.timelineSeparator}>
-          <TimelineDot className={classes.timelineDot} />
-          <TimelineConnector className={classes.timelineConnector} />
-        </TimelineSeparator>
-        <TimelineContent className={classes.timelineInfo}>
-          <Typography
-            color="textSecondary"
-            className={classes.timelineInfoText}
-          >
-            Sales
-          </Typography>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem className={classes.timelineContentContainer}>
-        <TimelineOppositeContent className={classes.timelineYear}>
-          <Typography
-            color="textSecondary"
-            className={classes.timelineYearText_last}
-          >
-            2009-현재
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator className={classes.timelineSeparator}>
-          <TimelineDot
-            className={classes.timelineDot_last}
-            color={type === "dept" || type === null ? "primary" : "secondary"}
-          />
-        </TimelineSeparator>
-        <TimelineContent className={classes.timelineInfo}>
-          <Typography
-            color="textSecondary"
-            className={classes.timelineInfoText_last}
-          >
-            Production
-          </Typography>
-        </TimelineContent>
-      </TimelineItem>
-    </Timeline>
-  );
+            <TimelineOppositeContent className={classes.timelineYear}>
+              <Typography
+                color="textSecondary"
+                className={classes.timelineYearText_first}
+              >
+                {historyData[0].from}
+              </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator className={classes.timelineSeparator}>
+              <TimelineDot className={classes.timelineDot} />
+              <TimelineConnector
+                className={classes.timelineConnector}
+                variant="text"
+              />
+            </TimelineSeparator>
+            <TimelineContent className={classes.timelineInfo}>
+              <Typography
+                color="textSecondary"
+                className={classes.timelineInfoText_first}
+              >
+                {historyType === "dept"
+                  ? historyData[0].dept
+                  : historyData[0].salary}
+              </Typography>
+            </TimelineContent>
+          </TimelineItem>
+          {slicedHistory.map((data, idx) => {
+            return (
+              <TimelineItem
+                className={classes.timelineContentContainer}
+                key={data.from}
+              >
+                <TimelineOppositeContent className={classes.timelineYear}>
+                  <Typography
+                    color="textSecondary"
+                    className={classes.timelineYearText}
+                  >
+                    {data.from}
+                  </Typography>
+                </TimelineOppositeContent>
+                <TimelineSeparator className={classes.timelineSeparator}>
+                  <TimelineDot className={classes.timelineDot} />
+                  <TimelineConnector className={classes.timelineConnector} />
+                </TimelineSeparator>
+                <TimelineContent className={classes.timelineInfo}>
+                  <Typography
+                    color="textSecondary"
+                    className={classes.timelineInfoText}
+                  >
+                    {historyType === "dept" ? data.dept : data.salary}
+                  </Typography>
+                </TimelineContent>
+              </TimelineItem>
+            );
+          })}
+
+          <TimelineItem className={classes.timelineContentContainer}>
+            <TimelineOppositeContent className={classes.timelineYear}>
+              <Typography
+                color="textSecondary"
+                className={classes.timelineYearText_last}
+              >
+                {historyData[historyData.length - 1].from}~현재
+              </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator className={classes.timelineSeparator}>
+              <TimelineDot
+                className={classes.timelineDot_last}
+                color={
+                  historyType === "dept" || historyType === null
+                    ? "primary"
+                    : "secondary"
+                }
+              />
+            </TimelineSeparator>
+            <TimelineContent className={classes.timelineInfo}>
+              <Typography
+                color="textSecondary"
+                className={classes.timelineInfoText_last}
+              >
+                {historyType === "dept"
+                  ? historyData[historyData.length - 1].dept
+                  : historyData[historyData.length - 1].salary}
+              </Typography>
+            </TimelineContent>
+          </TimelineItem>
+        </Timeline>
+      );
+    }
+
+    return historyTrack;
+  };
+
+  return createHistoryTrack(historyType, historyData);
 };
 
 export default Track;

@@ -9,6 +9,21 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Grid } from "@material-ui/core";
 
+const history = {
+  dept: [
+    { from: "2002-01-23", to: "2005-02-23", dept: "marketing" },
+    { from: "2005-02-24", to: "2007-01-24", dept: "service" },
+    { from: "2007-01-25", to: "2009-02-23", dept: "finance" },
+    { from: "2009-02-24", to: "2010-02-23", dept: "production" },
+  ],
+  salary: [
+    { from: "2002-01-23", to: "2005-02-23", salary: "20000" },
+    { from: "2005-02-24", to: "2007-01-24", salary: "30000" },
+    { from: "2007-01-25", to: "2009-02-23", salary: "40000" },
+    { from: "2009-02-24", to: "2010-02-23", salary: "20000" },
+  ],
+};
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -27,9 +42,8 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "underLine",
     fontSize: 13,
   },
-  AccordionDetails: {},
   historyWrapper: {
-    transform: "translateY(-5%)",
+    transform: "translateY(-3%)",
   },
   track: {
     transform: "translateY(-10%)",
@@ -38,23 +52,34 @@ const useStyles = makeStyles((theme) => ({
 
 const CardAccordion = (props) => {
   const classes = useStyles();
-  const { lastUpdate } = props;
   const [expanded, setExpanded] = useState(false);
-  const [selected, setSelected] = useState(null);
-  const [historyType, setHistoryType] = useState("dept");
+  const [historyType, setHistoryType] = useState(null);
+  const [historyData, setHistoryData] = useState();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const handleClick = (selected) => {
+  const changeHistoryType = (selected) => {
     console.log("click");
-    setSelected(selected);
+    setHistoryType(selected);
   };
 
   useEffect(() => {
-    expanded === false && setSelected(null);
-  });
+    console.log(
+      "USE_EFFECT",
+      "expanded:",
+      expanded,
+      "historyType:",
+      historyType
+    );
+    // expanded === false && setHistoryType(null);
+    if (expanded && historyType === null) {
+      setHistoryType("dept");
+      setHistoryData(history.dept);
+    }
+    expanded && historyType === "salary" && setHistoryData(history.salary);
+  }, [expanded, historyType]);
 
   return (
     <div className={classes.root}>
@@ -79,10 +104,13 @@ const CardAccordion = (props) => {
             className={classes.historyWrapper}
           >
             <Grid item>
-              <HistoryButton handleClick={handleClick} selected={selected} />
+              <HistoryButton
+                handleClick={changeHistoryType}
+                selected={historyType}
+              />
             </Grid>
             <Grid item className={classes.track}>
-              <Track type={selected} />
+              <Track historyType={historyType} historyData={historyData} />
             </Grid>
           </Grid>
         </AccordionDetails>
