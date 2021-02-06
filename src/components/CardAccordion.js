@@ -3,10 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
+import HistoryButton from "./HistoryButton";
+import Track from "./Track";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
-import HistoryTab from "./HistoryTab";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: "bold",
-    flexBasis: "33.33%",
+    flexBasis: "100%",
     flexShrink: 0,
   },
   lastUpdate: {
@@ -28,16 +29,27 @@ const useStyles = makeStyles((theme) => ({
     // textAlign: "right",
   },
   AccordionDetails: {},
+  historyWrapper: {
+    transform: "translateY(-5%)",
+  },
+  track: {
+    transform: "translateY(-10%)",
+  },
 }));
 
 const CardAccordion = (props) => {
   const classes = useStyles();
   const { lastUpdate } = props;
   const [expanded, setExpanded] = useState(false);
+  const [selected, setSelected] = useState("부서 이동");
   const [historyType, setHistoryType] = useState("dept");
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+  };
+
+  const handleClick = (selected) => {
+    setSelected(selected);
   };
 
   return (
@@ -56,9 +68,19 @@ const CardAccordion = (props) => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails className={classes.AccordionDetails}>
-          <div>
-            <HistoryTab />
-          </div>
+          <Grid
+            container
+            item
+            direction="column"
+            className={classes.historyWrapper}
+          >
+            <Grid item>
+              <HistoryButton handleClick={handleClick} selected={selected} />
+            </Grid>
+            <Grid item className={classes.track}>
+              <Track type="dept" />
+            </Grid>
+          </Grid>
         </AccordionDetails>
       </Accordion>
       <Accordion

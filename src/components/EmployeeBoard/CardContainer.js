@@ -6,7 +6,7 @@ import employeeList from "../../constants";
 const CardContainer = () => {
   const getEmployeeList = (employee) => {
     return (
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={12}>
         <EmployeeCard {...employee} />
       </Grid>
     );

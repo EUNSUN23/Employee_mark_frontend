@@ -44,7 +44,6 @@ const useStyles = makeStyles(() => ({
     textAlign: "center",
   },
 
-
   info: {
     position: "relative",
   },
@@ -74,7 +73,7 @@ const EmployeeCard = (props) => {
   const [open, selectedValue, openDialog, handleClickList] = useDialog();
   const classes = useStyles();
 
-  const { employeeInfo, rank, chart, portrait, lastUpdate } = props;
+  const { employeeInfo, rank, portrait } = props;
 
   const subHeader = employeeInfo.department + ", " + employeeInfo.role;
 
@@ -105,19 +104,14 @@ const EmployeeCard = (props) => {
         }
         subheader={<div className={classes.subHeader}>{subHeader}</div>}
       />
-      <CardMedia
-        className={classes.media}
-        style={{ height: "180px" }}
-        image={chart ? chart /* chart : 성과 or 연봉 등 graph이미지*/ : null}
-      >
-        <CardAccordion lastUpdate={lastUpdate}/>
+      <CardMedia className={classes.media} style={{ height: "180px" }}>
+        <CardAccordion />
       </CardMedia>
       <CardContent className={classes.content}>
         <div className={classes.rankWrapper}>
           <Typography className={classes.rank} variant="h6" component="h2">
             <span>{rank}</span>
           </Typography>
-        
         </div>
       </CardContent>
     </Card>
