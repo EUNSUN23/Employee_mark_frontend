@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Grid } from "@material-ui/core";
 import HistoryButton from "./HistoryButton";
-import Track from "./Track";
+import Track from "../../../../Statistics/Track";
 
 const History = memo((props) => {
   const {

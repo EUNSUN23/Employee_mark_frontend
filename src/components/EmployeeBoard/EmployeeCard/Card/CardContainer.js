@@ -1,7 +1,7 @@
 import React from "react";
-import EmployeeCard from "./EmployeeCard";
+import EmployeeCard from "../EmployeeCard";
 import { Grid } from "@material-ui/core";
-import employeeList from "../../constants";
+import employeeList from "../../../../constants";
 
 const CardContainer = () => {
   const getEmployeeList = (employee) => {

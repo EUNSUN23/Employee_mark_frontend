@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import History from "./History";
-import Rank from "./Rank";
+import History from "./History/History";
+import Rank from "./Rank/Rank";
 
 const history = {
   dept: [

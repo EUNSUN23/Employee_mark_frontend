@@ -7,10 +7,10 @@ import CardMedia from "@material-ui/core/CardMedia";
 
 import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
-import useDialog from "../../hooks/useDialog";
-import Contact from "../UI/Contact";
+import useDialog from "../../../hooks/useDialog";
+import Contact from "../../UI/Contact";
 import PersonIcon from "@material-ui/icons/Person";
-import CardAccordion from "../CardAccordion";
+import CardAccordion from "./Card/CardAccordion";
 
 const useStyles = makeStyles(() => ({
   cardHeader: {
