@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { fade, makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -12,6 +14,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import HomeIcon from "@material-ui/icons/Home";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -123,6 +126,9 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
+  link: {
+    textDecoration: "none",
+  },
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -174,13 +180,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = () => {
+const SearchBar = (props) => {
   const classes = useStyles();
+  const { location } = props;
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
@@ -191,11 +198,6 @@ const SearchBar = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -204,30 +206,73 @@ const SearchBar = () => {
     setHover(target);
   };
 
-  const menuId = "search-employee-menu";
-  const renderMenu = (
-    <Menu
-      className={classes.menu}
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>
-        <HomeIcon />
-        <p>홈으로</p>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <AssessmentIcon />
-        <p>통계 검색</p>
-      </MenuItem>
-    </Menu>
-  );
+  const changeBarType = (mode, location) => {
+    console.log(location);
+    switch (mode) {
+      case "desktop":
+        return location === "/board" ? (
+          <>
+            {" "}
+            <AssessmentIcon
+              className={
+                hover === "statistics"
+                  ? `${classes.statistics_hover} icon_statistics`
+                  : `${classes.statistics} icon_statistics`
+              }
+            />
+            <Typography component="span" noWrap>
+              통계 검색
+            </Typography>
+          </>
+        ) : (
+          <>
+            <PeopleAltIcon
+              className={
+                hover === "statistics"
+                  ? `${classes.statistics_hover} icon_statistics`
+                  : `${classes.statistics} icon_statistics`
+              }
+            />
+            <Typography component="span" noWrap>
+              직원 검색
+            </Typography>
+          </>
+        );
+      case "mobile":
+        return location === "/board" ? (
+          <>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AssessmentIcon />
+            </IconButton>
+            <Link to="/statistics" className={classes.link}>
+              통계 검색
+            </Link>
+          </>
+        ) : (
+          <>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <PeopleAltIcon />
+            </IconButton>
+            <Link to="/board" className={classes.link}>
+              직원 검색
+            </Link>
+          </>
+        );
+    }
+  };
 
   const mobileMenuId = "search-employee-menu-mobile";
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -244,18 +289,14 @@ const SearchBar = () => {
             <HomeIcon />
           </Badge>
         </IconButton>
-        <p>홈으로</p>
+        <p>
+          <Link to="/" className={classes.link}>
+            홈으로
+          </Link>
+        </p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AssessmentIcon />
-        </IconButton>
-        <p>통계 검색</p>
+        {changeBarType("mobile", location)}
       </MenuItem>
     </Menu>
   );
@@ -264,9 +305,10 @@ const SearchBar = () => {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
+          <Typography classes={classes.title} variant="h6" noWrap>
             Employee Mark
           </Typography>
+
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -285,7 +327,6 @@ const SearchBar = () => {
             <div className={classes.menu}>
               <div
                 className={hover === "home" ? classes.home_hover : classes.home}
-                // onChange={() => setIndicator("home")}
                 onMouseEnter={() => setIndicator("home")}
                 onMouseLeave={() => setIndicator(null)}
               >
@@ -306,20 +347,10 @@ const SearchBar = () => {
                     ? classes.statistics_hover
                     : classes.statistics
                 }
-                // onChange={() => setIndicator("statistics")}
                 onMouseEnter={() => setIndicator("statistics")}
                 onMouseLeave={() => setIndicator(null)}
               >
-                <AssessmentIcon
-                  className={
-                    hover === "statistics"
-                      ? `${classes.statistics_hover} icon_statistics`
-                      : `${classes.statistics} icon_statistics`
-                  }
-                />
-                <Typography variant="p" noWrap>
-                  통계 검색
-                </Typography>
+                {changeBarType("desktop", location)}
               </div>
             </div>
           </div>
@@ -336,8 +367,7 @@ const SearchBar = () => {
           </div>
         </Toolbar>
       </AppBar>
-      {/* {renderMobileMenu} */}
-      {renderMenu}
+      {renderMobileMenu}
     </div>
   );
 };
