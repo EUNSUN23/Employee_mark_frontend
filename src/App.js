@@ -1,14 +1,13 @@
-import { Button, Typography } from "@material-ui/core";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Board from "./components/EmployeeBoard/Board";
-
-const useStyles = makeStyles({});
+import DefaultLayout from "./components/DefaultLayout";
 
 const App = () => {
-  const classes = useStyles();
   return (
     <div className="App">
-      <Board />
+      <DefaultLayout>
+        {" "}
+        <Board />
+      </DefaultLayout>
     </div>
   );
 };
