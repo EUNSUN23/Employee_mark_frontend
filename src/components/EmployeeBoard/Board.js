@@ -6,6 +6,7 @@ import CardContainer from "../EmployeeBoard/EmployeeCard/Card/CardContainer";
 
 const Board = (props) => {
   const { location, initPage, isInitialized } = props;
+  //기본 직원정보 : 이름, 부서, 직급, 퇴사여부
 
   useEffect(() => {
     initPage();

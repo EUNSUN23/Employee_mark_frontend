@@ -4,8 +4,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
-
-import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import useDialog from "../../../hooks/useDialog";
 import Contact from "../../UI/Contact";
@@ -20,29 +18,6 @@ const useStyles = makeStyles(() => ({
     margin: 0,
   },
   media: {},
-
-  rankWrapper: {
-    position: "relative",
-  },
-  rank: {
-    "& span": {
-      position: "absolute",
-      right: -4,
-      bottom: 215,
-      fontSize: 15,
-      fontWeight: "bold",
-      color: "#222",
-      width: 29,
-      height: 29,
-      backgroundColor: "#e7e7e7",
-      borderRadius: "100%",
-      textAlign: "center",
-      padding: 5,
-      lineHeight: 2,
-    },
-
-    textAlign: "center",
-  },
 
   info: {
     position: "relative",
@@ -68,37 +43,6 @@ const useStyles = makeStyles(() => ({
     paddingTop: 30,
   },
 }));
-
-// const data = {
-//   history: {
-//     dept: [
-//       { from: "2002-01-23", to: "2005-02-23", dept: "marketing" },
-//       { from: "2005-02-24", to: "2007-01-24", dept: "service" },
-//       { from: "2007-01-25", to: "2009-02-23", dept: "finance" },
-//       { from: "2009-02-24", to: "2010-02-23", dept: "production" },
-//     ],
-//     salary: [
-//       { from: "2002-01-23", to: "2005-02-23", salary: "20000" },
-//       { from: "2005-02-24", to: "2007-01-24", salary: "30000" },
-//       { from: "2007-01-25", to: "2009-02-23", salary: "40000" },
-//       { from: "2009-02-24", to: "2010-02-23", salary: "20000" },
-//     ],
-//   },
-//   rank: {
-//     working: {
-//       period: 2,
-//       entire: 2,
-//       dept: 1,
-//       role: 3,
-//     },
-//     salary: {
-//       period: 1,
-//       entire: 1,
-//       dept: 1,
-//       role: 1,
-//     },
-//   },
-// };
 
 const EmployeeCard = (props) => {
   const [open, selectedValue, openDialog, handleClickList] = useDialog();
@@ -147,13 +91,7 @@ const EmployeeCard = (props) => {
       <CardMedia className={classes.media} style={{ height: "180px" }}>
         <CardAccordion />
       </CardMedia>
-      <CardContent className={classes.content}>
-        <div className={classes.rankWrapper}>
-          <Typography className={classes.rank} variant="h6" component="h2">
-            <span>{rank}</span>
-          </Typography>
-        </div>
-      </CardContent>
+      <CardContent className={classes.content}></CardContent>
     </Card>
   );
 };

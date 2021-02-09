@@ -125,17 +125,14 @@ const useStyles = makeStyles({
 
 const Track = (props) => {
   const classes = useStyles();
-  const { historyType, historyData } = props;
+  const { type, data } = props;
 
-  console.log("Track render", historyType, historyData);
+  console.log("Track render", type, data);
 
-  const createHistoryTrack = (historyType, historyData) => {
+  const createHistoryTrack = (type, data) => {
     let historyTrack = null;
-    if (historyType && historyData) {
-      const slicedHistory = historyData[historyType].slice(
-        1,
-        historyData[historyType].length - 1
-      );
+    if (type && data) {
+      const slicedHistory = data[type].slice(1, data[type].length - 1);
       console.log("slicedHistory", slicedHistory);
       historyTrack = (
         <Timeline className={classes.timeline}>
@@ -148,7 +145,7 @@ const Track = (props) => {
                 color="textSecondary"
                 className={classes.timelineYearText_first}
               >
-                {historyData[historyType][0].from}
+                {data[type][0].from}
               </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator className={classes.timelineSeparator}>
@@ -163,9 +160,7 @@ const Track = (props) => {
                 color="textSecondary"
                 className={classes.timelineInfoText_first}
               >
-                {historyType === "dept"
-                  ? historyData[historyType][0].dept
-                  : historyData[historyType][0].salary}
+                {type === "dept" ? data[type][0].dept : data[type][0].salary}
               </Typography>
             </TimelineContent>
           </TimelineItem>
@@ -192,7 +187,7 @@ const Track = (props) => {
                     color="textSecondary"
                     className={classes.timelineInfoText}
                   >
-                    {historyType === "dept" ? data.dept : data.salary}
+                    {type === "dept" ? data.dept : data.salary}
                   </Typography>
                 </TimelineContent>
               </TimelineItem>
@@ -205,10 +200,7 @@ const Track = (props) => {
                 color="textSecondary"
                 className={classes.timelineYearText_last}
               >
-                {
-                  historyData[historyType][historyData[historyType].length - 1]
-                    .from
-                }
+                {data[type][data[type].length - 1].from}
                 ~현재
               </Typography>
             </TimelineOppositeContent>
@@ -216,9 +208,7 @@ const Track = (props) => {
               <TimelineDot
                 className={classes.timelineDot_last}
                 color={
-                  historyType === "dept" || historyType === null
-                    ? "primary"
-                    : "secondary"
+                  type === "dept" || type === null ? "primary" : "secondary"
                 }
               />
             </TimelineSeparator>
@@ -227,13 +217,9 @@ const Track = (props) => {
                 color="textSecondary"
                 className={classes.timelineInfoText_last}
               >
-                {historyType === "dept"
-                  ? historyData[historyType][
-                      historyData[historyType].length - 1
-                    ].dept
-                  : historyData[historyType][
-                      historyData[historyType].length - 1
-                    ].salary}
+                {type === "dept"
+                  ? data[type][data[type].length - 1].dept
+                  : data[type][data[type].length - 1].salary}
               </Typography>
             </TimelineContent>
           </TimelineItem>
@@ -244,7 +230,7 @@ const Track = (props) => {
     return historyTrack;
   };
 
-  return createHistoryTrack(historyType, historyData);
+  return createHistoryTrack(type, data);
 };
 
 export default Track;

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import useBtn from "../hooks/useBtn";
 
 const useStyles = makeStyles((type) => ({
   wrapper: {
@@ -44,40 +45,51 @@ const useStyles = makeStyles((type) => ({
   },
 }));
 
-const HistoryButton = (props) => {
-  const { selected, handleClick } = props;
+const TypeBtn = (props) => {
+  const { expanded, selected, handleClick } = props;
+  const [button, initBtn] = useBtn(null);
   const classes = useStyles();
+
+  useEffect(() => {
+    button.button1 === null && button.button2 === null && initBtn(expanded);
+  });
 
   return (
     <div className={classes.wrapper}>
       <Button
-        className={selected === "dept" ? classes.clicked : classes.unClicked}
+        className={
+          selected === button.button1 || selected === "default"
+            ? classes.clicked
+            : classes.unClicked
+        }
         variant="outlined"
         size="small"
         color="primary"
         disableRipple
         onFocus={() => {
           console.log("click");
-          handleClick("dept");
+          handleClick(button.button1);
         }}
       >
-        부서 이동
+        {button.text1}
       </Button>
       <Button
-        className={selected === "salary" ? classes.clicked : classes.unClicked}
+        className={
+          selected === button.button2 ? classes.clicked : classes.unClicked
+        }
         variant="outlined"
         size="small"
         color="primary"
         disableRipple
         onFocus={() => {
           console.log("click");
-          handleClick("salary");
+          handleClick(button.button2);
         }}
       >
-        연봉 변동
+        {button.text2}
       </Button>
     </div>
   );
 };
 
-export default HistoryButton;
+export default TypeBtn;

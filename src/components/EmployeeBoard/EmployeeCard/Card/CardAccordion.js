@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import History from "./History/History";
-import useHistory from "../../../../hooks/useHistory";
-import useRank from "../../../../hooks/useRank";
+import useEmployeeData from "../../../../hooks/useEmployeeData";
 import Rank from "./Rank/Rank";
 
 const historyData = {
@@ -21,13 +20,13 @@ const historyData = {
 };
 
 const rankData = {
-  stead: {
+  steadRank: {
     period: 2,
     entire: 2,
     dept: 1,
     role: 3,
   },
-  salary: {
+  salaryRank: {
     period: 1,
     entire: 1,
     dept: 1,
@@ -53,19 +52,34 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "underLine",
     fontSize: 13,
   },
-  historyWrapper: {
+  trackWrapper: {
     transform: "translateY(-3%)",
   },
+  rankCardWrapper: {
+    transform: "translate(-5%,-21%)",
+    margin: "0 auto",
+  },
   track: {
-    transform: "translateY(-10%)",
+    transform: "translateY(-15%)",
+  },
+  whole: {
+    transform: "translateY(-30%)",
+    height: 225,
+  },
+  rankTypeBtn: {
+    // transform: "translateX(-10%)",
+  },
+  rankName: {
+    marginLeft: 8,
+    fontSize: 13,
+    fontWeight: "bold",
   },
 }));
 
 const CardAccordion = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  const [history, changeHistoryType, getHistoryData] = useHistory();
-  const [rank, changeRankType, getRankData] = useRank();
+  const [data, changeDataType, getData] = useEmployeeData();
 
   const handleChange = (panel) => (event, isExpanded) => {
     console.log("PANEL Change", panel);
@@ -73,37 +87,36 @@ const CardAccordion = (props) => {
       setExpanded(panel);
       switch (panel) {
         case "panel1":
-          getHistoryData(historyData);
+          getData(historyData);
           return;
         case "panel2":
-          getRankData(rankData);
+          getData(rankData);
           return;
         default:
           return;
       }
     } else {
       setExpanded(false);
-      changeHistoryType("dept");
-      changeRankType("stead");
+      changeDataType(null);
     }
   };
 
   return (
     <div className={classes.root}>
       <History
-        historyType={history.type}
-        historyData={history.data}
+        type={expanded === "panel1" ? data.type : null}
+        data={expanded === "panel1" ? data.data : null}
         expanded={expanded}
         handleChange={handleChange}
-        changeHistoryType={changeHistoryType}
+        changeDataType={changeDataType}
         classes={classes}
       />
       <Rank
-        rankType={rank.type}
-        rankData={rank.data}
+        type={expanded === "panel2" ? data.type : null}
+        data={expanded === "panel2" ? data.data : null}
         expanded={expanded}
         handleChange={handleChange}
-        changeRankType={changeRankType}
+        changeDataType={changeDataType}
         classes={classes}
       />
     </div>
