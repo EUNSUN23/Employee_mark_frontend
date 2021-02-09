@@ -33,15 +33,15 @@ const useStyles = makeStyles((theme) => ({
     "& span": {
       position: "absolute",
       right: 2,
-      top: "60%",
+      top: "50%",
       transform: "translateY(-50%)",
     },
     "& .icon_home": {
       position: "absolute",
       top: "50%",
       transform: "translateY(-50%)",
-      width: 28,
-      height: 28,
+      width: 29,
+      height: 29,
     },
   },
   home_hover: {
@@ -54,15 +54,15 @@ const useStyles = makeStyles((theme) => ({
     "& span": {
       position: "absolute",
       right: 2,
-      top: "60%",
+      top: "50%",
       transform: "translateY(-50%)",
     },
     "& .icon_home": {
       position: "absolute",
       top: "50%",
       transform: "translateY(-50%)",
-      width: 28,
-      height: 28,
+      width: 29,
+      height: 29,
       border: "none",
     },
     borderBottom: "2px solid white",
@@ -127,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   link: {
+    color: "white",
     textDecoration: "none",
   },
   search: {
@@ -221,7 +222,9 @@ const SearchBar = (props) => {
               }
             />
             <Typography component="span" noWrap>
-              통계 검색
+              <Link to="/statistics" className={classes.link}>
+                통계 검색
+              </Link>
             </Typography>
           </>
         ) : (
@@ -234,7 +237,9 @@ const SearchBar = (props) => {
               }
             />
             <Typography component="span" noWrap>
-              직원 검색
+              <Link to="/board" className={classes.link}>
+                직원 검색
+              </Link>
             </Typography>
           </>
         );
@@ -338,7 +343,9 @@ const SearchBar = (props) => {
                   }
                 />
                 <Typography component="span" noWrap>
-                  홈으로
+                  <Link to="/" className={classes.link}>
+                    홈으로
+                  </Link>
                 </Typography>
               </div>
               <div

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import Board from "./components/EmployeeBoard/Board";
 import DefaultLayout from "./components/DefaultLayout";

@@ -132,7 +132,10 @@ const Track = (props) => {
   const createHistoryTrack = (historyType, historyData) => {
     let historyTrack = null;
     if (historyType && historyData) {
-      const slicedHistory = historyData.slice(1, historyData.length - 1);
+      const slicedHistory = historyData[historyType].slice(
+        1,
+        historyData[historyType].length - 1
+      );
       console.log("slicedHistory", slicedHistory);
       historyTrack = (
         <Timeline className={classes.timeline}>
@@ -145,7 +148,7 @@ const Track = (props) => {
                 color="textSecondary"
                 className={classes.timelineYearText_first}
               >
-                {historyData[0].from}
+                {historyData[historyType][0].from}
               </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator className={classes.timelineSeparator}>
@@ -161,8 +164,8 @@ const Track = (props) => {
                 className={classes.timelineInfoText_first}
               >
                 {historyType === "dept"
-                  ? historyData[0].dept
-                  : historyData[0].salary}
+                  ? historyData[historyType][0].dept
+                  : historyData[historyType][0].salary}
               </Typography>
             </TimelineContent>
           </TimelineItem>
@@ -202,7 +205,11 @@ const Track = (props) => {
                 color="textSecondary"
                 className={classes.timelineYearText_last}
               >
-                {historyData[historyData.length - 1].from}~현재
+                {
+                  historyData[historyType][historyData[historyType].length - 1]
+                    .from
+                }
+                ~현재
               </Typography>
             </TimelineOppositeContent>
             <TimelineSeparator className={classes.timelineSeparator}>
@@ -221,8 +228,12 @@ const Track = (props) => {
                 className={classes.timelineInfoText_last}
               >
                 {historyType === "dept"
-                  ? historyData[historyData.length - 1].dept
-                  : historyData[historyData.length - 1].salary}
+                  ? historyData[historyType][
+                      historyData[historyType].length - 1
+                    ].dept
+                  : historyData[historyType][
+                      historyData[historyType].length - 1
+                    ].salary}
               </Typography>
             </TimelineContent>
           </TimelineItem>

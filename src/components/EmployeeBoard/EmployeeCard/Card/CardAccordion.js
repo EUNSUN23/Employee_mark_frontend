@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import History from "./History/History";
+import useHistory from "../../../../hooks/useHistory";
+import useRank from "../../../../hooks/useRank";
 import Rank from "./Rank/Rank";
 
-const history = {
+const historyData = {
   dept: [
     { from: "2002-01-23", to: "2005-02-23", dept: "marketing" },
     { from: "2005-02-24", to: "2007-01-24", dept: "service" },
@@ -16,6 +18,21 @@ const history = {
     { from: "2007-01-25", to: "2009-02-23", salary: "40000" },
     { from: "2009-02-24", to: "2010-02-23", salary: "20000" },
   ],
+};
+
+const rankData = {
+  stead: {
+    period: 2,
+    entire: 2,
+    dept: 1,
+    role: 3,
+  },
+  salary: {
+    period: 1,
+    entire: 1,
+    dept: 1,
+    role: 1,
+  },
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -47,50 +64,48 @@ const useStyles = makeStyles((theme) => ({
 const CardAccordion = (props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
-  const [historyType, setHistoryType] = useState("dept");
-  const [historyData, setHistoryData] = useState();
+  const [history, changeHistoryType, getHistoryData] = useHistory();
+  const [rank, changeRankType, getRankData] = useRank();
 
-  const handleChange = useCallback(
-    (panel) => (event, isExpanded) => {
-      setExpanded(isExpanded ? panel : false);
-    },
-    [historyType]
-  );
-
-  const changeHistoryType = useCallback(
-    (selected) => {
-      console.log("click");
-      setHistoryType(selected);
-    },
-    [historyType]
-  );
-
-  useEffect(() => {
-    console.log(
-      "USE_EFFECT",
-      "expanded:",
-      expanded,
-      "historyType:",
-      historyType
-    );
-    expanded === false && setHistoryType("dept");
-    expanded && historyType === "dept" && setHistoryData(history.dept);
-    expanded && historyType === "salary" && setHistoryData(history.salary);
-    /* rank패널 열릴 때에는 historyaccordion 렌더링 되지 않게 하기. : 위에 'rank패널이 열리지 않는 경우'
-    추가하기. */
-  }, [expanded, historyType]);
+  const handleChange = (panel) => (event, isExpanded) => {
+    console.log("PANEL Change", panel);
+    if (isExpanded) {
+      setExpanded(panel);
+      switch (panel) {
+        case "panel1":
+          getHistoryData(historyData);
+          return;
+        case "panel2":
+          getRankData(rankData);
+          return;
+        default:
+          return;
+      }
+    } else {
+      setExpanded(false);
+      changeHistoryType("dept");
+      changeRankType("stead");
+    }
+  };
 
   return (
     <div className={classes.root}>
       <History
-        historyType={historyType}
-        historyData={historyData}
+        historyType={history.type}
+        historyData={history.data}
         expanded={expanded}
         handleChange={handleChange}
         changeHistoryType={changeHistoryType}
         classes={classes}
       />
-      <Rank expanded={expanded} handleChange={handleChange} classes={classes} />
+      <Rank
+        rankType={rank.type}
+        rankData={rank.data}
+        expanded={expanded}
+        handleChange={handleChange}
+        changeRankType={changeRankType}
+        classes={classes}
+      />
     </div>
   );
 };
