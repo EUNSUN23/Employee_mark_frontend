@@ -302,17 +302,17 @@ const SearchBar = (props) => {
 
   const mobileMenuId = "search-employee-menu-mobile";
 
-  const handleOptionClick = (selected) => {
-    setSearchOption(selected);
-    console.log("handleOption click", selected);
-    if (selected === "부서검색" || selected === "직급검색") {
-      getCategory(selected);
-    }
-  };
-
   const handleSearchDetail = (selected) => {
     console.log("handle search detail", selected);
     setSearchDetail(selected);
+  };
+
+  const handleOptionClick = (selected) => {
+    setSearchOption(selected);
+    handleSearchDetail(null);
+    if (selected === "부서검색" || selected === "직급검색") {
+      getCategory(selected);
+    }
   };
 
   const renderMobileMenu = (

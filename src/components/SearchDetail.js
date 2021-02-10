@@ -107,7 +107,7 @@ const SearchDetail = (props) => {
           <ArrowDropDownIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText
-          primary={category ? category[0] : ""}
+          primary={selected ? selected : category[0]}
           style={{
             position: "absolute",
             left: "25%",
