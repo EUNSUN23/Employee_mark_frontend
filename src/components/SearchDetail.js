@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -40,9 +40,40 @@ const StyledMenuItem = withStyles((theme) => ({
 
 const SearchDetail = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { selected, handleOptionClick } = props;
+  const { handleOptionClick, category, selected } = props;
 
-  console.log(anchorEl);
+  const createSearchDetail = () => {
+    if (category) {
+      const searchDetail = category.map((item, idx) => {
+        return (
+          <StyledMenuItem
+            key={`category/${item}`}
+            style={{
+              position: "relative",
+              width: "120px",
+              height: "30px",
+            }}
+            onClick={() => {
+              handleOptionClick(item);
+            }}
+          >
+            <ListItemText
+              primary={item}
+              style={{
+                position: "absolute",
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
+            />
+          </StyledMenuItem>
+        );
+      });
+
+      return searchDetail;
+    } else {
+      return null;
+    }
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -76,7 +107,7 @@ const SearchDetail = (props) => {
           <ArrowDropDownIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText
-          primary={selected}
+          primary={category ? category[0] : ""}
           style={{
             position: "absolute",
             left: "25%",
@@ -90,63 +121,7 @@ const SearchDetail = (props) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem
-          style={{
-            position: "relative",
-            width: "120px",
-            height: "30px",
-          }}
-          onClick={() => {
-            handleOptionClick("이름검색");
-          }}
-        >
-          <ListItemText
-            primary="이름검색"
-            style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          />
-        </StyledMenuItem>
-        <StyledMenuItem
-          style={{
-            position: "relative",
-            width: "120px",
-            height: "30px",
-          }}
-          onClick={() => {
-            handleOptionClick("부서검색");
-          }}
-        >
-          <ListItemText
-            primary="부서검색"
-            style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          />
-        </StyledMenuItem>
-        <StyledMenuItem
-          style={{
-            position: "relative",
-            width: "120px",
-            height: "30px",
-          }}
-          onClick={() => {
-            handleOptionClick("직급검색");
-          }}
-        >
-          <ListItemText
-            primary="직급검색"
-            style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          />
-        </StyledMenuItem>
+        {createSearchDetail()}
       </StyledMenu>
     </div>
   );

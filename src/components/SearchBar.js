@@ -194,6 +194,24 @@ const SearchBar = (props) => {
   const [hover, setHover] = useState();
   const [searchOption, setSearchOption] = useState("이름검색");
   const [searchDetail, setSearchDetail] = useState(null);
+  const [category, setCategory] = useState(null);
+
+  const getCategory = (searchOption) => {
+    let data;
+
+    switch (searchOption) {
+      case "부서검색":
+        data = ["부서", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        setCategory(data);
+        return;
+      case "직급검색":
+        data = ["직급", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        setCategory(data);
+        return;
+      default:
+        return;
+    }
+  };
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -286,9 +304,14 @@ const SearchBar = (props) => {
 
   const handleOptionClick = (selected) => {
     setSearchOption(selected);
+    console.log("handleOption click", selected);
+    if (selected === "부서검색" || selected === "직급검색") {
+      getCategory(selected);
+    }
   };
 
   const handleSearchDetail = (selected) => {
+    console.log("handle search detail", selected);
     setSearchDetail(selected);
   };
 
@@ -339,6 +362,7 @@ const SearchBar = (props) => {
                 searchOption={searchOption}
                 searchDetail={searchDetail}
                 handleSearchDetail={handleSearchDetail}
+                category={category}
                 classes={classes}
               />
             </div>
