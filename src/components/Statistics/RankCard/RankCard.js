@@ -63,7 +63,7 @@ const RankCard = (props) => {
         <Grid item className={classes.rank} key={type + "_" + title}>
           <Typography variant="h6" component="h2">
             <div className={`${classes.rank} title`}> {rankTitle[idx]}</div>
-            <span>{rankObj[title]}등</span>
+            <span>{rankObj[title]}위</span>
           </Typography>
         </Grid>
       );

@@ -6,21 +6,26 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import HomeIcon from "@material-ui/icons/Home";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
+import SearchMenu from "./SearchMenu";
+import SearchInput from "./SearchInput";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
     display: "flex",
     flexDirection: "row",
     gap: "15px",
+  },
+  searchContainer: {
+    paddingLeft: 50,
+    display: "flex",
+    flexDirection: "row",
   },
   home: {
     position: "relative",
@@ -184,10 +189,11 @@ const useStyles = makeStyles((theme) => ({
 const SearchBar = (props) => {
   const classes = useStyles();
   const { location } = props;
-  const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
+  const [searchOption, setSearchOption] = useState("이름검색");
+  const [searchDetail, setSearchDetail] = useState(null);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -278,6 +284,14 @@ const SearchBar = (props) => {
 
   const mobileMenuId = "search-employee-menu-mobile";
 
+  const handleOptionClick = (selected) => {
+    setSearchOption(selected);
+  };
+
+  const handleSearchDetail = (selected) => {
+    setSearchDetail(selected);
+  };
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -305,7 +319,9 @@ const SearchBar = (props) => {
       </MenuItem>
     </Menu>
   );
-
+  {
+    /********************구현 부분***************************/
+  }
   return (
     <div className={classes.grow}>
       <AppBar position="static">
@@ -313,20 +329,21 @@ const SearchBar = (props) => {
           <Typography classes={classes.title} variant="h6" noWrap>
             Employee Mark
           </Typography>
-
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
+          <div className={classes.searchContainer}>
+            <SearchMenu
+              selected={searchOption}
+              handleOptionClick={handleOptionClick}
             />
+            <div className={classes.search}>
+              <SearchInput
+                searchOption={searchOption}
+                searchDetail={searchDetail}
+                handleSearchDetail={handleSearchDetail}
+                classes={classes}
+              />
+            </div>
           </div>
+
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <div className={classes.menu}>
