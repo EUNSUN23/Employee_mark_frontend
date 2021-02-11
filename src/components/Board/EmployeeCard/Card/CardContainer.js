@@ -1,31 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import EmployeeCard from "../EmployeeCard";
 import { Grid } from "@material-ui/core";
 import employeeList from "../../../../constants";
 import ScrollToTop from "../../../ScrollToTop";
 
 const CardContainer = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(null);
+  const [employeeCards, setEmployeeCards] = useState(null);
+  const employeeData = useRef(employeeList.slice());
 
-  const handleScroll = (e) => {
-    const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
-    scrollTop < 200 && scrollTop >= 0 ? setShow(false) : setShow(true);
+  const initEmployeeCards = () => {
+    console.log("initEmployeeCards", employeeData.current);
+    const getEmployeeList = (data) => {
+      return data.map((employee, idx) => {
+        return (
+          <Grid key={"employee" + idx} item xs={12}>
+            <EmployeeCard {...employee} />
+          </Grid>
+        );
+      });
+    };
+    setEmployeeCards(getEmployeeList(employeeData.current));
   };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+    if (employeeCards === null && show === null) {
+      initEmployeeCards();
+    }
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [show]);
 
-  const getEmployeeList = (employee) => {
-    return (
-      <Grid item xs={12}>
-        <EmployeeCard {...employee} />
-      </Grid>
-    );
+  const handleScroll = (e) => {
+    const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
+    scrollTop < 200 && scrollTop >= 0 ? setShow(false) : setShow(true);
   };
 
   const handleOnScrollBtn = () => {
@@ -37,10 +48,7 @@ const CardContainer = () => {
     <div onScroll={(e) => handleScroll(e)}>
       {" "}
       <Grid container spacing={4}>
-        {employeeList.map((employee) => {
-          return getEmployeeList(employee);
-        })}
-
+        {employeeCards}
         <ScrollToTop show={show} handleOnScrollBtn={handleOnScrollBtn} />
       </Grid>
     </div>
