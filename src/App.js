@@ -6,6 +6,7 @@ import Statistics from "./components/Statistics";
 
 const App = () => {
   const [render, setRender] = useState(null);
+
   const history = useHistory();
   const location = history.location.pathname;
 

@@ -191,7 +191,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchBar = (props) => {
   const classes = useStyles();
-  const { location } = props;
+  const { location, onSearchHandler } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
@@ -374,6 +374,9 @@ const SearchBar = (props) => {
             variant="contained"
             color="secondary"
             className={classes.submit}
+            onClick={() => {
+              onSearchHandler();
+            }}
           >
             검색
           </Button>
