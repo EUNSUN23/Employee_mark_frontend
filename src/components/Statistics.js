@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/SearchBar/SearchBar";
 
 const Statistics = (props) => {
   const { location, initPage, isInitialized } = props;

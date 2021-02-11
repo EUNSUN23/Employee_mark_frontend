@@ -56,7 +56,6 @@ const SearchMenu = (props) => {
     <div>
       <Button
         aria-controls="customized-menu"
-        aria-haspopup="true"
         variant="contained"
         color="primary"
         onClick={handleClick}

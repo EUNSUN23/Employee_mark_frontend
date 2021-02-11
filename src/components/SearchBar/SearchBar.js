@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -11,10 +10,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import HomeIcon from "@material-ui/icons/Home";
+import Button from "@material-ui/core/Button";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import SearchMenu from "./SearchMenu";
-import SearchInput from "./SearchInput";
+import SearchMenu from "./components/SearchMenu";
+import SearchInput from "./components/SearchInput";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 50,
     display: "flex",
     flexDirection: "row",
+  },
+  submit: {
+    color: "white",
   },
   home: {
     position: "relative",
@@ -367,7 +370,13 @@ const SearchBar = (props) => {
               />
             </div>
           </div>
-
+          <Button
+            variant="contained"
+            color="secondary"
+            className={classes.submit}
+          >
+            검색
+          </Button>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <div className={classes.menu}>

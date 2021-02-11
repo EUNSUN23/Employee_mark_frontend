@@ -1,11 +1,10 @@
 import React, { useEffect } from "react";
 import { Grid } from "@material-ui/core";
-import SearchBar from "../SearchBar";
-
-import CardContainer from "../EmployeeBoard/EmployeeCard/Card/CardContainer";
+import SearchBar from "../SearchBar/SearchBar";
+import CardContainer from "./EmployeeCard/Card/CardContainer";
 
 const Board = (props) => {
-  const { location, initPage, isInitialized } = props;
+  const { location, initPage } = props;
   //기본 직원정보 : 이름, 부서, 직급, 퇴사여부
 
   useEffect(() => {
