@@ -14,7 +14,7 @@ const Board = (props) => {
   return (
     <>
       <SearchBar location={location} />
-      <Grid container direction="column">
+      <Grid container direction="column" spacing={10}>
         <Grid item></Grid>
         <Grid item container>
           <Grid item xs={false} sm={2} />

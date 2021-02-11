@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const EmployeeCard = (props) => {
+const EmployeeCard = memo((props) => {
   const [open, selectedValue, openDialog, handleClickList] = useDialog();
   const classes = useStyles();
 
@@ -94,6 +94,6 @@ const EmployeeCard = (props) => {
       <CardContent className={classes.content}></CardContent>
     </Card>
   );
-};
+});
 
 export default EmployeeCard;

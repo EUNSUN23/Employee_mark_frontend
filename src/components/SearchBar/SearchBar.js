@@ -350,7 +350,7 @@ const SearchBar = (props) => {
   }
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography classes={classes.title} variant="h6" noWrap>
             Employee Mark
