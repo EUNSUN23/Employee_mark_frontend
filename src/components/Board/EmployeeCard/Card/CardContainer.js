@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import EmployeeCard from "../EmployeeCard";
 import { Grid } from "@material-ui/core";
 import employeeList from "../../../../constants";
@@ -7,10 +7,10 @@ import ScrollToTop from "../../../ScrollToTop";
 const CardContainer = () => {
   const [show, setShow] = useState(null);
   const [employeeCards, setEmployeeCards] = useState(null);
-  const employeeData = useRef(employeeList.slice());
+  const employeeData = employeeList.slice();
 
   const initEmployeeCards = () => {
-    console.log("initEmployeeCards", employeeData.current);
+    console.log("initEmployeeCards", employeeData);
     const getEmployeeList = (data) => {
       return data.map((employee, idx) => {
         return (
@@ -20,7 +20,7 @@ const CardContainer = () => {
         );
       });
     };
-    setEmployeeCards(getEmployeeList(employeeData.current));
+    setEmployeeCards(getEmployeeList(employeeData));
   };
 
   useEffect(() => {
@@ -46,7 +46,6 @@ const CardContainer = () => {
   };
   return (
     <div onScroll={(e) => handleScroll(e)}>
-      {" "}
       <Grid container spacing={4}>
         {employeeCards}
         <ScrollToTop show={show} handleOnScrollBtn={handleOnScrollBtn} />
