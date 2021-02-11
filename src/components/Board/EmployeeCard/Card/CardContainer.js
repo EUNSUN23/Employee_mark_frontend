@@ -7,9 +7,9 @@ import ScrollToTop from "../../../ScrollToTop";
 const CardContainer = () => {
   const [show, setShow] = useState(null);
   const [employeeCards, setEmployeeCards] = useState(null);
-  const employeeData = employeeList.slice();
 
   const initEmployeeCards = () => {
+    const employeeData = employeeList.slice();
     console.log("initEmployeeCards", employeeData);
     const getEmployeeList = (data) => {
       return data.map((employee, idx) => {
