@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const useCategory = (initCategory) => {
   const [dept, setDept] = useState(initCategory);

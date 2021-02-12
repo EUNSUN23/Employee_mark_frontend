@@ -7,9 +7,20 @@ import Typography from "@material-ui/core/Typography";
 import ErrorIcon from "@material-ui/icons/Error";
 
 const useStyles = makeStyles({
+  wrapper: {
+    width: 300,
+  },
   employeeInfo: {
-    padding: 4,
+    position: "relative",
     textAlign: "center",
+    padding: 4,
+    paddingLeft: 35,
+    fontSize: 20,
+    "& .icon": {
+      position: "absolute",
+      left: "-5%",
+      top: "10%",
+    },
   },
 });
 
@@ -19,14 +30,10 @@ const Modal = (props) => {
   console.log("MODAL");
   return (
     <Dialog onClose={handleClose} aria-labelledby="contact" open={open}>
-      <DialogTitle id="contact">
-        <Typography
-          className={classes.employeeInfo}
-          variant="h4"
-          component="h4"
-        >
-          <ErrorIcon variant="h4" />
-          {message}
+      <DialogTitle id="contact" className={classes.wrapper}>
+        <Typography className={classes.employeeInfo}>
+          <ErrorIcon className={`${classes.employeeInfo} icon`} />
+          <span>{message}</span>
         </Typography>
       </DialogTitle>
     </Dialog>

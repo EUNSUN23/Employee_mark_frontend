@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
+import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import History from "./History/History";
 import useEmployeeData from "../../../../hooks/useEmployeeData";
@@ -76,11 +77,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CardAccordion = (props) => {
+const CardAccordion = memo((props) => {
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [data, changeDataType, getData] = useEmployeeData();
 
+  /*패널 클릭시 데이터 받아오기 */
   const handleChange = (panel) => (event, isExpanded) => {
     console.log("PANEL Change", panel);
     if (isExpanded) {
@@ -121,6 +123,6 @@ const CardAccordion = (props) => {
       />
     </div>
   );
-};
+});
 
 export default CardAccordion;
