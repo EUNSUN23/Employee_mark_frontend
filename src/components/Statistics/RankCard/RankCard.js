@@ -38,22 +38,7 @@ const useStyles = makeStyles(() => ({
 const rankTitle = ["기간 기준", "전사 기준", "부서 기준", "직계 기준"];
 const RankCard = (props) => {
   const classes = useStyles();
-  const { type, data } = props;
-
-  // const rankData = {
-  //   steadRank: {
-  //     period: 2,
-  //     entire: 2,
-  //     dept: 1,
-  //     role: 3,
-  //   },
-  //   salaryRank: {
-  //     period: 1,
-  //     entire: 1,
-  //     dept: 1,
-  //     role: 1,
-  //   },
-  // };
+  const { data, type } = props;
 
   const createRanks = (data, type) => {
     const rankObj = data[type];

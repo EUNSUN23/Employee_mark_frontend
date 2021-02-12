@@ -15,6 +15,9 @@ import AssessmentIcon from "@material-ui/icons/Assessment";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import SearchMenu from "./components/SearchMenu";
 import SearchInput from "./components/SearchInput";
+import useInput from "../../hooks/useInput";
+import useCategory from "../../hooks/useCategory";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -191,25 +194,47 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchBar = memo((props) => {
   const classes = useStyles();
-  const { location, onSearchHandler } = props;
+  const { location, onSubmitHandler } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
   const [searchOption, setSearchOption] = useState("이름검색");
   const [searchDetail, setSearchDetail] = useState(null);
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useCategory(null);
+  const [name, setName] = useInput("");
 
-  const getCategory = (searchOption) => {
+  const getCategory = async () => {
+    // data = ["부서", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+    let deptList;
+    let titleList;
+    try {
+      deptList = await axios.get(`/api/dept`);
+      titleList = await axios.get(`/api/title`);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setCategory("dept", deptList.data);
+      setCategory("title", titleList.data);
+    }
+  };
+
+  const submitData = () => {
     let data;
-
     switch (searchOption) {
+      case "이름검색":
+        data = { category: "emp", value: name };
+        console.log(data);
+        onSubmitHandler(data);
+        return;
       case "부서검색":
-        data = ["부서", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-        setCategory(data);
+        data = { category: "dept", value: searchDetail };
+        console.log(data);
+        onSubmitHandler(data);
         return;
       case "직급검색":
-        data = ["직급", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-        setCategory(data);
+        data = { category: "title", value: searchDetail };
+        console.log(data);
+        onSubmitHandler(data);
         return;
       default:
         return;
@@ -367,6 +392,8 @@ const SearchBar = memo((props) => {
                 handleSearchDetail={handleSearchDetail}
                 category={category}
                 classes={classes}
+                value={name}
+                onChange={setName}
               />
             </div>
           </div>
@@ -375,7 +402,7 @@ const SearchBar = memo((props) => {
             color="secondary"
             className={classes.submit}
             onClick={() => {
-              onSearchHandler();
+              submitData();
             }}
           >
             검색

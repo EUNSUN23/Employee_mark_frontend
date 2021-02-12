@@ -107,7 +107,7 @@ const CardAccordion = (props) => {
         type={expanded === "panel1" ? data.type : null}
         data={expanded === "panel1" ? data.data : null}
         expanded={expanded}
-        handleChange={handleChange}
+        onChangeAccordion={handleChange}
         changeDataType={changeDataType}
         classes={classes}
       />
@@ -115,7 +115,7 @@ const CardAccordion = (props) => {
         type={expanded === "panel2" ? data.type : null}
         data={expanded === "panel2" ? data.data : null}
         expanded={expanded}
-        handleChange={handleChange}
+        onChangeAccordion={handleChange}
         changeDataType={changeDataType}
         classes={classes}
       />

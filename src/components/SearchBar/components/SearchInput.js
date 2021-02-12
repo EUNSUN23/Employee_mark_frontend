@@ -10,6 +10,8 @@ const SearchInput = (props) => {
     handleSearchDetail,
     category,
     classes,
+    value,
+    onChange,
   } = props;
 
   console.log("SEARCHINPUT", category);
@@ -26,11 +28,13 @@ const SearchInput = (props) => {
           input: classes.inputInput,
         }}
         inputProps={{ "aria-label": "search" }}
+        value={value}
+        onChange={onChange}
       />
     </>
   ) : (
     <SearchDetail
-      category={category}
+      category={searchOption === "부서검색" ? category.dept : category.title}
       selected={searchDetail}
       handleOptionClick={handleSearchDetail}
     />

@@ -9,14 +9,21 @@ import TypeBtn from "../../../../TypeBtn";
 import RankCard from "../../../../Statistics/RankCard/RankCard";
 
 const Rank = memo((props) => {
-  const { expanded, handleChange, classes, type, data, changeDataType } = props;
+  const {
+    expanded,
+    onChangeAccordion,
+    classes,
+    type,
+    data,
+    changeDataType,
+  } = props;
 
   console.log("Rank.js", type);
   return (
     <Accordion
       square
       expanded={expanded === "panel2"}
-      onChange={handleChange("panel2")}
+      onChange={onChangeAccordion("panel2")}
       className={expanded === "panel2" ? classes.whole : null}
     >
       <AccordionSummary

@@ -1,19 +1,29 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const useDialog = () => {
+  console.log("useDialog");
   const [open, setOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState();
+  const [message, setMessage] = useState("");
 
-  const openDialog = () => {
+  const openDialog = (status) => {
     setOpen(true);
+    let message;
+    switch (status) {
+      case 404:
+        message = "데이터를 찾을 수 없습니다";
+        setMessage(message);
+        return;
+      default:
+        return;
+    }
+    setMessage(message);
   };
 
-  const handleClickList = (selectedValue) => {
+  const closeDialog = () => {
     setOpen(false);
-    setSelectedValue(selectedValue);
   };
 
-  return [open, selectedValue, openDialog, handleClickList];
+  return [{ open: open, message: message }, openDialog, closeDialog];
 };
 
 export default useDialog;

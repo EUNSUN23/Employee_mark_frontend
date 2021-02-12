@@ -9,13 +9,20 @@ import TypeBtn from "../../../../TypeBtn";
 import Track from "../../../../Statistics/Track";
 
 const History = (props) => {
-  const { type, data, expanded, handleChange, changeDataType, classes } = props;
+  const {
+    type,
+    data,
+    expanded,
+    onChangeAccordion,
+    changeDataType,
+    classes,
+  } = props;
   return (
     <>
       <Accordion
         square
         expanded={expanded === "panel1"}
-        onChange={handleChange("panel1")}
+        onChange={onChangeAccordion("panel1")}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
