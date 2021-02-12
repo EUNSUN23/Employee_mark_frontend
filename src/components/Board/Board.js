@@ -1,14 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Grid } from "@material-ui/core";
 import SearchBar from "../SearchBar/SearchBar";
 import CardContainer from "./EmployeeCard/Card/CardContainer";
 import employeeList from "../../constants";
 import EmployeeCard from "./EmployeeCard/EmployeeCard";
+import ScrollToTop from "../ScrollToTop";
 
 const Board = (props) => {
   const [employeeCards, setEmployeeCards] = useState(null);
   const { location, initPage } = props;
+  const [scrollToTop, setScrollToTop] = useState(null);
   //기본 직원정보 : 이름, 부서, 직급, 퇴사여부
+
+  const handleScroll = (e) => {
+    const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
+    scrollTop < 200 && scrollTop >= 0
+      ? setScrollToTop(false)
+      : setScrollToTop(true);
+  };
+
+  useEffect(() => {
+    if (scrollToTop === null) {
+      initPage();
+    }
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollToTop]);
 
   const createEmployeeList = (employeeData) => {
     return employeeData.map((employee, idx) => {
@@ -20,13 +40,15 @@ const Board = (props) => {
     });
   };
 
-  const onSearchHandler = () => {
+  const onSearchHandler = useCallback(() => {
     const data = employeeList.slice();
     setEmployeeCards(createEmployeeList(data));
-  };
+  }, []);
 
-  useEffect(() => {
-    initPage();
+  const handleOnScrollBtn = useCallback(() => {
+    console.log("scroll to top");
+    setScrollToTop(false);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
   return (
@@ -41,6 +63,13 @@ const Board = (props) => {
           </Grid>
           <Grid item xs={false} sm={2} />
         </Grid>
+        <div>
+          <ScrollToTop
+            onScroll={(e) => handleScroll(e)}
+            show={scrollToTop}
+            handleOnScrollBtn={handleOnScrollBtn}
+          />
+        </div>
       </Grid>
     </>
   );

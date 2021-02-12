@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -189,7 +189,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = (props) => {
+const SearchBar = memo((props) => {
   const classes = useStyles();
   const { location, onSearchHandler } = props;
   const [anchorEl, setAnchorEl] = useState(null);
@@ -430,6 +430,6 @@ const SearchBar = (props) => {
       {renderMobileMenu}
     </div>
   );
-};
+});
 
 export default SearchBar;
