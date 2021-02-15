@@ -14,7 +14,7 @@ const Board = (props) => {
   const [scrollToTop, setScrollToTop] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [dialog, openDialog, closeDialog] = useDialog(false);
-  const [page, setPage] = usePage(1);
+  const [page, setPage] = usePage(0);
 
   const { location, initPage } = props;
 
@@ -23,19 +23,23 @@ const Board = (props) => {
   const getEmployeeData = async (data, page) => {
     let res;
     const createEmployeeList = (employeeData) => {
-      return employeeData.map((employee, idx) => {
+      const employeeList = employeeData.map((employee, idx) => {
         return (
           <Grid key={"employee" + idx} item xs={12}>
             <EmployeeCard {...employee} />
           </Grid>
         );
       });
+      return employeeList;
     };
     try {
-      res = await axios.get(`/api/${data.category}/
-      ${data.value}/${page}`);
-      if (res.data) {
-        console.log(res.data.packet);
+      const url = `http://localhost:3008/api/emp/${data.category}/
+      ${data.value}`;
+      console.log(url);
+      res = await axios.get(url);
+      if (res.data.packet === null) {
+        return;
+      } else {
         setPage(page + 1);
         setEmployeeCards(createEmployeeList(res.data.packet));
       }
@@ -65,9 +69,11 @@ const Board = (props) => {
 
   const onSearchHandler = useCallback((data) => {
     console.log(data);
+
     if (data.value) {
       setIsLoading(true);
       getEmployeeData(data, page.initPage);
+
       setIsLoading(false);
     } else {
       window.alert("검색어를 입력하세요");
