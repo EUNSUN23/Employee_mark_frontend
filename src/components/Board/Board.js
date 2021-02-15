@@ -32,11 +32,12 @@ const Board = (props) => {
       });
     };
     try {
-      res = await axios.get(`/${data.category}/
+      res = await axios.get(`/api/${data.category}/
       ${data.value}/${page}`);
       if (res.data) {
+        console.log(res.data.packet);
         setPage(page + 1);
-        setEmployeeCards(createEmployeeList(res.data));
+        setEmployeeCards(createEmployeeList(res.data.packet));
       }
     } catch (err) {
       console.log("catch error", err.response.status);

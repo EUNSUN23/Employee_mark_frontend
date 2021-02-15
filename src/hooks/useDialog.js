@@ -16,7 +16,6 @@ const useDialog = () => {
       default:
         return;
     }
-    setMessage(message);
   };
 
   const closeDialog = () => {

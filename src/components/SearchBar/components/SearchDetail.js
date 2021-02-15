@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import Typography from "@material-ui/core/Typography";
 
 const StyledMenu = withStyles({
   paper: {
@@ -40,11 +41,22 @@ const StyledMenuItem = withStyles((theme) => ({
 
 const SearchDetail = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [detailTitle, setDetailTitle] = useState(null);
   const { handleOptionClick, category, selected } = props;
+  console.log("SEARCH DETAIL", category);
 
   const createSearchDetail = () => {
     if (category) {
-      const searchDetail = category.map((item, idx) => {
+      console.log(category);
+      console.log(detailTitle);
+      const newTitle = category[0];
+      if (detailTitle === null || detailTitle !== newTitle) {
+        setDetailTitle(newTitle);
+        // q. 첫 렌더시에만 전환이 느린 이유?
+      }
+
+      const detailList = category.slice(1);
+      const searchDetail = detailList.map((item, idx) => {
         return (
           <StyledMenuItem
             key={`category/${item}`}
@@ -58,7 +70,19 @@ const SearchDetail = (props) => {
             }}
           >
             <ListItemText
-              primary={item}
+              primary={
+                <Typography
+                  style={{
+                    width: "120px",
+                    height: "30px",
+                    fontSize: 13,
+                    lineHeight: "30px",
+                    textAlign: "center",
+                  }}
+                >
+                  {item}
+                </Typography>
+              }
               style={{
                 position: "absolute",
                 left: "50%",
@@ -71,7 +95,7 @@ const SearchDetail = (props) => {
 
       return searchDetail;
     } else {
-      return null;
+      return;
     }
   };
 
@@ -93,7 +117,7 @@ const SearchDetail = (props) => {
         onClick={handleClick}
         style={{
           position: "relative",
-          width: "100px",
+          width: "120px",
           height: "30px",
         }}
       >
@@ -107,7 +131,19 @@ const SearchDetail = (props) => {
           <ArrowDropDownIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText
-          primary={selected ? selected : category[0]}
+          primary={
+            <Typography
+              style={{
+                position: "absolute",
+                fontSize: 10,
+                top: "50%",
+                left: "50%",
+                transform: "translateY(-50%)",
+              }}
+            >
+              {selected ? selected : detailTitle}
+            </Typography>
+          }
           style={{
             position: "absolute",
             left: "25%",

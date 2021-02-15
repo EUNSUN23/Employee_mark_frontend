@@ -203,18 +203,32 @@ const SearchBar = memo((props) => {
   const [category, setCategory] = useCategory(null);
   const [name, setName] = useInput("");
 
-  const getCategory = async () => {
+  console.log("CATEGORY", category);
+
+  const getCategory = async (type) => {
     // data = ["부서", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-    let deptList;
-    let titleList;
+    let res;
+    let optionList;
+
     try {
-      deptList = await axios.get(`/api/dept`);
-      titleList = await axios.get(`/api/title`);
+      const url = `http://localhost:3008/api/${type}`;
+      console.log(url);
+      res = await axios.get(url);
+      console.log(res.data.packet);
+      optionList =
+        type === "dept"
+          ? res.data.packet.map((obj) => {
+              return obj.dept_name;
+            })
+          : res.data.packet.map((obj) => {
+              return obj.title;
+            });
+
+      optionList.unshift(type);
+      console.log(type, optionList);
+      setCategory(type, optionList);
     } catch (err) {
       console.log(err);
-    } finally {
-      setCategory("dept", deptList.data);
-      setCategory("title", titleList.data);
     }
   };
 
@@ -336,10 +350,13 @@ const SearchBar = memo((props) => {
   };
 
   const handleOptionClick = (selected) => {
-    setSearchOption(selected);
     handleSearchDetail(null);
-    if (selected === "부서검색" || selected === "직급검색") {
-      getCategory(selected);
+    setSearchOption(selected);
+
+    if (selected === "부서검색") {
+      getCategory("dept");
+    } else {
+      getCategory("title");
     }
   };
 
