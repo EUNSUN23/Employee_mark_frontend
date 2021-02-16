@@ -141,6 +141,10 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     textDecoration: "none",
   },
+  link_mobile: {
+    color: "black",
+    textDecoration: "none",
+  },
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
@@ -312,31 +316,13 @@ const SearchBar = memo((props) => {
       case "mobile":
         return location === "/board" ? (
           <>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <AssessmentIcon />
-            </IconButton>
-            <Link to="/statistics" className={classes.link}>
-              통계 검색
-            </Link>
+            <AssessmentIcon />
+            통계 검색
           </>
         ) : (
           <>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <PeopleAltIcon />
-            </IconButton>
-            <Link to="/board" className={classes.link}>
-              직원 검색
-            </Link>
+            <PeopleAltIcon />
+            직원 검색
           </>
         );
     }
@@ -370,21 +356,15 @@ const SearchBar = memo((props) => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <HomeIcon />
-          </Badge>
-        </IconButton>
-        <p>
-          <Link to="/" className={classes.link}>
-            홈으로
-          </Link>
-        </p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        {changeBarType("mobile", location)}
-      </MenuItem>
+      <Link to="/" className={classes.link_mobile}>
+        <MenuItem>
+          <HomeIcon />
+          홈으로
+        </MenuItem>
+      </Link>
+      <Link to="/statistics" className={classes.link_mobile}>
+        <MenuItem>{changeBarType("mobile", location)}</MenuItem>
+      </Link>
     </Menu>
   );
   {
