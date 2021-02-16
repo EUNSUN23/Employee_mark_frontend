@@ -8,6 +8,7 @@ import axios from "axios";
 import usePage from "../../hooks/usePage";
 import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
+import Loader from "../Loader";
 
 const Board = (props) => {
   const [employeeCards, setEmployeeCards] = useState(null);
@@ -23,20 +24,28 @@ const Board = (props) => {
   const getEmployeeData = async (data, page) => {
     let res;
     const createEmployeeList = (employeeData) => {
-      return employeeData.map((employee, idx) => {
+      const employeeList = employeeData.map((employee, idx) => {
         return (
           <Grid key={"employee" + idx} item xs={12}>
             <EmployeeCard {...employee} />
           </Grid>
         );
       });
+      return employeeList;
     };
     try {
-      res = await axios.get(`/${data.category}/
-      ${data.value}/${page}`);
-      if (res.data) {
+      const url = `http://localhost:3008/api/emp/${data.category}/
+      ${data.value}/${page}`;
+      console.log(url);
+      res = await axios.get(url);
+      if (res.data.packet === null) {
+        setIsLoading(false);
+        return;
+      } else {
+        setIsLoading(false);
+        console.log("RES.DATA.PACKET", res.data);
         setPage(page + 1);
-        setEmployeeCards(createEmployeeList(res.data));
+        setEmployeeCards(createEmployeeList(res.data.packet));
       }
     } catch (err) {
       console.log("catch error", err.response.status);
@@ -64,10 +73,10 @@ const Board = (props) => {
 
   const onSearchHandler = useCallback((data) => {
     console.log(data);
+
     if (data.value) {
       setIsLoading(true);
       getEmployeeData(data, page.initPage);
-      setIsLoading(false);
     } else {
       window.alert("검색어를 입력하세요");
     }
@@ -82,7 +91,7 @@ const Board = (props) => {
   return (
     <>
       <SearchBar location={location} onSubmitHandler={onSearchHandler} />
-
+      {isLoading ? <Loader /> : null}
       <Grid container direction="column" spacing={10}>
         <Modal
           open={dialog.open}

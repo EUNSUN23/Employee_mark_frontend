@@ -13,10 +13,13 @@ const useDialog = () => {
         message = "데이터를 찾을 수 없습니다";
         setMessage(message);
         return;
+      case 500:
+        message = "서버 오류가 발생했습니다";
+        setMessage(message);
+        return;
       default:
         return;
     }
-    setMessage(message);
   };
 
   const closeDialog = () => {
