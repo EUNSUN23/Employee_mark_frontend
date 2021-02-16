@@ -45,6 +45,14 @@ const SearchDetail = (props) => {
   const { handleOptionClick, category, selected } = props;
   console.log("SEARCH DETAIL", category);
 
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const createSearchDetail = () => {
     if (category) {
       console.log(category);
@@ -67,6 +75,7 @@ const SearchDetail = (props) => {
             }}
             onClick={() => {
               handleOptionClick(item);
+              handleClose();
             }}
           >
             <ListItemText
@@ -97,14 +106,6 @@ const SearchDetail = (props) => {
     } else {
       return;
     }
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   return (

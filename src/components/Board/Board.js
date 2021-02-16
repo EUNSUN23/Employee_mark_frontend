@@ -8,13 +8,14 @@ import axios from "axios";
 import usePage from "../../hooks/usePage";
 import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
+import Loader from "../Loader";
 
 const Board = (props) => {
   const [employeeCards, setEmployeeCards] = useState(null);
   const [scrollToTop, setScrollToTop] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [dialog, openDialog, closeDialog] = useDialog(false);
-  const [page, setPage] = usePage(0);
+  const [page, setPage] = usePage(1);
 
   const { location, initPage } = props;
 
@@ -34,12 +35,15 @@ const Board = (props) => {
     };
     try {
       const url = `http://localhost:3008/api/emp/${data.category}/
-      ${data.value}`;
+      ${data.value}/${page}`;
       console.log(url);
       res = await axios.get(url);
       if (res.data.packet === null) {
+        setIsLoading(false);
         return;
       } else {
+        setIsLoading(false);
+        console.log("RES.DATA.PACKET", res.data);
         setPage(page + 1);
         setEmployeeCards(createEmployeeList(res.data.packet));
       }
@@ -73,8 +77,6 @@ const Board = (props) => {
     if (data.value) {
       setIsLoading(true);
       getEmployeeData(data, page.initPage);
-
-      setIsLoading(false);
     } else {
       window.alert("검색어를 입력하세요");
     }
@@ -89,7 +91,7 @@ const Board = (props) => {
   return (
     <>
       <SearchBar location={location} onSubmitHandler={onSearchHandler} />
-
+      {isLoading ? <Loader /> : null}
       <Grid container direction="column" spacing={10}>
         <Modal
           open={dialog.open}

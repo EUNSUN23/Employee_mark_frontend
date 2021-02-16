@@ -97,6 +97,7 @@ const SearchMenu = (props) => {
           }}
           onClick={() => {
             handleOptionClick("이름검색");
+            handleClose();
           }}
         >
           <ListItemText
@@ -116,6 +117,7 @@ const SearchMenu = (props) => {
           }}
           onClick={() => {
             handleOptionClick("부서검색");
+            handleClose();
           }}
         >
           <ListItemText
@@ -135,6 +137,7 @@ const SearchMenu = (props) => {
           }}
           onClick={() => {
             handleOptionClick("직급검색");
+            handleClose();
           }}
         >
           <ListItemText
