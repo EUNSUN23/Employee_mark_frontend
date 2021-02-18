@@ -5,36 +5,6 @@ import History from "./History/History";
 import useEmployeeData from "../../../../hooks/useEmployeeData";
 import Rank from "./Rank/Rank";
 
-const historyData = {
-  dept: [
-    { from: "2002-01-23", to: "2005-02-23", dept: "marketing" },
-    { from: "2005-02-24", to: "2007-01-24", dept: "service" },
-    { from: "2007-01-25", to: "2009-02-23", dept: "finance" },
-    { from: "2009-02-24", to: "2010-02-23", dept: "production" },
-  ],
-  salary: [
-    { from: "2002-01-23", to: "2005-02-23", salary: "20000" },
-    { from: "2005-02-24", to: "2007-01-24", salary: "30000" },
-    { from: "2007-01-25", to: "2009-02-23", salary: "40000" },
-    { from: "2009-02-24", to: "2010-02-23", salary: "20000" },
-  ],
-};
-
-const rankData = {
-  steadRank: {
-    period: 2,
-    entire: 2,
-    dept: 1,
-    role: 3,
-  },
-  salaryRank: {
-    period: 1,
-    entire: 1,
-    dept: 1,
-    role: 1,
-  },
-};
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -82,6 +52,8 @@ const CardAccordion = memo((props) => {
   const [expanded, setExpanded] = useState(false);
   const [data, changeDataType, getData] = useEmployeeData();
 
+  const { emp_no } = props;
+
   /*패널 클릭시 데이터 받아오기 */
   const handleChange = (panel) => (event, isExpanded) => {
     console.log("PANEL Change", panel);
@@ -89,10 +61,10 @@ const CardAccordion = memo((props) => {
       setExpanded(panel);
       switch (panel) {
         case "panel1":
-          getData(historyData);
+          getData("history", emp_no);
           return;
         case "panel2":
-          getData(rankData);
+          getData("rank", emp_no);
           return;
         default:
           return;

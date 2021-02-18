@@ -7,7 +7,6 @@ const useStyles = makeStyles(() => ({
   rankWrapper: {
     paddingLeft: 80,
   },
-
   rank: {
     position: "relative",
     margin: "0 auto",

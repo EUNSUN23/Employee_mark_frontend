@@ -34,8 +34,7 @@ const Board = (props) => {
       return employeeList;
     };
     try {
-      const url = `http://localhost:3008/api/emp/${data.category}/
-      ${data.value}/${page}`;
+      const url = `http://localhost:3008/api/emp/${data.category}/${data.value}/${page}`;
       console.log(url);
       res = await axios.get(url);
       if (res.data.packet === null) {

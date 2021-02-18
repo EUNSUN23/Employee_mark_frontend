@@ -5,7 +5,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
@@ -240,7 +239,7 @@ const SearchBar = memo((props) => {
     let data;
     switch (searchOption) {
       case "이름검색":
-        data = { category: "emp", value: name };
+        data = { category: "", value: name };
         console.log(data);
         onSubmitHandler(data);
         return;
@@ -401,6 +400,7 @@ const SearchBar = memo((props) => {
             onClick={() => {
               submitData();
             }}
+            type="submit"
           >
             검색
           </Button>
