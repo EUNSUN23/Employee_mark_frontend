@@ -1,4 +1,8 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, useContext } from "react";
+import {
+  KeywordsStateContext,
+  KeywordsDispatchContext,
+} from "./context/KeywordsContext";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -197,6 +201,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchBar = memo((props) => {
   const classes = useStyles();
+  const state = useContext(KeywordsStateContext);
+
   const { location, onSubmitHandler } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -205,6 +211,7 @@ const SearchBar = memo((props) => {
   const [searchDetail, setSearchDetail] = useState(null);
   const [category, setCategory] = useCategory(null);
   const [name, setName] = useInput("");
+  const [openKeywords, setOpenKeywords] = useState(false);
 
   console.log("CATEGORY", category);
 
@@ -235,12 +242,16 @@ const SearchBar = memo((props) => {
     }
   };
 
+  const dispatch = useContext(KeywordsDispatchContext);
+
   const submitData = () => {
     let data;
+    dispatch({ type: "add", keyword: name });
     switch (searchOption) {
       case "이름검색":
+        console.log(name);
+
         data = { category: "", value: name };
-        console.log(data);
         onSubmitHandler(data);
         return;
       case "부서검색":
@@ -366,6 +377,11 @@ const SearchBar = memo((props) => {
       </Link>
     </Menu>
   );
+
+  const onInputHandler = (e) => {
+    setOpenKeywords(true);
+    setName(e);
+  };
   {
     /********************구현 부분***************************/
   }
@@ -389,7 +405,9 @@ const SearchBar = memo((props) => {
                 category={category}
                 classes={classes}
                 value={name}
-                onChange={setName}
+                onChange={(e) => onInputHandler(e)}
+                keywords={state}
+                openKeywords={openKeywords}
               />
             </div>
           </div>
@@ -400,7 +418,6 @@ const SearchBar = memo((props) => {
             onClick={() => {
               submitData();
             }}
-            type="submit"
           >
             검색
           </Button>
