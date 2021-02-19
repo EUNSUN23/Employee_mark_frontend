@@ -39,26 +39,26 @@ const RankCard = (props) => {
   const classes = useStyles();
   const { data, type } = props;
 
-  const createRanks = (data, type) => {
-    const rankObj = data[type];
-    console.log(rankObj);
-    const rankMarks = Object.keys(rankObj).map((title, idx) => {
-      return (
-        <Grid item className={classes.rank} key={type + "_" + title}>
-          <Typography variant="h6" component="h2">
-            <div className={`${classes.rank} title`}> {rankTitle[idx]}</div>
-            <span>{rankObj[title]}위</span>
-          </Typography>
-        </Grid>
-      );
-    });
-    console.log(rankMarks);
-    return rankMarks;
-  };
+  // const createRanks = (data, type) => {
+  //   const rankObj = data[type];
+  //   console.log(rankObj);
+  //   const rankMarks = Object.keys(rankObj).map((title, idx) => {
+  //     return (
+  //       <Grid item className={classes.rank} key={type + "_" + title}>
+  //         <Typography variant="h6" component="h2">
+  //           <div className={`${classes.rank} title`}> {rankTitle[idx]}</div>
+  //           <span>{rankObj[title]}위</span>
+  //         </Typography>
+  //       </Grid>
+  //     );
+  //   });
+  //   console.log(rankMarks);
+  //   return rankMarks;
+  // };
 
   return (
     <Grid container direction="row" className={classes.rankWrapper}>
-      {createRanks(data, type)}{" "}
+      {/* {createRanks(data, type)}{" "} */}
     </Grid>
   );
 };

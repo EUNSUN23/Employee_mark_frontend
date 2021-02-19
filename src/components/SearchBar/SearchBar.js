@@ -244,7 +244,8 @@ const SearchBar = memo((props) => {
     }
   };
 
-  const submitData = () => {
+  const submitData = (e) => {
+    e.preventDefault();
     let data;
 
     switch (searchOption) {
@@ -395,7 +396,6 @@ const SearchBar = memo((props) => {
   };
 
   const handleKeywords = (bool) => {
-    console.log("bool", bool);
     setOpenKeywords(bool);
   };
   {
@@ -408,7 +408,12 @@ const SearchBar = memo((props) => {
           <Typography classes={classes.title} variant="h6" noWrap>
             Employee Mark
           </Typography>
-          <div className={classes.searchContainer}>
+          <form
+            className={classes.searchContainer}
+            onSubmit={(e) => {
+              submitData(e);
+            }}
+          >
             <SearchMenu
               selected={searchOption}
               handleOptionClick={handleOptionClick}
@@ -427,17 +432,18 @@ const SearchBar = memo((props) => {
               />
               {createRecentKeywords()}
             </div>
-          </div>
-          <Button
-            variant="contained"
-            color="secondary"
-            className={classes.submit}
-            onClick={() => {
-              submitData();
-            }}
-          >
-            검색
-          </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+              // onClick={(e) => {
+              //   submitData(e);
+              // }}
+            >
+              검색
+            </Button>
+          </form>
+
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <div className={classes.menu}>

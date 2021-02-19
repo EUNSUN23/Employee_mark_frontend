@@ -52,7 +52,7 @@ const CardAccordion = memo((props) => {
   const [expanded, setExpanded] = useState(false);
   const [data, changeDataType, getData] = useEmployeeData();
 
-  const { emp_no } = props;
+  const { emp_no, dept_name, title } = props;
 
   /*패널 클릭시 데이터 받아오기 */
   const handleChange = (panel) => (event, isExpanded) => {
@@ -61,10 +61,10 @@ const CardAccordion = memo((props) => {
       setExpanded(panel);
       switch (panel) {
         case "panel1":
-          getData("history", emp_no);
+          getData("history", emp_no, dept_name, title);
           return;
         case "panel2":
-          getData("rank", emp_no);
+          getData("rank", emp_no, dept_name, title);
           return;
         default:
           return;

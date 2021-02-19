@@ -7,15 +7,19 @@ const useEmployeeData = () => {
 
   /*패널 내부 데이터 종류 변경 */
 
-  const getApiData = async (type, emp_no) => {
+  const getApiData = async (type, emp_no, dept_name, title) => {
     let res;
-    console.log("get api");
+    console.log("get api", dept_name, title);
     try {
-      const url = `http://localhost:3008/api/emp/history?emp_no=${emp_no}`;
+      const url = `http://localhost:3008/api/emp/${type}`;
       console.log(url);
-      res = await axios.get(url);
+      res = await axios.post(url, {
+        emp_no,
+        dept_name,
+        title,
+      });
       if (res) {
-        console.log(res);
+        console.log("RESPONSE", res);
       }
     } catch (err) {
       console.log(err);
@@ -26,10 +30,10 @@ const useEmployeeData = () => {
     setDataType(type);
   };
 
-  const getData = (type, emp_no) => {
+  const getData = (type, emp_no, dept_name, title) => {
     //axios로 history data요청.
 
-    getApiData(type, emp_no);
+    getApiData(type, emp_no, dept_name, title);
     console.log("GET panel data");
     // setData();
   };

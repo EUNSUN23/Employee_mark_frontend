@@ -55,6 +55,8 @@ const EmployeeCard = memo((props) => {
     last_name,
     left,
     more,
+    title,
+    dept_name,
   } = props;
 
   const subHeader = `${gender}, ${birth_date}`;
@@ -78,7 +80,7 @@ const EmployeeCard = memo((props) => {
         subheader={<div className={classes.subHeader}>{subHeader}</div>}
       />
       <CardMedia className={classes.media} style={{ height: "180px" }}>
-        <CardAccordion emp_no={emp_no} />
+        <CardAccordion emp_no={emp_no} dept_name={dept_name} title={title} />
       </CardMedia>
       <CardContent className={classes.content}></CardContent>
     </Card>

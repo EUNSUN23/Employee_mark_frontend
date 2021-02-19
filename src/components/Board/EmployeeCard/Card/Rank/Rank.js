@@ -51,10 +51,10 @@ const Rank = memo((props) => {
                 />
               </Grid>
               <Grid item className={classes.rankName}>
-                {type === "steadRank" || type === null ? "근속일 :" : "연봉 :"}
+                {/* {type === "steadRank" || type === null ? "근속일 :" : "연봉 :"} */}
               </Grid>
               <Grid item>
-                <RankCard type={type ? type : "steadRank"} data={data} />
+                <RankCard data={data} />
               </Grid>
             </Grid>
           </AccordionDetails>
