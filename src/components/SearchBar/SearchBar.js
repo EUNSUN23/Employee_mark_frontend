@@ -379,7 +379,8 @@ const SearchBar = memo((props) => {
   );
 
   const createRecentKeywords = () => {
-    if (keywords) {
+    console.log("keywords", keywords, "openKeywords", openKeywords);
+    if (keywords && openKeywords) {
       console.log("RECENTKEYWORDS", keywords);
       const copiedKeywords = keywords.slice();
       const recentKeywords =
@@ -393,14 +394,9 @@ const SearchBar = memo((props) => {
     }
   };
 
-  const onInputHandler = (e) => {
-    setOpenKeywords(true);
-    setName(e);
-  };
-
-  const preventPropagation = (e) => {
-    console.log("propagation");
-    e.stopPropagation();
+  const handleKeywords = (bool) => {
+    console.log("bool", bool);
+    setOpenKeywords(bool);
   };
   {
     /********************구현 부분***************************/
@@ -425,7 +421,8 @@ const SearchBar = memo((props) => {
                 category={category}
                 classes={classes}
                 value={name}
-                onChange={(e) => onInputHandler(e)}
+                onChange={setName}
+                handleKeywords={handleKeywords}
                 openKeywords={openKeywords}
               />
               {createRecentKeywords()}

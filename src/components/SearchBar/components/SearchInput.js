@@ -17,7 +17,7 @@ const SearchInput = (props) => {
     classes,
     value,
     onChange,
-    openKeywords,
+    handleKeywords,
   } = props;
 
   const dispatch = useContext(KeywordsDispatchContext);
@@ -50,6 +50,8 @@ const SearchInput = (props) => {
         inputProps={{ "aria-label": "search" }}
         value={value}
         onChange={onChange}
+        onFocus={() => handleKeywords(true)}
+        onBlur={() => handleKeywords(false)}
       />
     </>
   ) : (

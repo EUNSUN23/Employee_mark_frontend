@@ -11,6 +11,7 @@ const useStyles = makeStyles(() => ({
   container: {
     position: "absolute",
     right: 0,
+    top: 37,
     border: "1px solid  #e7e7e7",
     width: "100%",
     boxSizing: "border-box",
@@ -28,12 +29,12 @@ const useStyles = makeStyles(() => ({
   },
 
   listItemText: {
-    marginLeft: "15%",
+    marginLeft: "5%",
   },
   listItemIcon: {
     cursor: "pointer",
     color: "grey",
-    marginLeft: "50%",
+    marginRight: "4%",
     "& :hover": {
       color: "red",
     },
@@ -55,14 +56,13 @@ const RecentKeywords = (props) => {
           divider={true}
           className={classes.root}
         >
+          <ClearIcon
+            className={classes.listItemIcon}
+            onClick={() => dispatch({ type: "delete", index: el.index })}
+            fontSize="small"
+          />
+
           <ListItemText primary={el.value} className={classes.listItemText} />
-          <ListItemSecondaryAction>
-            <ClearIcon
-              className={classes.listItemIcon}
-              onClick={() => dispatch({ type: "delete", index: el.index })}
-              fontSize="small"
-            />
-          </ListItemSecondaryAction>
         </ListItem>
       );
     });
