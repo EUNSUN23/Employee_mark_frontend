@@ -42,6 +42,7 @@ const SearchInput = (props) => {
       </div>
       <InputBase
         placeholder="Search…"
+        className={classes.searchInput}
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,

@@ -153,15 +153,18 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
+
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
       width: "auto",
+    },
+  },
+  searchInput: {
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
     },
   },
   searchIcon: {
@@ -393,6 +396,11 @@ const SearchBar = memo((props) => {
   const onInputHandler = (e) => {
     setOpenKeywords(true);
     setName(e);
+  };
+
+  const preventPropagation = (e) => {
+    console.log("propagation");
+    e.stopPropagation();
   };
   {
     /********************구현 부분***************************/
