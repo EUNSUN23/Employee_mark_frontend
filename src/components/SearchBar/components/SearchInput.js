@@ -1,6 +1,9 @@
 import React, { useEffect, useContext } from "react";
-import { KeywordsDispatchContext } from "../context/KeywordsContext";
-import RecentKeywords from "../RecentKeywords";
+import {
+  KeywordsDispatchContext,
+  KeywordsStateContext,
+} from "../context/KeywordsContext";
+
 import SearchIcon from "@material-ui/icons/Search";
 import SearchDetail from "./SearchDetail";
 import InputBase from "@material-ui/core/InputBase";
@@ -14,21 +17,21 @@ const SearchInput = (props) => {
     classes,
     value,
     onChange,
-    keywords,
     openKeywords,
   } = props;
 
   const dispatch = useContext(KeywordsDispatchContext);
+  const keywords = useContext(KeywordsStateContext);
 
-  /*keywords = [{index:time, value:keyword},...] */
+  console.log("SEARCHINPUT_KEYWRODS", keywords);
+
+  const initLocalStorage = () => {
+    dispatch({ type: "init" });
+  };
+
   useEffect(() => {
-    if (keywords === null) {
-      dispatch({ type: "init" });
-    } else {
-      console.log("LOCALSTORAGE SET_ITEM", keywords);
-      localStorage.setItem("RECENT", JSON.stringify(keywords));
-    }
-  }, [keywords]);
+    initLocalStorage();
+  }, []);
 
   console.log("SEARCHINPUT", category);
 
@@ -47,7 +50,6 @@ const SearchInput = (props) => {
         value={value}
         onChange={onChange}
       />
-      {openKeywords && keywords ? <RecentKeywords keywords={keywords} /> : null}
     </>
   ) : (
     <SearchDetail

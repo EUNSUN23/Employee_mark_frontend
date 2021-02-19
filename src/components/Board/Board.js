@@ -9,6 +9,7 @@ import usePage from "../../hooks/usePage";
 import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
 import Loader from "../Loader";
+import { KeywordsProvider } from "../SearchBar/context/KeywordsContext";
 
 const Board = (props) => {
   const [employeeCards, setEmployeeCards] = useState(null);
@@ -89,7 +90,9 @@ const Board = (props) => {
 
   return (
     <>
-      <SearchBar location={location} onSubmitHandler={onSearchHandler} />
+      <KeywordsProvider>
+        <SearchBar location={location} onSubmitHandler={onSearchHandler} />
+      </KeywordsProvider>
       {isLoading ? <Loader /> : null}
       <Grid container direction="column" spacing={10}>
         <Modal

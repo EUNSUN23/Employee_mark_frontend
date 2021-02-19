@@ -21,6 +21,7 @@ import SearchInput from "./components/SearchInput";
 import useInput from "../../hooks/useInput";
 import useCategory from "../../hooks/useCategory";
 import axios from "axios";
+import RecentKeywords from "./RecentKeywords";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -201,8 +202,6 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchBar = memo((props) => {
   const classes = useStyles();
-  const state = useContext(KeywordsStateContext);
-
   const { location, onSubmitHandler } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -212,8 +211,8 @@ const SearchBar = memo((props) => {
   const [category, setCategory] = useCategory(null);
   const [name, setName] = useInput("");
   const [openKeywords, setOpenKeywords] = useState(false);
-
-  console.log("CATEGORY", category);
+  const keywords = useContext(KeywordsStateContext);
+  const dispatch = useContext(KeywordsDispatchContext);
 
   const getCategory = async (type) => {
     // data = ["부서", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -242,15 +241,13 @@ const SearchBar = memo((props) => {
     }
   };
 
-  const dispatch = useContext(KeywordsDispatchContext);
-
   const submitData = () => {
     let data;
-    dispatch({ type: "add", keyword: name });
+
     switch (searchOption) {
       case "이름검색":
         console.log(name);
-
+        dispatch({ type: "add", keyword: name });
         data = { category: "", value: name };
         onSubmitHandler(data);
         return;
@@ -378,6 +375,21 @@ const SearchBar = memo((props) => {
     </Menu>
   );
 
+  const createRecentKeywords = () => {
+    if (keywords) {
+      console.log("RECENTKEYWORDS", keywords);
+      const copiedKeywords = keywords.slice();
+      const recentKeywords =
+        keywords.length > 0 ? (
+          <RecentKeywords keywords={copiedKeywords} />
+        ) : null;
+
+      return recentKeywords;
+    } else {
+      return null;
+    }
+  };
+
   const onInputHandler = (e) => {
     setOpenKeywords(true);
     setName(e);
@@ -406,9 +418,9 @@ const SearchBar = memo((props) => {
                 classes={classes}
                 value={name}
                 onChange={(e) => onInputHandler(e)}
-                keywords={state}
                 openKeywords={openKeywords}
               />
+              {createRecentKeywords()}
             </div>
           </div>
           <Button

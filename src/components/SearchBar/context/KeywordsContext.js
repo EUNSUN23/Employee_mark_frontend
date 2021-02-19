@@ -1,38 +1,42 @@
-import React, { useReducer, createContext, useContext } from "react";
+import React, { useReducer, createContext, useMemo } from "react";
 
-const initState = {
-  keywords: [],
-};
+const initState = [];
 
-const initKeywords = (state) => {
-  const initialKeywords = localStorage.getItem("RECENT");
-  console.log("INITIAL KEYWORDS", initialKeywords);
-  return state.concat(initialKeywords);
-};
+const keywordsReducer = (state = initState, action) => {
+  const storage = JSON.parse(localStorage.getItem("RECENT"));
 
-const addKeywords = (state, keyword) => {
-  const newKeyword = { index: Date.now(), value: keyword };
-  return state.concat(newKeyword);
-};
-
-const deleteKeywords = (state, keyword) => {
-  return state.filter((el, idx) => {
-    return el.index !== keyword.value;
-  });
-};
-
-const keywordsReducer = (state, action) => {
   switch (action.type) {
     case "init":
-      initKeywords(state);
-      return;
+      console.log("INITIAL KEYWORD", storage);
+      let initializedState;
+      if (storage === null) {
+        return;
+      } else {
+        initializedState = state.concat(storage);
+      }
+
+      return initializedState;
     case "add":
-      console.log(action);
-      addKeywords(state, action.keyword);
-      return;
+      const newKeyword = { index: Date.now(), value: action.keyword };
+      const addedState = state.concat(newKeyword);
+      if (storage === null) {
+        localStorage.setItem("RECENT", JSON.stringify(addedState.slice()));
+      } else {
+        const addedStorage = storage.slice();
+        addedStorage.push(newKeyword);
+        localStorage.setItem("RECENT", JSON.stringify(addedStorage));
+      }
+
+      return addedState;
     case "delete":
-      deleteKeywords(state, action.keyword);
-      return;
+      const deletedState = state.filter((el, idx) => {
+        return el.index !== action.keyword.index;
+      });
+      const deletedStorage = storage.filter((el, idx) => {
+        return el.index !== action.keyword.index;
+      });
+      localStorage.setItem("RECENT", JSON.stringify(deletedStorage));
+      return deletedState;
     default:
       return state;
   }
