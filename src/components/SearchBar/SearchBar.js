@@ -166,7 +166,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     // backgroundColor: fade(theme.palette.common.white, 0.15),
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(3),
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
@@ -283,10 +283,6 @@ const SearchBar = memo((props) => {
   };
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);

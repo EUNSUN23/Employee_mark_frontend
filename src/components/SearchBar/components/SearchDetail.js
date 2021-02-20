@@ -14,18 +14,30 @@ const useStyles = makeStyles(() => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "30ch",
+      width: "35ch",
     },
-    height: "40px",
+    height: "35px",
   },
   title_listItemIcon: {
     position: "absolute",
     left: "0%",
     color: "white",
+    // padding: theme.spacing(0, 1),
+    height: "100%",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   title_listItemText: {
-    position: "absolute",
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
+    transition: theme.transitions.create("width"),
     width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
   },
   menu_container: {
     position: "relative",
@@ -134,7 +146,7 @@ const SearchDetail = (props) => {
         className={classes.title_container}
       >
         <ListItemIcon className={classes.title_listItemIcon}>
-          <ArrowDropDownIcon fontSize="small" />
+          <ArrowDropDownIcon fontSize="large" />
         </ListItemIcon>
         <ListItemText
           primary={selected ? selected : detailTitle}

@@ -51,14 +51,15 @@ const SearchInput = (props) => {
           />
         </div>
       ) : (
-        <SearchDetail
-          className={classes.search_select}
-          category={
-            searchOption === "부서검색" ? category.dept : category.title
-          }
-          selected={searchDetail}
-          handleOptionClick={handleSearchDetail}
-        />
+        <div className={classes.search_select}>
+          <SearchDetail
+            category={
+              searchOption === "부서검색" ? category.dept : category.title
+            }
+            selected={searchDetail}
+            handleOptionClick={handleSearchDetail}
+          />
+        </div>
       );
 
     return searchInput;
