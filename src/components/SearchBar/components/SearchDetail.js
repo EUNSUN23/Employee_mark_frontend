@@ -1,12 +1,47 @@
-import React, { useState, useEffect } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import Typography from "@material-ui/core/Typography";
+import theme from "../../../theme";
+
+const useStyles = makeStyles(() => ({
+  title_container: {
+    position: "relative",
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "30ch",
+    },
+    height: "40px",
+  },
+  title_listItemIcon: {
+    position: "absolute",
+    left: "0%",
+    color: "white",
+  },
+  title_listItemText: {
+    position: "absolute",
+    width: "100%",
+  },
+  menu_container: {
+    position: "relative",
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+    height: "30px",
+  },
+  menu_listItemText: {
+    position: "absolute",
+    left: "50%",
+    transform: "translateX(-50%)",
+  },
+}));
 
 const StyledMenu = withStyles({
   paper: {
@@ -43,7 +78,7 @@ const SearchDetail = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [detailTitle, setDetailTitle] = useState(null);
   const { handleOptionClick, category, selected } = props;
-  console.log("SEARCH DETAIL", category);
+  const classes = useStyles();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -67,36 +102,16 @@ const SearchDetail = (props) => {
       const searchDetail = detailList.map((item, idx) => {
         return (
           <StyledMenuItem
-            key={`category/${item}`}
-            style={{
-              position: "relative",
-              width: "120px",
-              height: "30px",
-            }}
+            key={`category_${item}`}
+            className={classes.menu_container}
             onClick={() => {
               handleOptionClick(item);
               handleClose();
             }}
           >
             <ListItemText
-              primary={
-                <Typography
-                  style={{
-                    width: "120px",
-                    height: "30px",
-                    fontSize: 13,
-                    lineHeight: "30px",
-                    textAlign: "center",
-                  }}
-                >
-                  {item}
-                </Typography>
-              }
-              style={{
-                position: "absolute",
-                left: "50%",
-                transform: "translateX(-50%)",
-              }}
+              primary={item}
+              className={classes.menu_listItemText}
             />
           </StyledMenuItem>
         );
@@ -116,39 +131,14 @@ const SearchDetail = (props) => {
         variant="contained"
         color="primary"
         onClick={handleClick}
-        style={{
-          position: "relative",
-          width: "120px",
-          height: "30px",
-        }}
+        className={classes.title_container}
       >
-        <ListItemIcon
-          style={{
-            position: "absolute",
-            left: "0%",
-            color: "white",
-          }}
-        >
+        <ListItemIcon className={classes.title_listItemIcon}>
           <ArrowDropDownIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText
-          primary={
-            <Typography
-              style={{
-                position: "absolute",
-                fontSize: 10,
-                top: "50%",
-                left: "50%",
-                transform: "translateY(-50%)",
-              }}
-            >
-              {selected ? selected : detailTitle}
-            </Typography>
-          }
-          style={{
-            position: "absolute",
-            left: "25%",
-          }}
+          primary={selected ? selected : detailTitle}
+          className={classes.title_listItemText}
         />
       </Button>
       <StyledMenu

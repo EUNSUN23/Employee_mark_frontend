@@ -149,11 +149,23 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
     textDecoration: "none",
   },
-  search: {
+  search_input: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
 
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "auto",
+    },
+  },
+  search_select: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    // backgroundColor: fade(theme.palette.common.white, 0.15),
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "100%",
@@ -418,7 +430,7 @@ const SearchBar = memo((props) => {
               selected={searchOption}
               handleOptionClick={handleOptionClick}
             />
-            <div className={classes.search}>
+            <div>
               <SearchInput
                 searchOption={searchOption}
                 searchDetail={searchDetail}
@@ -436,9 +448,9 @@ const SearchBar = memo((props) => {
               variant="contained"
               color="secondary"
               className={classes.submit}
-              // onClick={(e) => {
-              //   submitData(e);
-              // }}
+              onClick={(e) => {
+                submitData(e);
+              }}
             >
               검색
             </Button>

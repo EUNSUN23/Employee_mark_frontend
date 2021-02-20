@@ -1,8 +1,5 @@
 import React, { useEffect, useContext } from "react";
-import {
-  KeywordsDispatchContext,
-  KeywordsStateContext,
-} from "../context/KeywordsContext";
+import { KeywordsDispatchContext } from "../context/KeywordsContext";
 
 import SearchIcon from "@material-ui/icons/Search";
 import SearchDetail from "./SearchDetail";
@@ -21,9 +18,6 @@ const SearchInput = (props) => {
   } = props;
 
   const dispatch = useContext(KeywordsDispatchContext);
-  const keywords = useContext(KeywordsStateContext);
-
-  console.log("SEARCHINPUT_KEYWRODS", keywords);
 
   const initLocalStorage = () => {
     dispatch({ type: "init" });
@@ -33,34 +27,44 @@ const SearchInput = (props) => {
     initLocalStorage();
   }, []);
 
-  console.log("SEARCHINPUT", category);
+  const createSearchInput = (searchOption) => {
+    let searchInput;
 
-  return searchOption === "이름검색" ? (
-    <>
-      <div className={classes.searchIcon}>
-        <SearchIcon />
-      </div>
-      <InputBase
-        placeholder="Search…"
-        className={classes.searchInput}
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
-        inputProps={{ "aria-label": "search" }}
-        value={value}
-        onChange={onChange}
-        onFocus={() => handleKeywords(true)}
-        onBlur={() => handleKeywords(false)}
-      />
-    </>
-  ) : (
-    <SearchDetail
-      category={searchOption === "부서검색" ? category.dept : category.title}
-      selected={searchDetail}
-      handleOptionClick={handleSearchDetail}
-    />
-  );
+    searchInput =
+      searchOption === "이름검색" ? (
+        <div className={classes.search_input}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            className={classes.searchInput}
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ "aria-label": "search" }}
+            value={value}
+            onChange={onChange}
+            onFocus={() => handleKeywords(true)}
+            onBlur={() => handleKeywords(false)}
+          />
+        </div>
+      ) : (
+        <SearchDetail
+          className={classes.search_select}
+          category={
+            searchOption === "부서검색" ? category.dept : category.title
+          }
+          selected={searchDetail}
+          handleOptionClick={handleSearchDetail}
+        />
+      );
+
+    return searchInput;
+  };
+
+  return <>{createSearchInput(searchOption)}</>;
 };
 
 export default SearchInput;

@@ -1,11 +1,38 @@
 import React, { useState } from "react";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+
+const useStyles = makeStyles(() => ({
+  title_container: {
+    position: "relative",
+    width: "100px",
+    height: "30px",
+  },
+  title_listItemIcon: {
+    position: "absolute",
+    left: "0%",
+    color: "white",
+  },
+  title_listItemText: {
+    position: "absolute",
+    left: "25%",
+  },
+  menu_container: {
+    position: "relative",
+    width: "120px",
+    height: "30px",
+  },
+  menu_listItemText: {
+    position: "absolute",
+    left: "50%",
+    transform: "translateX(-50%)",
+  },
+}));
 
 const StyledMenu = withStyles({
   paper: {
@@ -41,8 +68,7 @@ const StyledMenuItem = withStyles((theme) => ({
 const SearchMenu = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { selected, handleOptionClick } = props;
-
-  console.log(anchorEl);
+  const classes = useStyles();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -59,27 +85,14 @@ const SearchMenu = (props) => {
         variant="contained"
         color="primary"
         onClick={handleClick}
-        style={{
-          position: "relative",
-          width: "100px",
-          height: "30px",
-        }}
+        className={classes.title_container}
       >
-        <ListItemIcon
-          style={{
-            position: "absolute",
-            left: "0%",
-            color: "white",
-          }}
-        >
+        <ListItemIcon className={classes.title_listItemIcon}>
           <ArrowDropDownIcon fontSize="small" />
         </ListItemIcon>
         <ListItemText
+          className={classes.title_listItemText}
           primary={selected}
-          style={{
-            position: "absolute",
-            left: "25%",
-          }}
         />
       </Button>
       <StyledMenu
@@ -90,31 +103,19 @@ const SearchMenu = (props) => {
         onClose={handleClose}
       >
         <StyledMenuItem
-          style={{
-            position: "relative",
-            width: "120px",
-            height: "30px",
-          }}
+          className={classes.menu_container}
           onClick={() => {
             handleOptionClick("이름검색");
             handleClose();
           }}
         >
           <ListItemText
+            className={classes.menu_listItemText}
             primary="이름검색"
-            style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
           />
         </StyledMenuItem>
         <StyledMenuItem
-          style={{
-            position: "relative",
-            width: "120px",
-            height: "30px",
-          }}
+          className={classes.menu_container}
           onClick={() => {
             handleOptionClick("부서검색");
             handleClose();
@@ -122,19 +123,11 @@ const SearchMenu = (props) => {
         >
           <ListItemText
             primary="부서검색"
-            style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
+            className={classes.menu_listItemText}
           />
         </StyledMenuItem>
         <StyledMenuItem
-          style={{
-            position: "relative",
-            width: "120px",
-            height: "30px",
-          }}
+          className={classes.menu_container}
           onClick={() => {
             handleOptionClick("직급검색");
             handleClose();
@@ -142,11 +135,7 @@ const SearchMenu = (props) => {
         >
           <ListItemText
             primary="직급검색"
-            style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
+            className={classes.menu_listItemText}
           />
         </StyledMenuItem>
       </StyledMenu>

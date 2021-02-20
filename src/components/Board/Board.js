@@ -78,6 +78,7 @@ const Board = (props) => {
       setIsLoading(true);
       getEmployeeData(data, page.initPage);
     } else {
+      console.log(data.value);
       window.alert("검색어를 입력하세요");
     }
   }, []);
