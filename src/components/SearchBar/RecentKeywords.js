@@ -16,6 +16,9 @@ const useStyles = makeStyles(() => ({
     [theme.breakpoints.only("sm")]: {
       transform: "translateX(-58%)",
     },
+    [theme.breakpoints.only("xs")]: {
+      transform: "translateX(-58%)",
+    },
     border: "1px solid  #e7e7e7",
     boxSizing: "border-box",
     color: "black",
@@ -30,6 +33,9 @@ const useStyles = makeStyles(() => ({
     padding: "0 189px 0 0",
     [theme.breakpoints.only("sm")]: {
       padding: "0 314px 0 0",
+    },
+    [theme.breakpoints.only("xs")]: {
+      padding: "0 150px 0 0",
     },
   },
 
@@ -65,7 +71,6 @@ const RecentKeywords = memo((props) => {
             onClick={() => dispatch({ type: "delete", index: el.index })}
             fontSize="small"
           />
-
           <ListItemText primary={el.value} className={classes.listItemText} />
         </ListItem>
       );

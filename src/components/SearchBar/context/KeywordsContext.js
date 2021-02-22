@@ -7,15 +7,16 @@ const keywordsReducer = (state = initState, action) => {
 
   switch (action.type) {
     case "init":
-      console.log("INITIAL KEYWORD", storage);
       let initializedState;
       if (storage === null) {
         return;
-      } else {
+      } else if (state.length === 0) {
         initializedState = state.concat(storage);
+        return initializedState;
+      } else {
+        return;
       }
 
-      return initializedState;
     case "add":
       const newKeyword = { index: Date.now(), value: action.keyword };
       const addedState = state.concat(newKeyword);
@@ -29,11 +30,13 @@ const keywordsReducer = (state = initState, action) => {
 
       return addedState;
     case "delete":
+      console.log("DELETE", action.index);
       const deletedState = state.filter((el, idx) => {
-        return el.index !== action.keyword.index;
+        return el.index !== action.index;
       });
+      console.log("deletedState", deletedState);
       const deletedStorage = storage.filter((el, idx) => {
-        return el.index !== action.keyword.index;
+        return el.index !== action.index;
       });
       localStorage.setItem("RECENT", JSON.stringify(deletedStorage));
       return deletedState;

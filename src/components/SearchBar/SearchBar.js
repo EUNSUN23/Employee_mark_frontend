@@ -171,7 +171,7 @@ const useStyles = makeStyles((theme) => ({
       transform: "translateX(5%)",
     },
     [theme.breakpoints.only("xs")]: {
-      transform: "translateX(100%)",
+      transform: "translateX(40%)",
     },
   },
   submit: {
@@ -186,6 +186,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(3),
     width: "50%",
     [theme.breakpoints.only("sm")]: {
+      marginLeft: theme.spacing(5),
+      width: "80%",
+    },
+    [theme.breakpoints.only("xs")]: {
       marginLeft: theme.spacing(5),
       width: "80%",
     },

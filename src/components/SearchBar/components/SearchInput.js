@@ -47,7 +47,7 @@ const SearchInput = memo((props) => {
             value={value}
             onChange={onChange}
             onFocus={() => handleKeywords(true)}
-            onBlur={() => handleKeywords(false)}
+            onBlur={() => handleKeywords(true)}
           />
         </div>
       ) : (
