@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, memo } from "react";
 import { KeywordsDispatchContext } from "../context/KeywordsContext";
 
 import SearchIcon from "@material-ui/icons/Search";
 import SearchDetail from "./SearchDetail";
 import InputBase from "@material-ui/core/InputBase";
 
-const SearchInput = (props) => {
+const SearchInput = memo((props) => {
   const {
     searchOption,
     searchDetail,
@@ -66,6 +66,6 @@ const SearchInput = (props) => {
   };
 
   return <>{createSearchInput(searchOption)}</>;
-};
+});
 
 export default SearchInput;

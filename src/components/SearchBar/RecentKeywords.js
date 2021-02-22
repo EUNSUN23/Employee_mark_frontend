@@ -1,19 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import { KeywordsDispatchContext } from "./context/KeywordsContext";
 import { makeStyles } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-
+import theme from "../../theme";
 import ListItemText from "@material-ui/core/ListItemText";
 import ClearIcon from "@material-ui/icons/Clear";
 
 const useStyles = makeStyles(() => ({
   container: {
-    position: "absolute",
-    right: 0,
-    top: 37,
+    position: "fixed",
+    top: 35,
+    left: "53%",
+    transform: "translateX(-100%)",
+    [theme.breakpoints.only("sm")]: {
+      transform: "translateX(-58%)",
+    },
     border: "1px solid  #e7e7e7",
-    // width: "100%",
     boxSizing: "border-box",
     color: "black",
     padding: 0,
@@ -24,8 +27,10 @@ const useStyles = makeStyles(() => ({
   },
 
   root: {
-    // border: "2px solid green",
-    padding: "0 12px",
+    padding: "0 189px 0 0",
+    [theme.breakpoints.only("sm")]: {
+      padding: "0 314px 0 0",
+    },
   },
 
   listItemText: {
@@ -38,11 +43,10 @@ const useStyles = makeStyles(() => ({
     "& :hover": {
       color: "red",
     },
-    // border: "1px solid blue",
   },
 }));
 
-const RecentKeywords = (props) => {
+const RecentKeywords = memo((props) => {
   const classes = useStyles();
   const { keywords } = props;
   const dispatch = useContext(KeywordsDispatchContext);
@@ -68,6 +72,6 @@ const RecentKeywords = (props) => {
     });
   };
   return <List className={classes.container}>{createList(keywords)}</List>;
-};
+});
 
 export default RecentKeywords;
