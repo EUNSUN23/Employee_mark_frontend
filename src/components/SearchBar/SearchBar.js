@@ -133,7 +133,8 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     // marginRight: theme.spacing(3),
     fontSize: 19,
-    [theme.breakpoints.down("xs")]: {
+
+    [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
@@ -147,7 +148,16 @@ const useStyles = makeStyles((theme) => ({
   },
   searchContainer: {
     position: "relative",
-    width: "120%",
+    paddingLeft: "-50%",
+    width: "130%",
+    [theme.breakpoints.only("sm")]: {
+      width: "150%",
+      paddingLeft: 0,
+    },
+    [theme.breakpoints.only("xs")]: {
+      width: "110%",
+      paddingLeft: 0,
+    },
   },
   searchOption: {
     position: "relative",
@@ -155,47 +165,38 @@ const useStyles = makeStyles((theme) => ({
       transform: "translateX(20%)",
     },
   },
-  searchInputContainer: {
-    [theme.breakpoints.down("md")]: {
-      marginLeft: -10,
-      marginRight: -30,
-    },
-  },
   searchButton: {
     position: "relative",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: -10,
-      marginRight: 30,
+    transform: "translateX(-140%)",
+    [theme.breakpoints.only("sm")]: {
+      transform: "translateX(-10%)",
+    },
+    [theme.breakpoints.only("xs")]: {
+      transform: "translateX(20%)",
     },
   },
   submit: {
     position: "absolute",
     top: "50%",
-    left: "50%",
     transform: "translate(-50%,-50%)",
     color: "white",
-    [theme.breakpoints.down("md")]: {
-      width: "30%",
-    },
   },
   search_input: {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    width: "80%",
-    [theme.breakpoints.down("md")]: {
+    marginLeft: theme.spacing(3),
+    width: "50%",
+    [theme.breakpoints.only("sm")]: {
       marginLeft: theme.spacing(5),
-      width: "80%",
-    },
-    [theme.breakpoints.down("sm")]: {
-      marginLeft: theme.spacing(6),
       width: "80%",
     },
   },
   search_select: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
+    marginLeft: theme.spacing(3),
     width: "100%",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.only("sm")]: {
       marginLeft: theme.spacing(4.5),
       width: "80%",
     },
