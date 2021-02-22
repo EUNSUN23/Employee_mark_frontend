@@ -3,7 +3,7 @@ import { KeywordsDispatchContext } from "./context/KeywordsContext";
 import { makeStyles } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+
 import ListItemText from "@material-ui/core/ListItemText";
 import ClearIcon from "@material-ui/icons/Clear";
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
     right: 0,
     top: 37,
     border: "1px solid  #e7e7e7",
-    width: "100%",
+    // width: "100%",
     boxSizing: "border-box",
     color: "black",
     padding: 0,

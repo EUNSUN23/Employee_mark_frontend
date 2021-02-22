@@ -22,6 +22,7 @@ import useInput from "../../hooks/useInput";
 import useCategory from "../../hooks/useCategory";
 import axios from "axios";
 import RecentKeywords from "./RecentKeywords";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -29,13 +30,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     gap: "15px",
   },
-  searchContainer: {
-    paddingLeft: 50,
-    display: "flex",
-    flexDirection: "row",
-  },
   submit: {
     color: "white",
+    [theme.breakpoints.down("xs")]: {},
   },
   home: {
     position: "relative",
@@ -136,9 +133,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
+    border: "4px solid green",
+    display: "block",
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+      // fontSize: 13,
     },
   },
   link: {
@@ -149,12 +148,15 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
     textDecoration: "none",
   },
-  search_input: {
+  searchContainer: {
     position: "relative",
+    width: "120%",
+    border: "1px solid green",
+  },
+  search_input: {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(3),
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
@@ -165,8 +167,6 @@ const useStyles = makeStyles((theme) => ({
   search_select: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    // backgroundColor: fade(theme.palette.common.white, 0.15),
-    marginRight: theme.spacing(3),
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
@@ -203,12 +203,20 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionDesktop: {
     display: "none",
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    paddingLeft: 70,
     [theme.breakpoints.up("md")]: {
       display: "flex",
     },
   },
   sectionMobile: {
-    display: "flex",
+    display: "block",
+    position: "absolute",
+    border: "4px solid black",
+    right: "5%",
+    top: 0,
     [theme.breakpoints.up("md")]: {
       display: "none",
     },
@@ -388,9 +396,7 @@ const SearchBar = memo((props) => {
   );
 
   const createRecentKeywords = () => {
-    console.log("keywords", keywords, "openKeywords", openKeywords);
     if (keywords && openKeywords) {
-      console.log("RECENTKEYWORDS", keywords);
       const copiedKeywords = keywords.slice();
       const recentKeywords =
         keywords.length > 0 ? (
@@ -413,90 +419,108 @@ const SearchBar = memo((props) => {
     <div className={classes.grow}>
       <AppBar position="fixed">
         <Toolbar>
-          <Typography classes={classes.title} variant="h6" noWrap>
-            Employee Mark
-          </Typography>
-          <form
-            className={classes.searchContainer}
-            onSubmit={(e) => {
-              submitData(e);
-            }}
-          >
-            <SearchMenu
-              selected={searchOption}
-              handleOptionClick={handleOptionClick}
-            />
-            <div>
-              <SearchInput
-                searchOption={searchOption}
-                searchDetail={searchDetail}
-                handleSearchDetail={handleSearchDetail}
-                category={category}
-                classes={classes}
-                value={name}
-                onChange={setName}
-                handleKeywords={handleKeywords}
-                openKeywords={openKeywords}
-              />
-              {createRecentKeywords()}
-            </div>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.submit}
-              onClick={(e) => {
-                submitData(e);
-              }}
-            >
-              검색
-            </Button>
-          </form>
-
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <div className={classes.menu}>
-              <div
-                className={hover === "home" ? classes.home_hover : classes.home}
-                onMouseEnter={() => setIndicator("home")}
-                onMouseLeave={() => setIndicator(null)}
+          <Grid container direction="row">
+            <Grid item xs={false} sm={false} md={2} className={classes.title}>
+              <Typography>Employee Mark</Typography>
+            </Grid>
+            <Grid item xs={10} sm={7}>
+              <form
+                onSubmit={(e) => {
+                  submitData(e);
+                }}
               >
-                <HomeIcon
-                  className={
-                    hover === "home"
-                      ? `${classes.home_hover} icon_home`
-                      : `${classes.home} icon_home`
-                  }
-                />
-                <Typography component="span" noWrap>
-                  <Link to="/" className={classes.link}>
-                    홈으로
-                  </Link>
-                </Typography>
+                <Grid
+                  container
+                  direction="row"
+                  className={classes.searchContainer}
+                >
+                  <Grid item xs={2} sm={2}>
+                    {" "}
+                    <SearchMenu
+                      selected={searchOption}
+                      handleOptionClick={handleOptionClick}
+                    />
+                  </Grid>
+                  <Grid item xs={7}>
+                    {" "}
+                    <SearchInput
+                      searchOption={searchOption}
+                      searchDetail={searchDetail}
+                      handleSearchDetail={handleSearchDetail}
+                      category={category}
+                      classes={classes}
+                      value={name}
+                      onChange={setName}
+                      handleKeywords={handleKeywords}
+                      openKeywords={openKeywords}
+                    />
+                    {createRecentKeywords()}
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      className={classes.submit}
+                      onClick={(e) => {
+                        submitData(e);
+                      }}
+                    >
+                      검색
+                    </Button>
+                  </Grid>
+                </Grid>
+              </form>
+            </Grid>
+            <Grid item xs={3}>
+              <div className={classes.grow} />
+              <div className={classes.sectionDesktop}>
+                <div className={classes.menu}>
+                  <div
+                    className={
+                      hover === "home" ? classes.home_hover : classes.home
+                    }
+                    onMouseEnter={() => setIndicator("home")}
+                    onMouseLeave={() => setIndicator(null)}
+                  >
+                    <HomeIcon
+                      className={
+                        hover === "home"
+                          ? `${classes.home_hover} icon_home`
+                          : `${classes.home} icon_home`
+                      }
+                    />
+                    <Typography component="span" noWrap>
+                      <Link to="/" className={classes.link}>
+                        홈으로
+                      </Link>
+                    </Typography>
+                  </div>
+                  <div
+                    className={
+                      hover === "statistics"
+                        ? classes.statistics_hover
+                        : classes.statistics
+                    }
+                    onMouseEnter={() => setIndicator("statistics")}
+                    onMouseLeave={() => setIndicator(null)}
+                  >
+                    {changeBarType("desktop", location)}
+                  </div>
+                </div>
               </div>
-              <div
-                className={
-                  hover === "statistics"
-                    ? classes.statistics_hover
-                    : classes.statistics
-                }
-                onMouseEnter={() => setIndicator("statistics")}
-                onMouseLeave={() => setIndicator(null)}
-              >
-                {changeBarType("desktop", location)}
+              <div className={classes.sectionMobile}>
+                <IconButton
+                  aria-label="show more"
+                  aria-controls={mobileMenuId}
+                  aria-haspopup="true"
+                  onClick={handleMobileMenuOpen}
+                  color="inherit"
+                >
+                  <MoreIcon />
+                </IconButton>
               </div>
-            </div>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
