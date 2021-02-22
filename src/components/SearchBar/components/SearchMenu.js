@@ -9,7 +9,10 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 
 const useStyles = makeStyles(() => ({
   title_container: {
-    position: "relative",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)",
     width: "100px",
     height: "30px",
   },

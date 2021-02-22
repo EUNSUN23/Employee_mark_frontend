@@ -30,10 +30,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     gap: "15px",
   },
-  submit: {
-    color: "white",
-    [theme.breakpoints.down("xs")]: {},
-  },
+
   home: {
     position: "relative",
     cursor: "pointer",
@@ -133,11 +130,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    border: "4px solid green",
     display: "block",
+    // marginRight: theme.spacing(3),
+    fontSize: 19,
     [theme.breakpoints.down("xs")]: {
       display: "none",
-      // fontSize: 13,
     },
   },
   link: {
@@ -151,27 +148,56 @@ const useStyles = makeStyles((theme) => ({
   searchContainer: {
     position: "relative",
     width: "120%",
-    border: "1px solid green",
+  },
+  searchOption: {
+    position: "relative",
+    [theme.breakpoints.down("md")]: {
+      transform: "translateX(20%)",
+    },
+  },
+  searchInputContainer: {
+    [theme.breakpoints.down("md")]: {
+      marginLeft: -10,
+      marginRight: -30,
+    },
+  },
+  searchButton: {
+    position: "relative",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: -10,
+      marginRight: 30,
+    },
+  },
+  submit: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)",
+    color: "white",
+    [theme.breakpoints.down("md")]: {
+      width: "30%",
+    },
   },
   search_input: {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    marginRight: theme.spacing(3),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
+    width: "80%",
+    [theme.breakpoints.down("md")]: {
+      marginLeft: theme.spacing(5),
+      width: "80%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: theme.spacing(6),
+      width: "80%",
     },
   },
   search_select: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    marginLeft: 0,
     width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
+    [theme.breakpoints.down("md")]: {
+      marginLeft: theme.spacing(4.5),
+      width: "80%",
     },
   },
   searchInput: {
@@ -211,12 +237,17 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
     },
   },
+
+  navContainer: {},
   sectionMobile: {
     display: "block",
     position: "absolute",
-    border: "4px solid black",
-    right: "5%",
-    top: 0,
+    top: "50%",
+    right: 0,
+    transform: "translate(-50%,-50%)",
+    [theme.breakpoints.down("sm")]: {
+      transform: "translate(-25%,-50%)",
+    },
     [theme.breakpoints.up("md")]: {
       display: "none",
     },
@@ -419,11 +450,17 @@ const SearchBar = memo((props) => {
     <div className={classes.grow}>
       <AppBar position="fixed">
         <Toolbar>
-          <Grid container direction="row">
-            <Grid item xs={false} sm={false} md={2} className={classes.title}>
-              <Typography>Employee Mark</Typography>
+          <Grid container direction="row" className={classes.toolbarContainer}>
+            <Grid
+              item
+              xs={false}
+              sm={false}
+              md={2}
+              className={classes.titleContainer}
+            >
+              <Typography className={classes.title}>Employee Mark</Typography>
             </Grid>
-            <Grid item xs={10} sm={7}>
+            <Grid item xs={10} sm={8} md={7} className={classes.formContainer}>
               <form
                 onSubmit={(e) => {
                   submitData(e);
@@ -434,14 +471,14 @@ const SearchBar = memo((props) => {
                   direction="row"
                   className={classes.searchContainer}
                 >
-                  <Grid item xs={2} sm={2}>
+                  <Grid item xs={2} className={classes.searchOption}>
                     {" "}
                     <SearchMenu
                       selected={searchOption}
                       handleOptionClick={handleOptionClick}
                     />
                   </Grid>
-                  <Grid item xs={7}>
+                  <Grid item xs={8} className={classes.searchInputContainer}>
                     {" "}
                     <SearchInput
                       searchOption={searchOption}
@@ -456,7 +493,7 @@ const SearchBar = memo((props) => {
                     />
                     {createRecentKeywords()}
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={2} className={classes.searchButton}>
                     <Button
                       variant="contained"
                       color="secondary"
@@ -471,7 +508,7 @@ const SearchBar = memo((props) => {
                 </Grid>
               </form>
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={2} sm={2} md={3} className={classes.navContainer}>
               <div className={classes.grow} />
               <div className={classes.sectionDesktop}>
                 <div className={classes.menu}>

@@ -11,8 +11,6 @@ import theme from "../../../theme";
 const useStyles = makeStyles(() => ({
   title_container: {
     position: "relative",
-    marginLeft: 10,
-    marginRight: -60,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
