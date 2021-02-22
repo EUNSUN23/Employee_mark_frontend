@@ -148,15 +148,15 @@ const useStyles = makeStyles((theme) => ({
   },
   searchContainer: {
     position: "relative",
-    paddingLeft: "-50%",
     width: "130%",
+    transform: "translateX(5%)",
     [theme.breakpoints.only("sm")]: {
       width: "150%",
-      paddingLeft: 0,
+      transform: "translateX(-5%)",
     },
     [theme.breakpoints.only("xs")]: {
       width: "110%",
-      paddingLeft: 0,
+      transform: "translateX(-5%)",
     },
   },
   searchOption: {
@@ -169,10 +169,10 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     transform: "translateX(-140%)",
     [theme.breakpoints.only("sm")]: {
-      transform: "translateX(-10%)",
+      transform: "translateX(5%)",
     },
     [theme.breakpoints.only("xs")]: {
-      transform: "translateX(20%)",
+      transform: "translateX(100%)",
     },
   },
   submit: {
