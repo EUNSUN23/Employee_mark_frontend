@@ -92,6 +92,8 @@ const SearchDetail = (props) => {
   const { handleOptionClick, category, selected } = props;
   const classes = useStyles();
 
+  console.log("최근검색어", category);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -100,36 +102,45 @@ const SearchDetail = (props) => {
     setAnchorEl(null);
   };
 
+  const createDetailList = (arr) => {
+    const searchDetail = arr.map((item, idx) => {
+      return (
+        <StyledMenuItem
+          key={`category_${item.index}`}
+          className={classes.menu_container}
+          onClick={() => {
+            handleOptionClick(item.value);
+            handleClose();
+          }}
+        >
+          <ListItemText
+            primary={item.value}
+            className={classes.menu_listItemText}
+          />
+        </StyledMenuItem>
+      );
+    });
+
+    return searchDetail;
+  };
+
   const createSearchDetail = () => {
-    if (category) {
-      console.log(category);
-      console.log(detailTitle);
+    if (category.length > 1) {
       const newTitle = category[0];
+      let detailList;
       if (detailTitle === null || detailTitle !== newTitle) {
         setDetailTitle(newTitle);
         // q. 첫 렌더시에만 전환이 느린 이유?
       }
 
-      const detailList = category.slice(1);
-      const searchDetail = detailList.map((item, idx) => {
-        return (
-          <StyledMenuItem
-            key={`category_${item}`}
-            className={classes.menu_container}
-            onClick={() => {
-              handleOptionClick(item);
-              handleClose();
-            }}
-          >
-            <ListItemText
-              primary={item}
-              className={classes.menu_listItemText}
-            />
-          </StyledMenuItem>
-        );
-      });
-
-      return searchDetail;
+      if (newTitle === "최근 검색") {
+        detailList = category.slice(1);
+        createDetailList(detailList);
+      }
+      detailList = category
+        .map((el, idx) => ({ index: idx, value: el }))
+        .slice(1);
+      createDetailList(detailList);
     } else {
       return;
     }

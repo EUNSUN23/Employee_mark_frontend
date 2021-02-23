@@ -141,6 +141,18 @@ const SearchMenu = memo((props) => {
             className={classes.menu_listItemText}
           />
         </StyledMenuItem>
+        <StyledMenuItem
+          className={classes.menu_container}
+          onClick={() => {
+            handleOptionClick("최근검색");
+            handleClose();
+          }}
+        >
+          <ListItemText
+            primary="최근검색"
+            className={classes.menu_listItemText}
+          />
+        </StyledMenuItem>
       </StyledMenu>
     </div>
   );

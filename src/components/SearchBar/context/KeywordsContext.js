@@ -1,6 +1,6 @@
 import React, { useReducer, createContext, useMemo } from "react";
 
-const initState = [];
+const initState = ["recent keyword"];
 
 const keywordsReducer = (state = initState, action) => {
   const storage = JSON.parse(localStorage.getItem("RECENT"));
@@ -10,7 +10,7 @@ const keywordsReducer = (state = initState, action) => {
       let initializedState;
       if (storage === null) {
         return;
-      } else if (state.length === 0) {
+      } else if (state.length === 1) {
         initializedState = state.concat(storage);
         return initializedState;
       } else {

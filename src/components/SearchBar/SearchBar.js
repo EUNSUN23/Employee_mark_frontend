@@ -1,4 +1,4 @@
-import React, { useState, memo, useContext } from "react";
+import React, { useState, memo, useContext, useEffect } from "react";
 import {
   KeywordsStateContext,
   KeywordsDispatchContext,
@@ -276,6 +276,16 @@ const SearchBar = memo((props) => {
   const keywords = useContext(KeywordsStateContext);
   const dispatch = useContext(KeywordsDispatchContext);
 
+  console.log(keywords);
+
+  const initLocalStorage = () => {
+    dispatch({ type: "init" });
+  };
+
+  useEffect(() => {
+    keywords.length === 1 && initLocalStorage();
+  }, []);
+
   const getCategory = async (type) => {
     // data = ["부서", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     let res;
@@ -438,7 +448,7 @@ const SearchBar = memo((props) => {
     if (keywords && openKeywords) {
       const copiedKeywords = keywords.slice();
       const recentKeywords =
-        keywords.length > 0 ? (
+        keywords.length > 1 ? (
           <RecentKeywords keywords={copiedKeywords} />
         ) : null;
 
@@ -498,6 +508,7 @@ const SearchBar = memo((props) => {
                       onChange={setName}
                       handleKeywords={handleKeywords}
                       openKeywords={openKeywords}
+                      keywords={keywords}
                     />
                   </Grid>
                   {createRecentKeywords()}
