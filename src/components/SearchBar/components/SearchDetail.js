@@ -40,16 +40,6 @@ const useStyles = makeStyles(() => ({
       width: "20ch",
     },
   },
-  // menu_listItemInfo: {
-  //   "&:focus": {
-  //     backgroundColor: "white",
-  //     color: "black",
-  //   },
-  //   "&:hover": {
-  //     backgroundColor: "white",
-  //     color: "black",
-  //   },
-  // },
 }));
 
 const StyledMenu = withStyles({
@@ -87,7 +77,7 @@ const StyledMenuItem = withStyles((theme) => ({
         color: theme.palette.common.white,
       },
     },
-    "&.menu_listItemInfo": {
+    "&.menu_disabled": {
       textAlign: "center",
     },
   },
@@ -122,12 +112,10 @@ const SearchDetail = (props) => {
           key={`category_${item.index}`}
           disabled={category.length <= 1 ? true : false}
           className={
-            category.length <= 1
-              ? `${StyledMenuItem.root} menu_listItemInfo`
-              : null
+            category.length <= 1 ? `${StyledMenuItem.root} menu_disabled` : null
           }
           onClick={() => {
-            handleOptionClick(item.value);
+            handleOptionClick({ category: item.category, value: item.value });
             handleClose();
           }}
         >
@@ -186,7 +174,7 @@ const SearchDetail = (props) => {
           <ArrowDropDownIcon fontSize="large" />
         </ListItemIcon>
         <ListItemText
-          primary={selected ? selected : detailTitle}
+          primary={selected ? selected.value : detailTitle}
           className={classes.title_listItemText}
         />
       </Button>

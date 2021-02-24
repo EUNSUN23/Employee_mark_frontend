@@ -315,26 +315,15 @@ const SearchBar = memo((props) => {
   const submitData = (e) => {
     e.preventDefault();
     let data;
-
-    switch (searchOption) {
-      case "이름검색":
-        console.log(name);
-        dispatch({ type: "add", keyword: name });
-        data = { category: "", value: name };
-        onSubmitHandler(data);
-        return;
-      case "부서검색":
-        data = { category: "dept", value: searchDetail };
-        console.log(data);
-        onSubmitHandler(data);
-        return;
-      case "직급검색":
-        data = { category: "title", value: searchDetail };
-        console.log(data);
-        onSubmitHandler(data);
-        return;
-      default:
-        return;
+    console.log(searchDetail);
+    if (searchOption === "이름검색") {
+      dispatch({ type: "add", keyword: name });
+      data = { category: "name", value: name };
+      onSubmitHandler(data);
+    } else {
+      dispatch({ type: "add", keyword: searchDetail.value });
+      data = { category: searchDetail.category, value: searchDetail.value };
+      onSubmitHandler(data);
     }
   };
 

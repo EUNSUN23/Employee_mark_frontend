@@ -35,14 +35,16 @@ const Board = (props) => {
       return employeeList;
     };
     try {
-      const url = `http://localhost:3008/api/emp/${data.category}/${data.value}/${page}`;
+      let url;
+      url =
+        data.category === "name"
+          ? `http://localhost:3008/api/emp/${data.value}/${page}`
+          : `http://localhost:3008/api/emp/${data.category}/${data.value}/${page}`;
       console.log(url);
       res = await axios.get(url);
       if (res.data.packet === null) {
-        setIsLoading(false);
         return;
       } else {
-        setIsLoading(false);
         console.log("RES.DATA.PACKET", res.data);
         setPage(page + 1);
         setEmployeeCards(createEmployeeList(res.data.packet));
@@ -77,6 +79,7 @@ const Board = (props) => {
     if (data.value) {
       setIsLoading(true);
       getEmployeeData(data, page.initPage);
+      setIsLoading(false);
     } else {
       console.log(data.value);
       window.alert("검색어를 입력하세요");

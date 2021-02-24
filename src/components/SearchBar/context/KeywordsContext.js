@@ -18,7 +18,11 @@ const keywordsReducer = (state = initState, action) => {
       }
 
     case "add":
-      const newKeyword = { index: Date.now(), value: action.keyword };
+      const newKeyword = {
+        index: Date.now(),
+        value: action.keyword,
+        value: action.category,
+      };
       const addedState = state.concat(newKeyword);
       if (storage === null) {
         localStorage.setItem("RECENT", JSON.stringify(addedState.slice()));
