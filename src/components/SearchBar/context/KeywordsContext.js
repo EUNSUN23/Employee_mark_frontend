@@ -30,13 +30,13 @@ const keywordsReducer = (state = initState, action) => {
 
       return addedState;
     case "delete":
-      console.log("DELETE", action.index);
+      console.log("DELETE", action.identifier);
       const deletedState = state.filter((el, idx) => {
-        return el.index !== action.index;
+        return el.index !== action.identifier;
       });
       console.log("deletedState", deletedState);
       const deletedStorage = storage.filter((el, idx) => {
-        return el.index !== action.index;
+        return el.index !== action.identifier;
       });
       localStorage.setItem("RECENT", JSON.stringify(deletedStorage));
       return deletedState;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -6,7 +6,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import theme from "../../../theme";
+import { KeywordsDispatchContext } from "../context/KeywordsContext";
 
 const useStyles = makeStyles(() => ({
   title_container: {
@@ -22,7 +24,6 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     left: "0%",
     color: "white",
-    // padding: theme.spacing(0, 1),
     height: "100%",
     pointerEvents: "none",
     display: "flex",
@@ -39,20 +40,16 @@ const useStyles = makeStyles(() => ({
       width: "20ch",
     },
   },
-  menu_container: {
-    position: "relative",
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-    height: "30px",
-  },
-  menu_listItemText: {
-    position: "absolute",
-    left: "50%",
-    transform: "translateX(-50%)",
-  },
+  // menu_listItemInfo: {
+  //   "&:focus": {
+  //     backgroundColor: "white",
+  //     color: "black",
+  //   },
+  //   "&:hover": {
+  //     backgroundColor: "white",
+  //     color: "black",
+  //   },
+  // },
 }));
 
 const StyledMenu = withStyles({
@@ -77,22 +74,32 @@ const StyledMenu = withStyles({
 
 const StyledMenuItem = withStyles((theme) => ({
   root: {
+    position: "relative",
+    transition: theme.transitions.create("width"),
+    width: "30ch",
+    [theme.breakpoints.only("sm")]: {
+      width: "40ch",
+    },
+    height: "30px",
     "&:focus": {
       backgroundColor: theme.palette.primary.main,
       "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
         color: theme.palette.common.white,
       },
     },
+    "&.menu_listItemInfo": {
+      textAlign: "center",
+    },
   },
 }))(MenuItem);
 
 const SearchDetail = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [clearBtn, setClearBtn] = useState(false);
   const [detailTitle, setDetailTitle] = useState(null);
   const { handleOptionClick, category, selected } = props;
   const classes = useStyles();
-
-  console.log("최근검색어", category);
+  const dispatch = useContext(KeywordsDispatchContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -102,21 +109,35 @@ const SearchDetail = (props) => {
     setAnchorEl(null);
   };
 
+  const onDeleteIcon = (e, identifier) => {
+    e.preventDefault();
+    dispatch({ type: "delete", identifier: identifier });
+  };
+
   const createDetailList = (arr) => {
     const searchDetail = arr.map((item, idx) => {
+      console.log("item value", item.value);
       return (
         <StyledMenuItem
           key={`category_${item.index}`}
-          className={classes.menu_container}
+          disabled={category.length <= 1 ? true : false}
+          className={
+            category.length <= 1
+              ? `${StyledMenuItem.root} menu_listItemInfo`
+              : null
+          }
           onClick={() => {
             handleOptionClick(item.value);
             handleClose();
           }}
         >
-          <ListItemText
-            primary={item.value}
-            className={classes.menu_listItemText}
-          />
+          <ListItemText primary={item.value} />
+          {clearBtn && category.length > 1 ? (
+            <DeleteForeverIcon
+              size="small"
+              onClick={(e) => onDeleteIcon(e, item.index)}
+            />
+          ) : null}
         </StyledMenuItem>
       );
     });
@@ -125,7 +146,7 @@ const SearchDetail = (props) => {
   };
 
   const createSearchDetail = () => {
-    if (category.length > 1) {
+    if (category) {
       const newTitle = category[0];
       let detailList;
       if (detailTitle === null || detailTitle !== newTitle) {
@@ -133,14 +154,19 @@ const SearchDetail = (props) => {
         // q. 첫 렌더시에만 전환이 느린 이유?
       }
 
-      if (newTitle === "최근 검색") {
-        detailList = category.slice(1);
-        createDetailList(detailList);
+      if (newTitle === "recent keyword") {
+        detailList =
+          category.length > 1
+            ? category.slice(1)
+            : [{ index: 0, value: "최근 검색내역이 없습니다" }];
+        clearBtn === false && setClearBtn(true);
+        return createDetailList(detailList);
       }
       detailList = category
         .map((el, idx) => ({ index: idx, value: el }))
         .slice(1);
-      createDetailList(detailList);
+      clearBtn === true && setClearBtn(false);
+      return createDetailList(detailList);
     } else {
       return;
     }

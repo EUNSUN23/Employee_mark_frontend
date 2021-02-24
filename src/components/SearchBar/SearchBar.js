@@ -21,7 +21,6 @@ import SearchInput from "./components/SearchInput";
 import useInput from "../../hooks/useInput";
 import useCategory from "../../hooks/useCategory";
 import axios from "axios";
-import RecentKeywords from "./RecentKeywords";
 import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -444,20 +443,6 @@ const SearchBar = memo((props) => {
     </Menu>
   );
 
-  const createRecentKeywords = () => {
-    if (keywords && openKeywords) {
-      const copiedKeywords = keywords.slice();
-      const recentKeywords =
-        keywords.length > 1 ? (
-          <RecentKeywords keywords={copiedKeywords} />
-        ) : null;
-
-      return recentKeywords;
-    } else {
-      return null;
-    }
-  };
-
   const handleKeywords = (bool) => {
     setOpenKeywords(bool);
   };
@@ -511,7 +496,6 @@ const SearchBar = memo((props) => {
                       keywords={keywords}
                     />
                   </Grid>
-                  {createRecentKeywords()}
                   <Grid item xs={2} className={classes.searchButton}>
                     <Button
                       variant="contained"
