@@ -305,7 +305,6 @@ const SearchBar = memo((props) => {
             });
 
       optionList.unshift(type);
-      console.log(type, optionList);
       setCategory(type, optionList);
     } catch (err) {
       console.log(err);
@@ -315,14 +314,20 @@ const SearchBar = memo((props) => {
   const submitData = (e) => {
     e.preventDefault();
     let data;
-    console.log(searchDetail);
     if (searchOption === "이름검색") {
-      dispatch({ type: "add", keyword: name });
+      dispatch({ type: "add", category: "name", keyword: name });
       data = { category: "name", value: name };
       onSubmitHandler(data);
     } else {
-      dispatch({ type: "add", keyword: searchDetail.value });
-      data = { category: searchDetail.category, value: searchDetail.value };
+      dispatch({
+        type: "add",
+        category: searchDetail.category,
+        keyword: searchDetail.value,
+      });
+      data = {
+        category: searchDetail.category,
+        value: searchDetail.value,
+      };
       onSubmitHandler(data);
     }
   };
@@ -395,7 +400,6 @@ const SearchBar = memo((props) => {
   const mobileMenuId = "search-employee-menu-mobile";
 
   const handleSearchDetail = (selected) => {
-    console.log("handle search detail", selected);
     setSearchDetail(selected);
   };
 

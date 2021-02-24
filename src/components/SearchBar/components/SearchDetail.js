@@ -151,7 +151,7 @@ const SearchDetail = (props) => {
         return createDetailList(detailList);
       }
       detailList = category
-        .map((el, idx) => ({ index: idx, value: el }))
+        .map((el, idx) => ({ category: category[0], index: idx, value: el }))
         .slice(1);
       clearBtn === true && setClearBtn(false);
       return createDetailList(detailList);

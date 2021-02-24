@@ -19,9 +19,9 @@ const keywordsReducer = (state = initState, action) => {
 
     case "add":
       const newKeyword = {
+        category: action.category,
         index: Date.now(),
         value: action.keyword,
-        value: action.category,
       };
       const addedState = state.concat(newKeyword);
       if (storage === null) {
