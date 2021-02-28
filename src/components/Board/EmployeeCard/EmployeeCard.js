@@ -59,7 +59,7 @@ const EmployeeCard = memo((props) => {
     dept_name,
   } = props;
 
-  const subHeader = `${gender}, ${birth_date}`;
+  const subHeader = `${dept_name}, ${title}`;
   const name = `${first_name} ${last_name}`;
 
   return (

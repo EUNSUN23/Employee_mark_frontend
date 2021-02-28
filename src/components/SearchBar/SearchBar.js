@@ -275,8 +275,6 @@ const SearchBar = memo((props) => {
   const keywords = useContext(KeywordsStateContext);
   const dispatch = useContext(KeywordsDispatchContext);
 
-  console.log(keywords);
-
   const initLocalStorage = () => {
     dispatch({ type: "init" });
   };
@@ -292,9 +290,7 @@ const SearchBar = memo((props) => {
 
     try {
       const url = `http://localhost:3008/api/${type}`;
-      console.log(url);
       res = await axios.get(url);
-      console.log(res.data.packet);
       optionList =
         type === "dept"
           ? res.data.packet.map((obj) => {
@@ -347,7 +343,6 @@ const SearchBar = memo((props) => {
   };
 
   const changeBarType = (mode, location) => {
-    console.log(location);
     switch (mode) {
       case "desktop":
         return location === "/board" ? (

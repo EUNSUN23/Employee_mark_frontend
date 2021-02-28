@@ -106,7 +106,6 @@ const SearchDetail = (props) => {
 
   const createDetailList = (arr) => {
     const searchDetail = arr.map((item, idx) => {
-      console.log("item value", item.value);
       return (
         <StyledMenuItem
           key={`category_${item.index}`}

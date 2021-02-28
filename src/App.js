@@ -22,13 +22,10 @@ const App = () => {
     <div className="App">
       <Switch>
         <Route path="/" exact render={() => <Home />} />
-        <Route
-          path="/board"
-          render={() => <Board location={location} initPage={initPage} />}
-        />
+        <Route path="/board" render={() => <Board location={location} />} />
         <Route
           path="/statistics"
-          render={() => <Statistics location={location} initPage={initPage} />}
+          render={() => <Statistics location={location} />}
         />
       </Switch>
     </div>

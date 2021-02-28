@@ -15,14 +15,6 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: "100%",
     flexShrink: 0,
   },
-  lastUpdate: {
-    position: "absolute",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    color: "#555",
-    textDecoration: "underLine",
-    fontSize: 13,
-  },
   trackWrapper: {
     transform: "translateY(-3%)",
   },
@@ -36,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
   whole: {
     transform: "translateY(-30%)",
     height: 225,
-  },
-  rankTypeBtn: {
-    // transform: "translateX(-10%)",
   },
   rankName: {
     marginLeft: 8,
@@ -88,6 +77,7 @@ const CardAccordion = memo((props) => {
       <Rank
         type={expanded === "panel2" ? data.type : null}
         data={expanded === "panel2" ? data.data : null}
+        isLoading={data.isLoading}
         expanded={expanded}
         onChangeAccordion={handleChange}
         changeDataType={changeDataType}

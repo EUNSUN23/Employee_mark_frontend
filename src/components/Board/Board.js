@@ -1,55 +1,82 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { Grid } from "@material-ui/core";
 import SearchBar from "../SearchBar/SearchBar";
 import CardContainer from "./EmployeeCard/Card/CardContainer";
-import EmployeeCard from "./EmployeeCard/EmployeeCard";
 import ScrollToTop from "../ScrollToTop";
 import axios from "axios";
 import usePage from "../../hooks/usePage";
 import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
-import Loader from "../Loader";
+import Loader from "../UI/Loader";
 import { KeywordsProvider } from "../SearchBar/context/KeywordsContext";
 
 const Board = (props) => {
-  const [employeeCards, setEmployeeCards] = useState(null);
+  const [employeeData, setEmployeeData] = useState(null);
   const [scrollToTop, setScrollToTop] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
+  const [isNextLoading, setIsNextLoading] = useState(false);
   const [dialog, openDialog, closeDialog] = useDialog(false);
-  const [page, setPage] = usePage(1);
-
-  const { location, initPage } = props;
-
+  const [page, setPage, initPage] = usePage(1);
+  const { location } = props;
+  const viewport = useRef(null);
   //기본 직원정보 : 이름, 부서, 직급, 퇴사여부
 
-  const getEmployeeData = async (data, page) => {
+  const initBoard = () => {
+    setEmployeeData(null);
+  };
+
+  const getEmployeeData = async (data, page, isIntersected) => {
     let res;
-    const createEmployeeList = (employeeData) => {
-      const employeeList = employeeData.map((employee, idx) => {
-        return (
-          <Grid key={"employee" + idx} item xs={12}>
-            <EmployeeCard {...employee} />
-          </Grid>
-        );
-      });
-      return employeeList;
+    //데이터 받아오기
+    const setLoader = (bool) => {
+      isIntersected === "intersected"
+        ? setIsNextLoading(bool)
+        : setIsLoading(bool);
     };
     try {
+      setLoader(true);
+      console.log("intersected", isIntersected);
+      console.log(page);
       let url;
+      const page_no = isIntersected === "intersected" ? page.page + 1 : page;
+      console.log("page_no", page_no);
       url =
         data.category === "name"
-          ? `http://localhost:3008/api/emp/${data.value}/${page}`
-          : `http://localhost:3008/api/emp/${data.category}/${data.value}/${page}`;
+          ? `http://localhost:3008/api/emp/${data.value}/${page_no}`
+          : `http://localhost:3008/api/emp/${data.category}/${data.value}/${page_no}`;
       console.log(url);
       res = await axios.get(url);
       if (res.data.packet === null) {
+        setLoader(false);
         return;
       } else {
-        console.log("RES.DATA.PACKET", res.data);
-        setPage(page + 1);
-        setEmployeeCards(createEmployeeList(res.data.packet));
+        setLoader(false);
+        console.log("RES.DATA.PACKET", res.data, isIntersected);
+        isIntersected === "intersected" ? setPage() : initBoard();
+        const employeeList = res.data.packet;
+        return setEmployeeData((prevData) => {
+          let updatedData;
+          console.log("PREV______STATE", prevData);
+          if (prevData) {
+            const lastId = prevData[prevData.length - 1].id;
+            const newData = employeeList.map((el, idx) => ({
+              employee: el,
+              id: lastId + idx + 1,
+            }));
+            updatedData = prevData.concat(newData);
+          } else {
+            updatedData = employeeList.map((el, idx) => ({
+              employee: el,
+              id: idx,
+            }));
+            console.log("UPDATED_DATA", updatedData);
+          }
+
+          return setEmployeeData(updatedData);
+        });
       }
     } catch (err) {
+      setLoader(false);
       console.log("catch error", err.response.status);
       openDialog(err.response.status);
     }
@@ -62,24 +89,23 @@ const Board = (props) => {
       : setScrollToTop(true);
   };
 
-  useEffect(() => {
-    if (scrollToTop === null) {
-      initPage();
-    }
-    window.addEventListener("scroll", handleScroll);
+  // useEffect(() => {
+  //   if (scrollToTop === null) {
+  //     initPage();
+  //   }
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollToTop]);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [scrollToTop]);
 
   const onSearchHandler = useCallback((data) => {
     console.log(data);
 
     if (data.value) {
-      setIsLoading(true);
-      getEmployeeData(data, page.initPage);
-      setIsLoading(false);
+      localStorage.setItem("CURRENT_KEY", JSON.stringify(data));
+      getEmployeeData(data, page.defaultPage, "unIntersected");
     } else {
       console.log(data.value);
       window.alert("검색어를 입력하세요");
@@ -92,33 +118,43 @@ const Board = (props) => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
+  const board = isLoading ? (
+    <Loader size="large" />
+  ) : (
+    <Grid container direction="column" spacing={10}>
+      <Modal
+        open={dialog.open}
+        message={dialog.message}
+        handleClose={closeDialog}
+      />
+
+      <Grid item></Grid>
+      <Grid item container ref={viewport}>
+        <Grid item xs={false} sm={2} />
+        <Grid item xs={12} sm={8}>
+          <CardContainer
+            employeeData={employeeData}
+            page={page}
+            getEmployeeData={getEmployeeData}
+            isNextLoading={isNextLoading}
+          />
+        </Grid>
+        <Grid item xs={false} sm={2} />
+      </Grid>
+      <ScrollToTop
+        onScroll={(e) => handleScroll(e)}
+        show={scrollToTop}
+        handleOnScrollBtn={handleOnScrollBtn}
+      />
+    </Grid>
+  );
+
   return (
     <>
       <KeywordsProvider>
         <SearchBar location={location} onSubmitHandler={onSearchHandler} />
       </KeywordsProvider>
-      {isLoading ? <Loader /> : null}
-      <Grid container direction="column" spacing={10}>
-        <Modal
-          open={dialog.open}
-          message={dialog.message}
-          handleClose={closeDialog}
-        />
-
-        <Grid item></Grid>
-        <Grid item container>
-          <Grid item xs={false} sm={2} />
-          <Grid item xs={12} sm={8}>
-            <CardContainer employeeCards={employeeCards} />
-          </Grid>
-          <Grid item xs={false} sm={2} />
-        </Grid>
-        <ScrollToTop
-          onScroll={(e) => handleScroll(e)}
-          show={scrollToTop}
-          handleOnScrollBtn={handleOnScrollBtn}
-        />
-      </Grid>
+      {board}
     </>
   );
 };

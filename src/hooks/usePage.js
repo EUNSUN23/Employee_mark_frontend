@@ -1,13 +1,15 @@
 import { useState } from "react";
 
-const usePage = (initPage) => {
-  const [page, setPage] = useState(initPage);
+const usePage = (defaultPage) => {
+  const [page, setPage] = useState(defaultPage);
 
   const addPage = () => {
-    setPage(page + 1);
+    setPage((prevPage) => prevPage + 1);
   };
 
-  return [{ initPage: initPage, page: page }, addPage];
+  const initPage = () => setPage(defaultPage);
+
+  return [{ defaultPage: defaultPage, page: page }, addPage, initPage];
 };
 
 export default usePage;

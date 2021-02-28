@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -7,6 +7,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Grid } from "@material-ui/core";
 import TypeBtn from "../../../../TypeBtn";
 import RankCard from "../../../../Statistics/RankCard/RankCard";
+import Loader from "../../../../UI/Loader";
 
 const Rank = memo((props) => {
   const {
@@ -16,9 +17,15 @@ const Rank = memo((props) => {
     type,
     data,
     changeDataType,
+    isLoading,
   } = props;
 
-  console.log("Rank.js", type);
+  const rankCard = isLoading ? (
+    <Loader size="small" />
+  ) : (
+    <RankCard data={data} />
+  );
+
   return (
     <Accordion
       square
@@ -50,12 +57,7 @@ const Rank = memo((props) => {
                   selected={type ? type : "default"}
                 />
               </Grid>
-              <Grid item className={classes.rankName}>
-                {/* {type === "steadRank" || type === null ? "근속일 :" : "연봉 :"} */}
-              </Grid>
-              <Grid item>
-                <RankCard data={data} />
-              </Grid>
+              <Grid item>{rankCard}</Grid>
             </Grid>
           </AccordionDetails>
         )}
