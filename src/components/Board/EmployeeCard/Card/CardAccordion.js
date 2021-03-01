@@ -43,6 +43,8 @@ const CardAccordion = memo((props) => {
 
   const { emp_no, dept_name, title } = props;
 
+  console.log("TITLE", title);
+
   /*패널 클릭시 데이터 받아오기 */
   const handleChange = (panel) => (event, isExpanded) => {
     console.log("PANEL Change", panel);
@@ -50,10 +52,10 @@ const CardAccordion = memo((props) => {
       setExpanded(panel);
       switch (panel) {
         case "panel1":
-          getData("history", emp_no, dept_name, title);
+          getData("history", "default", emp_no, dept_name, title);
           return;
         case "panel2":
-          getData("rank", emp_no, dept_name, title);
+          getData("rank", "default", emp_no, dept_name, title);
           return;
         default:
           return;
@@ -78,7 +80,7 @@ const CardAccordion = memo((props) => {
       <Rank
         type={expanded === "panel2" ? data.type : null}
         data={expanded === "panel2" ? data.data : null}
-        emp_info={{ emp_no: emp_no, dept_name: dept_name, title: title }}
+        empInfo={{ emp_no: emp_no, dept_name: dept_name, title: title }}
         isLoading={data.isLoading}
         expanded={expanded}
         onChangeAccordion={handleChange}

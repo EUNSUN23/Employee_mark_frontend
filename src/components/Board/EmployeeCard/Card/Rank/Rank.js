@@ -65,13 +65,21 @@ const Rank = memo((props) => {
     getData,
     isLoading,
   } = props;
-  console.log("RANK", type, data);
+  console.log("RANK", "TYPE", type, data, empInfo);
 
   const rankCard = isLoading ? (
     <Loader size="small" />
   ) : (
     <RankCard data={data} />
   );
+
+  const button_1 =
+    type === null || type === "period"
+      ? btnClasses.clicked
+      : btnClasses.unClicked;
+
+  const button_2 =
+    type === "salary" ? btnClasses.clicked : btnClasses.unClicked;
 
   return (
     <Accordion
@@ -100,17 +108,14 @@ const Rank = memo((props) => {
               <Grid item className={classes.rankTypeBtn}>
                 <div className={btnClasses.wrapper}>
                   <Button
-                    className={
-                      type === null || type === "period"
-                        ? btnClasses.clicked
-                        : btnClasses.unClicked
-                    }
+                    className={button_1}
                     variant="outlined"
                     size="small"
                     color="primary"
                     disableRipple
-                    onFocus={() => {
+                    onClick={() => {
                       getData(
+                        "rank",
                         "period",
                         empInfo.emp_no,
                         empInfo.dept_name,
@@ -121,17 +126,14 @@ const Rank = memo((props) => {
                     근속 랭킹
                   </Button>
                   <Button
-                    className={
-                      type === "salary"
-                        ? btnClasses.clicked
-                        : btnClasses.unClicked
-                    }
+                    className={button_2}
                     variant="outlined"
                     size="small"
                     color="primary"
                     disableRipple
-                    onFocus={() => {
+                    onClick={() => {
                       getData(
+                        "rank",
                         "salary",
                         empInfo.emp_no,
                         empInfo.dept_name,

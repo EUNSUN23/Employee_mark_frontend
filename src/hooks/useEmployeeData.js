@@ -9,35 +9,27 @@ const useEmployeeData = () => {
   /*패널 내부 데이터 종류 변경 */
   // /api/emp/rank/salary/:emp_no/:dept_name/:title 랭크_연봉
   // /api/emp/rank/period/:emp_no/:dept_name/:title 랭크_근속
-  const getApiData = async (type, emp_no, dept_name, title) => {
-    let data;
-    let subType;
-    if (dataType === null) {
-      if (type === "history") {
-        console.log("history");
-      } else {
-        subType = "period";
-      }
+  const getApiData = async (panel, type, emp_no, dept_name, title) => {
+    let url;
+    let result;
+    if (panel === "history") {
+      console.log("history");
     } else {
-      subType = dataType;
+      const subType = type === "default" ? "period" : type;
+      setDataType(subType);
+      url = `http://localhost:3008/api/emp/rank/${subType}/${emp_no}/${dept_name}/${title}`;
     }
-    setDataType(subType);
-    const url =
-      type === "history"
-        ? `http://localhost:3008/api/emp/history/${emp_no}`
-        : `http://localhost:3008/api/emp/rank/${subType}/${emp_no}/${dept_name}/${title}`;
-    console.log(url);
     try {
       setIsLoading(true);
       const res = await axios.get(url);
       console.log(res.data.packet);
-      data = res.data.packet;
+      result = res.data.packet;
     } catch (err) {
       setIsLoading(false);
       console.log(err);
     }
-    if (data) {
-      setData(data);
+    if (result) {
+      setData(result);
       setIsLoading(false);
     }
   };
@@ -46,8 +38,8 @@ const useEmployeeData = () => {
     setDataType(type);
   };
 
-  const getData = (type, emp_no, dept_name, title) => {
-    setData(getApiData(type, emp_no, dept_name, title));
+  const getData = (panel, type, emp_no, dept_name, title) => {
+    setData(getApiData(panel, type, emp_no, dept_name, title));
   };
 
   return [
