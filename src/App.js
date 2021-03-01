@@ -10,7 +10,7 @@ const App = () => {
   const history = useHistory();
   const location = history.location.pathname;
 
-  const initPage = useCallback(() => {
+  const initSearchBar = useCallback(() => {
     if (location === null) {
       setRender(true);
     } else {
@@ -22,10 +22,17 @@ const App = () => {
     <div className="App">
       <Switch>
         <Route path="/" exact render={() => <Home />} />
-        <Route path="/board" render={() => <Board location={location} />} />
+        <Route
+          path="/board"
+          render={() => (
+            <Board location={location} initSearchBar={initSearchBar} />
+          )}
+        />
         <Route
           path="/statistics"
-          render={() => <Statistics location={location} />}
+          render={() => (
+            <Statistics location={location} initSearchBar={initSearchBar} />
+          )}
         />
       </Switch>
     </div>

@@ -17,12 +17,13 @@ const Board = (props) => {
   const [isNextLoading, setIsNextLoading] = useState(false);
   const [dialog, openDialog, closeDialog] = useDialog(false);
   const [page, setPage, initPage] = usePage(1);
-  const { location } = props;
+  const { location, initSearchBar } = props;
   const viewport = useRef(null);
   //기본 직원정보 : 이름, 부서, 직급, 퇴사여부
 
   const initBoard = () => {
     setEmployeeData(null);
+    initPage();
   };
 
   const getEmployeeData = async (data, page, isIntersected) => {
@@ -35,11 +36,8 @@ const Board = (props) => {
     };
     try {
       setLoader(true);
-      console.log("intersected", isIntersected);
-      console.log(page);
       let url;
       const page_no = isIntersected === "intersected" ? page.page + 1 : page;
-      console.log("page_no", page_no);
       url =
         data.category === "name"
           ? `http://localhost:3008/api/emp/${data.value}/${page_no}`
@@ -51,12 +49,10 @@ const Board = (props) => {
         return;
       } else {
         setLoader(false);
-        console.log("RES.DATA.PACKET", res.data, isIntersected);
         isIntersected === "intersected" ? setPage() : initBoard();
         const employeeList = res.data.packet;
         return setEmployeeData((prevData) => {
           let updatedData;
-          console.log("PREV______STATE", prevData);
           if (prevData) {
             const lastId = prevData[prevData.length - 1].id;
             const newData = employeeList.map((el, idx) => ({
@@ -89,16 +85,16 @@ const Board = (props) => {
       : setScrollToTop(true);
   };
 
-  // useEffect(() => {
-  //   if (scrollToTop === null) {
-  //     initPage();
-  //   }
-  //   window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    if (scrollToTop === null) {
+      initSearchBar();
+    }
+    window.addEventListener("scroll", handleScroll);
 
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [scrollToTop]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollToTop]);
 
   const onSearchHandler = useCallback((data) => {
     console.log(data);

@@ -1,24 +1,71 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Grid } from "@material-ui/core";
-import TypeBtn from "../../../../TypeBtn";
 import RankCard from "../../../../Statistics/RankCard/RankCard";
 import Loader from "../../../../UI/Loader";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles(() => ({
+  wrapper: {
+    display: "flex",
+    flexDirection: "row",
+  },
+
+  unClicked: {
+    flex: "1fr",
+    padding: 1,
+    color: "#039BE5",
+    border: "1px solid #039BE5",
+    backgroundColor: "transparent",
+    zIndex: 500,
+    cursor: "pointer",
+    boxSizing: "content-box",
+    alignItems: "flex-start",
+    margin: 4,
+    "&:focus": {
+      backgroundColor: "#0288D1",
+      color: "white",
+      border: "none",
+    },
+  },
+
+  clicked: {
+    flex: "1fr",
+    padding: 1,
+    cursor: "pointer",
+    boxSizing: "content-box",
+    alignItems: "flex-start",
+    margin: 4,
+    backgroundColor: "#0288D1",
+    color: "white",
+    border: "none",
+    "&:focus": {
+      backgroundColor: "#0288D1",
+      color: "white",
+      border: "none",
+    },
+  },
+}));
 
 const Rank = memo((props) => {
+  // const { expanded, selected, handleClick(getData임) } = props; //버튼
+  const btnClasses = useStyles(); //버튼
   const {
     expanded,
     onChangeAccordion,
     classes,
     type,
     data,
-    changeDataType,
+    empInfo,
+    getData,
     isLoading,
   } = props;
+  console.log("RANK", type, data);
 
   const rankCard = isLoading ? (
     <Loader size="small" />
@@ -51,11 +98,50 @@ const Rank = memo((props) => {
               className={classes.rankCardWrapper}
             >
               <Grid item className={classes.rankTypeBtn}>
-                <TypeBtn
-                  handleClick={changeDataType}
-                  expanded={expanded}
-                  selected={type ? type : "default"}
-                />
+                <div className={btnClasses.wrapper}>
+                  <Button
+                    className={
+                      type === null || type === "period"
+                        ? btnClasses.clicked
+                        : btnClasses.unClicked
+                    }
+                    variant="outlined"
+                    size="small"
+                    color="primary"
+                    disableRipple
+                    onFocus={() => {
+                      getData(
+                        "period",
+                        empInfo.emp_no,
+                        empInfo.dept_name,
+                        empInfo.title
+                      );
+                    }}
+                  >
+                    근속 랭킹
+                  </Button>
+                  <Button
+                    className={
+                      type === "salary"
+                        ? btnClasses.clicked
+                        : btnClasses.unClicked
+                    }
+                    variant="outlined"
+                    size="small"
+                    color="primary"
+                    disableRipple
+                    onFocus={() => {
+                      getData(
+                        "salary",
+                        empInfo.emp_no,
+                        empInfo.dept_name,
+                        empInfo.title
+                      );
+                    }}
+                  >
+                    연봉 랭킹
+                  </Button>
+                </div>
               </Grid>
               <Grid item>{rankCard}</Grid>
             </Grid>

@@ -69,18 +69,20 @@ const CardAccordion = memo((props) => {
       <History
         type={expanded === "panel1" ? data.type : null}
         data={expanded === "panel1" ? data.data : null}
+        empInfo={{ emp_no: emp_no, dept_name: dept_name, title: title }}
         expanded={expanded}
         onChangeAccordion={handleChange}
-        changeDataType={changeDataType}
+        getData={getData}
         classes={classes}
       />
       <Rank
         type={expanded === "panel2" ? data.type : null}
         data={expanded === "panel2" ? data.data : null}
+        emp_info={{ emp_no: emp_no, dept_name: dept_name, title: title }}
         isLoading={data.isLoading}
         expanded={expanded}
         onChangeAccordion={handleChange}
-        changeDataType={changeDataType}
+        getData={getData}
         classes={classes}
       />
     </div>

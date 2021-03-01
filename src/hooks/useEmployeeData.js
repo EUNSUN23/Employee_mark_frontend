@@ -7,14 +7,26 @@ const useEmployeeData = () => {
   const [data, setData] = useState();
 
   /*패널 내부 데이터 종류 변경 */
-
+  // /api/emp/rank/salary/:emp_no/:dept_name/:title 랭크_연봉
+  // /api/emp/rank/period/:emp_no/:dept_name/:title 랭크_근속
   const getApiData = async (type, emp_no, dept_name, title) => {
     let data;
+    let subType;
+    if (dataType === null) {
+      if (type === "history") {
+        console.log("history");
+      } else {
+        subType = "period";
+      }
+    } else {
+      subType = dataType;
+    }
+    setDataType(subType);
     const url =
       type === "history"
         ? `http://localhost:3008/api/emp/history/${emp_no}`
-        : `http://localhost:3008/api/emp/rank/${emp_no}/${dept_name}/${title}`;
-
+        : `http://localhost:3008/api/emp/rank/${subType}/${emp_no}/${dept_name}/${title}`;
+    console.log(url);
     try {
       setIsLoading(true);
       const res = await axios.get(url);
