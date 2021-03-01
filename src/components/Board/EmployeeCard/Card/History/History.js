@@ -51,7 +51,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const History = (props) => {
+const History = memo((props) => {
   const btnClasses = useStyles(); //버튼
   const {
     type,
@@ -63,7 +63,6 @@ const History = (props) => {
     classes,
   } = props;
 
-  console.log("HISTORY", type, data);
   return (
     <>
       <Accordion
@@ -144,6 +143,6 @@ const History = (props) => {
       </Accordion>
     </>
   );
-};
+});
 
 export default History;

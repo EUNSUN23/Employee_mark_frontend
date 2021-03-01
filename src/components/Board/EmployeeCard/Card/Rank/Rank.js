@@ -53,7 +53,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Rank = memo((props) => {
-  // const { expanded, selected, handleClick(getData임) } = props; //버튼
   const btnClasses = useStyles(); //버튼
   const {
     expanded,
@@ -65,7 +64,6 @@ const Rank = memo((props) => {
     getData,
     isLoading,
   } = props;
-  console.log("RANK", "TYPE", type, data, empInfo);
 
   const rankCard = isLoading ? (
     <Loader size="small" />

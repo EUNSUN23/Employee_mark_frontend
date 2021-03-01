@@ -6,9 +6,6 @@ const useEmployeeData = () => {
   const [dataType, setDataType] = useState(null);
   const [data, setData] = useState();
 
-  /*패널 내부 데이터 종류 변경 */
-  // /api/emp/rank/salary/:emp_no/:dept_name/:title 랭크_연봉
-  // /api/emp/rank/period/:emp_no/:dept_name/:title 랭크_근속
   const getApiData = async (panel, type, emp_no, dept_name, title) => {
     let url;
     let result;
@@ -34,19 +31,11 @@ const useEmployeeData = () => {
     }
   };
 
-  const changeDataType = (type) => {
-    setDataType(type);
-  };
-
   const getData = (panel, type, emp_no, dept_name, title) => {
     setData(getApiData(panel, type, emp_no, dept_name, title));
   };
 
-  return [
-    { type: dataType, data: data, isLoading: isLoading },
-    changeDataType,
-    getData,
-  ];
+  return [{ type: dataType, data: data, isLoading: isLoading }, getData];
 };
 
 export default useEmployeeData;

@@ -6,7 +6,7 @@ const Statistics = (props) => {
 
   useEffect(() => {
     initPage();
-  }, []);
+  }, [location, initPage, isInitialized]);
   return (
     <>
       <SearchBar />

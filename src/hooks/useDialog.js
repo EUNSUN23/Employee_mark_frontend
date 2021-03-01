@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const useDialog = () => {
-  console.log("useDialog");
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
 

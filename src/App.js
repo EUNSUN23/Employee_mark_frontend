@@ -16,7 +16,7 @@ const App = () => {
     } else {
       setRender(!render);
     }
-  }, [location]);
+  }, [location, render]);
 
   return (
     <div className="App">

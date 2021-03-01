@@ -1,4 +1,10 @@
-import React, { useState, memo, useContext, useEffect } from "react";
+import React, {
+  useState,
+  memo,
+  useContext,
+  useEffect,
+  useCallback,
+} from "react";
 import {
   KeywordsStateContext,
   KeywordsDispatchContext,
@@ -264,7 +270,6 @@ const useStyles = makeStyles((theme) => ({
 const SearchBar = memo((props) => {
   const classes = useStyles();
   const { location, onSubmitHandler } = props;
-  const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
   const [searchOption, setSearchOption] = useState("이름검색");
@@ -275,13 +280,13 @@ const SearchBar = memo((props) => {
   const keywords = useContext(KeywordsStateContext);
   const dispatch = useContext(KeywordsDispatchContext);
 
-  const initLocalStorage = () => {
+  const initLocalStorage = useCallback(() => {
     dispatch({ type: "init" });
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     keywords.length === 1 && initLocalStorage();
-  }, []);
+  }, [initLocalStorage, keywords.length]);
 
   const getCategory = async (type) => {
     // data = ["부서", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -389,6 +394,8 @@ const SearchBar = memo((props) => {
             직원 검색
           </>
         );
+      default:
+        return;
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo, useRef } from "react";
+import React, { useEffect, memo, useRef } from "react";
 import EmployeeCard from "../EmployeeCard";
 import { debounce } from "lodash";
 import { Grid } from "@material-ui/core";
@@ -9,15 +9,11 @@ const CardContainer = memo((props) => {
   const target = useRef(null);
   const nextPage = useRef(page);
 
-  console.log("EMPLOYEE__DATA", employeeData);
-
   const loadItems = debounce(
     (entry, observer) => {
       const currentData = JSON.parse(localStorage.getItem("CURRENT_KEY"));
-      console.log("Current Key", currentData);
       getEmployeeData(currentData, page, "intersected");
       nextPage.current = page;
-      console.log("intersecting");
       observer.unobserve(entry.target);
       observer.observe(target.current);
     },
@@ -29,13 +25,6 @@ const CardContainer = memo((props) => {
       if (!entry.isIntersecting) {
         return;
       }
-      const location = target.current.offsetTop;
-      console.log("LOCATION___", location);
-      // window.scrollTo({
-      //   top: 6201,
-      //   left: 0,
-      //   behavior: "smooth",
-      // });
       loadItems(entry, observer);
     });
   };
@@ -45,15 +34,12 @@ const CardContainer = memo((props) => {
   };
 
   useEffect(() => {
-    console.log("Card: useEffect");
     let io;
     if (nextPage.current === page || isNextLoading) {
       return;
     } else {
       io = new IntersectionObserver(handleIntersection, options);
       if (target.current) {
-        console.log("TARGET current", target.current);
-
         io.observe(target.current);
       }
     }

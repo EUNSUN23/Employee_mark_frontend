@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -24,10 +24,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Modal = (props) => {
+const Modal = memo((props) => {
   const classes = useStyles();
   const { open, handleClose, message } = props;
-  console.log("MODAL");
   return (
     <Dialog onClose={handleClose} aria-labelledby="contact" open={open}>
       <DialogTitle id="contact" className={classes.wrapper}>
@@ -38,7 +37,7 @@ const Modal = (props) => {
       </DialogTitle>
     </Dialog>
   );
-};
+});
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,

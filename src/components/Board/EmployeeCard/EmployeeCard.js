@@ -5,7 +5,6 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import Avatar from "@material-ui/core/Avatar";
-import useDialog from "../../../hooks/useDialog";
 import AnnouncementIcon from "@material-ui/icons/Announcement";
 import CardAccordion from "./Card/CardAccordion";
 
@@ -46,18 +45,7 @@ const useStyles = makeStyles(() => ({
 const EmployeeCard = memo((props) => {
   const classes = useStyles();
 
-  const {
-    birth_date,
-    emp_no,
-    first_name,
-    gender,
-    hire_date,
-    last_name,
-    left,
-    more,
-    title,
-    dept_name,
-  } = props;
+  const { emp_no, first_name, last_name, left, more, title, dept_name } = props;
 
   const subHeader = `${dept_name}, ${title}`;
   const name = `${first_name} ${last_name}`;
