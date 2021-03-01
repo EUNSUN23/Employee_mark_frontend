@@ -21,67 +21,62 @@ const Board = (props) => {
   const viewport = useRef(null);
   //기본 직원정보 : 이름, 부서, 직급, 퇴사여부
 
-  const initBoard =
-    (() => {
-      setEmployeeData(null);
-      initPage();
-    },
-    []);
+  const initBoard = useCallback(() => {
+    setEmployeeData(null);
+    initPage();
+  }, []);
 
-  const getEmployeeData = useCallback(
-    async (data, page, isIntersected) => {
-      let res;
-      //데이터 받아오기
-      const setLoader = (bool) => {
-        isIntersected === "intersected"
-          ? setIsNextLoading(bool)
-          : setIsLoading(bool);
-      };
-      try {
-        setLoader(true);
-        let url;
-        const page_no = isIntersected === "intersected" ? page.page + 1 : page;
-        url =
-          data.category === "name"
-            ? `http://localhost:3008/api/emp/${data.value}/${page_no}`
-            : `http://localhost:3008/api/emp/${data.category}/${data.value}/${page_no}`;
-        console.log(url);
-        res = await axios.get(url);
-        if (res.data.packet === null) {
-          setLoader(false);
-          return;
-        } else {
-          setLoader(false);
-          isIntersected === "intersected" ? setPage() : initBoard();
-          const employeeList = res.data.packet;
-          return setEmployeeData((prevData) => {
-            let updatedData;
-            if (prevData) {
-              const lastId = prevData[prevData.length - 1].id;
-              const newData = employeeList.map((el, idx) => ({
-                employee: el,
-                id: lastId + idx + 1,
-              }));
-              updatedData = prevData.concat(newData);
-            } else {
-              updatedData = employeeList.map((el, idx) => ({
-                employee: el,
-                id: idx,
-              }));
-              console.log("UPDATED_DATA", updatedData);
-            }
-
-            return setEmployeeData(updatedData);
-          });
-        }
-      } catch (err) {
+  const getEmployeeData = async (data, page, isIntersected) => {
+    let res;
+    //데이터 받아오기
+    const setLoader = (bool) => {
+      isIntersected === "intersected"
+        ? setIsNextLoading(bool)
+        : setIsLoading(bool);
+    };
+    try {
+      setLoader(true);
+      let url;
+      const page_no = isIntersected === "intersected" ? page.page + 1 : page;
+      url =
+        data.category === "name"
+          ? `http://localhost:3008/api/emp/${data.value}/${page_no}`
+          : `http://localhost:3008/api/emp/${data.category}/${data.value}/${page_no}`;
+      console.log(url);
+      res = await axios.get(url);
+      if (res.data.packet === null) {
         setLoader(false);
-        console.log("catch error", err.response.status);
-        openDialog(err.response.status);
+        return;
+      } else {
+        setLoader(false);
+        isIntersected === "intersected" ? setPage() : initBoard();
+        const employeeList = res.data.packet;
+        return setEmployeeData((prevData) => {
+          let updatedData;
+          if (prevData) {
+            const lastId = prevData[prevData.length - 1].id;
+            const newData = employeeList.map((el, idx) => ({
+              employee: el,
+              id: lastId + idx + 1,
+            }));
+            updatedData = prevData.concat(newData);
+          } else {
+            updatedData = employeeList.map((el, idx) => ({
+              employee: el,
+              id: idx,
+            }));
+            console.log("UPDATED_DATA", updatedData);
+          }
+
+          return setEmployeeData(updatedData);
+        });
       }
-    },
-    [initBoard, openDialog, setPage]
-  );
+    } catch (err) {
+      setLoader(false);
+      console.log("catch error", err.response.status);
+      openDialog(err.response.status);
+    }
+  };
 
   const handleScroll = (e) => {
     const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
