@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateY(-15%)",
   },
   whole: {
-    transform: "translateY(-30%)",
-    height: 225,
+    // transform: "translateY(-30%)",
+    // height: 225,
   },
   rankName: {
     marginLeft: 8,

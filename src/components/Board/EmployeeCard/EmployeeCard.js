@@ -1,21 +1,20 @@
 import React, { memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
 import Avatar from "@material-ui/core/Avatar";
 import AnnouncementIcon from "@material-ui/icons/Announcement";
 import CardAccordion from "./Card/CardAccordion";
 
 const useStyles = makeStyles(() => ({
+  cardContainer: {
+    border: "1px solid black",
+  },
   cardHeader: {
     paddingBottom: 5,
   },
   content: {
     margin: 0,
   },
-  media: {},
 
   info: {
     position: "relative",
@@ -51,7 +50,7 @@ const EmployeeCard = memo((props) => {
   const name = `${first_name} ${last_name}`;
 
   return (
-    <Card className={classes.root}>
+    <div className={classes.cardContainer}>
       <CardHeader
         className={classes.cardHeader}
         avatar={
@@ -67,11 +66,8 @@ const EmployeeCard = memo((props) => {
         }
         subheader={<div className={classes.subHeader}>{subHeader}</div>}
       />
-      <CardMedia className={classes.media} style={{ height: "180px" }}>
-        <CardAccordion emp_no={emp_no} dept_name={dept_name} title={title} />
-      </CardMedia>
-      <CardContent className={classes.content}></CardContent>
-    </Card>
+      <CardAccordion emp_no={emp_no} dept_name={dept_name} title={title} />
+    </div>
   );
 });
 

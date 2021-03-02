@@ -88,7 +88,7 @@ const Rank = memo((props) => {
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="pane6bh-content"
+        aria-controls="panel6bh-content"
         id="panel2bh-header"
       >
         <Typography className={classes.heading}> 종합 직원 랭킹</Typography>
