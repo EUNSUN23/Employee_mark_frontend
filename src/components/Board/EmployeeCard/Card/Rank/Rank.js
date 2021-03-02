@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(() => ({
-  wrapper: {
+  btnWrapper: {
     display: "flex",
     flexDirection: "row",
   },
@@ -22,7 +22,6 @@ const useStyles = makeStyles(() => ({
     color: "#039BE5",
     border: "1px solid #039BE5",
     backgroundColor: "transparent",
-    zIndex: 500,
     cursor: "pointer",
     boxSizing: "content-box",
     alignItems: "flex-start",
@@ -53,7 +52,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Rank = memo((props) => {
-  const btnClasses = useStyles(); //버튼
+  const rankClasses = useStyles(); //버튼
   const {
     expanded,
     onChangeAccordion,
@@ -73,38 +72,37 @@ const Rank = memo((props) => {
 
   const button_1 =
     type === null || type === "period"
-      ? btnClasses.clicked
-      : btnClasses.unClicked;
+      ? rankClasses.clicked
+      : rankClasses.unClicked;
 
   const button_2 =
-    type === "salary" ? btnClasses.clicked : btnClasses.unClicked;
+    type === "salary" ? rankClasses.clicked : rankClasses.unClicked;
+  const accordionSummary =
+    expanded === "panel2" ? classes.AccordionSummary_open : null;
 
   return (
     <Accordion
       square
       expanded={expanded === "panel2"}
       onChange={onChangeAccordion("panel2")}
-      className={expanded === "panel2" ? classes.whole : null}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel6bh-content"
         id="panel2bh-header"
+        className={accordionSummary}
       >
-        <Typography className={classes.heading}> 종합 직원 랭킹</Typography>
+        <Typography className={classes.AccordionSummary_header}>
+          {" "}
+          종합 직원 랭킹
+        </Typography>
       </AccordionSummary>
       <AccordionDetails>
         {expanded !== "panel2" ? null : (
-          <AccordionDetails className={classes.AccordionDetails}>
-            <Grid
-              container
-              item
-              spacing={3}
-              direction="column"
-              className={classes.rankCardWrapper}
-            >
+          <AccordionDetails className={classes.rankCardWrapper}>
+            <Grid container item spacing={3} direction="column">
               <Grid item className={classes.rankTypeBtn}>
-                <div className={btnClasses.wrapper}>
+                <div className={rankClasses.btnWrapper}>
                   <Button
                     className={button_1}
                     variant="outlined"

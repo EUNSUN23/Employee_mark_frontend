@@ -8,25 +8,24 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
-  heading: {
+  AccordionSummary_open: {},
+  AccordionSummary_header: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: "bold",
     flexBasis: "100%",
     flexShrink: 0,
   },
+
   trackWrapper: {
     transform: "translateY(-3%)",
   },
   rankCardWrapper: {
-    transform: "translate(-5%,-21%)",
-    margin: "0 auto",
+    height: "130px",
+    marginTop: -20,
+    paddingLeft: 0,
   },
   track: {
     transform: "translateY(-15%)",
-  },
-  whole: {
-    // transform: "translateY(-30%)",
-    // height: 225,
   },
   rankName: {
     marginLeft: 8,

@@ -75,7 +75,7 @@ const History = memo((props) => {
           aria-controls="panel12bh-content"
           id="panel12bh-header"
         >
-          <Typography className={classes.heading}>
+          <Typography className={classes.AccordionSummary_header}>
             부서이동 및 연봉변동 기록
           </Typography>
         </AccordionSummary>

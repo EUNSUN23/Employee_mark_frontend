@@ -97,19 +97,15 @@ const Board = (props) => {
   }, [scrollToTop]);
 
   const onSearchHandler = useCallback((data) => {
-    console.log(data);
-
     if (data.value) {
       localStorage.setItem("CURRENT_KEY", JSON.stringify(data));
       getEmployeeData(data, page.defaultPage, "unIntersected");
     } else {
-      console.log(data.value);
       window.alert("검색어를 입력하세요");
     }
   }, []);
 
   const handleOnScrollBtn = useCallback(() => {
-    console.log("scroll to top");
     setScrollToTop(false);
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);

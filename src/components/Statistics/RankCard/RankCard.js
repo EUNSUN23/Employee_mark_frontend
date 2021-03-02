@@ -5,7 +5,9 @@ import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   rankWrapper: {
-    paddingLeft: 80,
+    marginLeft: 23,
+    marginTop: 20,
+    // border: "1px solid red",
   },
   loaderWrapper: {
     border: "1px solid black",
@@ -13,32 +15,32 @@ const useStyles = makeStyles(() => ({
   },
   rank: {
     position: "relative",
-    margin: "0 auto",
-    flexDirection: "column",
-    paddingRight: 40,
-    "& span": {
-      position: "absolute",
-      width: 25,
-      height: 25,
-      backgroundColor: "#e7e7e7",
-      borderRadius: "100%",
-      textAlign: "center",
-      padding: 5,
-      marginRight: 5,
-      top: "50%",
-      left: "57%",
-      transform: "translate(-50%,-50%)",
-      fontSize: 15,
-      fontWeight: "bold",
-      color: "#222",
-    },
+    // margin: "0 auto",
+    width: 150,
     "& .title": {
       fontSize: 13,
+      // border: "1px solid blue",
+      width: 60,
+      "& span": {
+        position: "absolute",
+        marginLeft: 2,
+        width: 25,
+        height: 25,
+        backgroundColor: "#e7e7e7",
+        borderRadius: "100%",
+        textAlign: "center",
+        padding: 5,
+        top: "50%",
+        transform: "translateY(-50%)",
+        fontSize: 15,
+        fontWeight: "bold",
+        color: "#222",
+      },
     },
   },
 }));
 
-const rankTitle = ["부서 내", "전사 내", "동일직계 내"];
+const rankTitle = ["부서", "전사", "직계"];
 const RankCard = (props) => {
   const classes = useStyles();
   const { data, type } = props;
@@ -46,10 +48,12 @@ const RankCard = (props) => {
   const createRanks = (data, type) => {
     const rankContents = Object.keys(data).map((key, idx) => {
       return (
-        <Grid item className={classes.rank} key={type + "_" + key}>
+        <Grid item className={classes.rank} key={type + "_" + key} xs={4}>
           <Typography variant="h6" component="h2">
-            <div className={`${classes.rank} title`}> {rankTitle[idx]}</div>
-            <span>{data[key]}위</span>
+            <div className={`${classes.rank} title`}>
+              {rankTitle[idx]}
+              <span>{data[key]}위</span>
+            </div>
           </Typography>
         </Grid>
       );

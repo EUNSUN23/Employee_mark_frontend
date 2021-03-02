@@ -55,7 +55,13 @@ const CardContainer = memo((props) => {
       const lastEl = idx === employeeData[employeeData.length - 1].id;
 
       return (
-        <Grid key={"employee" + idx} item xs={12} ref={lastEl ? target : null}>
+        <Grid
+          key={"employee" + idx}
+          item
+          xs={12}
+          sm={6}
+          ref={lastEl ? target : null}
+        >
           <EmployeeCard {...el.employee} />
         </Grid>
       );
