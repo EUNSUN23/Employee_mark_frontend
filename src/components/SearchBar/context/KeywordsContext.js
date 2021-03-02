@@ -10,7 +10,7 @@ const keywordsReducer = (state = initState, action) => {
       let initializedState;
       if (storage === null) {
         return;
-      } else if (state.length === 1) {
+      } else if (state.length === 1 && storage !== null) {
         initializedState = state.concat(storage);
         return initializedState;
       } else {

@@ -285,8 +285,8 @@ const SearchBar = memo((props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    keywords.length === 1 && initLocalStorage();
-  }, [initLocalStorage, keywords.length]);
+    if (keywords.length === 1) initLocalStorage();
+  }, []);
 
   const getCategory = async (type) => {
     // data = ["부서", "1", "2", "3", "4", "5", "6", "7", "8", "9"];

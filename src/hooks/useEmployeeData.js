@@ -17,6 +17,7 @@ const useEmployeeData = () => {
       const subType = type === "default" ? "period" : type;
       setDataType(subType);
       url = `http://localhost:3008/api/emp/rank/${subType}/${emp_no}/${dept_name}/${title}`;
+      console.log(url);
     }
     try {
       setIsLoading(true);

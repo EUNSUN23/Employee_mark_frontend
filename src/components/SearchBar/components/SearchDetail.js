@@ -105,7 +105,28 @@ const SearchDetail = (props) => {
   };
 
   const createDetailList = (arr) => {
-    const searchDetail = arr.map((item, idx) => {
+    const sortedArr = arr.sort((a, b) => {
+      return b.index - a.index;
+    });
+
+    const valueArr = sortedArr.map((el, idx) => {
+      return el.value;
+    });
+
+    let result = valueArr.reduce((accumulator, current) => {
+      const length = accumulator.length;
+      if (length === 0 || accumulator.indexOf(current) <= -1) {
+        current && accumulator.push(current);
+      }
+      return accumulator;
+    }, []);
+
+    result = result.slice(0, 5).map((el, idx) => {
+      const index = valueArr.indexOf(el);
+      return { category: arr[index].category, value: el };
+    });
+
+    const searchDetail = result.map((item, idx) => {
       return (
         <StyledMenuItem
           key={`category_${item.index}`}
