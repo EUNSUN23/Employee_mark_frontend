@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
-  AccordionSummary_open: {},
   AccordionSummary_header: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: "bold",
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   trackWrapper: {
-    transform: "translateY(-3%)",
+    height: "230px",
   },
   rankCardWrapper: {
     height: "130px",

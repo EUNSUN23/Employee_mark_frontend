@@ -7,8 +7,8 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Track from "../../../../Statistics/Track";
 import Loader from "../../../../UI/Loader";
+import SalaryHistory from "../../../../Statistics/SalaryHistory/SalaryHistory";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -67,7 +67,7 @@ const History = memo((props) => {
   const historyContent = isLoading ? (
     <Loader size="small" />
   ) : (
-    <Track type={trackType} data={data} />
+    <SalaryHistory data={data} />
   );
 
   return (
