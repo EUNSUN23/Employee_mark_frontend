@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -8,6 +8,7 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Track from "../../../../Statistics/Track";
+import Loader from "../../../../UI/Loader";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -52,16 +53,22 @@ const useStyles = makeStyles(() => ({
 }));
 
 const History = memo((props) => {
+  const [historyType, setHistoryType] = useState();
+
   const btnClasses = useStyles(); //버튼
-  const {
-    type,
-    data,
-    empInfo,
-    expanded,
-    onChangeAccordion,
-    getData,
-    classes,
-  } = props;
+  const { data, isLoading, expanded, onChangeAccordion, classes } = props;
+
+  const changeTypeHandler = (type) => {
+    setHistoryType(type);
+  };
+
+  const trackType = historyType ? historyType : "salary";
+
+  const historyContent = isLoading ? (
+    <Loader size="small" />
+  ) : (
+    <Track type={trackType} data={data} />
+  );
 
   return (
     <>
@@ -92,7 +99,7 @@ const History = memo((props) => {
                 <div className={btnClasses.wrapper}>
                   <Button
                     className={
-                      type === null || type === "dept"
+                      historyType === null || historyType === "dept"
                         ? btnClasses.clicked
                         : btnClasses.unClicked
                     }
@@ -100,20 +107,13 @@ const History = memo((props) => {
                     size="small"
                     color="primary"
                     disableRipple
-                    onFocus={() => {
-                      getData(
-                        "deptHistory",
-                        empInfo.emp_no,
-                        empInfo.dept_name,
-                        empInfo.title
-                      );
-                    }}
+                    onFocus={() => changeTypeHandler("dept")}
                   >
                     부서 변동
                   </Button>
                   <Button
                     className={
-                      type === "salaryHistory"
+                      historyType === "salary"
                         ? btnClasses.clicked
                         : btnClasses.unClicked
                     }
@@ -122,12 +122,7 @@ const History = memo((props) => {
                     color="primary"
                     disableRipple
                     onFocus={() => {
-                      getData(
-                        "salaryHistory",
-                        empInfo.emp_no,
-                        empInfo.dept_name,
-                        empInfo.title
-                      );
+                      changeTypeHandler("salary");
                     }}
                   >
                     연봉 변동
@@ -135,7 +130,7 @@ const History = memo((props) => {
                 </div>
               </Grid>
               <Grid item className={classes.track}>
-                <Track type={type ? type : "dept"} data={data} />
+                {historyContent}
               </Grid>
             </Grid>
           </AccordionDetails>

@@ -29,13 +29,21 @@ const useEmployeeData = () => {
       console.log(err);
     }
     if (result) {
-      setData(result);
+      if (panel === "history") {
+        const dept_history = result.splice(1, 1);
+        const salary_history = result;
+        const historyResult = { dept: dept_history, salary: salary_history };
+        setData(historyResult);
+      } else {
+        setData(result);
+      }
+
       setIsLoading(false);
     }
   };
 
   const getData = (panel, type, emp_no, dept_name, title) => {
-    setData(getApiData(panel, type, emp_no, dept_name, title));
+    getApiData(panel, type, emp_no, dept_name, title);
   };
 
   return [{ type: dataType, data: data, isLoading: isLoading }, getData];

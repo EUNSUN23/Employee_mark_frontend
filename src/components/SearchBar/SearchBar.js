@@ -289,7 +289,6 @@ const SearchBar = memo((props) => {
   }, []);
 
   const getCategory = async (type) => {
-    // data = ["부서", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
     let res;
     let optionList;
 

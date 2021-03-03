@@ -129,103 +129,104 @@ const Track = (props) => {
 
   console.log("Track render", type, data);
 
+  //한번에 다 받음.
+
   const createHistoryTrack = (type, data) => {
     let historyTrack = null;
-    if (type && data) {
-      const slicedHistory = data[type].slice(1, data[type].length - 1);
-      console.log("slicedHistory", slicedHistory);
-      historyTrack = (
-        <Timeline className={classes.timeline}>
-          <TimelineItem
-            align="alternate"
-            className={classes.timelineContentContainer}
-          >
-            <TimelineOppositeContent className={classes.timelineYear}>
-              <Typography
-                color="textSecondary"
-                className={classes.timelineYearText_first}
-              >
-                {data[type][0].from}
-              </Typography>
-            </TimelineOppositeContent>
-            <TimelineSeparator className={classes.timelineSeparator}>
-              <TimelineDot className={classes.timelineDot} />
-              <TimelineConnector
-                className={classes.timelineConnector}
-                variant="text"
-              />
-            </TimelineSeparator>
-            <TimelineContent className={classes.timelineInfo}>
-              <Typography
-                color="textSecondary"
-                className={classes.timelineInfoText_first}
-              >
-                {type === "dept" ? data[type][0].dept : data[type][0].salary}
-              </Typography>
-            </TimelineContent>
-          </TimelineItem>
-          {slicedHistory.map((data, idx) => {
-            return (
-              <TimelineItem
-                className={classes.timelineContentContainer}
-                key={data.from}
-              >
-                <TimelineOppositeContent className={classes.timelineYear}>
-                  <Typography
-                    color="textSecondary"
-                    className={classes.timelineYearText}
-                  >
-                    {data.from}
-                  </Typography>
-                </TimelineOppositeContent>
-                <TimelineSeparator className={classes.timelineSeparator}>
-                  <TimelineDot className={classes.timelineDot} />
-                  <TimelineConnector className={classes.timelineConnector} />
-                </TimelineSeparator>
-                <TimelineContent className={classes.timelineInfo}>
-                  <Typography
-                    color="textSecondary"
-                    className={classes.timelineInfoText}
-                  >
-                    {type === "dept" ? data.dept : data.salary}
-                  </Typography>
-                </TimelineContent>
-              </TimelineItem>
-            );
-          })}
-
-          <TimelineItem className={classes.timelineContentContainer}>
-            <TimelineOppositeContent className={classes.timelineYear}>
-              <Typography
-                color="textSecondary"
-                className={classes.timelineYearText_last}
-              >
-                {data[type][data[type].length - 1].from}
-                ~현재
-              </Typography>
-            </TimelineOppositeContent>
-            <TimelineSeparator className={classes.timelineSeparator}>
-              <TimelineDot
-                className={classes.timelineDot_last}
-                color={
-                  type === "dept" || type === null ? "primary" : "secondary"
-                }
-              />
-            </TimelineSeparator>
-            <TimelineContent className={classes.timelineInfo}>
-              <Typography
-                color="textSecondary"
-                className={classes.timelineInfoText_last}
-              >
-                {type === "dept"
-                  ? data[type][data[type].length - 1].dept
-                  : data[type][data[type].length - 1].salary}
-              </Typography>
-            </TimelineContent>
-          </TimelineItem>
-        </Timeline>
-      );
+    if (type !== "salary" || !data) {
+      return;
     }
+    const slicedHistory = data[type].slice(1, data[type].length - 1);
+    console.log("slicedHistory", slicedHistory);
+    historyTrack = (
+      <Timeline className={classes.timeline}>
+        <TimelineItem
+          align="alternate"
+          className={classes.timelineContentContainer}
+        >
+          <TimelineOppositeContent className={classes.timelineYear}>
+            <Typography
+              color="textSecondary"
+              className={classes.timelineYearText_first}
+            >
+              {data[type][0].from}
+            </Typography>
+          </TimelineOppositeContent>
+          <TimelineSeparator className={classes.timelineSeparator}>
+            <TimelineDot className={classes.timelineDot} />
+            <TimelineConnector
+              className={classes.timelineConnector}
+              variant="text"
+            />
+          </TimelineSeparator>
+          <TimelineContent className={classes.timelineInfo}>
+            <Typography
+              color="textSecondary"
+              className={classes.timelineInfoText_first}
+            >
+              {type === "dept" ? data[type][0].dept : data[type][0].salary}
+            </Typography>
+          </TimelineContent>
+        </TimelineItem>
+        {slicedHistory.map((data, idx) => {
+          return (
+            <TimelineItem
+              className={classes.timelineContentContainer}
+              key={data.from}
+            >
+              <TimelineOppositeContent className={classes.timelineYear}>
+                <Typography
+                  color="textSecondary"
+                  className={classes.timelineYearText}
+                >
+                  {data.from}
+                </Typography>
+              </TimelineOppositeContent>
+              <TimelineSeparator className={classes.timelineSeparator}>
+                <TimelineDot className={classes.timelineDot} />
+                <TimelineConnector className={classes.timelineConnector} />
+              </TimelineSeparator>
+              <TimelineContent className={classes.timelineInfo}>
+                <Typography
+                  color="textSecondary"
+                  className={classes.timelineInfoText}
+                >
+                  {type === "dept" ? data.dept : data.salary}
+                </Typography>
+              </TimelineContent>
+            </TimelineItem>
+          );
+        })}
+
+        <TimelineItem className={classes.timelineContentContainer}>
+          <TimelineOppositeContent className={classes.timelineYear}>
+            <Typography
+              color="textSecondary"
+              className={classes.timelineYearText_last}
+            >
+              {data[type][data[type].length - 1].from}
+              ~현재
+            </Typography>
+          </TimelineOppositeContent>
+          <TimelineSeparator className={classes.timelineSeparator}>
+            <TimelineDot
+              className={classes.timelineDot_last}
+              color={type === "dept" || type === null ? "primary" : "secondary"}
+            />
+          </TimelineSeparator>
+          <TimelineContent className={classes.timelineInfo}>
+            <Typography
+              color="textSecondary"
+              className={classes.timelineInfoText_last}
+            >
+              {type === "dept"
+                ? data[type][data[type].length - 1].dept
+                : data[type][data[type].length - 1].salary}
+            </Typography>
+          </TimelineContent>
+        </TimelineItem>
+      </Timeline>
+    );
 
     return historyTrack;
   };
