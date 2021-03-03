@@ -104,29 +104,35 @@ const SearchDetail = (props) => {
     dispatch({ type: "delete", identifier: identifier });
   };
 
-  const createDetailList = (arr) => {
-    const sortedArr = arr.sort((a, b) => {
-      return b.index - a.index;
-    });
+  const createDetailList = (arr, arrType) => {
+    let resultList;
+    console.log("ARR_TYPE", arrType);
+    if (arrType === "recent keyword") {
+      const sortedArr = arr.sort((a, b) => {
+        return b.index - a.index;
+      });
 
-    const valueArr = sortedArr.map((el, idx) => {
-      return el.value;
-    });
+      const valueArr = sortedArr.map((el, idx) => {
+        return el.value;
+      });
 
-    let result = valueArr.reduce((accumulator, current) => {
-      const length = accumulator.length;
-      if (length === 0 || accumulator.indexOf(current) <= -1) {
-        current && accumulator.push(current);
-      }
-      return accumulator;
-    }, []);
+      const reducedArr = valueArr.reduce((accumulator, current) => {
+        const length = accumulator.length;
+        if (length === 0 || accumulator.indexOf(current) <= -1) {
+          current && accumulator.push(current);
+        }
+        return accumulator;
+      }, []);
 
-    result = result.slice(0, 5).map((el, idx) => {
-      const index = valueArr.indexOf(el);
-      return { category: arr[index].category, value: el };
-    });
+      resultList = reducedArr.slice(0, 5).map((el, idx) => {
+        const index = valueArr.indexOf(el);
+        return { category: arr[index].category, value: el };
+      });
+    } else {
+      resultList = arr;
+    }
 
-    const searchDetail = result.map((item, idx) => {
+    const searchDetail = resultList.map((item, idx) => {
       return (
         <StyledMenuItem
           key={`category_${item.index}`}
@@ -168,13 +174,13 @@ const SearchDetail = (props) => {
             ? category.slice(1)
             : [{ index: 0, value: "최근 검색내역이 없습니다" }];
         clearBtn === false && setClearBtn(true);
-        return createDetailList(detailList);
+        return createDetailList(detailList, newTitle);
       }
       detailList = category
         .map((el, idx) => ({ category: category[0], index: idx, value: el }))
         .slice(1);
       clearBtn === true && setClearBtn(false);
-      return createDetailList(detailList);
+      return createDetailList(detailList, newTitle);
     } else {
       return;
     }
