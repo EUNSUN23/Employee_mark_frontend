@@ -3,6 +3,7 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import Board from "./components/Board/Board";
 import Home from "./components/Home";
 import Statistics from "./components/Statistics";
+import Chart from "./Chart";
 
 const App = () => {
   const [render, setRender] = useState(null);
@@ -20,7 +21,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Switch>
+      {/* <Switch>
         <Route path="/" exact render={() => <Home />} />
         <Route
           path="/board"
@@ -34,7 +35,8 @@ const App = () => {
             <Statistics location={location} initSearchBar={initSearchBar} />
           )}
         />
-      </Switch>
+      </Switch> */}
+      <Chart />
     </div>
   );
 };
