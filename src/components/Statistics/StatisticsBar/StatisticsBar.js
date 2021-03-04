@@ -12,10 +12,10 @@ import HomeIcon from "@material-ui/icons/Home";
 import Button from "@material-ui/core/Button";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import useInput from "../../../hooks/useInput";
 import useCategory from "../../../hooks/useCategory";
-import axios from "axios";
 import { Grid } from "@material-ui/core";
+import SearchOption from "./components/SearchOption";
+import SearchDetailOption from "./components/SearchDetailOption";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -277,7 +277,6 @@ const SearchBar = memo((props) => {
   const [searchOption, setSearchOption] = useState("연봉통계");
   const [searchDetail, setSearchDetail] = useState(null);
   const [category, setCategory] = useCategory(null);
-  const [name, setName] = useInput("");
 
   const initLocalStorage = useCallback(() => {
     dispatch({ type: "init" });
@@ -430,22 +429,19 @@ const SearchBar = memo((props) => {
                 >
                   <Grid item xs={2} className={classes.searchOption}>
                     {" "}
-                    <SearchMenu
+                    <SearchOption
                       selected={searchOption}
                       handleOptionClick={handleOptionClick}
                     />
                   </Grid>
                   <Grid item xs={8} className={classes.searchInputContainer}>
                     {" "}
-                    <SearchInput
+                    <SearchDetailOption
                       searchOption={searchOption}
                       searchDetail={searchDetail}
                       handleSearchDetail={handleSearchDetail}
                       category={category}
                       classes={classes}
-                      value={name}
-                      onChange={setName}
-                      keywords={keywords}
                     />
                   </Grid>
                   <Grid item xs={2} className={classes.searchButton}>
