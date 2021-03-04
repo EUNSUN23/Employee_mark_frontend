@@ -94,7 +94,7 @@ const Board = (props) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrollToTop]);
+  }, [scrollToTop, initSearchBar]);
 
   const onSearchHandler = useCallback((data) => {
     if (data.value) {

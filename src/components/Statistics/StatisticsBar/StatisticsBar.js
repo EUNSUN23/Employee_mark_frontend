@@ -12,7 +12,6 @@ import HomeIcon from "@material-ui/icons/Home";
 import Button from "@material-ui/core/Button";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import useCategory from "../../../hooks/useCategory";
 import { Grid } from "@material-ui/core";
 import SearchOption from "./components/SearchOption";
 import SearchDetailOption from "./components/SearchDetailOption";
@@ -173,7 +172,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "translate(-50%,-50%)",
     color: "white",
   },
-  search_input: {
+  search_track: {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     marginLeft: theme.spacing(3),
@@ -197,13 +196,6 @@ const useStyles = makeStyles((theme) => ({
       width: "80%",
     },
   },
-  searchInput: {
-    "&:hover": {
-      width: "100%",
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-  },
   searchIcon: {
     padding: theme.spacing(0, 2),
     height: "100%",
@@ -213,11 +205,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  inputRoot: {
+  trackRoot: {
     color: "inherit",
     width: "100%",
   },
-  inputInput: {
+  trackInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
@@ -238,8 +230,6 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
     },
   },
-
-  navContainer: {},
   sectionMobile: {
     display: "block",
     position: "absolute",
@@ -274,21 +264,13 @@ const SearchBar = memo((props) => {
   const { location, onSubmitHandler } = props;
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
-  const [searchOption, setSearchOption] = useState("연봉통계");
+  const [searchOption, setSearchOption] = useState("조직별 통계");
   const [searchDetail, setSearchDetail] = useState(null);
-  const [category, setCategory] = useCategory(null);
 
-  const initLocalStorage = useCallback(() => {
-    dispatch({ type: "init" });
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (keywords.length === 1) initLocalStorage();
-  }, []);
-
-  const submitData = (dataType) => {
-    if (searchOption === "연봉통계") {
-      onSubmitHandler(dataType); // Statistics 페이지에서 props로 오는 함수
+  const submitData = (e) => {
+    e.preventDefault();
+    if (searchOption === "조직별 통계") {
+      onSubmitHandler(searchDetail); // Statistics 페이지에서 props로 오는 함수
     } else {
       return;
     }
@@ -369,12 +351,6 @@ const SearchBar = memo((props) => {
   const handleOptionClick = (selected) => {
     handleSearchDetail(null);
     setSearchOption(selected);
-
-    if (selected === "조직별 통계") {
-      setCategory(["전체", "부서"]);
-    } else {
-      setCategory(["이상", "이하"]);
-    }
   };
 
   const renderMobileMenu = (
@@ -440,7 +416,6 @@ const SearchBar = memo((props) => {
                       searchOption={searchOption}
                       searchDetail={searchDetail}
                       handleSearchDetail={handleSearchDetail}
-                      category={category}
                       classes={classes}
                     />
                   </Grid>

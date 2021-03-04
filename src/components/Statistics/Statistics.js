@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Grid } from "@material-ui/core";
 import axios from "axios";
 import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import StatisticsBar from "./StatisticsBar/StatisticsBar";
+import StatisticsPage from "./StatisticsPage";
 
 const Statistics = (props) => {
   const [dialog, openDialog, closeDialog] = useDialog(false);
   const [isLoading, setIsLoading] = useState(null);
   const [data, setData] = useState(null);
-  const { location, initPage, isInitialized } = props;
+  const { location, initSearchBar, isInitialized } = props;
 
   //   /api/stat/distribution/above/:salary	get	특정 급여 이상의 부서별 인원 분포
   // /api/stat/distribution/below/:salary	get	특정 급여 이하의 부서별 인원 분포
@@ -23,8 +24,8 @@ const Statistics = (props) => {
   //                    급여별 통계> track
 
   useEffect(() => {
-    initPage();
-  }, [location, initPage, isInitialized]);
+    initSearchBar();
+  }, [location, initSearchBar, isInitialized]);
 
   const getStatisticsData = async (dataType) => {
     let res;
@@ -190,7 +191,7 @@ const Statistics = (props) => {
 
   const onSearchHandler = useCallback((dataType) => {
     // dataType = {type:"emp","dept","below","above" salary:"default", number }
-    if (dataType) {
+    if (dataType.type) {
       getStatisticsData(dataType);
     } else {
       window.alert("검색어를 입력하세요");
@@ -207,7 +208,7 @@ const Statistics = (props) => {
         handleClose={closeDialog}
       />
       <Grid item></Grid>
-      <Grid item container ref={viewport}>
+      <Grid item container>
         <Grid item xs={false} sm={2} />
         <Grid item xs={12} sm={8}>
           <StatisticsPage data={data} />

@@ -108,13 +108,25 @@ const SearchOption = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("연봉통계");
+            handleOptionClick("조직별 통계");
             handleClose();
           }}
         >
           <ListItemText
             className={classes.menu_listItemText}
-            primary="연봉통계"
+            primary="조직별 통계"
+          />
+        </StyledMenuItem>
+        <StyledMenuItem
+          className={classes.menu_container}
+          onClick={() => {
+            handleOptionClick("급여별 통계");
+            handleClose();
+          }}
+        >
+          <ListItemText
+            className={classes.menu_listItemText}
+            primary="급여별 통계"
           />
         </StyledMenuItem>
       </StyledMenu>
