@@ -290,26 +290,10 @@ const SearchBar = memo((props) => {
     setHover(target);
   };
 
-  const changeBarType = (mode, location) => {
+  const changeBarType = (mode) => {
     switch (mode) {
       case "desktop":
-        return location === "/board" ? (
-          <>
-            {" "}
-            <AssessmentIcon
-              className={
-                hover === "statistics"
-                  ? `${classes.statistics_hover} icon_statistics`
-                  : `${classes.statistics} icon_statistics`
-              }
-            />
-            <Typography component="span" noWrap>
-              <Link to="/statistics" className={classes.link}>
-                통계 검색
-              </Link>
-            </Typography>
-          </>
-        ) : (
+        return (
           <>
             <PeopleAltIcon
               className={
@@ -326,17 +310,13 @@ const SearchBar = memo((props) => {
           </>
         );
       case "mobile":
-        return location === "/board" ? (
-          <>
-            <AssessmentIcon />
-            통계 검색
-          </>
-        ) : (
+        return (
           <>
             <PeopleAltIcon />
             직원 검색
           </>
         );
+
       default:
         return;
     }
@@ -369,8 +349,8 @@ const SearchBar = memo((props) => {
           홈으로
         </MenuItem>
       </Link>
-      <Link to="/statistics" className={classes.link_mobile}>
-        <MenuItem>{changeBarType("mobile", location)}</MenuItem>
+      <Link to="/board" className={classes.link_mobile}>
+        <MenuItem>{changeBarType("mobile")}</MenuItem>
       </Link>
     </Menu>
   );
@@ -467,7 +447,7 @@ const SearchBar = memo((props) => {
                     onMouseEnter={() => setIndicator("statistics")}
                     onMouseLeave={() => setIndicator(null)}
                   >
-                    {changeBarType("desktop", location)}
+                    {changeBarType("desktop")}
                   </div>
                 </div>
               </div>

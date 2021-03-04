@@ -11,7 +11,7 @@ const Statistics = (props) => {
   const [dialog, openDialog, closeDialog] = useDialog(false);
   const [isLoading, setIsLoading] = useState(null);
   const [data, setData] = useState(null);
-  const { location, initSearchBar, isInitialized } = props;
+  const { location, initSearchBar } = props;
 
   //   /api/stat/distribution/above/:salary	get	특정 급여 이상의 부서별 인원 분포
   // /api/stat/distribution/below/:salary	get	특정 급여 이하의 부서별 인원 분포
@@ -24,8 +24,9 @@ const Statistics = (props) => {
   //                    급여별 통계> track
 
   useEffect(() => {
+    console.log("initSearchBar");
     initSearchBar();
-  }, [location, initSearchBar, isInitialized]);
+  }, [location]);
 
   const getStatisticsData = async (dataType) => {
     let res;
@@ -209,11 +210,11 @@ const Statistics = (props) => {
       />
       <Grid item></Grid>
       <Grid item container>
-        <Grid item xs={false} sm={2} />
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={false} sm={1} />
+        <Grid item xs={12} sm={10}>
           <StatisticsPage data={data} />
         </Grid>
-        <Grid item xs={false} sm={2} />
+        <Grid item xs={false} sm={1} />
       </Grid>
     </Grid>
   );

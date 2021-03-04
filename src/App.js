@@ -12,6 +12,7 @@ const App = () => {
 
   const initSearchBar = useCallback(() => {
     if (location === null) {
+      console.log("initSearchBar_APP", location);
       setRender(true);
     } else {
       setRender(!render);

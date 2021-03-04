@@ -87,6 +87,7 @@ const Board = (props) => {
 
   useEffect(() => {
     if (scrollToTop === null) {
+      console.log("initSearchBar");
       initSearchBar();
     }
     window.addEventListener("scroll", handleScroll);

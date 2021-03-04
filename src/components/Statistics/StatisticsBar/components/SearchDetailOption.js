@@ -111,7 +111,7 @@ const SearchDetailOption = (props) => {
           <ArrowDropDownIcon fontSize="large" />
         </ListItemIcon>
         <ListItemText
-          primary={searchDetail ? searchDetail.type : detailTitle}
+          primary={detailTitle ? detailTitle : "전체"}
           className={classes.title_listItemText}
         />
       </Button>

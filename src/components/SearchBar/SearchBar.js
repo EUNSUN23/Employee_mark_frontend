@@ -349,7 +349,7 @@ const SearchBar = memo((props) => {
   const changeBarType = (mode, location) => {
     switch (mode) {
       case "desktop":
-        return location === "/board" ? (
+        return (
           <>
             {" "}
             <AssessmentIcon
@@ -365,32 +365,12 @@ const SearchBar = memo((props) => {
               </Link>
             </Typography>
           </>
-        ) : (
-          <>
-            <PeopleAltIcon
-              className={
-                hover === "statistics"
-                  ? `${classes.statistics_hover} icon_statistics`
-                  : `${classes.statistics} icon_statistics`
-              }
-            />
-            <Typography component="span" noWrap>
-              <Link to="/board" className={classes.link}>
-                직원 검색
-              </Link>
-            </Typography>
-          </>
         );
       case "mobile":
-        return location === "/board" ? (
+        return (
           <>
             <AssessmentIcon />
             통계 검색
-          </>
-        ) : (
-          <>
-            <PeopleAltIcon />
-            직원 검색
           </>
         );
       default:
