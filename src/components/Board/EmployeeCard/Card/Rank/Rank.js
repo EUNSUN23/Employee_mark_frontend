@@ -5,7 +5,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Grid } from "@material-ui/core";
-import RankCard from "../../../../Statistics/RankCard/RankCard";
+import RankCard from "../../../../Graph/RankCard/RankCard";
 import Loader from "../../../../UI/Loader";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";

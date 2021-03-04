@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from "react";
 import { Grid } from "@material-ui/core";
 import SearchBar from "../SearchBar/SearchBar";
 import CardContainer from "./EmployeeCard/Card/CardContainer";
-import ScrollToTop from "../ScrollToTop";
+import ScrollToTop from "../UI/ScrollToTop";
 import axios from "axios";
 import usePage from "../../hooks/usePage";
 import useDialog from "../../hooks/useDialog";
@@ -68,7 +68,7 @@ const Board = (props) => {
             console.log("UPDATED_DATA", updatedData);
           }
 
-          return setEmployeeData(updatedData);
+          return updatedData;
         });
       }
     } catch (err) {

@@ -12,10 +12,8 @@ import HomeIcon from "@material-ui/icons/Home";
 import Button from "@material-ui/core/Button";
 import AssessmentIcon from "@material-ui/icons/Assessment";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import SearchMenu from "./components/SearchMenu";
-import SearchInput from "./components/SearchInput";
-import useInput from "../../hooks/useInput";
-import useCategory from "../../hooks/useCategory";
+import useInput from "../../../hooks/useInput";
+import useCategory from "../../../hooks/useCategory";
 import axios from "axios";
 import { Grid } from "@material-ui/core";
 
