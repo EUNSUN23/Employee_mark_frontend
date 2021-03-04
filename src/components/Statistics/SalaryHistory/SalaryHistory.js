@@ -10,6 +10,8 @@ import styles from "./SalaryHistory.module.css";
 const SalaryHistory = (props) => {
   const { data } = props;
 
+  console.log(data);
+
   const chartData = data.salary.map((salary, idx) => {
     return {
       x: salary.from_date.slice(0, 4),
@@ -67,7 +69,7 @@ const SalaryHistory = (props) => {
             ticks: { stroke: "transparent" },
             tickLabels: { fill: "transparent" },
           }}
-          tickValues={[30000, 50000, 70000, 90000, 110000]}
+          tickValues={[30000, 70000, 110000]}
         />
         <VictoryAxis />
       </VictoryChart>

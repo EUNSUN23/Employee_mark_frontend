@@ -30,9 +30,11 @@ const useEmployeeData = () => {
     }
     if (result) {
       if (panel === "history") {
-        const dept_history = result.splice(1, 1);
-        const salary_history = result;
+        const dept_transfer = result[0];
+        const dept_history = result.splice(1, dept_transfer);
+        const salary_history = result.slice(1);
         const historyResult = { dept: dept_history, salary: salary_history };
+        console.log("History___Result", historyResult);
         setData(historyResult);
       } else {
         setData(result);
