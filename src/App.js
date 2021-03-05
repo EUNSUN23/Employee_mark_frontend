@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Board from "./components/Board/Board";
 import Home from "./components/Home";
 import Statistics from "./components/Statistics/Statistics";
+import Histogram from "./Histogram";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/board" render={() => <Board />} />
         <Route path="/statistics" render={() => <Statistics />} />
       </Switch>
+      {/* <Histogram /> */}
     </div>
   );
 };

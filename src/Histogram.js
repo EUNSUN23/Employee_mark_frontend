@@ -1,201 +1,217 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
+// import styled from "styled-components";
+// import {
+//   VictoryChart,
+//   VictoryVoronoiContainer,
+//   VictoryAxis,
+//   VictoryTooltip,
+//   VictoryLabel,
+//   VictoryHistogram,
+// } from "victory";
+// import Slider from "@material-ui/core/Slider";
+// import _ from "lodash";
 
-const LIGHT_GREY = "hsl(355, 20%, 90%)";
-const PRIMARY_COLOR = "hsl(355, 92%, 67%)";
-const Container = styled.div``;
+// const LIGHT_GREY = "hsl(355, 20%, 90%)";
+// const PRIMARY_COLOR = "hsl(355, 92%, 67%)";
+// const Container = styled.div`
+//   width: 400px;
+//   height: 400px;
+// `;
 
-const Card = styled.div`
-  background-color: #2b2a31;
-  padding: 40px 36px 30px;
-  border-radius: 5px;
+// const Card = styled.div`
+//   background-color: #2b2a31;
+//   padding: 40px 36px 30px;
+//   border-radius: 5px;
 
-  // when rendered in the gallery preview
-  a & {
-    padding: 24px 20px 10px;
-  }
-`;
+//   // when rendered in the gallery preview
+//   a & {
+//     padding: 24px 20px 10px;
+//   }
+// `;
 
-const yearToSeason = (year) => `${year}-${(year + 1 + "").slice(2, 4)}`;
+// const yearToSeason = (year) => `${year}-${(year + 1 + "").slice(2, 4)}`;
 
-const YEARS = Object.keys(basketballData).map((year) => parseInt(year, 10));
-const FIRST_YEAR = YEARS[0];
-const LAST_YEAR = YEARS[YEARS.length - 1];
-const TOTAL_YEARS = LAST_YEAR - FIRST_YEAR;
+// const basketballData = { 1990: 190, 1991: 330, 1992: 340, 1993: 150 };
 
-const getTooltipText = ({ datum }) => {
-  const { binnedData, x0, x1 } = datum;
+// const YEARS = Object.keys(basketballData).map((year) => parseInt(year, 10));
+// const FIRST_YEAR = YEARS[0];
+// const LAST_YEAR = YEARS[YEARS.length - 1];
+// const TOTAL_YEARS = LAST_YEAR - FIRST_YEAR;
 
-  const playerCount = binnedData.length;
+// const getTooltipText = ({ datum }) => {
+//   const { binnedData, x0, x1 } = datum;
 
-  if (!playerCount) {
-    return null;
-  }
+//   const playerCount = binnedData.length;
 
-  const playerNames = binnedData
-    .slice(0, 2)
-    .map(({ player }) => {
-      const [firstName, lastName] = player.split(" ");
-      return lastName ? `${firstName.slice(0, 1)}. ${lastName}` : firstName;
-    })
-    .join(", ");
+//   if (!playerCount) {
+//     return null;
+//   }
 
-  const playerNamesList = `\n (${playerNames}${
-    playerCount > 2 ? `, and ${playerCount - 2} more players` : ""
-  })`;
+//   const playerNames = binnedData
+//     .slice(0, 2)
+//     .map(({ player }) => {
+//       const [firstName, lastName] = player.split(" ");
+//       return lastName ? `${firstName.slice(0, 1)}. ${lastName}` : firstName;
+//     })
+//     .join(", ");
 
-  return `${playerCount} player${
-    playerCount === 1 ? "" : "s"
-  } averaged between ${x0}-${x1} 3PT attempts ${playerNamesList}`;
-};
+//   const playerNamesList = `\n (${playerNames}${
+//     playerCount > 2 ? `, and ${playerCount - 2} more players` : ""
+//   })`;
 
-const sharedAxisStyles = {
-  axis: {
-    stroke: "transparent",
-  },
-  tickLabels: {
-    fill: LIGHT_GREY,
-    fontSize: 14,
-  },
-  axisLabel: {
-    fill: LIGHT_GREY,
-    padding: 36,
-    fontSize: 15,
-    fontStyle: "italic",
-  },
-};
+//   return `${playerCount} player${
+//     playerCount === 1 ? "" : "s"
+//   } averaged between ${x0}-${x1} 3PT attempts ${playerNamesList}`;
+// };
 
-const GradientSvg = styled.svg`
-  position: fixed;
-  opacity: 0;
-`;
+// const sharedAxisStyles = {
+//   axis: {
+//     stroke: "transparent",
+//   },
+//   tickLabels: {
+//     fill: LIGHT_GREY,
+//     fontSize: 14,
+//   },
+//   axisLabel: {
+//     fill: LIGHT_GREY,
+//     padding: 36,
+//     fontSize: 15,
+//     fontStyle: "italic",
+//   },
+// };
 
-const Histogram = () => {
-  const [year, setYear] = useState(FIRST_YEAR);
+// const GradientSvg = styled.svg`
+//   position: fixed;
+//   opacity: 0;
+// `;
 
-  return (
-    <Container>
-      <GradientSvg>
-        <defs>
-          <linearGradient id="gradient1" x1="0%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stopColor="#FFE29F" />
-            <stop offset="40%" stopColor="#FFA99F" />
-            <stop offset="100%" stopColor={PRIMARY_COLOR} />
-          </linearGradient>
-        </defs>
-      </GradientSvg>
+// const Histogram = () => {
+//   const [year, setYear] = useState(FIRST_YEAR);
 
-      <Card>
-        <VictoryChart
-          containerComponent={
-            <VictoryVoronoiContainer
-              labels={getTooltipText}
-              voronoiDimension="x"
-              labelComponent={
-                <VictoryTooltip
-                  constrainToVisibleArea
-                  style={{
-                    fill: LIGHT_GREY,
-                    fontSize: 11,
-                  }}
-                  flyoutStyle={{
-                    fill: "#24232a",
-                    stroke: PRIMARY_COLOR,
-                    strokeWidth: 0.5,
-                  }}
-                />
-              }
-            />
-          }
-          height={280}
-        >
-          <VictoryLabel
-            text={`3pt Attempts Per Game Averages (${yearToSeason(year)})`}
-            x={225}
-            y={18}
-            textAnchor="middle"
-            style={{ fill: LIGHT_GREY, fontSize: 16 }}
-          />
-          <VictoryAxis
-            style={{
-              ...sharedAxisStyles,
-              grid: {
-                fill: LIGHT_GREY,
-                stroke: LIGHT_GREY,
-                pointerEvents: "painted",
-                strokeWidth: 0.5,
-              },
-            }}
-            label="# of players"
-            dependentAxis
-          />
-          <VictoryAxis
-            style={{
-              ...sharedAxisStyles,
-              axisLabel: { ...sharedAxisStyles.axisLabel, padding: 35 },
-            }}
-            label="3pt attempts per game"
-          />
-          <VictoryHistogram
-            cornerRadius={2}
-            domain={{ y: [0, 125] }}
-            animate={{ duration: 300 }}
-            data={basketballData[year]}
-            bins={_.range(0, 16, 2)}
-            style={{
-              data: {
-                stroke: "transparent",
-                fill: "url(#gradient1)",
-                strokeWidth: 1,
-              },
-              labels: {
-                fill: "red",
-              },
-            }}
-            x="3pa"
-          />
-        </VictoryChart>
+//   return (
+//     <Container>
+//       <GradientSvg>
+//         <defs>
+//           <linearGradient id="gradient1" x1="0%" y1="0%" x2="50%" y2="100%">
+//             <stop offset="0%" stopColor="#FFE29F" />
+//             <stop offset="40%" stopColor="#FFA99F" />
+//             <stop offset="100%" stopColor={PRIMARY_COLOR} />
+//           </linearGradient>
+//         </defs>
+//       </GradientSvg>
 
-        <YearSlider year={year} setYear={setYear} />
-      </Card>
-    </Container>
-  );
-};
+//       <Card>
+//         <VictoryChart
+//           containerComponent={
+//             <VictoryVoronoiContainer
+//               //   labels={getTooltipText}
+//               voronoiDimension="x"
+//               labelComponent={
+//                 <VictoryTooltip
+//                   constrainToVisibleArea
+//                   style={{
+//                     fill: LIGHT_GREY,
+//                     fontSize: 11,
+//                   }}
+//                   flyoutStyle={{
+//                     fill: "#24232a",
+//                     stroke: PRIMARY_COLOR,
+//                     strokeWidth: 0.5,
+//                   }}
+//                 />
+//               }
+//             />
+//           }
+//           height={280}
+//         >
+//           <VictoryLabel
+//             // text={`3pt Attempts Per Game Averages (${yearToSeason(year)})`}
+//             x={225}
+//             y={18}
+//             textAnchor="middle"
+//             style={{ fill: LIGHT_GREY, fontSize: 16 }}
+//           />
+//           <VictoryAxis
+//             style={{
+//               ...sharedAxisStyles,
+//               grid: {
+//                 fill: LIGHT_GREY,
+//                 stroke: LIGHT_GREY,
+//                 pointerEvents: "painted",
+//                 strokeWidth: 0.5,
+//               },
+//             }}
+//             label="# of players"
+//             dependentAxis
+//           />
+//           <VictoryAxis
+//             style={{
+//               ...sharedAxisStyles,
+//               axisLabel: { ...sharedAxisStyles.axisLabel, padding: 35 },
+//             }}
+//             label="3pt attempts per game"
+//           />
+//           <VictoryHistogram
+//             cornerRadius={2}
+//             domain={{ y: [0, 125] }}
+//             animate={{ duration: 300 }}
+//             data={basketballData[1990]}
+//             bins={_.range(0, 16, 2)}
+//             style={{
+//               data: {
+//                 stroke: "transparent",
+//                 fill: "url(#gradient1)",
+//                 strokeWidth: 1,
+//               },
+//               labels: {
+//                 fill: "red",
+//               },
+//             }}
+//             x="3pa"
+//           />
+//         </VictoryChart>
 
-const SliderContainer = styled.div`
-  padding: 64px 25px 10px;
+//         <YearSlider year={year} setYear={setYear} />
+//       </Card>
+//     </Container>
+//   );
+// };
 
-  // when rendered in the gallery preview
-  a & {
-    padding: 24px 36px 0px;
-  }
-`;
+// const SliderContainer = styled.div`
+//   padding: 64px 25px 10px;
 
-const getYear = (percent) =>
-  Math.round(FIRST_YEAR + TOTAL_YEARS * (percent / 100));
+//   // when rendered in the gallery preview
+//   a & {
+//     padding: 24px 36px 0px;
+//   }
+// `;
 
-const SEASONS = YEARS.map((year) => yearToSeason(year));
+// const getYear = (percent) =>
+//   Math.round(FIRST_YEAR + TOTAL_YEARS * (percent / 100));
 
-const YearSlider = ({ year, setYear }) => {
-  const [value, setValue] = React.useState(0);
+// const SEASONS = YEARS.map((year) => yearToSeason(year));
 
-  return (
-    <SliderContainer>
-      <Slider
-        onChange={(newValue) => {
-          setValue(newValue);
-          const calculatedYear = getYear(newValue);
+// const YearSlider = ({ year, setYear }) => {
+//   const [value, setValue] = React.useState(0);
 
-          if (year !== calculatedYear) {
-            setYear(calculatedYear);
-          }
-        }}
-        color={PRIMARY_COLOR}
-        value={value}
-        maxValue={100}
-        tooltipValues={SEASONS}
-      />
-    </SliderContainer>
-  );
-};
+//   return (
+//     <SliderContainer>
+//       <Slider
+//         onChange={(newValue) => {
+//           setValue(newValue);
+//           const calculatedYear = getYear(newValue);
 
-export default Histogram;
+//           if (year !== calculatedYear) {
+//             setYear(calculatedYear);
+//           }
+//         }}
+//         color={PRIMARY_COLOR}
+//         value={value}
+//         maxValue={100}
+//         tooltipValues={SEASONS}
+//       />
+//     </SliderContainer>
+//   );
+// };
+
+// export default Histogram;
