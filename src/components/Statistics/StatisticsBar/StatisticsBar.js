@@ -165,10 +165,11 @@ const useStyles = makeStyles((theme) => ({
 
 //   /api/stat/distribution/above/:salary	get	특정 급여 이상의 부서별 인원 분포
 // /api/stat/distribution/below/:salary	get	특정 급여 이하의 부서별 인원 분포
+// --> 도넛형
 // /api/stat/distribution/dept/salary	get	각 부서내 10000간격의 급여별 인원 분포
-// -> 파이형 or 도넛형 그래프 7개
+// --> 히스토그램
 // /api/stat/distribution/emp/salary	get	10000간격의 급여별 전 직원 인원 분포
-// -> 파이형 or 도넛형 그래프 1개 큰것
+// -> 히스토그램
 
 // 탭 : 연봉통계자료 > 조직별 통계> 전체/부서
 //                    급여별 통계> track
