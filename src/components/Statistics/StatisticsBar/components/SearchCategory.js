@@ -65,9 +65,9 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const SearchOption = memo((props) => {
+const SearchCategory = memo((props) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { selected, handleOptionClick } = props;
+  const { searchCategory, handleCategoryClick } = props;
   const classes = useStyles();
 
   const handleClick = (event) => {
@@ -92,7 +92,7 @@ const SearchOption = memo((props) => {
         </ListItemIcon>
         <ListItemText
           className={classes.title_listItemText}
-          primary={selected ? selected : "기준"}
+          primary={searchCategory ? searchCategory : "통계"}
         />
       </Button>
       <StyledMenu
@@ -105,33 +105,24 @@ const SearchOption = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("기준");
+            handleCategoryClick("통계");
             handleClose();
           }}
         >
-          <ListItemText className={classes.menu_listItemText} primary="기준" />
+          <ListItemText className={classes.menu_listItemText} primary="통계" />
         </StyledMenuItem>
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("조직");
+            handleCategoryClick("연봉");
             handleClose();
           }}
         >
-          <ListItemText className={classes.menu_listItemText} primary="조직" />
-        </StyledMenuItem>
-        <StyledMenuItem
-          className={classes.menu_container}
-          onClick={() => {
-            handleOptionClick("급여");
-            handleClose();
-          }}
-        >
-          <ListItemText className={classes.menu_listItemText} primary="급여" />
+          <ListItemText className={classes.menu_listItemText} primary="연봉" />
         </StyledMenuItem>
       </StyledMenu>
     </div>
   );
 });
 
-export default SearchOption;
+export default SearchCategory;

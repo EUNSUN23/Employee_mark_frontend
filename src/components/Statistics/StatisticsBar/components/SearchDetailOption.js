@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "35ch",
+      width: "25ch",
     },
     height: "35px",
   },
@@ -31,6 +31,14 @@ const useStyles = makeStyles(() => ({
   title_listItemText: {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+  menu_container: {
+    position: "relative",
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
@@ -63,9 +71,9 @@ const StyledMenuItem = withStyles((theme) => ({
   root: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "30ch",
-    [theme.breakpoints.only("sm")]: {
-      width: "40ch",
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
     },
     height: "30px",
     "&:focus": {
@@ -80,7 +88,7 @@ const StyledMenuItem = withStyles((theme) => ({
 const SearchDetailOption = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [detailTitle, setDetailTitle] = useState(null);
-  const { handleSearchDetail, searchDetail, searchOption } = props;
+  const { handleSearchDetail } = props;
   const classes = useStyles();
 
   const handleClick = (event) => {
@@ -92,9 +100,22 @@ const SearchDetailOption = (props) => {
   };
 
   const optionClickHandler = (type) => {
-    type === "emp" ? setDetailTitle("전체") : setDetailTitle("부서");
-    handleSearchDetail({ type: type, salary: "default" });
-    handleClose();
+    switch (type) {
+      case "emp":
+        handleSearchDetail({ type: type, salary: "default" });
+        handleClose();
+        return setDetailTitle("전체");
+      case "dept":
+        handleSearchDetail({ type: type, salary: "default" });
+        handleClose();
+        return setDetailTitle("부서");
+      case "default":
+        handleSearchDetail({ type: type, salary: "default" });
+        handleClose();
+        return setDetailTitle("범위");
+      default:
+        return;
+    }
   };
 
   return (
@@ -111,7 +132,7 @@ const SearchDetailOption = (props) => {
           <ArrowDropDownIcon fontSize="large" />
         </ListItemIcon>
         <ListItemText
-          primary={detailTitle ? detailTitle : "전체"}
+          primary={detailTitle ? detailTitle : "범위"}
           className={classes.title_listItemText}
         />
       </Button>
@@ -121,7 +142,15 @@ const SearchDetailOption = (props) => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        className={classes.menu_container}
       >
+        <StyledMenuItem
+          onClick={() => {
+            optionClickHandler("default");
+          }}
+        >
+          <ListItemText primary="범위" />
+        </StyledMenuItem>
         <StyledMenuItem
           onClick={() => {
             optionClickHandler("emp");

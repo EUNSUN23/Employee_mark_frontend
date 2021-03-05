@@ -10,14 +10,13 @@ import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import { KeywordsProvider } from "../SearchBar/context/KeywordsContext";
 
-const Board = (props) => {
+const Board = () => {
   const [employeeData, setEmployeeData] = useState(null);
   const [scrollToTop, setScrollToTop] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [isNextLoading, setIsNextLoading] = useState(false);
   const [dialog, openDialog, closeDialog] = useDialog(false);
   const [page, setPage, initPage] = usePage(1);
-  const { location, initSearchBar } = props;
   const viewport = useRef(null);
   //기본 직원정보 : 이름, 부서, 직급, 퇴사여부
 
@@ -86,16 +85,12 @@ const Board = (props) => {
   };
 
   useEffect(() => {
-    if (scrollToTop === null) {
-      console.log("initSearchBar");
-      initSearchBar();
-    }
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrollToTop, initSearchBar]);
+  }, [scrollToTop]);
 
   const onSearchHandler = useCallback((data) => {
     if (data.value) {
@@ -145,7 +140,7 @@ const Board = (props) => {
   return (
     <>
       <KeywordsProvider>
-        <SearchBar location={location} onSubmitHandler={onSearchHandler} />
+        <SearchBar onSubmitHandler={onSearchHandler} />
       </KeywordsProvider>
       {board}
     </>

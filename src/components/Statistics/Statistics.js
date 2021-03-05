@@ -11,7 +11,6 @@ const Statistics = (props) => {
   const [dialog, openDialog, closeDialog] = useDialog(false);
   const [isLoading, setIsLoading] = useState(null);
   const [data, setData] = useState(null);
-  const { location, initSearchBar } = props;
 
   //   /api/stat/distribution/above/:salary	get	특정 급여 이상의 부서별 인원 분포
   // /api/stat/distribution/below/:salary	get	특정 급여 이하의 부서별 인원 분포
@@ -22,11 +21,6 @@ const Statistics = (props) => {
 
   // 탭 : 연봉통계자료 > 조직별 통계> 전체/부서
   //                    급여별 통계> track
-
-  useEffect(() => {
-    console.log("initSearchBar");
-    initSearchBar();
-  }, [location]);
 
   const getStatisticsData = async (dataType) => {
     let res;

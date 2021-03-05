@@ -1,4 +1,4 @@
-import React, { useState, memo, useEffect, useCallback } from "react";
+import React, { useState, memo } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -10,110 +10,54 @@ import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import HomeIcon from "@material-ui/icons/Home";
 import Button from "@material-ui/core/Button";
-import AssessmentIcon from "@material-ui/icons/Assessment";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import { Grid } from "@material-ui/core";
 import SearchOption from "./components/SearchOption";
 import SearchDetailOption from "./components/SearchDetailOption";
+import SearchCategory from "./components/SearchCategory";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
     display: "flex",
     flexDirection: "row",
-    gap: "15px",
   },
 
   home: {
-    position: "relative",
     cursor: "pointer",
     width: 80,
     height: 30,
-    flex: "1fr",
-    border: "none",
-    justifyContent: "space-between",
-    "& span": {
-      position: "absolute",
-      right: 2,
-      top: "50%",
-      transform: "translateY(-50%)",
-    },
+
     "& .icon_home": {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      width: 29,
-      height: 29,
+      width: 28,
+      height: 28,
     },
   },
   home_hover: {
-    position: "relative",
-    cursor: "pointer",
-    width: 80,
-    height: 30,
-    flex: "1fr",
-    justifyContent: "space-between",
     "& span": {
-      position: "absolute",
-      right: 2,
-      top: "50%",
-      transform: "translateY(-50%)",
+      fontWeight: "bold",
     },
     "& .icon_home": {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      width: 29,
-      height: 29,
-      border: "none",
+      width: 30,
+      height: 30,
     },
-    borderBottom: "2px solid white",
   },
   statistics: {
-    position: "relative",
     cursor: "pointer",
-    flex: "2fr",
     width: 100,
     height: 30,
-    border: "none",
-    boxSizing: "content-box",
-    justifyContent: "space-between",
-    "& span": {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      right: 0,
-    },
     "& .icon_statistics": {
-      top: "50%",
-      transform: "translateY(-50%)",
-      position: "absolute",
       width: 28,
       height: 28,
     },
   },
   statistics_hover: {
-    position: "relative",
-    cursor: "pointer",
-    flex: "2fr",
-    width: 100,
-    height: 30,
-    boxSizing: "content-box",
-    justifyContent: "space-between",
     "& span": {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      right: 0,
+      fontWeight: "bold",
     },
     "& .icon_statistics": {
-      top: "50%",
-      transform: "translateY(-50%)",
-      position: "absolute",
-      width: 28,
-      height: 28,
-      border: "none",
+      width: 30,
+      height: 30,
     },
-    borderBottom: "2px solid white",
   },
   grow: {
     flexGrow: 1,
@@ -123,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     display: "block",
-    fontSize: 20,
+    fontSize: 23,
 
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -138,38 +82,16 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
   },
   searchContainer: {
-    position: "relative",
-    width: "130%",
-    transform: "translateX(5%)",
+    width: "100%",
     [theme.breakpoints.only("sm")]: {
       width: "150%",
-      transform: "translateX(-5%)",
     },
     [theme.breakpoints.only("xs")]: {
       width: "110%",
-      transform: "translateX(-5%)",
     },
   },
-  searchOption: {
-    position: "relative",
-    [theme.breakpoints.down("md")]: {
-      transform: "translateX(20%)",
-    },
-  },
-  searchButton: {
-    position: "relative",
-    transform: "translateX(-140%)",
-    [theme.breakpoints.only("sm")]: {
-      transform: "translateX(5%)",
-    },
-    [theme.breakpoints.only("xs")]: {
-      transform: "translateX(40%)",
-    },
-  },
+
   submit: {
-    position: "absolute",
-    top: "50%",
-    transform: "translate(-50%,-50%)",
     color: "white",
   },
   search_track: {
@@ -222,12 +144,8 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionDesktop: {
     display: "none",
-    position: "absolute",
-    top: "50%",
-    transform: "translateY(-50%)",
-    paddingLeft: 70,
     [theme.breakpoints.up("md")]: {
-      display: "flex",
+      display: "block",
     },
   },
   sectionMobile: {
@@ -236,7 +154,7 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     right: 0,
     transform: "translate(-50%,-50%)",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
       transform: "translate(-25%,-50%)",
     },
     [theme.breakpoints.up("md")]: {
@@ -259,17 +177,18 @@ const useStyles = makeStyles((theme) => ({
 // category = "조직별 통계", "급여별 통계"
 // searchDetail = (카테고리:조직별)"전체"(/api/stat/distribution/emp/salary), "부서"(/api/stat/distribution/dept/salary) // (카테고리:급여별) - track컴포넌트
 
-const SearchBar = memo((props) => {
+const StatisticsBar = memo((props) => {
   const classes = useStyles();
-  const { location, onSubmitHandler } = props;
+  const { onSubmitHandler } = props;
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
-  const [searchOption, setSearchOption] = useState("조직별 통계");
+  const [searchOption, setSearchOption] = useState(null);
   const [searchDetail, setSearchDetail] = useState(null);
+  const [searchCategory, setSearchCategory] = useState(null);
 
   const submitData = (e) => {
     e.preventDefault();
-    if (searchOption === "조직별 통계") {
+    if (searchOption === "조직") {
       onSubmitHandler(searchDetail); // Statistics 페이지에서 props로 오는 함수
     } else {
       return;
@@ -295,18 +214,22 @@ const SearchBar = memo((props) => {
       case "desktop":
         return (
           <>
-            <PeopleAltIcon
-              className={
-                hover === "statistics"
-                  ? `${classes.statistics_hover} icon_statistics`
-                  : `${classes.statistics} icon_statistics`
-              }
-            />
-            <Typography component="span" noWrap>
-              <Link to="/board" className={classes.link}>
-                직원 검색
-              </Link>
-            </Typography>
+            <Grid item>
+              <PeopleAltIcon
+                className={
+                  hover === "statistics"
+                    ? `${classes.statistics_hover} icon_statistics`
+                    : `${classes.statistics} icon_statistics`
+                }
+              />
+            </Grid>
+            <Grid item>
+              <Typography component="span" noWrap>
+                <Link to="/board" className={classes.link}>
+                  직원 검색
+                </Link>
+              </Typography>
+            </Grid>
           </>
         );
       case "mobile":
@@ -323,6 +246,10 @@ const SearchBar = memo((props) => {
   };
 
   const mobileMenuId = "search-employee-menu-mobile";
+
+  const handleCategoryClick = (selected) => {
+    setSearchCategory(selected);
+  };
 
   const handleSearchDetail = (selected) => {
     setSearchDetail(selected);
@@ -381,17 +308,24 @@ const SearchBar = memo((props) => {
                 <Grid
                   container
                   direction="row"
+                  alignItems="center"
+                  justify="center"
+                  spacing={3}
                   className={classes.searchContainer}
                 >
-                  <Grid item xs={2} className={classes.searchOption}>
-                    {" "}
+                  <Grid item>
+                    <SearchCategory
+                      searchCategory={searchCategory}
+                      handleCategoryClick={handleCategoryClick}
+                    />
+                  </Grid>
+                  <Grid MenuItem>
                     <SearchOption
                       selected={searchOption}
                       handleOptionClick={handleOptionClick}
                     />
                   </Grid>
-                  <Grid item xs={8} className={classes.searchInputContainer}>
-                    {" "}
+                  <Grid item>
                     <SearchDetailOption
                       searchOption={searchOption}
                       searchDetail={searchDetail}
@@ -399,7 +333,7 @@ const SearchBar = memo((props) => {
                       classes={classes}
                     />
                   </Grid>
-                  <Grid item xs={2} className={classes.searchButton}>
+                  <Grid item>
                     <Button
                       variant="contained"
                       color="secondary"
@@ -414,31 +348,51 @@ const SearchBar = memo((props) => {
                 </Grid>
               </form>
             </Grid>
-            <Grid item xs={2} sm={2} md={3} className={classes.navContainer}>
-              <div className={classes.grow} />
-              <div className={classes.sectionDesktop}>
-                <div className={classes.menu}>
-                  <div
+            <Grid item container xs={2} sm={2} md={3}>
+              {/* <Grid item xs={1} style={{ border: "1px solid red" }} /> */}
+              <Grid item container className={classes.sectionDesktop}>
+                <Grid
+                  item
+                  container
+                  className={classes.menu}
+                  alignItems="center"
+                  justify="flex-end"
+                >
+                  <Grid
+                    item
+                    xs={5}
+                    container
+                    alignItems="center"
+                    justify="center"
                     className={
                       hover === "home" ? classes.home_hover : classes.home
                     }
                     onMouseEnter={() => setIndicator("home")}
                     onMouseLeave={() => setIndicator(null)}
                   >
-                    <HomeIcon
-                      className={
-                        hover === "home"
-                          ? `${classes.home_hover} icon_home`
-                          : `${classes.home} icon_home`
-                      }
-                    />
-                    <Typography component="span" noWrap>
-                      <Link to="/" className={classes.link}>
-                        홈으로
-                      </Link>
-                    </Typography>
-                  </div>
-                  <div
+                    <Grid item>
+                      <HomeIcon
+                        className={
+                          hover === "home"
+                            ? `${classes.home_hover} icon_home`
+                            : `${classes.home} icon_home`
+                        }
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Typography component="span" noWrap>
+                        <Link to="/" className={classes.link}>
+                          홈으로
+                        </Link>
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    item
+                    container
+                    alignItems="center"
+                    justify="center"
+                    xs={5}
                     className={
                       hover === "statistics"
                         ? classes.statistics_hover
@@ -448,10 +402,10 @@ const SearchBar = memo((props) => {
                     onMouseLeave={() => setIndicator(null)}
                   >
                     {changeBarType("desktop")}
-                  </div>
-                </div>
-              </div>
-              <div className={classes.sectionMobile}>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item className={classes.sectionMobile}>
                 <IconButton
                   aria-label="show more"
                   aria-controls={mobileMenuId}
@@ -461,7 +415,7 @@ const SearchBar = memo((props) => {
                 >
                   <MoreIcon />
                 </IconButton>
-              </div>
+              </Grid>
             </Grid>
           </Grid>
         </Toolbar>
@@ -471,4 +425,4 @@ const SearchBar = memo((props) => {
   );
 });
 
-export default SearchBar;
+export default StatisticsBar;
