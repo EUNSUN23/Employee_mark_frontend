@@ -43,8 +43,10 @@ const Board = () => {
           : `http://localhost:3008/api/emp/${data.category}/${data.value}/${page_no}`;
       console.log(url);
       res = await axios.get(url);
+
       if (res.data.packet === null) {
         setLoader(false);
+
         return;
       } else {
         setLoader(false);

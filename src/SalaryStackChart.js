@@ -10,13 +10,7 @@ import {
 
 const SalaryStackChart = (props) => {
   const [chartData, setChartData] = useState();
-  const [maxCnt, setMaxCnt] = useState();
   const { data } = props;
-
-  useEffect(() => {
-    if (!data) return;
-    createChartData(data);
-  }, []);
 
   const createChartData = (resData) => {
     const arrangeData = (resData) => {
@@ -33,7 +27,7 @@ const SalaryStackChart = (props) => {
     };
 
     const arrangedData = arrangeData(resData);
-    let cntData = [];
+
     const sortedData = arrangedData.map((data, idx) => {
       const dataObj = new Set();
       const deptNameArr = data.map((data, idx) => {
@@ -43,98 +37,102 @@ const SalaryStackChart = (props) => {
       const dataCount = deptNameArr.length; //9,8,6..등
       for (let i = 0; i < dataCount; i++) {
         dataObj[deptNameArr[i]] = data[i].cnt;
-        cntData.push(data[i].cnt);
       }
 
       return dataObj;
     });
 
-    const max = cntData.sort((a, b) => a - b)[cntData.length - 1];
-
-    const ceiledMax = Math.ceil(max / 10000) * 10000;
-
-    setMaxCnt(ceiledMax);
     setChartData(sortedData);
   };
 
+  useEffect(() => {
+    if (!data) return;
+    createChartData(data);
+  }, []);
+
   return (
     <AreaChart
-      width={500}
-      height={400}
+      width={730}
+      height={250}
       data={chartData}
-      margin={{
-        top: 10,
-        right: 30,
-        left: 0,
-        bottom: 0,
-      }}
+      margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
     >
-      <CartesianGrid strokeDasharray="3 3" />
+      <defs>
+        <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+          <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+        </linearGradient>
+        <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+          <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+        </linearGradient>
+      </defs>
       <XAxis dataKey="name" />
-      {/* <YAxis type="number" domain={[0, "dataMax/5"]} /> */}
+      <YAxis />
+      <CartesianGrid strokeDasharray="3 3" />
       <Tooltip />
       <Area
         type="monotone"
         dataKey="Customer Service"
-        stackId="1"
-        stroke="#8884d8"
-        fill="#8884d8"
+        stroke="red"
+        fillOpacity={0.5}
+        fill="red"
       />
       <Area
         type="monotone"
         dataKey="Development"
-        stackId="1"
-        stroke="#82ca9d"
-        fill="#82ca9d"
+        stroke="orange"
+        fillOpacity={0.5}
+        fill="orange"
       />
       <Area
         type="monotone"
         dataKey="Finance"
-        stackId="1"
-        stroke="#ffc658"
-        fill="#ffc658"
+        stroke="salmon"
+        fillOpacity={0.5}
+        fill="salmon"
       />
       <Area
         type="monotone"
         dataKey="Human Resources"
-        stackId="1"
-        stroke="#ffc658"
-        fill="#ffc658"
+        stroke="green"
+        fillOpacity={0.5}
+        fill="green"
       />
       <Area
         type="monotone"
         dataKey="Marketing"
-        stackId="1"
-        stroke="#ffc658"
-        fill="#ffc658"
+        stroke="blue"
+        fillOpacity={0.5}
+        fill="blue"
       />
       <Area
         type="monotone"
         dataKey="Production"
-        stackId="1"
-        stroke="#ffc658"
-        fill="#ffc658"
+        stroke="navy"
+        fillOpacity={0.5}
+        fill="navy"
       />
       <Area
         type="monotone"
         dataKey="Quality Management"
-        stackId="1"
-        stroke="#ffc658"
-        fill="#ffc658"
-      />{" "}
+        stroke="purple"
+        fillOpacity={0.5}
+        fill="purple"
+      />
       <Area
         type="monotone"
         dataKey="Research"
-        stackId="1"
-        stroke="#ffc658"
-        fill="#ffc658"
-      />{" "}
+        stroke="skyblue"
+        fillOpacity={0.5}
+        fill="skyblue"
+      />
       <Area
         type="monotone"
         dataKey="Sales"
-        stackId="1"
-        stroke="#ffc658"
-        fill="#ffc658"
+        stroke="plum"
+        fillOpacity={0.5}
+        fill="plum"
       />
     </AreaChart>
   );
