@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Board from "./components/Board/Board";
 import Home from "./components/Home";
 import Statistics from "./components/Statistics/Statistics";
-import SalaryStackChart from "./SalaryStackChart";
 
 const App = () => {
   return (
