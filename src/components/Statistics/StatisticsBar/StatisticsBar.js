@@ -163,17 +163,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//   /api/stat/distribution/above/:salary	get	특정 급여 이상의 부서별 인원 분포
-// /api/stat/distribution/below/:salary	get	특정 급여 이하의 부서별 인원 분포
-// --> 도넛형
-// /api/stat/distribution/dept/salary	get	각 부서내 10000간격의 급여별 인원 분포
-// --> 히스토그램
-// /api/stat/distribution/emp/salary	get	10000간격의 급여별 전 직원 인원 분포
-// -> 히스토그램
-
-// 탭 : 연봉통계자료 > 조직별 통계> 전체/부서
-//                    급여별 통계> track
-
 // searchOption = "연봉통계"
 // category = "조직별 통계", "급여별 통계"
 // searchDetail = (카테고리:조직별)"전체"(/api/stat/distribution/emp/salary), "부서"(/api/stat/distribution/dept/salary) // (카테고리:급여별) - track컴포넌트
@@ -190,7 +179,8 @@ const StatisticsBar = memo((props) => {
   const submitData = (e) => {
     e.preventDefault();
     if (searchOption === "조직") {
-      onSubmitHandler(searchDetail); // Statistics 페이지에서 props로 오는 함수
+      console.log("submit Button click", searchOption);
+      onSubmitHandler(searchDetail); // Statistics 에서 props로 오는 함수
     } else {
       return;
     }

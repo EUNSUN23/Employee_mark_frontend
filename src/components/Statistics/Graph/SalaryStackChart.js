@@ -65,7 +65,6 @@ const SalaryStackChart = (props) => {
 
   useEffect(() => {
     if (!data) return;
-    console.log("SalaryStackChart____USE EFFECT", data);
     createChartData(data);
   }, [checked, data]);
 
@@ -131,8 +130,6 @@ const SalaryStackChart = (props) => {
     });
     return chart;
   };
-
-  console.log("CHECKED", checked, "ChartData", chartData);
 
   const content =
     checked.length > 0 && chartData ? (
