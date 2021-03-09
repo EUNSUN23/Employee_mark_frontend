@@ -9,15 +9,26 @@ import {
 } from "recharts";
 import ChartSelect from "./ChartSelect";
 import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  initText: {
+    fontSize: 60,
+    color: "#e8e8e8",
+    textAlign: "center",
+    lineHeight: "250px",
+    width: 650,
+    height: 250,
+    border: "1px solid #999999",
+    borderRadius: "2px",
+  },
+}));
 
 const SalaryStackChart = (props) => {
+  const classes = useStyles();
   const [chartData, setChartData] = useState();
-  const [checked, setChecked] = useState();
+  const [checked, setChecked] = useState(["Customer Service"]);
   const { data } = props;
-
-  const chartSelectHandler = (selected) => {
-    setChecked(selected);
-  };
 
   const createChartData = (resData) => {
     const arrangeData = (resData) => {
@@ -54,11 +65,77 @@ const SalaryStackChart = (props) => {
 
   useEffect(() => {
     if (!data) return;
+    console.log("SalaryStackChart____USE EFFECT", data);
     createChartData(data);
-  }, []);
+  }, [checked, data]);
 
-  return (
-    <Grid container>
+  const chartSelectHandler = (selected) => {
+    setChecked(selected);
+  };
+
+  const makeChart = () => {
+    console.log("MAKE CHART____", "checked", checked, "chartData", chartData);
+    if (checked.length === 0 || !chartData) return;
+    const setChartColor = (chartName) => {
+      console.log(chartName);
+      let chartColor;
+      switch (chartName) {
+        case "Customer Service":
+          chartColor = "red";
+          return chartColor;
+        case "Development":
+          chartColor = "orange";
+          return chartColor;
+        case "Finance":
+          chartColor = "salmon";
+          return chartColor;
+        case "Human Resources":
+          chartColor = "green";
+          return chartColor;
+        case "Marketing":
+          chartColor = "blue";
+          return chartColor;
+        case "Production":
+          chartColor = "skyblue";
+          return chartColor;
+        case "Quality Management":
+          chartColor = "purple";
+          return chartColor;
+        case "Research":
+          chartColor = "plum";
+          return chartColor;
+        case "Sales":
+          chartColor = "palegreen";
+          return chartColor;
+        default:
+          return;
+      }
+    };
+
+    let chart;
+
+    chart = checked.map((data, idx) => {
+      const color = setChartColor(data);
+      const chartName = data;
+      console.log("chartName", data, "color", color);
+      return (
+        <Area
+          key={chartName}
+          type="monotone"
+          dataKey={chartName}
+          stroke={color}
+          fillOpacity={0.5}
+          fill={color}
+        />
+      );
+    });
+    return chart;
+  };
+
+  console.log("CHECKED", checked, "ChartData", chartData);
+
+  const content =
+    checked.length > 0 && chartData ? (
       <Grid item>
         <AreaChart
           width={650}
@@ -77,75 +154,21 @@ const SalaryStackChart = (props) => {
             </linearGradient>
           </defs>
           <XAxis dataKey="name" />
-          <YAxis />
+          <YAxis type="number" domain={[0, 20000]} />
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
-          <Area
-            type="monotone"
-            dataKey="Customer Service"
-            stroke="red"
-            fillOpacity={0.5}
-            fill="red"
-          />
-          <Area
-            type="monotone"
-            dataKey="Development"
-            stroke="orange"
-            fillOpacity={0.5}
-            fill="orange"
-          />
-          <Area
-            type="monotone"
-            dataKey="Finance"
-            stroke="salmon"
-            fillOpacity={0.5}
-            fill="salmon"
-          />
-          <Area
-            type="monotone"
-            dataKey="Human Resources"
-            stroke="green"
-            fillOpacity={0.5}
-            fill="green"
-          />
-          <Area
-            type="monotone"
-            dataKey="Marketing"
-            stroke="blue"
-            fillOpacity={0.5}
-            fill="blue"
-          />
-          <Area
-            type="monotone"
-            dataKey="Production"
-            stroke="navy"
-            fillOpacity={0.5}
-            fill="navy"
-          />
-          <Area
-            type="monotone"
-            dataKey="Quality Management"
-            stroke="purple"
-            fillOpacity={0.5}
-            fill="purple"
-          />
-          <Area
-            type="monotone"
-            dataKey="Research"
-            stroke="skyblue"
-            fillOpacity={0.5}
-            fill="skyblue"
-          />
-          <Area
-            type="monotone"
-            dataKey="Sales"
-            stroke="plum"
-            fillOpacity={0.5}
-            fill="plum"
-          />
+          {makeChart()}
         </AreaChart>
       </Grid>
+    ) : (
+      <Grid item>
+        <div className={classes.initText}>부서를 선택하세요</div>
+      </Grid>
+    );
 
+  return (
+    <Grid container spacing={2} className={classes.chartContainer}>
+      {content}
       <Grid item>
         <ChartSelect onCheckHandler={chartSelectHandler} checked={checked} />
       </Grid>

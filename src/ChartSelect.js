@@ -41,19 +41,16 @@ const ChartSelect = (props) => {
   });
 
   const handleToggle = (value) => () => {
-    const currentIndex = checked ? checked.indexOf(value) : null;
-    const newChecked = checked ? [...checked] : null;
+    if (!checked) return;
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
 
-    if (currentIndex !== null) {
-      if (currentIndex === -1) {
-        newChecked.push(value);
-      } else {
-        newChecked.splice(currentIndex, 1);
-      }
-      onCheckHandler(newChecked);
+    if (currentIndex === -1) {
+      newChecked.push(value);
     } else {
-      onCheckHandler("Customer Service");
+      newChecked.splice(currentIndex, 1);
     }
+    onCheckHandler(newChecked);
   };
 
   const customList = (items) => (
@@ -61,7 +58,7 @@ const ChartSelect = (props) => {
       <List dense component="div" role="list">
         {items.map((value) => {
           const labelId = `transfer-list-item-${value}-label`;
-          const isChecked = checked ? checked.indexOf(value) !== -1 : false;
+          const isChecked = checked.indexOf(value) !== -1;
           return (
             <ListItem
               key={value}

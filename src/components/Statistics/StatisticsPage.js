@@ -1,17 +1,20 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { memo } from "react";
 import SalaryStackChart from "../../SalaryStackChart";
+import { Grid } from "@material-ui/core";
 
 const StatisticsPage = memo((props) => {
-  const [sth, setSth] = useState();
   const { data } = props;
 
   console.log("STATISTICS PAGE", data);
   console.log(data);
 
   return (
-    <>
-      <SalaryStackChart data={data} />
-    </>
+    <Grid container direction="column" spacing={5}>
+      <Grid item></Grid>
+      <Grid item>
+        <SalaryStackChart data={data} />
+      </Grid>
+    </Grid>
   );
 });
 
