@@ -48,3 +48,12 @@ main )
 
 - nav버튼
   :사원검색 / 통계 보기 / 로그인
+
+###21.03.09 화
+
+1. redux, redux-thunk 설치 & state관리
+
+2. 앞으로 추가할 것
+
+- Statistics > 조직 > 부서 검색결과 그래프 yAix label추가
+- 그래프 클릭 시 해당 그래프 ui변화

@@ -5,15 +5,40 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose, combineReducers } from "redux";
+import thunk from "redux-thunk";
+
+const composeEnhancers =
+  process.env.NODE_ENV === "development"
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : null || compose;
+
+const rootReducer = combineReducers({
+  burgerBuilder: burgerBuilderReducer,
+  orders: orderReducer,
+  auth: authReducer,
+});
+
+const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk))
+);
+
+const app = () => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </Provider>
+  );
+};
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  <React.StrictMode>{app}</React.StrictMode>,
   document.getElementById("root")
 );
 
