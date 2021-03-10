@@ -30,38 +30,50 @@ const fetchFail = (message) => {
     return {type:actionTypes.EMP_FETCH_FAIL, message:message}
 }
 
+export const searchByName = (name,page) => {
+  return {type:actionTypes.EMP_SEARCH_NAME, payload:name, page:page};
+}
+
+export const searchByCategory = (category,page) => {
+  return {type:actionTypes.EMP_SEARCH_CATEGORY, payload:category, page:page};
+}
+
 
 const getEmployeeData = async (url, intersecting) => {
-return (dispatch) =>{
-    let res;
-    try {
-        dispatch(fetchEmployeeData(intersecting));
-        console.log(url);
-        res = await axios.get(url);
-        if (!res.data.packet) return;
-        if(intersecting !== "noPage"){
-          intersecting ? dispatch(addPage()):dispatch(initBoard());
+  return (dispatch) =>{
+      let res;
+      try {
+          dispatch(fetchEmployeeData(intersecting));
+          console.log(url);
+          res = await axios.get(url);
+          if (!res.data.packet) return;
+          if(intersecting !== "noPage"){
+            intersecting ? dispatch(addPage()):dispatch(initBoard());
+          }
+          dispatch(setEmployeeData(res.data.packet, intersecting));
+        } catch (err) {
+          console.log("catch error", err.response.status);
+          dispatch(fetchFail(err.response.status));
         }
-        dispatch(setEmployeeData(res.data.packet, intersecting));
-      } catch (err) {
-        console.log("catch error", err.response.status);
-        dispatch(fetchFail(err.response.status));
-      }
-};}
+  };}
 
-export const getEmpByName = (action) => {
-  const intersecting = action.isIntersected === "intersected";
-  const page_no = intersecting ? action.page + 1 : action.page;
-  const url = `http://localhost:3008/api/emp/${action.value}/${page_no}`;
- getEmployeeData(url, intersecting);
-};
 
-export const getEmpByCategory = (action) => {
-  const intersecting = action.isIntersected === "intersected";
-  const page_no = intersecting ? action.page + 1 : action.page;
-  const url = `http://localhost:3008/api/emp/${data.category}/${data.value}/${page_no}`;
-  getEmployeeData(url, intersecting);
-};
+//utility에 들어갈 함수 호출하는 함수
+
+  
+  export const getEmpByName = (action) => {
+    const intersecting = action.isIntersected === "intersected";
+    const page_no = intersecting ? action.page + 1 : action.page;
+    const url = `http://localhost:3008/api/emp/${action.payload}/${page_no}`;
+   getEmployeeData(url, intersecting);
+  };
+  
+  export const getEmpByCategory = (action) => {
+    const intersecting = action.isIntersected === "intersected";
+    const page_no = intersecting ? action.page + 1 : action.page;
+    const url = `http://localhost:3008/api/emp/${action.payload.category}/${action.payload.value}/${page_no}`;
+    getEmployeeData(url, intersecting);
+  };
 
 const initCategory = (data) => {
   return {type:actionTypes.EMP_INIT_CATEGORY, category:data}
