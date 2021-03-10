@@ -1,10 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
-// const initBoard = useCallback(() => {
-//     setEmployeeData(null);
-//     initPage();
-//   }, []);
 
 export const updateObject = (oldObject, updatedProperties) => {
   return {
@@ -18,13 +14,12 @@ const setEmployeeData = (data, intersecting) => {
  
 }
 
-const fetchEmployeeData = (intersecting) =>{
- // loading true로 
+export const fetchEmployeeData = (intersecting) =>{
     return {type:actionTypes.EMP_FETCH_START, intersecting:intersecting};
 }
 
-const setPage = () => {
-    return {type:actionTypes.EMP_SET_PAGE}
+const addPage = () => {
+    return {type:actionTypes.EMP_ADD_PAGE}
 }
 
 const initBoard = () => {
@@ -33,13 +28,10 @@ const initBoard = () => {
 
 const fetchFail = (message) => {
     return {type:actionTypes.EMP_FETCH_FAIL, message:message}
-    //openDialog(err.response.status);
-    //loading false
 }
 
+
 const getEmployeeData = async (url, intersecting) => {
- 
-  //데이터 받아오기
 return (dispatch) =>{
     let res;
     try {
@@ -47,18 +39,17 @@ return (dispatch) =>{
         console.log(url);
         res = await axios.get(url);
         if (!res.data.packet) return;
-        intersecting ? dispatch(setPage()):dispatch(initBoard());
+        if(intersecting !== "noPage"){
+          intersecting ? dispatch(addPage()):dispatch(initBoard());
+        }
         dispatch(setEmployeeData(res.data.packet, intersecting));
       } catch (err) {
         console.log("catch error", err.response.status);
         dispatch(fetchFail(err.response.status));
       }
-}
-  
-};
+};}
 
 export const getEmpByName = (action) => {
-  //action = {page:{page:1} 혹은 숫자, isIntersected: "intersected"/"unintersected"}
   const intersecting = action.isIntersected === "intersected";
   const page_no = intersecting ? action.page + 1 : action.page;
   const url = `http://localhost:3008/api/emp/${action.value}/${page_no}`;
@@ -72,4 +63,36 @@ export const getEmpByCategory = (action) => {
   getEmployeeData(url, intersecting);
 };
 
-export const initEmp = () => {};
+const initCategory = (data) => {
+  return {type:actionTypes.EMP_INIT_CATEGORY, category:data}
+}
+
+const getDeptAPI = async () => {
+  const deptRes = await axios.get("http://localhost:3008/api/dept");
+  return deptRes.data.packet;
+}
+
+const getTitleAPI = async()=>{
+  const titleRes = await axios.get("http://localhost:3008/api/title");
+  return titleRes.data.packet;
+}
+
+export const getEmployeeAPI = async () => {
+  return Promise.all([getDeptAPI, getTitleAPI]).then((res)=>{return {dept:res[0], title:res[1]}})
+}
+
+export const setCategory = async () => {
+return (dispatch) => {
+  let category;
+  try{
+    const res = await getEmployeeAPI();
+    const dept = res.dept.map((obj)=>{return obj.dept_name}).unshift("dept");
+    const title = res.title.map((obj)=>{return obj.title}).unshift("title");
+    category = {dept:dept, title:title};
+    console.log("CATEGORY", category);
+    dispatch(initCategory(category));
+  }catch(err){
+    console.log(err);
+  }
+};}
+
