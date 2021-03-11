@@ -1,15 +1,20 @@
 import * as actionTypes from "../actions/actionTypes";
+import {
+  initKeywords,
+  addKeywords,
+  deleteKeywords,
+} from "../../shared/utility";
 
 const initState = ["recent keyword"];
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.KEYWORDS_INIT:
-    //initKeywords(state);
+      return initKeywords(state);
     case actionTypes.KEYWORDS_ADD:
-    //addKeywords(state, action);
+      return addKeywords(state, action.category, action.keyword);
     case actionTypes.KEYWORDS_DELETE:
-    //deleteKeywords(state,action);
+      return deleteKeywords(state, action.identifier);
     default:
       return state;
   }

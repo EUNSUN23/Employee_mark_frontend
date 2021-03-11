@@ -1,14 +1,5 @@
-import React, {
-  useState,
-  memo,
-  useContext,
-  useEffect,
-  useCallback,
-} from "react";
-import {
-  KeywordsStateContext,
-  KeywordsDispatchContext,
-} from "./context/KeywordsContext";
+import React, { useState, memo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -21,13 +12,13 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import HomeIcon from "@material-ui/icons/Home";
 import Button from "@material-ui/core/Button";
 import AssessmentIcon from "@material-ui/icons/Assessment";
-import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import SearchMenu from "./components/SearchMenu";
 import SearchInput from "./components/SearchInput";
-import useInput from "../../hooks/useInput";
-import useCategory from "../../hooks/useCategory";
-import axios from "axios";
 import { Grid } from "@material-ui/core";
+import { initKeywords, addKeywords } from "../../store/actions/keywords";
+import { searchByName, searchByCategory } from "../../store/actions/searchEMP";
+import { isValid } from "../../shared/utility";
+import useInput from "../../hooks/useInput";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -267,68 +258,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchBar = memo((props) => {
+const SearchBar = memo(() => {
   const classes = useStyles();
-  const { location, onSubmitHandler } = props;
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
   const [searchOption, setSearchOption] = useState("이름검색");
   const [searchDetail, setSearchDetail] = useState(null);
-  const [category, setCategory] = useCategory(null);
-  const [name, setName] = useInput("");
   const [openKeywords, setOpenKeywords] = useState(false);
-  const keywords = useContext(KeywordsStateContext);
-  const dispatch = useContext(KeywordsDispatchContext);
-
-  const initLocalStorage = useCallback(() => {
-    dispatch({ type: "init" });
-  }, [dispatch]);
+  const [name, setName] = useInput("");
+  const dispatch = useDispatch();
+  const keywords = useSelector((state) => state.keywords);
 
   useEffect(() => {
-    if (keywords.length === 1) initLocalStorage();
+    if (keywords.length === 1) dispatch(initKeywords());
   }, []);
-
-  const getCategory = async (type) => {
-    let res;
-    let optionList;
-
-    try {
-      const url = `http://localhost:3008/api/${type}`;
-      res = await axios.get(url);
-      optionList =
-        type === "dept"
-          ? res.data.packet.map((obj) => {
-              return obj.dept_name;
-            })
-          : res.data.packet.map((obj) => {
-              return obj.title;
-            });
-
-      optionList.unshift(type);
-      setCategory(type, optionList);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const submitData = (e) => {
     e.preventDefault();
-    let data;
     if (searchOption === "이름검색") {
-      dispatch({ type: "add", category: "name", keyword: name });
-      data = { category: "name", value: name };
-      onSubmitHandler(data);
+      isValid(name);
+      dispatch(addKeywords("name", name));
+      dispatch(searchByName(name, page, "onSubmit"));
     } else {
-      dispatch({
-        type: "add",
-        category: searchDetail.category,
-        keyword: searchDetail.value,
-      });
-      data = {
+      isValid(selected.value);
+      dispatch(addKeywords(searchDetail.category, searchDetail.value));
+      const selected = {
         category: searchDetail.category,
         value: searchDetail.value,
       };
-      onSubmitHandler(data);
+      dispatch(searchByCategory(selected, page, "onSubmit"));
     }
   };
 

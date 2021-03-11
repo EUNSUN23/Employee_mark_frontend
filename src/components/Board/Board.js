@@ -1,24 +1,37 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Grid } from "@material-ui/core";
 import SearchBar from "../SearchBar/SearchBar";
 import CardContainer from "./EmployeeCard/Card/CardContainer";
 import ScrollToTop from "../UI/ScrollToTop";
-import axios from "axios";
-import usePage from "../../hooks/usePage";
 import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
-import { KeywordsProvider } from "../SearchBar/context/KeywordsContext";
 
 const Board = () => {
-  const [employeeData, setEmployeeData] = useState(null);
   const [scrollToTop, setScrollToTop] = useState(null);
-  const [isLoading, setIsLoading] = useState(null);
-  const [isNextLoading, setIsNextLoading] = useState(false);
   const [dialog, openDialog, closeDialog] = useDialog(false);
-  const [page, setPage, initPage] = usePage(1);
   const viewport = useRef(null);
-  //기본 직원정보 : 이름, 부서, 직급, 퇴사여부
+
+  const dispatch = useDispatch();
+
+  // employeeData: null,
+  // searchCategory: null,
+  // loading: false,
+  // nextLoading: false,
+  // errorMs: null,
+  // page: 1,
+  const employeeData = useSelector((state) => state.searchEMP.employeeData);
+
+  const isLoading = useSelector((state) => state.searchEMP.loading);
+
+  const isNextLoading = useSelector((state) => state.searchEMP.nextLoading);
+
+  const message = useSelector((state) => state.searchEMP.errorMs);
+
+  const page = useSelector((state) => state.searchEMP.page);
+
+  const category = useSelector((state) => state.searchEMP.searchCategory);
 
   const handleScroll = (e) => {
     const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
@@ -35,15 +48,6 @@ const Board = () => {
     };
   }, [scrollToTop]);
 
-  const onSearchHandler = useCallback((data) => {
-    if (data.value) {
-      localStorage.setItem("CURRENT_KEY", JSON.stringify(data));
-      getEmployeeData(data, page.defaultPage, "unIntersected");
-    } else {
-      window.alert("검색어를 입력하세요");
-    }
-  }, []);
-
   const handleOnScrollBtn = useCallback(() => {
     setScrollToTop(false);
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -53,11 +57,7 @@ const Board = () => {
     <Loader size="large" />
   ) : (
     <Grid container direction="column" spacing={10}>
-      <Modal
-        open={dialog.open}
-        message={dialog.message}
-        handleClose={closeDialog}
-      />
+      <Modal open={message} message={message} handleClose={closeDialog} />
 
       <Grid item></Grid>
       <Grid item container ref={viewport}>
@@ -82,9 +82,7 @@ const Board = () => {
 
   return (
     <>
-      <KeywordsProvider>
-        <SearchBar onSubmitHandler={onSearchHandler} />
-      </KeywordsProvider>
+      <SearchBar />
       {board}
     </>
   );

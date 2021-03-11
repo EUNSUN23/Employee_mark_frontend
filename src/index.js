@@ -8,6 +8,8 @@ import theme from "./theme";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
+import keywords from "./store/reducers/keywords";
+import searchEMP from "./store/reducers/searchEMP";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -15,9 +17,8 @@ const composeEnhancers =
     : null || compose;
 
 const rootReducer = combineReducers({
-  burgerBuilder: burgerBuilderReducer,
-  orders: orderReducer,
-  auth: authReducer,
+  keywords: keywords,
+  searchEMP: searchEMP,
 });
 
 const store = createStore(

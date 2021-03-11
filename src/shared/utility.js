@@ -1,3 +1,5 @@
+// <-- board -->
+
 export const updateObject = (oldObject, updatedProperties) => {
   return {
     ...oldObject,
@@ -56,4 +58,70 @@ export const initBoard = (state) => {
 export const initCategory = (state, data) => {
   const updatedCategory = { searchCategory: data };
   return updateObject(state, updatedCategory);
+};
+
+export const isValid = (data) => {
+  if (!data) {
+    window.alert("검색어를 입력하세요");
+    return;
+  }
+};
+
+// <-- keywords -->
+
+const saveCurrent = (data) => {
+  localStorage.setItem("CURRENT_KEY", JSON.stringify(data));
+};
+
+const getCurrent = () => {
+  const current = JSON.parse(localStorage.getItem("CURRENT_KEY"));
+  return current;
+};
+
+const getKeywords = () => {
+  return JSON.parse(localStorage.getItem("RECENT"));
+};
+
+const setKeywords = (data) => {
+  return localStorage.setItem("RECENT", JSON.stringify(data));
+};
+
+export const initKeywords = (state) => {
+  const storage = getKeywords();
+  if (!storage || state.length !== 1) return;
+  const initializedState = state.concat(storage);
+  return initializedState;
+};
+
+export const addKeywords = (state, action) => {
+  const storage = getKeywords();
+  const newKeyword = {
+    category: action.category,
+    index: Date.now(),
+    value: action.keyword,
+  };
+  const addedState = state.concat(newKeyword);
+  if (storage === null) {
+    setKeywords(addedState.slice());
+  } else {
+    const addedStorage = storage.slice();
+    addedStorage.push(newKeyword);
+    setKeywords(addedStorage);
+  }
+
+  return addedState;
+};
+
+export const deleteKeywords = (state, action) => {
+  const storage = getKeywords();
+  console.log("DELETE", action.identifier);
+  const deletedState = state.filter((el, idx) => {
+    return el.index !== action.identifier;
+  });
+  console.log("deletedState", deletedState);
+  const deletedStorage = storage.filter((el, idx) => {
+    return el.index !== action.identifier;
+  });
+  setKeywords(deletedStorage);
+  return deletedState;
 };

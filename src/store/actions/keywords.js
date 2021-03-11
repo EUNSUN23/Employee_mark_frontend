@@ -1,43 +1,14 @@
-const getLocalStorage = () => {
-  return JSON.parse(localStorage.getItem("RECENT"));
-};
+import * as actionTypes from "./actionTypes";
 
-export const initKeywords = (state) => {
-  const storage = getLocalStorage();
-  if (!storage || state.length !== 1) return;
-  const initializedState = state.concat(storage);
-  return initializedState;
-};
+export const initKeywords = () => ({ type: actionTypes.KEYWORDS_INIT });
 
-export const addKeywords = (state, action) => {
-  const storage = getLocalStorage();
-  const newKeyword = {
-    category: action.category,
-    index: Date.now(),
-    value: action.keyword,
-  };
-  const addedState = state.concat(newKeyword);
-  if (storage === null) {
-    localStorage.setItem("RECENT", JSON.stringify(addedState.slice()));
-  } else {
-    const addedStorage = storage.slice();
-    addedStorage.push(newKeyword);
-    localStorage.setItem("RECENT", JSON.stringify(addedStorage));
-  }
+export const addKeywords = (category, value) => ({
+  type: actionTypes.KEYWORDS_ADD,
+  category: category,
+  keyword: value,
+});
 
-  return addedState;
-};
-
-export const deleteKeywords = (state, action) => {
-  const storage = getLocalStorage();
-  console.log("DELETE", action.identifier);
-  const deletedState = state.filter((el, idx) => {
-    return el.index !== action.identifier;
-  });
-  console.log("deletedState", deletedState);
-  const deletedStorage = storage.filter((el, idx) => {
-    return el.index !== action.identifier;
-  });
-  localStorage.setItem("RECENT", JSON.stringify(deletedStorage));
-  return deletedState;
-};
+export const deleteKeywords = (identifier) => ({
+  type: actionTypes.KEYWORDS_DELETE,
+  identifier: identifier,
+});

@@ -1,5 +1,7 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
+import {saveCurrent} from "../../shared/utility";
+import { StayCurrentPortrait } from "@material-ui/icons";
 
 
 export const updateObject = (oldObject, updatedProperties) => {
@@ -10,6 +12,7 @@ export const updateObject = (oldObject, updatedProperties) => {
 };
 
 const setEmployeeData = (data, intersecting) => {
+ 
     return { type:actionTypes.EMP_SET_DATA, employeeData:data, intersecting:intersecting}
  
 }
@@ -31,6 +34,7 @@ const fetchFail = (message) => {
 }
 
 export const searchByName = (name,page) => {
+  
   return {type:actionTypes.EMP_SEARCH_NAME, payload:name, page:page};
 }
 
@@ -39,7 +43,9 @@ export const searchByCategory = (category,page) => {
 }
 
 
-const getEmployeeData = async (url, intersecting) => {
+
+
+const getEmployeeData = async (url, intersecting,current) => {
   return (dispatch) =>{
       let res;
       try {
@@ -50,6 +56,7 @@ const getEmployeeData = async (url, intersecting) => {
           if(intersecting !== "noPage"){
             intersecting ? dispatch(addPage()):dispatch(initBoard());
           }
+          saveCurrent(current);
           dispatch(setEmployeeData(res.data.packet, intersecting));
         } catch (err) {
           console.log("catch error", err.response.status);
@@ -61,18 +68,20 @@ const getEmployeeData = async (url, intersecting) => {
 //utility에 들어갈 함수 호출하는 함수
 
   
-  export const getEmpByName = (action) => {
-    const intersecting = action.isIntersected === "intersected";
-    const page_no = intersecting ? action.page + 1 : action.page;
-    const url = `http://localhost:3008/api/emp/${action.payload}/${page_no}`;
-   getEmployeeData(url, intersecting);
+  export const getEmpByName = (name,page,isIntersected) => {
+    const intersecting = isIntersected === "intersected";
+    const page_no = intersecting ? page + 1 : page;
+    const url = `http://localhost:3008/api/emp/${name}/${page_no}`;
+    const current = {category:"name", value:name};
+   getEmployeeData(url, intersecting, StayCurrentPortrait);
   };
   
-  export const getEmpByCategory = (action) => {
-    const intersecting = action.isIntersected === "intersected";
-    const page_no = intersecting ? action.page + 1 : action.page;
-    const url = `http://localhost:3008/api/emp/${action.payload.category}/${action.payload.value}/${page_no}`;
-    getEmployeeData(url, intersecting);
+  export const getEmpByCategory = (selected,page,isIntersected) => {
+    const intersecting = isIntersected === "intersected";
+    const page_no = intersecting ? page + 1 : page;
+    const url = `http://localhost:3008/api/emp/${selected.category}/${selected.value}/${page_no}`;
+    const current = selected;
+    getEmployeeData(url, intersecting, current);
   };
 
 const initCategory = (data) => {
