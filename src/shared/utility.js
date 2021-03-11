@@ -125,3 +125,20 @@ export const deleteKeywords = (state, action) => {
   setKeywords(deletedStorage);
   return deletedState;
 };
+
+//<-- BAR -->
+
+export const setOption = (state, option) => {
+  const updatedOpt = { option: option };
+  return updateObj(state, updatedOpt);
+};
+
+export const setOptVal = (state, selected) => {
+  const updatedOptVal = { optionVal: selected };
+  return updateObj(state, updatedOptVal);
+};
+
+export const setInpVal = (state, name) => {
+  const updatedInpVal = { inputVal: name };
+  return updateObj(state, updatedInpVal);
+};

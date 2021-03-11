@@ -1,4 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -8,7 +9,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import theme from "../../../theme";
-import { KeywordsDispatchContext } from "../context/KeywordsContext";
 
 const useStyles = makeStyles(() => ({
   title_container: {
@@ -89,7 +89,8 @@ const SearchDetail = (props) => {
   const [detailTitle, setDetailTitle] = useState(null);
   const { handleOptionClick, category, selected } = props;
   const classes = useStyles();
-  const dispatch = useContext(KeywordsDispatchContext);
+  const dispatch = useDispatch();
+  const category = useSelector((state) => state.searchEMP.searchCategory);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

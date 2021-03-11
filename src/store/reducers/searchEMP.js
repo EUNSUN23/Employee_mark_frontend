@@ -4,7 +4,6 @@ import {
   fetchFail,
   addPage,
   initBoard,
-  initCategory,
 } from "../../shared/utility";
 
 import { getEmpByName, getEmpByCategory } from "../actions/searchEMP";
@@ -20,8 +19,6 @@ const initState = {
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.EMP_INIT_CATEGORY:
-      return initCategory(state, action.category);
     case actionTypes.EMP_SEARCH_NAME:
       return getEmpByName(state, action.payload);
     case actionTypes.EMP_SEARCH_CATEGORY:

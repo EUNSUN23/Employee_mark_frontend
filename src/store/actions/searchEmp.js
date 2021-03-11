@@ -73,7 +73,7 @@ const getEmployeeData = async (url, intersecting,current) => {
     const page_no = intersecting ? page + 1 : page;
     const url = `http://localhost:3008/api/emp/${name}/${page_no}`;
     const current = {category:"name", value:name};
-   getEmployeeData(url, intersecting, StayCurrentPortrait);
+   getEmployeeData(url, intersecting, current);
   };
   
   export const getEmpByCategory = (selected,page,isIntersected) => {
@@ -84,36 +84,5 @@ const getEmployeeData = async (url, intersecting,current) => {
     getEmployeeData(url, intersecting, current);
   };
 
-const initCategory = (data) => {
-  return {type:actionTypes.EMP_INIT_CATEGORY, category:data}
-}
 
-const getDeptAPI = async () => {
-  const deptRes = await axios.get("http://localhost:3008/api/dept");
-  return deptRes.data.packet;
-}
-
-const getTitleAPI = async()=>{
-  const titleRes = await axios.get("http://localhost:3008/api/title");
-  return titleRes.data.packet;
-}
-
-export const getEmployeeAPI = async () => {
-  return Promise.all([getDeptAPI, getTitleAPI]).then((res)=>{return {dept:res[0], title:res[1]}})
-}
-
-export const setCategory = async () => {
-return (dispatch) => {
-  let category;
-  try{
-    const res = await getEmployeeAPI();
-    const dept = res.dept.map((obj)=>{return obj.dept_name}).unshift("dept");
-    const title = res.title.map((obj)=>{return obj.title}).unshift("title");
-    category = {dept:dept, title:title};
-    console.log("CATEGORY", category);
-    dispatch(initCategory(category));
-  }catch(err){
-    console.log(err);
-  }
-};}
 

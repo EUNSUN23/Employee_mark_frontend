@@ -268,6 +268,12 @@ const SearchBar = memo(() => {
   const [name, setName] = useInput("");
   const dispatch = useDispatch();
   const keywords = useSelector((state) => state.keywords);
+  const page = useSelector((state) => state.searchEmp.page);
+
+  //name 보낼 때 띄어쓰기 제거하고 보내기
+  //searchOption, searchOptionVal(searchDetail),searchInputVal은 리듀서로 몰아넣기.
+  //useInput은 searchInput안에 넣고, debounce로 리듀서에 value저장되는 타이밍 조정
+  //submit함수는 searchInput안에서 버튼 눌렀을 때 직접 호출하도록.
 
   useEffect(() => {
     if (keywords.length === 1) dispatch(initKeywords());
@@ -342,17 +348,6 @@ const SearchBar = memo(() => {
     setSearchDetail(selected);
   };
 
-  const handleOptionClick = (selected) => {
-    handleSearchDetail(null);
-    setSearchOption(selected);
-
-    if (selected === "부서검색") {
-      getCategory("dept");
-    } else {
-      getCategory("title");
-    }
-  };
-
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -378,6 +373,12 @@ const SearchBar = memo(() => {
   const handleKeywords = (bool) => {
     setOpenKeywords(bool);
   };
+
+  const handleMenuClick = (selected) => {
+    handleSearchDetail(null);
+    setSearchOption(selected);
+  };
+
   {
     /********************구현 부분***************************/
   }
@@ -408,10 +409,7 @@ const SearchBar = memo(() => {
                 >
                   <Grid item xs={2} className={classes.searchOption}>
                     {" "}
-                    <SearchMenu
-                      selected={searchOption}
-                      handleOptionClick={handleOptionClick}
-                    />
+                    <SearchMenu handleMenuClick={handleMenuClick} />
                   </Grid>
                   <Grid item xs={8} className={classes.searchInputContainer}>
                     {" "}
@@ -419,7 +417,6 @@ const SearchBar = memo(() => {
                       searchOption={searchOption}
                       searchDetail={searchDetail}
                       handleSearchDetail={handleSearchDetail}
-                      category={category}
                       classes={classes}
                       value={name}
                       onChange={setName}

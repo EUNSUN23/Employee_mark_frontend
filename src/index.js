@@ -19,6 +19,7 @@ const composeEnhancers =
 const rootReducer = combineReducers({
   keywords: keywords,
   searchEMP: searchEMP,
+  searchBar: searchBar,
 });
 
 const store = createStore(
