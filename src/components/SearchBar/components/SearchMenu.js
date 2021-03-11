@@ -1,12 +1,6 @@
 import React, { useState, memo } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-
+import { useSelector, useDispatch } from "react-redux";
+import { setOption, setOptVal } from "../../../store/actions/searchBar";
 const useStyles = makeStyles(() => ({
   title_container: {
     position: "absolute",
@@ -70,8 +64,9 @@ const StyledMenuItem = withStyles((theme) => ({
 
 const SearchMenu = memo((props) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { selected, handleOptionClick } = props;
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const title = useSelector((state) => state.searchBar.option);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,6 +74,12 @@ const SearchMenu = memo((props) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleMenuClick = (selected) => {
+    dispatch(setOptVal(null));
+    dispatch(setOption(selected));
+    handleClose();
   };
 
   return (
@@ -93,10 +94,7 @@ const SearchMenu = memo((props) => {
         <ListItemIcon className={classes.title_listItemIcon}>
           <ArrowDropDownIcon fontSize="small" />
         </ListItemIcon>
-        <ListItemText
-          className={classes.title_listItemText}
-          primary={selected}
-        />
+        <ListItemText className={classes.title_listItemText} primary={title} />
       </Button>
       <StyledMenu
         id="customized-menu"
@@ -108,8 +106,7 @@ const SearchMenu = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("이름검색");
-            handleClose();
+            handleMenuClick("이름검색");
           }}
         >
           <ListItemText
@@ -120,8 +117,7 @@ const SearchMenu = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("부서검색");
-            handleClose();
+            handleMenuClick("부서검색");
           }}
         >
           <ListItemText
@@ -132,8 +128,7 @@ const SearchMenu = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("직급검색");
-            handleClose();
+            handleMenuClick("직급검색");
           }}
         >
           <ListItemText
@@ -144,8 +139,7 @@ const SearchMenu = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("최근검색");
-            handleClose();
+            handleMenuClick("최근검색");
           }}
         >
           <ListItemText

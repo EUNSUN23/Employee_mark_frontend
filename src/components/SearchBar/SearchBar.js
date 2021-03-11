@@ -344,10 +344,6 @@ const SearchBar = memo(() => {
 
   const mobileMenuId = "search-employee-menu-mobile";
 
-  const handleSearchDetail = (selected) => {
-    setSearchDetail(selected);
-  };
-
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -372,11 +368,6 @@ const SearchBar = memo(() => {
 
   const handleKeywords = (bool) => {
     setOpenKeywords(bool);
-  };
-
-  const handleMenuClick = (selected) => {
-    handleSearchDetail(null);
-    setSearchOption(selected);
   };
 
   {
@@ -408,11 +399,9 @@ const SearchBar = memo(() => {
                   className={classes.searchContainer}
                 >
                   <Grid item xs={2} className={classes.searchOption}>
-                    {" "}
-                    <SearchMenu handleMenuClick={handleMenuClick} />
+                    <SearchMenu />
                   </Grid>
                   <Grid item xs={8} className={classes.searchInputContainer}>
-                    {" "}
                     <SearchInput
                       searchOption={searchOption}
                       searchDetail={searchDetail}
