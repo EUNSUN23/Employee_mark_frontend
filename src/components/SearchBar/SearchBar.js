@@ -262,10 +262,7 @@ const SearchBar = memo(() => {
   const classes = useStyles();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
-  const [searchOption, setSearchOption] = useState("이름검색");
-  const [searchDetail, setSearchDetail] = useState(null);
-  const [openKeywords, setOpenKeywords] = useState(false);
-  const [name, setName] = useInput("");
+
   const dispatch = useDispatch();
   const keywords = useSelector((state) => state.keywords);
   const page = useSelector((state) => state.searchEmp.page);
@@ -365,10 +362,6 @@ const SearchBar = memo(() => {
       </Link>
     </Menu>
   );
-
-  const handleKeywords = (bool) => {
-    setOpenKeywords(bool);
-  };
 
   {
     /********************구현 부분***************************/

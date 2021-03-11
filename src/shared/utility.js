@@ -89,8 +89,8 @@ const setKeywords = (data) => {
 export const initKeywords = (state) => {
   const storage = getKeywords();
   if (!storage || state.length !== 1) return;
-  const initializedState = state.concat(storage);
-  return initializedState;
+  const updatedKeywords = { keywords: state.keywords.concat(storage) };
+  return updateObj(state, updatedKeywords);
 };
 
 export const addKeywords = (state, action) => {
@@ -100,7 +100,7 @@ export const addKeywords = (state, action) => {
     index: Date.now(),
     value: action.keyword,
   };
-  const addedState = state.concat(newKeyword);
+  const addedState = state.keywords.concat(newKeyword);
   if (storage === null) {
     setKeywords(addedState.slice());
   } else {
@@ -112,18 +112,26 @@ export const addKeywords = (state, action) => {
   return addedState;
 };
 
-export const deleteKeywords = (state, action) => {
+export const deleteKeywords = (state, identifier) => {
   const storage = getKeywords();
-  console.log("DELETE", action.identifier);
-  const deletedState = state.filter((el, idx) => {
-    return el.index !== action.identifier;
+  console.log("DELETE", identifier);
+  const deletedKeywords = state.keywords.filter((el, idx) => {
+    return el.index !== identifier;
   });
-  console.log("deletedState", deletedState);
+
+  const updatedKeywords = { keywords: deletedKeywords };
+
+  console.log("deletedKeywords", deletedKeywords);
   const deletedStorage = storage.filter((el, idx) => {
-    return el.index !== action.identifier;
+    return el.index !== identifier;
   });
   setKeywords(deletedStorage);
-  return deletedState;
+  return updateObj(state, updatedKeywords);
+};
+
+export const openKeywords = (state, bool) => {
+  const updatedOpen = { open: bool };
+  return updateObj(state, updatedOpen);
 };
 
 //<-- BAR -->

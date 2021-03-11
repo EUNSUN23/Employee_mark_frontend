@@ -12,3 +12,8 @@ export const deleteKeywords = (identifier) => ({
   type: actionTypes.KEYWORDS_DELETE,
   identifier: identifier,
 });
+
+export const openKeywords = (bool) => ({
+  type: actionTypes.KEYWORDS_OPEN,
+  bool: bool,
+});

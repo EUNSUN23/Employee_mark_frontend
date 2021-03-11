@@ -10,7 +10,7 @@ import {} from "../actions/searchBar";
 
 const initState = {
   category: null,
-  option: null,
+  option: "이름검색",
   optionVal: null,
   inputVal: null,
 };
