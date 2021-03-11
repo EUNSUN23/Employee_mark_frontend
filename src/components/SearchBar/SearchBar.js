@@ -266,11 +266,15 @@ const SearchBar = memo(() => {
   const dispatch = useDispatch();
   const keywords = useSelector((state) => state.keywords);
   const page = useSelector((state) => state.searchEmp.page);
+  const option = useSelector((state) => state.searchBar.option);
+  const inputVal = useSelector((state) => state.searchBar.inputVal);
+  const optionVal = useSelector((state) => state.searchBar.optionVal);
 
   //name 보낼 때 띄어쓰기 제거하고 보내기
   //searchOption, searchOptionVal(searchDetail),searchInputVal은 리듀서로 몰아넣기.
   //useInput은 searchInput안에 넣고, debounce로 리듀서에 value저장되는 타이밍 조정
   //submit함수는 searchInput안에서 버튼 눌렀을 때 직접 호출하도록.
+  // option, inputVal, optionVal, page
 
   useEffect(() => {
     if (keywords.length === 1) dispatch(initKeywords());
@@ -278,18 +282,14 @@ const SearchBar = memo(() => {
 
   const submitData = (e) => {
     e.preventDefault();
-    if (searchOption === "이름검색") {
-      isValid(name);
-      dispatch(addKeywords("name", name));
-      dispatch(searchByName(name, page, "onSubmit"));
+    if (option === "이름검색") {
+      isValid(inputVal);
+      dispatch(addKeywords("name", inputVal));
+      dispatch(searchByName(inputVal, page, "onSubmit"));
     } else {
-      isValid(selected.value);
-      dispatch(addKeywords(searchDetail.category, searchDetail.value));
-      const selected = {
-        category: searchDetail.category,
-        value: searchDetail.value,
-      };
-      dispatch(searchByCategory(selected, page, "onSubmit"));
+      isValid(optionVal.value);
+      dispatch(addKeywords(optionVal.category, optionVal.value));
+      dispatch(searchByCategory(optionVal, page, "onSubmit"));
     }
   };
 
@@ -395,14 +395,7 @@ const SearchBar = memo(() => {
                     <SearchMenu />
                   </Grid>
                   <Grid item xs={8} className={classes.searchInputContainer}>
-                    <SearchInput
-                      classes={classes}
-                      value={name}
-                      onChange={setName}
-                      handleKeywords={handleKeywords}
-                      openKeywords={openKeywords}
-                      keywords={keywords}
-                    />
+                    <SearchInput classes={classes} />
                   </Grid>
                   <Grid item xs={2} className={classes.searchButton}>
                     <Button
