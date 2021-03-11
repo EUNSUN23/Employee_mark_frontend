@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { setOptVal } from "../../../store/actions/searchBar";
+import { deleteKeyword } from "../../../store/actions/keywords";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -83,14 +85,31 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const SearchDetail = (props) => {
+const SearchDetail = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [clearBtn, setClearBtn] = useState(false);
-  const [detailTitle, setDetailTitle] = useState(null);
-  const { handleOptionClick, category, selected } = props;
+  const [optTitle, setOptTitle] = useState(null);
+  const [category, setCategory] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const category = useSelector((state) => state.searchEMP.searchCategory);
+  const categoryObj = useSelector((state) => state.searchBar.category);
+  const option = useSelector((state) => state.searchBar.option);
+  const optionValue = useSelector((state) => state.searchBar.optVal);
+  const keywords = useSelector((state) => state.keywords);
+
+  useEffect(() => {
+    switch (option) {
+      case "직급검색":
+        setCategory(categoryObj.title);
+        return;
+      case "부서검색":
+        setCategory(categoryObj.dept);
+        return;
+      case "최근검색":
+        setCategory(keywords);
+        return;
+    }
+  }, [option]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -100,9 +119,14 @@ const SearchDetail = (props) => {
     setAnchorEl(null);
   };
 
-  const onDeleteIcon = (e, identifier) => {
+  const onClickDel = (e, identifier) => {
     e.preventDefault();
-    dispatch({ type: "delete", identifier: identifier });
+    dispatch(deleteKeyword(identifier));
+  };
+
+  const handleOptionValue = (value) => {
+    handleClose();
+    dispatch(setOptVal(value));
   };
 
   const createDetailList = (arr, arrType) => {
@@ -142,15 +166,14 @@ const SearchDetail = (props) => {
             category.length <= 1 ? `${StyledMenuItem.root} menu_disabled` : null
           }
           onClick={() => {
-            handleOptionClick({ category: item.category, value: item.value });
-            handleClose();
+            handleOptionValue({ category: item.category, value: item.value });
           }}
         >
           <ListItemText primary={item.value} />
           {clearBtn && category.length > 1 ? (
             <DeleteForeverIcon
               size="small"
-              onClick={(e) => onDeleteIcon(e, item.index)}
+              onClick={(e) => onClickDel(e, item.index)}
             />
           ) : null}
         </StyledMenuItem>
@@ -164,8 +187,8 @@ const SearchDetail = (props) => {
     if (category) {
       const newTitle = category[0];
       let detailList;
-      if (detailTitle === null || detailTitle !== newTitle) {
-        setDetailTitle(newTitle);
+      if (optTitle === null || optTitle !== newTitle) {
+        setOptTitle(newTitle);
         // q. 첫 렌더시에만 전환이 느린 이유?
       }
 
@@ -201,7 +224,7 @@ const SearchDetail = (props) => {
           <ArrowDropDownIcon fontSize="large" />
         </ListItemIcon>
         <ListItemText
-          primary={selected ? selected.value : detailTitle}
+          primary={optionValue ? optionValue.value : optTitle}
           className={classes.title_listItemText}
         />
       </Button>

@@ -1,11 +1,11 @@
 import React, { memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import SearchIcon from "@material-ui/icons/Search";
 import SearchDetail from "./SearchDetail";
 import InputBase from "@material-ui/core/InputBase";
 
 const SearchInput = memo((props) => {
   const {
-    searchOption,
     searchDetail,
     handleSearchDetail,
     classes,
@@ -13,9 +13,11 @@ const SearchInput = memo((props) => {
     onChange,
     handleKeywords,
   } = props;
+  const option = useSelector((state) => state.searchBar.option);
+  const name = useSelector((state) => state.searchBar.inputVal);
 
   const searchInput =
-    searchOption === "이름검색" ? (
+    option === "이름검색" ? (
       <div className={classes.search_input}>
         <div className={classes.searchIcon}>
           <SearchIcon />
@@ -28,7 +30,7 @@ const SearchInput = memo((props) => {
             input: classes.inputInput,
           }}
           inputProps={{ "aria-label": "search" }}
-          value={value}
+          value={name}
           onChange={onChange}
           onFocus={() => handleKeywords(true)}
           onBlur={() => handleKeywords(true)}
@@ -36,10 +38,7 @@ const SearchInput = memo((props) => {
       </div>
     ) : (
       <div className={classes.search_select}>
-        <SearchDetail
-          selected={searchDetail}
-          handleOptionClick={handleSearchDetail}
-        />
+        <SearchDetail />
       </div>
     );
 

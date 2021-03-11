@@ -403,9 +403,6 @@ const SearchBar = memo(() => {
                   </Grid>
                   <Grid item xs={8} className={classes.searchInputContainer}>
                     <SearchInput
-                      searchOption={searchOption}
-                      searchDetail={searchDetail}
-                      handleSearchDetail={handleSearchDetail}
                       classes={classes}
                       value={name}
                       onChange={setName}
