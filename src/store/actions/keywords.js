@@ -8,7 +8,7 @@ export const addKeywords = (category, value) => ({
   keyword: value,
 });
 
-export const deleteKeywords = (identifier) => ({
+export const deleteKeyword = (identifier) => ({
   type: actionTypes.KEYWORDS_DELETE,
   identifier: identifier,
 });

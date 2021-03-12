@@ -1,18 +1,26 @@
 import React, { useEffect, memo, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import EmployeeCard from "../EmployeeCard";
 import { debounce } from "lodash";
 import { Grid } from "@material-ui/core";
 import Loader from "../../../UI/Loader";
 
-const CardContainer = memo((props) => {
-  const { employeeData, page, getEmployeeData, isNextLoading } = props;
-  const target = useRef(null);
+const CardContainer = memo(() => {
+  // const { employeeData, page, getEmployeeData, isNextLoading } = props;
+  const dispatch = useDispatch();
+
+  const employeeData = useSelector((state) => state.searchEMP.employeeData);
+  const page = useSelector((state) => state.searchEMP.page);
+  const isNextLoading = useSelector((state) => state.searchEMP.nextLoading);
+
   const nextPage = useRef(page);
+  const target = useRef(null);
 
   const loadItems = debounce(
     (entry, observer) => {
       const currentData = JSON.parse(localStorage.getItem("CURRENT_KEY"));
-      getEmployeeData(currentData, page, "intersected");
+      console.log("currentData", currentData);
+      // getEmployeeData(currentData, page, "intersected");
       nextPage.current = page;
       observer.unobserve(entry.target);
       observer.observe(target.current);

@@ -10,6 +10,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import keywords from "./store/reducers/keywords";
 import searchEMP from "./store/reducers/searchEMP";
+import searchBar from "./store/reducers/searchBar";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -27,8 +28,8 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk))
 );
 
-const app = () => {
-  return (
+ReactDOM.render(
+  <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
@@ -36,11 +37,7 @@ const app = () => {
         </ThemeProvider>
       </BrowserRouter>
     </Provider>
-  );
-};
-
-ReactDOM.render(
-  <React.StrictMode>{app}</React.StrictMode>,
+  </React.StrictMode>,
   document.getElementById("root")
 );
 

@@ -27,7 +27,7 @@ export const setEmployeeData = (state, data, intersecting) => {
   } else {
     updatedData = data.map((el, idx) => ({
       employee: el,
-      id: lastId + idx + 1,
+      id: idx,
     }));
     updatedObj = { employeeData: updatedData, loading: false };
     console.log("updatedData", updatedData);
@@ -69,11 +69,11 @@ export const isValid = (data) => {
 
 // <-- keywords -->
 
-const saveCurrent = (data) => {
+export const saveCurrent = (data) => {
   localStorage.setItem("CURRENT_KEY", JSON.stringify(data));
 };
 
-const getCurrent = () => {
+export const getCurrent = () => {
   const current = JSON.parse(localStorage.getItem("CURRENT_KEY"));
   return current;
 };
@@ -90,7 +90,7 @@ export const initKeywords = (state) => {
   const storage = getKeywords();
   if (!storage || state.length !== 1) return;
   const updatedKeywords = { keywords: state.keywords.concat(storage) };
-  return updateObj(state, updatedKeywords);
+  return updateObject(state, updatedKeywords);
 };
 
 export const addKeywords = (state, action) => {
@@ -126,27 +126,27 @@ export const deleteKeywords = (state, identifier) => {
     return el.index !== identifier;
   });
   setKeywords(deletedStorage);
-  return updateObj(state, updatedKeywords);
+  return updateObject(state, updatedKeywords);
 };
 
 export const openKeywords = (state, bool) => {
   const updatedOpen = { open: bool };
-  return updateObj(state, updatedOpen);
+  return updateObject(state, updatedOpen);
 };
 
 //<-- BAR -->
 
 export const setOption = (state, option) => {
   const updatedOpt = { option: option };
-  return updateObj(state, updatedOpt);
+  return updateObject(state, updatedOpt);
 };
 
 export const setOptVal = (state, selected) => {
   const updatedOptVal = { optionVal: selected };
-  return updateObj(state, updatedOptVal);
+  return updateObject(state, updatedOptVal);
 };
 
 export const setInpVal = (state, name) => {
   const updatedInpVal = { inputVal: name };
-  return updateObj(state, updatedInpVal);
+  return updateObject(state, updatedInpVal);
 };

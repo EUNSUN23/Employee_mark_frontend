@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setInpVal } from "../../../store/actions/searchBar";
+import { setInpVal } from "../store/actions/searchBar";
 import { debounce } from "lodash";
 
 const useInput = (initValue) => {

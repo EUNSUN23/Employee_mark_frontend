@@ -6,8 +6,6 @@ import {
   setInpVal,
 } from "../../shared/utility";
 
-import {} from "../actions/searchBar";
-
 const initState = {
   category: null,
   option: "이름검색",
@@ -25,6 +23,9 @@ const reducer = (state = initState, action) => {
       return setOptVal(state, action.selected);
     case actionTypes.BAR_INP_VAL:
       return setInpVal(state, action.name);
+    case actionTypes.BAR_INIT_OPT:
+      const initOpt = { optionVal: null };
+      return { ...state, initOpt };
     default:
       return state;
   }

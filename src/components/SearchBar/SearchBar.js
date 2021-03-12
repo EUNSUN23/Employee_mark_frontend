@@ -265,7 +265,7 @@ const SearchBar = memo(() => {
 
   const dispatch = useDispatch();
   const keywords = useSelector((state) => state.keywords);
-  const page = useSelector((state) => state.searchEmp.page);
+  const page = useSelector((state) => state.searchEMP.page);
   const option = useSelector((state) => state.searchBar.option);
   const inputVal = useSelector((state) => state.searchBar.inputVal);
   const optionVal = useSelector((state) => state.searchBar.optionVal);
@@ -285,11 +285,11 @@ const SearchBar = memo(() => {
     if (option === "이름검색") {
       isValid(inputVal);
       dispatch(addKeywords("name", inputVal));
-      dispatch(searchByName(inputVal, page, "onSubmit"));
+      dispatch(searchByName(inputVal, page, "noPage"));
     } else {
       isValid(optionVal.value);
       dispatch(addKeywords(optionVal.category, optionVal.value));
-      dispatch(searchByCategory(optionVal, page, "onSubmit"));
+      dispatch(searchByCategory(optionVal, page, "noPage"));
     }
   };
 
@@ -307,7 +307,7 @@ const SearchBar = memo(() => {
     setHover(target);
   };
 
-  const changeBarType = (mode, location) => {
+  const changeBarType = (mode) => {
     switch (mode) {
       case "desktop":
         return (
@@ -358,7 +358,7 @@ const SearchBar = memo(() => {
         </MenuItem>
       </Link>
       <Link to="/statistics" className={classes.link_mobile}>
-        <MenuItem>{changeBarType("mobile", location)}</MenuItem>
+        <MenuItem>{changeBarType("mobile")}</MenuItem>
       </Link>
     </Menu>
   );
@@ -445,7 +445,7 @@ const SearchBar = memo(() => {
                     onMouseEnter={() => setIndicator("statistics")}
                     onMouseLeave={() => setIndicator(null)}
                   >
-                    {changeBarType("desktop", location)}
+                    {changeBarType("desktop")}
                   </div>
                 </div>
               </div>

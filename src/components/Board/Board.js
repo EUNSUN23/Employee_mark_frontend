@@ -13,25 +13,16 @@ const Board = () => {
   const [dialog, openDialog, closeDialog] = useDialog(false);
   const viewport = useRef(null);
 
-  const dispatch = useDispatch();
-
   // employeeData: null,
   // searchCategory: null,
   // loading: false,
   // nextLoading: false,
   // errorMs: null,
   // page: 1,
-  const employeeData = useSelector((state) => state.searchEMP.employeeData);
-
-  const isLoading = useSelector((state) => state.searchEMP.loading);
-
-  const isNextLoading = useSelector((state) => state.searchEMP.nextLoading);
 
   const message = useSelector((state) => state.searchEMP.errorMs);
 
-  const page = useSelector((state) => state.searchEMP.page);
-
-  const category = useSelector((state) => state.searchEMP.searchCategory);
+  const isLoading = useSelector((state) => state.searchEMP.loading);
 
   const handleScroll = (e) => {
     const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
@@ -58,17 +49,11 @@ const Board = () => {
   ) : (
     <Grid container direction="column" spacing={10}>
       <Modal open={message} message={message} handleClose={closeDialog} />
-
       <Grid item></Grid>
       <Grid item container ref={viewport}>
         <Grid item xs={false} sm={2} />
         <Grid item xs={12} sm={8}>
-          <CardContainer
-            employeeData={employeeData}
-            page={page}
-            getEmployeeData={getEmployeeData}
-            isNextLoading={isNextLoading}
-          />
+          <CardContainer />
         </Grid>
         <Grid item xs={false} sm={2} />
       </Grid>

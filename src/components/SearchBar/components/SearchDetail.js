@@ -95,7 +95,7 @@ const SearchDetail = () => {
   const categoryObj = useSelector((state) => state.searchBar.category);
   const option = useSelector((state) => state.searchBar.option);
   const optionValue = useSelector((state) => state.searchBar.optVal);
-  const keywords = useSelector((state) => state.keywords);
+  const keywords = useSelector((state) => state.keywords.keywords);
 
   useEffect(() => {
     switch (option) {
@@ -185,6 +185,7 @@ const SearchDetail = () => {
 
   const createSearchDetail = () => {
     if (category) {
+      console.log("category", category);
       const newTitle = category[0];
       let detailList;
       if (optTitle === null || optTitle !== newTitle) {
@@ -193,17 +194,21 @@ const SearchDetail = () => {
       }
 
       if (newTitle === "recent keyword") {
+        console.log("keywords", category);
         detailList =
           category.length > 1
             ? category.slice(1)
             : [{ index: 0, value: "최근 검색내역이 없습니다" }];
         clearBtn === false && setClearBtn(true);
         return createDetailList(detailList, newTitle);
+      } else {
+        console.log("new TItle", newTitle);
+        detailList = category
+          .map((el, idx) => ({ category: category[0], index: idx, value: el }))
+          .slice(1);
+        clearBtn === true && setClearBtn(false);
       }
-      detailList = category
-        .map((el, idx) => ({ category: category[0], index: idx, value: el }))
-        .slice(1);
-      clearBtn === true && setClearBtn(false);
+
       return createDetailList(detailList, newTitle);
     } else {
       return;

@@ -1,6 +1,14 @@
 import React, { useState, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setOption, setOptVal } from "../../../store/actions/searchBar";
+import { setOption, initOptVal } from "../../../store/actions/searchBar";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+
 const useStyles = makeStyles(() => ({
   title_container: {
     position: "absolute",
@@ -62,7 +70,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const SearchMenu = memo((props) => {
+const SearchMenu = memo(() => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -76,9 +84,10 @@ const SearchMenu = memo((props) => {
     setAnchorEl(null);
   };
 
-  const handleMenuClick = (selected) => {
-    dispatch(setOptVal(null));
-    dispatch(setOption(selected));
+  const handleMenuClick = (option) => {
+    console.log("handleMenuClick", option);
+    dispatch(initOptVal());
+    dispatch(setOption(option));
     handleClose();
   };
 
