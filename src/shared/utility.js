@@ -55,11 +55,6 @@ export const initBoard = (state) => {
   return updateObject(state, initialEmp);
 };
 
-export const initCategory = (state, data) => {
-  const updatedCategory = { searchCategory: data };
-  return updateObject(state, updatedCategory);
-};
-
 export const isValid = (data) => {
   if (!data) {
     window.alert("검색어를 입력하세요");
@@ -149,4 +144,11 @@ export const setOptVal = (state, selected) => {
 export const setInpVal = (state, name) => {
   const updatedInpVal = { inputVal: name };
   return updateObject(state, updatedInpVal);
+};
+
+export const initCategory = (state, data) => {
+  data.dept.unshift("dept");
+  data.title.unshift("title");
+  const updatedCategory = { category: data };
+  return updateObject(state, updatedCategory);
 };

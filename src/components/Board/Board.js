@@ -7,8 +7,10 @@ import ScrollToTop from "../UI/ScrollToTop";
 import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
+import { setCategory } from "../../store/actions/searchBar";
 
 const Board = () => {
+  const dispatch = useDispatch();
   const [scrollToTop, setScrollToTop] = useState(null);
   const [dialog, openDialog, closeDialog] = useDialog(false);
   const viewport = useRef(null);
@@ -32,6 +34,7 @@ const Board = () => {
   };
 
   useEffect(() => {
+    dispatch(setCategory());
     window.addEventListener("scroll", handleScroll);
 
     return () => {

@@ -4,42 +4,52 @@ import axios from "axios";
 // <-- setCategory -->
 
 const initCategory = (data) => {
-  return { type: actionTypes.EMP_INIT_CATEGORY, category: data };
+  return { type: actionTypes.BAR_INIT_CATEGORY, category: data };
 };
 
 const getDeptAPI = async () => {
   const deptRes = await axios.get("http://localhost:3008/api/dept");
+
   return deptRes.data.packet;
 };
 
 const getTitleAPI = async () => {
   const titleRes = await axios.get("http://localhost:3008/api/title");
+
   return titleRes.data.packet;
 };
 
 const getCategoryAPI = async () => {
-  return Promise.all([getDeptAPI, getTitleAPI]).then((res) => {
-    return { dept: res[0], title: res[1] };
-  });
+  const res = await Promise.all([getDeptAPI(), getTitleAPI()]);
+  return { dept: res[0], title: res[1] };
 };
 
 export const setCategory = () => {
   return async (dispatch) => {
     let category;
     const res = await getCategoryAPI();
-    const dept = res.dept
-      .map((obj) => {
+    if (res) {
+      console.log(res.dept);
+      const deptList = res.dept.map((obj, idx) => {
+        console.log(obj.dept_name);
         return obj.dept_name;
-      })
-      .unshift("dept");
-    const title = res.title
-      .map((obj) => {
+      });
+
+      console.log(res.title);
+      const titleList = res.title.map((obj, idx) => {
+        console.log(obj.title);
         return obj.title;
-      })
-      .unshift("title");
-    category = { dept: dept, title: title };
-    console.log("CATEGORY", category);
-    dispatch(initCategory(category));
+      });
+
+      category = {
+        dept: deptList,
+        title: titleList,
+      };
+      console.log("CATEGORY", category);
+      dispatch(initCategory(category));
+    } else {
+      return;
+    }
   };
 };
 

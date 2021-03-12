@@ -18,7 +18,6 @@ import { Grid } from "@material-ui/core";
 import { initKeywords, addKeywords } from "../../store/actions/keywords";
 import { searchByName, searchByCategory } from "../../store/actions/searchEMP";
 import { isValid } from "../../shared/utility";
-import useInput from "../../hooks/useInput";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
