@@ -4,15 +4,14 @@ import { Grid } from "@material-ui/core";
 import SearchBar from "../SearchBar/SearchBar";
 import CardContainer from "./EmployeeCard/Card/CardContainer";
 import ScrollToTop from "../UI/ScrollToTop";
-import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import { setCategory } from "../../store/actions/searchBar";
+import { initError } from "../../store/actions/searchEMP";
 
 const Board = () => {
   const dispatch = useDispatch();
   const [scrollToTop, setScrollToTop] = useState(null);
-  const [dialog, openDialog, closeDialog] = useDialog(false);
   const viewport = useRef(null);
 
   // employeeData: null,
@@ -23,6 +22,10 @@ const Board = () => {
   // page: 1,
 
   const message = useSelector((state) => state.searchEMP.errorMs);
+
+  const open = useSelector((state) => state.searchEMP.errorMs !== null);
+
+  const handleClose = dispatch(initError());
 
   const isLoading = useSelector((state) => state.searchEMP.loading);
 
@@ -51,7 +54,7 @@ const Board = () => {
     <Loader size="large" />
   ) : (
     <Grid container direction="column" spacing={10}>
-      <Modal open={message} message={message} handleClose={closeDialog} />
+      <Modal handleClose={handleClose} open={open} message={message} />
       <Grid item></Grid>
       <Grid item container ref={viewport}>
         <Grid item xs={false} sm={2} />

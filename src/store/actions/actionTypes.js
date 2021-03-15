@@ -15,6 +15,6 @@ export const BAR_INP_VAL = "BAR_INP_VAL";
 export const BAR_INIT_OPT = "BAR_INIT_OPT";
 
 export const KEYWORDS_INIT = "KEYWORDS_INIT";
-export const KEYWORDS_ADD = "KEYWORDS_SET";
+export const KEYWORDS_ADD = "KEYWORDS_ADD";
 export const KEYWORDS_DELETE = "KEYWORDS_DELETE";
 export const KEYWORDS_OPEN = "KEYWORDS_OPEN";

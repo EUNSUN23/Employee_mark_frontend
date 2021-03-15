@@ -1,4 +1,5 @@
 // <-- board -->
+import { debounce } from "lodash";
 
 export const updateObject = (oldObject, updatedProperties) => {
   return {
@@ -7,9 +8,20 @@ export const updateObject = (oldObject, updatedProperties) => {
   };
 };
 
-export const setEmployeeData = (state, data, intersecting) => {
-  const prevState = [...state];
-  const prevData = prevState.employeeData;
+// export const addPage = (state) => {
+//   const prevPage = state.page;
+//   const updatedPage = { page: prevPage + 1 };
+//   return updateObject(state, updatedPage);
+// };
+
+// export const initBoard = (state) => {
+//   const initialEmp = { employeeData: null, page: 1 };
+//   return updateObject(state, initialEmp);
+// }
+
+export const setEmployeeData = (state, data, intersecting, page) => {
+  const prevData = state.employeeData;
+  let updatedPage;
   let updatedData;
   let updatedObj;
   let loading;
@@ -20,7 +32,13 @@ export const setEmployeeData = (state, data, intersecting) => {
       id: lastId + idx + 1,
     }));
 
-    loading = intersecting && loading !== "noPage" ? "nextLoading" : "loading";
+    if (intersecting) {
+      updatedPage = state.page + 1;
+      loading = "nextLoading";
+    } else {
+      updatedPage = page;
+      loading = "loading";
+    }
 
     updatedData = prevData.concat(newData);
     updatedObj = { employeeData: updatedData, [loading]: false };
@@ -44,17 +62,6 @@ export const fetchFail = (state, message, intersecting) => {
   return updateObject(state, updatedObj);
 };
 
-export const addPage = (state) => {
-  const prevPage = state.page;
-  const updatedPage = { page: prevPage + 1 };
-  return updateObject(state, updatedPage);
-};
-
-export const initBoard = (state) => {
-  const initialEmp = { employeeData: null, page: 1 };
-  return updateObject(state, initialEmp);
-};
-
 export const isValid = (data) => {
   if (!data) {
     window.alert("검색어를 입력하세요");
@@ -73,11 +80,12 @@ export const getCurrent = () => {
   return current;
 };
 
-const getKeywords = () => {
-  return JSON.parse(localStorage.getItem("RECENT"));
+export const getKeywords = () => {
+  const keywords = JSON.parse(localStorage.getItem("RECENT"));
+  return keywords;
 };
 
-const setKeywords = (data) => {
+export const setKeywords = (data) => {
   return localStorage.setItem("RECENT", JSON.stringify(data));
 };
 
@@ -88,23 +96,10 @@ export const initKeywords = (state) => {
   return updateObject(state, updatedKeywords);
 };
 
-export const addKeywords = (state, action) => {
-  const storage = getKeywords();
-  const newKeyword = {
-    category: action.category,
-    index: Date.now(),
-    value: action.keyword,
-  };
-  const addedState = state.keywords.concat(newKeyword);
-  if (storage === null) {
-    setKeywords(addedState.slice());
-  } else {
-    const addedStorage = storage.slice();
-    addedStorage.push(newKeyword);
-    setKeywords(addedStorage);
-  }
+export const addKeywords = (state, keywords) => {
+  const updatedKeywords = { keywords: keywords };
 
-  return addedState;
+  return updateObject(state, updatedKeywords);
 };
 
 export const deleteKeywords = (state, identifier) => {

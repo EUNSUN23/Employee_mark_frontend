@@ -4,6 +4,8 @@ import EmployeeCard from "../EmployeeCard";
 import { debounce } from "lodash";
 import { Grid } from "@material-ui/core";
 import Loader from "../../../UI/Loader";
+import { getEmpData } from "../../../../store/actions/searchEMP";
+import { getCurrent } from "../../../../shared/utility";
 
 const CardContainer = memo(() => {
   // const { employeeData, page, getEmployeeData, isNextLoading } = props;
@@ -18,17 +20,18 @@ const CardContainer = memo(() => {
 
   const loadItems = debounce(
     (entry, observer) => {
-      const currentData = JSON.parse(localStorage.getItem("CURRENT_KEY"));
+      const currentData = getCurrent();
       console.log("currentData", currentData);
-      // getEmployeeData(currentData, page, "intersected");
+      dispatch(getEmpData(currentData.value, page, "intersected"));
       nextPage.current = page;
       observer.unobserve(entry.target);
       observer.observe(target.current);
     },
-    [500]
+    [200]
   );
 
   const handleIntersection = (entries, observer) => {
+    console.log("intersection");
     entries.forEach((entry) => {
       if (!entry.isIntersecting) {
         return;
@@ -42,8 +45,9 @@ const CardContainer = memo(() => {
   };
 
   useEffect(() => {
+    console.log("card container useEffect");
     let io;
-    if (nextPage.current === page || isNextLoading) {
+    if (isNextLoading) {
       return;
     } else {
       io = new IntersectionObserver(handleIntersection, options);

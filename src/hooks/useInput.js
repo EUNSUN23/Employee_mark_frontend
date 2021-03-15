@@ -7,15 +7,15 @@ const useInput = (initValue) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState(initValue);
 
-  const save = debounce(() => {
+  const save = (value) => {
     dispatch(setInpVal(value));
-  }, [500]);
+  };
 
   const onChangeHandler = (e) => {
     const { value } = e.target;
     console.log(value);
     setValue(value);
-    save();
+    save(value);
   };
   return [value, onChangeHandler];
 };

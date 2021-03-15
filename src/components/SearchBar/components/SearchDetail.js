@@ -94,10 +94,11 @@ const SearchDetail = () => {
   const dispatch = useDispatch();
   const categoryObj = useSelector((state) => state.searchBar.category);
   const option = useSelector((state) => state.searchBar.option);
-  const optionValue = useSelector((state) => state.searchBar.optVal);
+  const optionVal = useSelector((state) => state.searchBar.optionVal);
   const keywords = useSelector((state) => state.keywords.keywords);
 
   useEffect(() => {
+    console.log("useEffect");
     switch (option) {
       case "직급검색":
         setCategory(categoryObj.title);
@@ -229,7 +230,7 @@ const SearchDetail = () => {
           <ArrowDropDownIcon fontSize="large" />
         </ListItemIcon>
         <ListItemText
-          primary={optionValue ? optionValue.value : optTitle}
+          primary={optionVal ? optionVal.value : optTitle}
           className={classes.title_listItemText}
         />
       </Button>

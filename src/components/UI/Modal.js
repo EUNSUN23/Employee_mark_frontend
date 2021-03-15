@@ -26,7 +26,8 @@ const useStyles = makeStyles({
 
 const Modal = memo((props) => {
   const classes = useStyles();
-  const { open, handleClose, message } = props;
+  const { handleClose, open, message } = props;
+
   return (
     <Dialog onClose={handleClose} aria-labelledby="contact" open={open}>
       <DialogTitle id="contact" className={classes.wrapper}>

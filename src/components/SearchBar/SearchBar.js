@@ -16,7 +16,7 @@ import SearchMenu from "./components/SearchMenu";
 import SearchInput from "./components/SearchInput";
 import { Grid } from "@material-ui/core";
 import { initKeywords, addKeywords } from "../../store/actions/keywords";
-import { searchByName, searchByCategory } from "../../store/actions/searchEMP";
+import { getEmpData } from "../../store/actions/searchEMP";
 import { isValid } from "../../shared/utility";
 
 const useStyles = makeStyles((theme) => ({
@@ -283,12 +283,13 @@ const SearchBar = memo(() => {
     e.preventDefault();
     if (option === "이름검색") {
       isValid(inputVal);
+      dispatch(getEmpData(inputVal, page, "noPage"));
       dispatch(addKeywords("name", inputVal));
-      dispatch(searchByName(inputVal, page, "noPage"));
     } else {
       isValid(optionVal.value);
+      console.log("page", page);
+      dispatch(getEmpData(optionVal, page, "noPage"));
       dispatch(addKeywords(optionVal.category, optionVal.value));
-      dispatch(searchByCategory(optionVal, page, "noPage"));
     }
   };
 
