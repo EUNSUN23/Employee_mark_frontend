@@ -1,5 +1,4 @@
 import * as actionTypes from "./actionTypes";
-import { debounce } from "lodash";
 import { getKeywords, setKeywords } from "../../shared/utility";
 
 export const initKeywords = () => ({ type: actionTypes.KEYWORDS_INIT });

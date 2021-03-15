@@ -9,12 +9,11 @@ export const updateObject = (oldObject, updatedProperties) => {
   };
 };
 
-const setEmployeeData = (data, intersecting, page) => {
+const setEmployeeData = (data, intersecting) => {
   return {
     type: actionTypes.EMP_SET_DATA,
     employeeData: data,
     intersecting: intersecting,
-    page: page,
   };
 };
 
@@ -22,13 +21,13 @@ export const fetchStart = (intersecting) => {
   return { type: actionTypes.EMP_FETCH_START, intersecting: intersecting };
 };
 
-// const addPage = () => {
-//   return { type: actionTypes.EMP_ADD_PAGE };
-// };
+const addPage = () => {
+  return { type: actionTypes.EMP_ADD_PAGE };
+};
 
-// const initBoard = () => {
-//   return { type: actionTypes.EMP_INIT_BOARD };
-// };
+const initBoard = () => {
+  return { type: actionTypes.EMP_INIT_BOARD };
+};
 
 const fetchFail = (message) => {
   return { type: actionTypes.EMP_FETCH_FAIL, message: message };
@@ -59,7 +58,9 @@ export const getEmpData = (selected, page, isIntersected) => {
     }
     if (!employees) return;
     saveCurrent(current);
-    dispatch(setEmployeeData(employees, intersecting, page));
+    intersecting ? dispatch(addPage()) : dispatch(initBoard());
+    dispatch(setEmployeeData(employees, intersecting));
+    console.log("intersecting", intersecting);
   };
 };
 

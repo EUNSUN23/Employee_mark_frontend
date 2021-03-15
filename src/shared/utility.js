@@ -8,49 +8,44 @@ export const updateObject = (oldObject, updatedProperties) => {
   };
 };
 
-// export const addPage = (state) => {
-//   const prevPage = state.page;
-//   const updatedPage = { page: prevPage + 1 };
-//   return updateObject(state, updatedPage);
-// };
+export const addPage = (state) => {
+  const prevPage = state.page;
+  const updatedPage = { page: prevPage + 1 };
+  console.log("updatedPage", updatedPage);
+  return updateObject(state, updatedPage);
+};
 
-// export const initBoard = (state) => {
-//   const initialEmp = { employeeData: null, page: 1 };
-//   return updateObject(state, initialEmp);
-// }
+export const initBoard = (state) => {
+  const initialEmp = { employeeData: null, page: 1 };
+  return updateObject(state, initialEmp);
+};
 
-export const setEmployeeData = (state, data, intersecting, page) => {
+export const setEmployeeData = (state, data, intersecting) => {
   const prevData = state.employeeData;
-  let updatedPage;
   let updatedData;
   let updatedObj;
   let loading;
-  if (prevData) {
+  if (intersecting) {
     const lastId = prevData[prevData.length - 1].id;
-    const newData = data.map((el, idx) => ({
+    const nextData = data.map((el, idx) => ({
       employee: el,
       id: lastId + idx + 1,
     }));
-
-    if (intersecting) {
-      updatedPage = state.page + 1;
-      loading = "nextLoading";
-    } else {
-      updatedPage = page;
-      loading = "loading";
-    }
-
-    updatedData = prevData.concat(newData);
-    updatedObj = { employeeData: updatedData, [loading]: false };
+    updatedData = prevData.concat(nextData);
+    loading = "nextLoading";
   } else {
     updatedData = data.map((el, idx) => ({
       employee: el,
       id: idx,
     }));
-    updatedObj = { employeeData: updatedData, loading: false };
-    console.log("updatedData", updatedData);
-  }
 
+    loading = "loading";
+  }
+  console.log("loading", loading);
+  updatedObj = {
+    employeeData: updatedData,
+    [loading]: false,
+  };
   console.log("updatedObject", updateObject(state, updatedObj));
 
   return updateObject(state, updatedObj);

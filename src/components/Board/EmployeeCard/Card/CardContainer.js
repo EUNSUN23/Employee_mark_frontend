@@ -9,6 +9,7 @@ import { getCurrent } from "../../../../shared/utility";
 
 const CardContainer = memo(() => {
   // const { employeeData, page, getEmployeeData, isNextLoading } = props;
+
   const dispatch = useDispatch();
 
   const employeeData = useSelector((state) => state.searchEMP.employeeData);
