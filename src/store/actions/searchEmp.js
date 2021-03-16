@@ -60,7 +60,6 @@ export const getEmpData = (selected, page, isIntersected) => {
     saveCurrent(current);
     intersecting ? dispatch(addPage()) : dispatch(initBoard());
     dispatch(setEmployeeData(employees, intersecting));
-    console.log("intersecting", intersecting);
   };
 };
 

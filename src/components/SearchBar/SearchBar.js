@@ -17,7 +17,8 @@ import SearchInput from "./components/SearchInput";
 import { Grid } from "@material-ui/core";
 import { initKeywords, addKeywords } from "../../store/actions/keywords";
 import { getEmpData } from "../../store/actions/searchEMP";
-import { isValid } from "../../shared/utility";
+import { isValid, getKeywords } from "../../shared/utility";
+import { setCategory } from "../../store/actions/searchBar";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -263,7 +264,7 @@ const SearchBar = memo(() => {
   const [hover, setHover] = useState();
 
   const dispatch = useDispatch();
-  const keywords = useSelector((state) => state.keywords);
+  const keywords = useSelector((state) => state.keywords.keywords);
   const page = useSelector((state) => state.searchEMP.page);
   const option = useSelector((state) => state.searchBar.option);
   const inputVal = useSelector((state) => state.searchBar.inputVal);
@@ -276,7 +277,8 @@ const SearchBar = memo(() => {
   // option, inputVal, optionVal, page
 
   useEffect(() => {
-    if (keywords.length === 1) dispatch(initKeywords());
+    if (keywords.length === 0) dispatch(initKeywords());
+    dispatch(setCategory());
   }, []);
 
   const submitData = (e) => {

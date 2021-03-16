@@ -7,18 +7,18 @@ import {
 } from "../../shared/utility";
 
 const initState = {
-  keywords: ["recent keyword"],
+  keywords: [],
   open: false,
 };
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.KEYWORDS_INIT:
-      return initKeywords(state);
+      return initKeywords(state, action.storage);
     case actionTypes.KEYWORDS_ADD:
-      return addKeywords(state, action.category, action.keyword);
+      return addKeywords(state, action.keywords);
     case actionTypes.KEYWORDS_DELETE:
-      return deleteKeywords(state, action.identifier);
+      return deleteKeywords(state, action.keywords);
     case actionTypes.KEYWORDS_OPEN:
       return openKeywords(state, action.bool);
     default:

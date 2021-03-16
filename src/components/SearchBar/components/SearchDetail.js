@@ -34,12 +34,16 @@ const useStyles = makeStyles(() => ({
   },
   title_listItemText: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
       width: "20ch",
+    },
+  },
+  clearBtn: {
+    "&:hover": {
+      color: "red",
     },
   },
 }));
@@ -110,7 +114,7 @@ const SearchDetail = () => {
         setCategory(keywords);
         return;
     }
-  }, [option]);
+  }, [option, keywords]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -122,6 +126,8 @@ const SearchDetail = () => {
 
   const onClickDel = (e, identifier) => {
     e.preventDefault();
+    console.log("identifer", identifier);
+    console.log(category);
     dispatch(deleteKeyword(identifier));
   };
 
@@ -152,7 +158,11 @@ const SearchDetail = () => {
 
       resultList = reducedArr.slice(0, 5).map((el, idx) => {
         const index = valueArr.indexOf(el);
-        return { category: arr[index].category, value: el };
+        return {
+          category: arr[index].category,
+          value: el,
+          index: arr[index].index,
+        };
       });
     } else {
       resultList = arr;
@@ -166,15 +176,18 @@ const SearchDetail = () => {
           className={
             category.length <= 1 ? `${StyledMenuItem.root} menu_disabled` : null
           }
-          onClick={() => {
-            handleOptionValue({ category: item.category, value: item.value });
-          }}
         >
-          <ListItemText primary={item.value} />
+          <ListItemText
+            primary={item.value}
+            onClick={() => {
+              handleOptionValue({ category: item.category, value: item.value });
+            }}
+          />
           {clearBtn && category.length > 1 ? (
             <DeleteForeverIcon
               size="small"
               onClick={(e) => onClickDel(e, item.index)}
+              className={classes.clearBtn}
             />
           ) : null}
         </StyledMenuItem>
@@ -184,7 +197,7 @@ const SearchDetail = () => {
     return searchDetail;
   };
 
-  const createSearchDetail = () => {
+  const createSearchDetail = (category) => {
     if (category) {
       console.log("category", category);
       const newTitle = category[0];
@@ -196,6 +209,7 @@ const SearchDetail = () => {
 
       if (newTitle === "recent keyword") {
         console.log("keywords", category);
+        console.log("new TItle", newTitle);
         detailList =
           category.length > 1
             ? category.slice(1)
@@ -241,7 +255,7 @@ const SearchDetail = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {createSearchDetail()}
+        {createSearchDetail(category)}
       </StyledMenu>
     </div>
   );

@@ -1,5 +1,4 @@
 // <-- board -->
-import { debounce } from "lodash";
 
 export const updateObject = (oldObject, updatedProperties) => {
   return {
@@ -84,33 +83,20 @@ export const setKeywords = (data) => {
   return localStorage.setItem("RECENT", JSON.stringify(data));
 };
 
-export const initKeywords = (state) => {
-  const storage = getKeywords();
-  if (!storage || state.length !== 1) return;
-  const updatedKeywords = { keywords: state.keywords.concat(storage) };
+export const initKeywords = (state, storage) => {
+  const updatedKeywords = { keywords: ["recent keyword", ...storage] };
   return updateObject(state, updatedKeywords);
 };
 
 export const addKeywords = (state, keywords) => {
   const updatedKeywords = { keywords: keywords };
-
+  console.log("addedKeywords", updatedKeywords);
   return updateObject(state, updatedKeywords);
 };
 
-export const deleteKeywords = (state, identifier) => {
-  const storage = getKeywords();
-  console.log("DELETE", identifier);
-  const deletedKeywords = state.keywords.filter((el, idx) => {
-    return el.index !== identifier;
-  });
+export const deleteKeywords = (state, keywords) => {
+  const updatedKeywords = { keywords: keywords };
 
-  const updatedKeywords = { keywords: deletedKeywords };
-
-  console.log("deletedKeywords", deletedKeywords);
-  const deletedStorage = storage.filter((el, idx) => {
-    return el.index !== identifier;
-  });
-  setKeywords(deletedStorage);
   return updateObject(state, updatedKeywords);
 };
 

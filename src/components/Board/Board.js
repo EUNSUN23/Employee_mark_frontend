@@ -6,7 +6,7 @@ import CardContainer from "./EmployeeCard/Card/CardContainer";
 import ScrollToTop from "../UI/ScrollToTop";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
-import { setCategory } from "../../store/actions/searchBar";
+
 import { initError } from "../../store/actions/searchEMP";
 
 const Board = () => {
@@ -37,7 +37,6 @@ const Board = () => {
   };
 
   useEffect(() => {
-    dispatch(setCategory());
     window.addEventListener("scroll", handleScroll);
 
     return () => {
