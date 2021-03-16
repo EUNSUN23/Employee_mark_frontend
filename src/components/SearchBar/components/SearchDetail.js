@@ -102,7 +102,6 @@ const SearchDetail = () => {
   const keywords = useSelector((state) => state.keywords.keywords);
 
   useEffect(() => {
-    console.log("useEffect");
     switch (option) {
       case "직급검색":
         setCategory(categoryObj.title);
@@ -126,8 +125,6 @@ const SearchDetail = () => {
 
   const onClickDel = (e, identifier) => {
     e.preventDefault();
-    console.log("identifer", identifier);
-    console.log(category);
     dispatch(deleteKeyword(identifier));
   };
 
@@ -138,7 +135,6 @@ const SearchDetail = () => {
 
   const createDetailList = (arr, arrType) => {
     let resultList;
-    console.log("ARR_TYPE", arrType);
     if (arrType === "recent keyword") {
       const sortedArr = arr.sort((a, b) => {
         return b.index - a.index;
@@ -199,7 +195,6 @@ const SearchDetail = () => {
 
   const createSearchDetail = (category) => {
     if (category) {
-      console.log("category", category);
       const newTitle = category[0];
       let detailList;
       if (optTitle === null || optTitle !== newTitle) {
@@ -208,8 +203,6 @@ const SearchDetail = () => {
       }
 
       if (newTitle === "recent keyword") {
-        console.log("keywords", category);
-        console.log("new TItle", newTitle);
         detailList =
           category.length > 1
             ? category.slice(1)
@@ -217,7 +210,6 @@ const SearchDetail = () => {
         clearBtn === false && setClearBtn(true);
         return createDetailList(detailList, newTitle);
       } else {
-        console.log("new TItle", newTitle);
         detailList = category
           .map((el, idx) => ({ category: category[0], index: idx, value: el }))
           .slice(1);

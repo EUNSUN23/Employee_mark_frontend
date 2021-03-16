@@ -23,7 +23,7 @@ const CardContainer = memo(() => {
     (entry, observer) => {
       const currentData = getCurrent();
       console.log("currentData", currentData);
-      dispatch(getEmpData(currentData.value, page, "intersected"));
+      dispatch(getEmpData(currentData, page, "intersected"));
       nextPage.current = page;
       observer.unobserve(entry.target);
       observer.observe(target.current);
