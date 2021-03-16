@@ -23,12 +23,16 @@ const Statistics = (props) => {
   //                    급여별 통계> track
 
   // <----- 리덕스 리팩토링 ----->
-  // 1. statistics 그래프 페이지용, statistics Bar 용 reducer 2개
-  // 2. statistics 페이지 - <리듀서> 1) 데이터 연봉>전체/부서 (2) // 연봉>BELOW, ABOVE (2)
+  // 1. statistics 페이지, statistics Bar
+  // 2. statistics 페이지 - <리듀서> 1) 데이터 연봉>전체/부서 (2), 연봉>BELOW/ABOVE (2)
   //                                2) loading여부
   //                                3) 에러메세지
-  //                        <액션>  getStatAPI (MIDDLEWARE) >>>> fetchStart(로딩 true), setData(로딩false), fetchFail(로딩false, 에러메세지)
-
+  //                                4) open(모달)
+  //                        <액션>  getStatAPI (MIDDLEWARE) >>>> fetchStart(로딩 true), setData(로딩false), fetchFail(로딩false, 에러메세지), initError(모달클릭시)
+  // 3. statistics Bar  - <리듀서> 1) option(통계종류), optionDetail(기준), optionInput(select형), trackInput(track형)
+  //                                --> Salary > SalaryStack/SalaryDist (optionDetail에 따라 결정) > 데이터출력
+  //                      <액션>    setOption, setOptionDetail, setOptionInput, setTrackInput
+  // 고민 - getState ?...
   const getStatisticsData = async (dataType) => {
     let res;
     try {

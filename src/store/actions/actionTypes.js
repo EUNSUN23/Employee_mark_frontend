@@ -18,3 +18,8 @@ export const KEYWORDS_INIT = "KEYWORDS_INIT";
 export const KEYWORDS_ADD = "KEYWORDS_ADD";
 export const KEYWORDS_DELETE = "KEYWORDS_DELETE";
 export const KEYWORDS_OPEN = "KEYWORDS_OPEN";
+
+export const STAT_BAR_OPTION = "STAT_BAR_OPTION";
+export const STAT_BAR_DETAIL = "STAT_BAR_DETAIL";
+export const STAT_BAR_AREA = "STAT_BAR_AREA";
+export const STAT_BAR_SELECT = "STAT_BAR_SELECT";

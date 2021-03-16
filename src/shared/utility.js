@@ -128,3 +128,33 @@ export const initCategory = (state, data) => {
   const updatedCategory = { category: data };
   return updateObject(state, updatedCategory);
 };
+
+// <--------- STAT_BAR ---------------->
+
+// case actionTypes.STAT_BAR_OPT:
+//   return;
+// case actionTypes.STAT_BAR_DETAIL:
+//   return;
+// case actionTypes.STAT_BAR_AREA:
+//   return;
+// case actionTypes.STAT_BAR_SELECT:
+
+export const setOption = (state, option) => {
+  const newOpt = { option: option };
+  return updateObject(state, newOpt);
+};
+
+export const setDetail = (state, detail) => {
+  const newDetail = { detail: detail };
+  return updateObject(state, newDetail);
+};
+
+export const setArea = (state, area) => {
+  const newArea = { area: area };
+  return updateObject(state, newArea);
+};
+
+export const setSelected = (state, selected) => {
+  const newSelected = { selected: selected };
+  return updateObject(state, newSelected);
+};

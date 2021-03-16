@@ -10,14 +10,6 @@ import Loader from "../UI/Loader";
 const Board = () => {
   const [scrollToTop, setScrollToTop] = useState(null);
   const viewport = useRef(null);
-
-  // employeeData: null,
-  // searchCategory: null,
-  // loading: false,
-  // nextLoading: false,
-  // errorMs: null,
-  // page: 1,
-
   const isLoading = useSelector((state) => state.searchEMP.loading);
 
   const handleScroll = (e) => {
