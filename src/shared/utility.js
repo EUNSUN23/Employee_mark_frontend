@@ -131,15 +131,7 @@ export const initCategory = (state, data) => {
 
 // <--------- STAT_BAR ---------------->
 
-// case actionTypes.STAT_BAR_OPT:
-//   return;
-// case actionTypes.STAT_BAR_DETAIL:
-//   return;
-// case actionTypes.STAT_BAR_AREA:
-//   return;
-// case actionTypes.STAT_BAR_SELECT:
-
-export const setOption = (state, option) => {
+export const setStatOption = (state, option) => {
   const newOpt = { option: option };
   return updateObject(state, newOpt);
 };
@@ -157,4 +149,15 @@ export const setArea = (state, area) => {
 export const setSelected = (state, selected) => {
   const newSelected = { selected: selected };
   return updateObject(state, newSelected);
+};
+
+// <--------------- STAT PAGE ------------------>
+
+export const setLoading = (state, isLoading) => {
+  const updatedLoading = { loading: isLoading };
+  return updateObject(state, updatedLoading);
+};
+
+export const setStatData = (state, data, loading) => {
+  const updatedStat = {};
 };

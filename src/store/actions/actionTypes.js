@@ -23,3 +23,8 @@ export const STAT_BAR_OPTION = "STAT_BAR_OPTION";
 export const STAT_BAR_DETAIL = "STAT_BAR_DETAIL";
 export const STAT_BAR_AREA = "STAT_BAR_AREA";
 export const STAT_BAR_SELECT = "STAT_BAR_SELECT";
+
+export const STAT_FETCH_START = "STAT_FETCH_START";
+export const STAT_FETCH_FAIL = "STAT_FETCH_FAIL";
+export const STAT_SET_DATA = "STAT_SET_DATA";
+export const STAT_INIT_ERROR = "STAT_INIT_ERROR";

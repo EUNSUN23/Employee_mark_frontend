@@ -7,7 +7,7 @@ import Loader from "../UI/Loader";
 import StatisticsBar from "./StatisticsBar/StatisticsBar";
 import StatisticsPage from "./StatisticsPage";
 
-const Statistics = (props) => {
+const Statistics = () => {
   const [dialog, openDialog, closeDialog] = useDialog(false);
   const [isLoading, setIsLoading] = useState(null);
   const [data, setData] = useState(null);
@@ -27,7 +27,7 @@ const Statistics = (props) => {
   // 2. statistics 페이지 - <리듀서> 1) 데이터 연봉>전체/부서 (2), 연봉>BELOW/ABOVE (2)
   //                                2) loading여부
   //                                3) 에러메세지
-  //                                4) open(모달)
+  //
   //                        <액션>  getStatAPI (MIDDLEWARE) >>>> fetchStart(로딩 true), setData(로딩false), fetchFail(로딩false, 에러메세지), initError(모달클릭시)
   // 3. statistics Bar  - <리듀서> 1) option(통계종류), optionDetail(기준), optionInput(select형), trackInput(track형)
   //                                --> Salary > SalaryStack/SalaryDist (optionDetail에 따라 결정) > 데이터출력

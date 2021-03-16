@@ -1,6 +1,6 @@
 import * as actionTypes from "../actions/actionTypes";
 import {
-  setOption,
+  setStatOption,
   setDetail,
   setArea,
   setSelected,
@@ -16,7 +16,7 @@ const initState = {
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.STAT_BAR_OPTION:
-      return setOption(state, action.option);
+      return setStatOption(state, action.option);
     case actionTypes.STAT_BAR_DETAIL:
       return setDetail(state, action.detail);
     case actionTypes.STAT_BAR_AREA:

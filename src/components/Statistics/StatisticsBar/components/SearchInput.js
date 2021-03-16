@@ -5,19 +5,19 @@ import SearchTrack from "../components/SearchTrack";
 
 const SearchInput = memo((props) => {
   const { classes } = props;
-  const detail = useSelector((state) => state.statBar.detail);
+  const optionDetail = useSelector((state) => state.statBar.optionDetail);
 
   const createSearchInput = () => {
     let searchInput;
-    switch (detail) {
-      case "조직별 통계":
+    switch (optionDetail) {
+      case "조직":
         searchInput = (
           <div className={classes.search_select}>
             <SearchDetailOption />
           </div>
         );
         return searchInput;
-      case "급여별 통계":
+      case "급여":
         searchInput = (
           <div className={classes.search_track}>
             <SearchTrack />

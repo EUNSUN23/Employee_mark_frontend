@@ -1,5 +1,5 @@
 import React, { useState, memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -70,11 +70,12 @@ const StyledMenuItem = withStyles((theme) => ({
 const SearchOption = memo(() => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [title, setTitle] = useState(null);
   const classes = useStyles();
 
-  const detail = useSelector((state) => state.statBar.detail);
   const onDetailClick = (detail) => {
     dispatch(setDetail(detail));
+    setTitle(detail);
   };
 
   const handleClick = (event) => {
@@ -99,7 +100,7 @@ const SearchOption = memo(() => {
         </ListItemIcon>
         <ListItemText
           className={classes.title_listItemText}
-          primary={detail ? detail : "기준"}
+          primary={title ? title : "기준"}
         />
       </Button>
       <StyledMenu
