@@ -15,12 +15,19 @@ const Statistics = (props) => {
   //   /api/stat/distribution/above/:salary	get	특정 급여 이상의 부서별 인원 분포
   // /api/stat/distribution/below/:salary	get	특정 급여 이하의 부서별 인원 분포
   // /api/stat/distribution/dept/salary	get	각 부서내 10000간격의 급여별 인원 분포
-  // -> 파이형 or 도넛형 그래프 7개
+  // -> 7개 부서 그래프 stack차트
   // /api/stat/distribution/emp/salary	get	10000간격의 급여별 전 직원 인원 분포
-  // -> 파이형 or 도넛형 그래프 1개 큰것
+  // -> 전체 그래프 stack차트
 
   // 탭 : 연봉통계자료 > 조직별 통계> 전체/부서
   //                    급여별 통계> track
+
+  // <----- 리덕스 리팩토링 ----->
+  // 1. statistics 그래프 페이지용, statistics Bar 용 reducer 2개
+  // 2. statistics 페이지 - <리듀서> 1) 데이터 연봉>전체/부서 (2) // 연봉>BELOW, ABOVE (2)
+  //                                2) loading여부
+  //                                3) 에러메세지
+  //                        <액션>  getStatAPI (MIDDLEWARE) >>>> fetchStart(로딩 true), setData(로딩false), fetchFail(로딩false, 에러메세지)
 
   const getStatisticsData = async (dataType) => {
     let res;

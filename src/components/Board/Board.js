@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 import SearchBar from "../SearchBar/SearchBar";
 import CardContainer from "./EmployeeCard/Card/CardContainer";
@@ -7,10 +7,7 @@ import ScrollToTop from "../UI/ScrollToTop";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 
-import { initError } from "../../store/actions/searchEMP";
-
 const Board = () => {
-  const dispatch = useDispatch();
   const [scrollToTop, setScrollToTop] = useState(null);
   const viewport = useRef(null);
 
@@ -20,12 +17,6 @@ const Board = () => {
   // nextLoading: false,
   // errorMs: null,
   // page: 1,
-
-  const message = useSelector((state) => state.searchEMP.errorMs);
-
-  const open = useSelector((state) => state.searchEMP.errorMs !== null);
-
-  const handleClose = dispatch(initError());
 
   const isLoading = useSelector((state) => state.searchEMP.loading);
 
@@ -53,7 +44,7 @@ const Board = () => {
     <Loader size="large" />
   ) : (
     <Grid container direction="column" spacing={10}>
-      <Modal handleClose={handleClose} open={open} message={message} />
+      <Modal />
       <Grid item></Grid>
       <Grid item container ref={viewport}>
         <Grid item xs={false} sm={2} />

@@ -1,10 +1,12 @@
 import React, { memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import ErrorIcon from "@material-ui/icons/Error";
+import { initError } from "../../store/actions/searchEMP";
 
 const useStyles = makeStyles({
   wrapper: {
@@ -24,9 +26,15 @@ const useStyles = makeStyles({
   },
 });
 
-const Modal = memo((props) => {
+const Modal = memo(() => {
   const classes = useStyles();
-  const { handleClose, open, message } = props;
+  const dispatch = useDispatch();
+
+  const message = useSelector((state) => state.searchEMP.errorMs);
+
+  const open = useSelector((state) => state.searchEMP.errorMs !== null);
+
+  const handleClose = dispatch(initError());
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="contact" open={open}>
