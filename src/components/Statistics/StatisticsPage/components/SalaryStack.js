@@ -18,7 +18,9 @@ const SalaryStack = () => {
     ) : (
       <Grid container>
         <Grid item xs={1}></Grid>
-        <EmpChart />
+        <Grid item xs={10}>
+          <EmpChart />
+        </Grid>
         <Grid item xs={1}></Grid>
       </Grid>
     );
