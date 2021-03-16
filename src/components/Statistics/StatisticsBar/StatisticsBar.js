@@ -1,4 +1,5 @@
 import React, { useState, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -13,7 +14,7 @@ import Button from "@material-ui/core/Button";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import { Grid } from "@material-ui/core";
 import SearchOption from "./components/SearchOption";
-import SearchDetailOption from "./components/SearchDetailOption";
+import SearchInput from "./components/SearchInput";
 import SearchCategory from "./components/SearchCategory";
 
 const useStyles = makeStyles((theme) => ({
@@ -172,9 +173,12 @@ const StatisticsBar = memo((props) => {
   const { onSubmitHandler } = props;
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
-  const [searchOption, setSearchOption] = useState(null);
-  const [searchDetail, setSearchDetail] = useState(null);
-  const [searchCategory, setSearchCategory] = useState(null);
+  // const [searchOption, setSearchOption] = useState(null);
+  // const [searchDetail, setSearchDetail] = useState(null);
+  // const [searchCategory, setSearchCategory] = useState(null);
+
+  // onSubmit bar에서 처리하기 --> getState로 action에서 처리?..
+  // option, detail 분리, area, selected분리(SearchDetailOption안에서 detail에 따라 분리)
 
   const submitData = (e) => {
     e.preventDefault();
@@ -238,19 +242,6 @@ const StatisticsBar = memo((props) => {
 
   const mobileMenuId = "search-employee-menu-mobile";
 
-  const handleCategoryClick = (selected) => {
-    setSearchCategory(selected);
-  };
-
-  const handleSearchDetail = (selected) => {
-    setSearchDetail(selected);
-  };
-
-  const handleOptionClick = (selected) => {
-    handleSearchDetail(null);
-    setSearchOption(selected);
-  };
-
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -305,24 +296,13 @@ const StatisticsBar = memo((props) => {
                   className={classes.searchContainer}
                 >
                   <Grid item>
-                    <SearchCategory
-                      searchCategory={searchCategory}
-                      handleCategoryClick={handleCategoryClick}
-                    />
+                    <SearchCategory />
                   </Grid>
                   <Grid MenuItem>
-                    <SearchOption
-                      selected={searchOption}
-                      handleOptionClick={handleOptionClick}
-                    />
+                    <SearchOption />
                   </Grid>
                   <Grid item>
-                    <SearchDetailOption
-                      searchOption={searchOption}
-                      searchDetail={searchDetail}
-                      handleSearchDetail={handleSearchDetail}
-                      classes={classes}
-                    />
+                    <SearchInput classes={classes} />
                   </Grid>
                   <Grid item>
                     <Button

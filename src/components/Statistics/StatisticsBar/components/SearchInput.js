@@ -1,58 +1,41 @@
 import React, { memo } from "react";
+import { useSelector } from "react-redux";
 import SearchDetailOption from "../components/SearchDetailOption";
 import SearchTrack from "../components/SearchTrack";
 
 const SearchInput = memo((props) => {
-  const {
-    searchOption,
-    searchDetail,
-    handleSearchDetail,
-    category,
-    classes,
-  } = props;
+  const { classes } = props;
+  const detail = useSelector((state) => state.statBar.detail);
 
-  const createSearchInput = (searchOption) => {
+  const createSearchInput = () => {
     let searchInput;
-    switch (searchOption) {
-      case "":
-        searchInput = (
-          <div className={classes.search_select}>
-            <SearchDetailOption
-              category={category.dept}
-              selected={searchDetail}
-              handleOptionClick={handleSearchDetail}
-            />
-          </div>
-        );
-        return searchInput;
+    switch (detail) {
       case "조직별 통계":
         searchInput = (
           <div className={classes.search_select}>
-            <SearchDetailOption
-              category={category.dept}
-              selected={searchDetail}
-              handleOptionClick={handleSearchDetail}
-            />
+            <SearchDetailOption />
           </div>
         );
         return searchInput;
       case "급여별 통계":
         searchInput = (
           <div className={classes.search_track}>
-            <SearchTrack
-              selected={searchDetail}
-              handleOptionClick={handleSearchDetail}
-            />
+            <SearchTrack />
           </div>
         );
         return searchInput;
 
       default:
-        return;
+        searchInput = (
+          <div className={classes.search_select}>
+            <SearchDetailOption />
+          </div>
+        );
+        return searchInput;
     }
   };
 
-  return <>{createSearchInput(searchOption)}</>;
+  return <>{createSearchInput()}</>;
 });
 
 export default SearchInput;

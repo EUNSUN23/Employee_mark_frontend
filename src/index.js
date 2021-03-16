@@ -11,6 +11,7 @@ import thunk from "redux-thunk";
 import keywords from "./store/reducers/keywords";
 import searchEMP from "./store/reducers/searchEMP";
 import searchBar from "./store/reducers/searchBar";
+import statBar from "./store/reducers/statBar";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   keywords: keywords,
   searchEMP: searchEMP,
   searchBar: searchBar,
+  statBar: statBar,
 });
 
 const store = createStore(

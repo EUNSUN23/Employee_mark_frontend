@@ -1,4 +1,5 @@
 import React, { useState, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -6,6 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { setDetail } from "../../../../store/actions/statBar";
 
 const useStyles = makeStyles(() => ({
   title_container: {
@@ -65,10 +67,15 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const SearchOption = memo((props) => {
+const SearchOption = memo(() => {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
-  const { selected, handleOptionClick } = props;
   const classes = useStyles();
+
+  const detail = useSelector((state) => state.statBar.detail);
+  const onDetailClick = (detail) => {
+    dispatch(setDetail(detail));
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -92,7 +99,7 @@ const SearchOption = memo((props) => {
         </ListItemIcon>
         <ListItemText
           className={classes.title_listItemText}
-          primary={selected ? selected : "기준"}
+          primary={detail ? detail : "기준"}
         />
       </Button>
       <StyledMenu
@@ -105,7 +112,7 @@ const SearchOption = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("기준");
+            onDetailClick("기준");
             handleClose();
           }}
         >
@@ -114,7 +121,7 @@ const SearchOption = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("조직");
+            onDetailClick("조직");
             handleClose();
           }}
         >
@@ -123,7 +130,7 @@ const SearchOption = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleOptionClick("급여");
+            onDetailClick("급여");
             handleClose();
           }}
         >

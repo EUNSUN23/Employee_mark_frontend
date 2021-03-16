@@ -7,6 +7,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import theme from "../../../../theme";
+import { setSelected } from "../../../../store/actions/statBar";
 
 const useStyles = makeStyles(() => ({
   title_container: {
@@ -85,10 +86,10 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const SearchDetailOption = (props) => {
+const SearchDetailOption = () => {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const [detailTitle, setDetailTitle] = useState(null);
-  const { handleSearchDetail } = props;
   const classes = useStyles();
 
   const handleClick = (event) => {
@@ -99,19 +100,15 @@ const SearchDetailOption = (props) => {
     setAnchorEl(null);
   };
 
-  const optionClickHandler = (type) => {
+  const onSelectClick = (type) => {
+    dispatch(setSelected({ type: type, salary: "default" }));
+    handleClose();
     switch (type) {
       case "emp":
-        handleSearchDetail({ type: type, salary: "default" });
-        handleClose();
         return setDetailTitle("전체");
       case "dept":
-        handleSearchDetail({ type: type, salary: "default" });
-        handleClose();
         return setDetailTitle("부서");
       case "default":
-        handleSearchDetail({ type: type, salary: "default" });
-        handleClose();
         return setDetailTitle("범위");
       default:
         return;
@@ -146,14 +143,14 @@ const SearchDetailOption = (props) => {
       >
         <StyledMenuItem
           onClick={() => {
-            optionClickHandler("default");
+            onSelectClick("default");
           }}
         >
           <ListItemText primary="범위" />
         </StyledMenuItem>
         <StyledMenuItem
           onClick={() => {
-            optionClickHandler("emp");
+            onSelectClick("emp");
           }}
         >
           <ListItemText primary="전체" />
@@ -161,7 +158,7 @@ const SearchDetailOption = (props) => {
 
         <StyledMenuItem
           onClick={() => {
-            optionClickHandler("dept");
+            onSelectClick("dept");
           }}
         >
           <ListItemText primary="부서" />

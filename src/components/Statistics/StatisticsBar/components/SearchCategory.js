@@ -1,4 +1,5 @@
 import React, { useState, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -6,6 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import { setOption, setDetail } from "../../../../store/actions/statBar";
 
 const useStyles = makeStyles(() => ({
   title_container: {
@@ -65,10 +67,16 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const SearchCategory = memo((props) => {
+const SearchCategory = memo(() => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { searchCategory, handleCategoryClick } = props;
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+  const option = useSelector((state) => state.statBar.option);
+  const onClickOption = (option) => {
+    dispatch(setDetail(null));
+    dispatch(setOption(option));
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -92,7 +100,7 @@ const SearchCategory = memo((props) => {
         </ListItemIcon>
         <ListItemText
           className={classes.title_listItemText}
-          primary={searchCategory ? searchCategory : "통계"}
+          primary={option ? option : "통계"}
         />
       </Button>
       <StyledMenu
@@ -105,7 +113,7 @@ const SearchCategory = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleCategoryClick("통계");
+            onClickOption("통계");
             handleClose();
           }}
         >
@@ -114,7 +122,7 @@ const SearchCategory = memo((props) => {
         <StyledMenuItem
           className={classes.menu_container}
           onClick={() => {
-            handleCategoryClick("연봉");
+            onClickOption("연봉");
             handleClose();
           }}
         >
