@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { setChartColor } from "../../../../shared/utility";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   AreaChart,
   Area,
@@ -7,9 +10,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
-import ChartSelect from "./ChartSelect";
-import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import ChartSelect from "../../Graph/ChartSelect";
 
 const useStyles = makeStyles(() => ({
   initText: {
@@ -24,49 +25,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SalaryStackChart = (props) => {
-  const classes = useStyles();
-  const [chartData, setChartData] = useState();
+const DeptChart = () => {
   const [checked, setChecked] = useState(["Customer Service"]);
-  const { data } = props;
-
-  const createChartData = (resData) => {
-    const arrangeData = (resData) => {
-      const dataArr = [];
-
-      for (let i = 0; i < 13; i++) {
-        const salaryData = resData.filter(
-          (data, idx) => data.sal === 40000 + 10000 * i
-        );
-
-        dataArr.push(salaryData);
-      }
-      return dataArr;
-    };
-
-    const arrangedData = arrangeData(resData);
-
-    const sortedData = arrangedData.map((data, idx) => {
-      const dataObj = new Set();
-      const deptNameArr = data.map((data, idx) => {
-        return data.dept_name;
-      });
-      dataObj.name = `${data[0].sal / 10000}만`;
-      const dataCount = deptNameArr.length; //9,8,6..등
-      for (let i = 0; i < dataCount; i++) {
-        dataObj[deptNameArr[i]] = data[i].cnt;
-      }
-
-      return dataObj;
-    });
-
-    setChartData(sortedData);
-  };
-
-  useEffect(() => {
-    if (!data) return;
-    createChartData(data);
-  }, [checked, data]);
+  const deptData = useSelector((state) => state.statPage.deptData);
+  const classes = useStyles();
 
   const chartSelectHandler = (selected) => {
     setChecked(selected);
@@ -75,42 +37,6 @@ const SalaryStackChart = (props) => {
   const makeChart = () => {
     console.log("MAKE CHART____", "checked", checked, "chartData", chartData);
     if (checked.length === 0 || !chartData) return;
-    const setChartColor = (chartName) => {
-      console.log(chartName);
-      let chartColor;
-      switch (chartName) {
-        case "Customer Service":
-          chartColor = "red";
-          return chartColor;
-        case "Development":
-          chartColor = "orange";
-          return chartColor;
-        case "Finance":
-          chartColor = "salmon";
-          return chartColor;
-        case "Human Resources":
-          chartColor = "green";
-          return chartColor;
-        case "Marketing":
-          chartColor = "blue";
-          return chartColor;
-        case "Production":
-          chartColor = "skyblue";
-          return chartColor;
-        case "Quality Management":
-          chartColor = "purple";
-          return chartColor;
-        case "Research":
-          chartColor = "plum";
-          return chartColor;
-        case "Sales":
-          chartColor = "palegreen";
-          return chartColor;
-        default:
-          return;
-      }
-    };
-
     let chart;
 
     chart = checked.map((data, idx) => {
@@ -137,7 +63,7 @@ const SalaryStackChart = (props) => {
         <AreaChart
           width={650}
           height={250}
-          data={chartData}
+          data={deptData}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
@@ -173,4 +99,4 @@ const SalaryStackChart = (props) => {
   );
 };
 
-export default SalaryStackChart;
+export default DeptChart;

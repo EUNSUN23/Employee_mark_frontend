@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Grid } from "@material-ui/core";
-import axios from "axios";
 import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import StatisticsBar from "./StatisticsBar/StatisticsBar";
-import StatisticsPage from "./StatisticsPage";
+import StatisticsPage from "./StatisticsPage/StatisticsPage";
 
 const Statistics = () => {
   const [dialog, openDialog, closeDialog] = useDialog(false);
@@ -33,48 +32,6 @@ const Statistics = () => {
   //                                --> Salary > SalaryStack/SalaryDist (optionDetail에 따라 결정) > 데이터출력
   //                      <액션>    setOption, setOptionDetail, setOptionInput, setTrackInput
   // 고민 - getState ?...
-  const getStatisticsData = async (dataType) => {
-    let res;
-    try {
-      setIsLoading(true);
-      let url;
-      if (dataType.type === "emp") {
-        url = `http://localhost:3008/api/stat/distribution/emp/salary`;
-      } else if (dataType.type === "dept") {
-        url = `http://localhost:3008/api/stat/distribution/dept/salary`;
-      } else if (dataType.type === "below") {
-        url = `http://localhost:3008/api/stat/distribution/below/${dataType.salary}`;
-      } else if (dataType.type === "above") {
-        url = `http://localhost:3008/api/stat/distribution/above/${dataType.salary}`;
-      }
-
-      console.log("URL", url);
-      res = await axios.get(url);
-      const result = res.data.packet;
-      console.log("RESULT", result);
-      if (result === null) {
-        setIsLoading(false);
-        return;
-      } else {
-        setIsLoading(false);
-        setData(result);
-      }
-    } catch (err) {
-      setIsLoading(false);
-      console.log("catch error", err.response.status);
-      openDialog(err.response.status);
-    }
-  };
-
-  const onSearchHandler = useCallback((dataType) => {
-    // dataType = {type:"emp","dept","below","above" salary:"default", number }
-    if (dataType.type) {
-      console.log("DATA_TYPE", dataType);
-      getStatisticsData(dataType);
-    } else {
-      window.alert("검색어를 입력하세요");
-    }
-  }, []);
 
   const statistics = isLoading ? (
     <Loader size="large" />
@@ -98,7 +55,7 @@ const Statistics = () => {
 
   return (
     <>
-      <StatisticsBar onSubmitHandler={onSearchHandler} />
+      <StatisticsBar />
       {statistics}
     </>
   );

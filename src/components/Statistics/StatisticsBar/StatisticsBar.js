@@ -16,6 +16,7 @@ import { Grid } from "@material-ui/core";
 import SearchOption from "./components/SearchOption";
 import SearchInput from "./components/SearchInput";
 import SearchCategory from "./components/SearchCategory";
+import { getStatAPI } from "../../../store/actions/statPage";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -168,25 +169,27 @@ const useStyles = makeStyles((theme) => ({
 // category = "조직별 통계", "급여별 통계"
 // searchDetail = (카테고리:조직별)"전체"(/api/stat/distribution/emp/salary), "부서"(/api/stat/distribution/dept/salary) // (카테고리:급여별) - track컴포넌트
 
-const StatisticsBar = memo((props) => {
+const StatisticsBar = memo(() => {
   const classes = useStyles();
-  const { onSubmitHandler } = props;
+  const dispatch = useDispatch();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
-  // const [searchOption, setSearchOption] = useState(null);
-  // const [searchDetail, setSearchDetail] = useState(null);
-  // const [searchCategory, setSearchCategory] = useState(null);
 
-  // onSubmit bar에서 처리하기 --> getState로 action에서 처리?..
-  // option, detail 분리, area, selected분리(SearchDetailOption안에서 detail에 따라 분리)
+  const optionDetail = useSelector((state) => state.statBar.optionDetail);
+  const areaData = useSelector((state) => state.statBar.area);
+  const selectedData = useSelector((state) => state.statBar.selected);
 
-  const submitData = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-    if (searchOption === "조직") {
-      console.log("submit Button click", searchOption);
-      onSubmitHandler(searchDetail); // Statistics 에서 props로 오는 함수
-    } else {
-      return;
+    console.log("onSubmit", optionDetail);
+    switch (optionDetail) {
+      case "조직":
+        return dispatch(getStatAPI(selectedData));
+      case "급여":
+        return dispatch(getStatAPI(areaData));
+      default:
+        window.alert("검색어를 입력하세요");
+        return;
     }
   };
 
@@ -284,7 +287,7 @@ const StatisticsBar = memo((props) => {
             <Grid item xs={10} sm={8} md={7} className={classes.formContainer}>
               <form
                 onSubmit={(e) => {
-                  submitData(e);
+                  onSubmitHandler(e);
                 }}
               >
                 <Grid
@@ -310,7 +313,7 @@ const StatisticsBar = memo((props) => {
                       color="secondary"
                       className={classes.submit}
                       onClick={(e) => {
-                        submitData(e);
+                        onSubmitHandler(e);
                       }}
                     >
                       검색

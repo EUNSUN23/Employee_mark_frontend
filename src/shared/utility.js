@@ -158,6 +158,91 @@ export const setLoading = (state, isLoading) => {
   return updateObject(state, updatedLoading);
 };
 
-export const setStatData = (state, data, loading) => {
-  const updatedStat = {};
+const arrangeStack = (resData) => {
+  const dataArr = [];
+  let arrangedData;
+
+  for (let i = 0; i < 13; i++) {
+    const salaryData = resData.filter(
+      (data, idx) => data.sal === 40000 + 10000 * i
+    );
+
+    dataArr.push(salaryData);
+  }
+
+  arrangedData = dataArr.map((data, idx) => {
+    const dataObj = new Set();
+    const deptNameArr = data.map((data, idx) => {
+      return data.dept_name;
+    });
+    dataObj.name = `${data[0].sal / 10000}만`;
+    const dataCount = deptNameArr.length; //9,8,6..등
+    for (let i = 0; i < dataCount; i++) {
+      dataObj[deptNameArr[i]] = data[i].cnt;
+    }
+
+    return dataObj;
+  });
+
+  return arrangedData;
+};
+
+export const setStatData = (state, data, isLoading) => {
+  let chartData;
+  let updatedData;
+
+  switch (data.type) {
+    case "emp":
+      chartData = arrangeStack(data);
+      updatedData = { empData: chartData, loading: isLoading };
+      return updateObject(state, updatedData);
+    case "dept":
+      chartData = arrangeStack(data);
+      updatedData = { deptData: chartData, loading: isLoading };
+      return updateObject(state, updatedData);
+    case "below":
+      return;
+    case "above":
+      return;
+    default:
+      return;
+  }
+};
+
+// <------------------ STACK CHART ----------------------->
+
+export const setChartColor = (chartName) => {
+  console.log(chartName);
+  let chartColor;
+  switch (chartName) {
+    case "Customer Service":
+      chartColor = "red";
+      return chartColor;
+    case "Development":
+      chartColor = "orange";
+      return chartColor;
+    case "Finance":
+      chartColor = "salmon";
+      return chartColor;
+    case "Human Resources":
+      chartColor = "green";
+      return chartColor;
+    case "Marketing":
+      chartColor = "blue";
+      return chartColor;
+    case "Production":
+      chartColor = "skyblue";
+      return chartColor;
+    case "Quality Management":
+      chartColor = "purple";
+      return chartColor;
+    case "Research":
+      chartColor = "plum";
+      return chartColor;
+    case "Sales":
+      chartColor = "palegreen";
+      return chartColor;
+    default:
+      return;
+  }
 };
