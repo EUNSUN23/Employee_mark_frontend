@@ -1,15 +1,20 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { initError } from "../../store/actions/statPage";
 import { Grid } from "@material-ui/core";
-import useDialog from "../../hooks/useDialog";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import StatisticsBar from "./StatisticsBar/StatisticsBar";
 import StatisticsPage from "./StatisticsPage/StatisticsPage";
 
 const Statistics = () => {
-  const [dialog, openDialog, closeDialog] = useDialog(false);
-  const [isLoading, setIsLoading] = useState(null);
-  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.statPage.loading);
+  const openErrorMs = useSelector((state) => state.statPage.errorMs !== null);
+  const errorMs = useSelector((state) => state.statPage.errorMs);
+  const handleCloseMs = () => {
+    dispatch(initError());
+  };
 
   //   /api/stat/distribution/above/:salary	get	특정 급여 이상의 부서별 인원 분포
   // /api/stat/distribution/below/:salary	get	특정 급여 이하의 부서별 인원 분포
@@ -37,16 +42,12 @@ const Statistics = () => {
     <Loader size="large" />
   ) : (
     <Grid container direction="column" spacing={10}>
-      <Modal
-        open={dialog.open}
-        message={dialog.message}
-        handleClose={closeDialog}
-      />
+      <Modal open={openErrorMs} message={errorMs} handleClose={handleCloseMs} />
       <Grid item></Grid>
       <Grid item container>
         <Grid item xs={false} sm={1} />
         <Grid item xs={12} sm={10}>
-          <StatisticsPage data={data} />
+          <StatisticsPage />
         </Grid>
         <Grid item xs={false} sm={1} />
       </Grid>

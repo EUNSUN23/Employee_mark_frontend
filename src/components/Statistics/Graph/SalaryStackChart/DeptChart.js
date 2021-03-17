@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { setChartColor } from "../../../../shared/utility";
 import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 import {
   AreaChart,
   Area,
@@ -35,8 +36,8 @@ const DeptChart = () => {
   };
 
   const makeChart = () => {
-    console.log("MAKE CHART____", "checked", checked, "chartData", chartData);
-    if (checked.length === 0 || !chartData) return;
+    console.log("MAKE CHART____", "checked", checked, "chartData", deptData);
+    if (checked.length === 0 || !deptData) return;
     let chart;
 
     chart = checked.map((data, idx) => {
@@ -58,7 +59,7 @@ const DeptChart = () => {
   };
 
   const content =
-    checked.length > 0 && chartData ? (
+    checked.length > 0 && deptData ? (
       <Grid item>
         <AreaChart
           width={650}

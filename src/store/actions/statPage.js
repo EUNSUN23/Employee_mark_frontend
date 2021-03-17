@@ -13,8 +13,13 @@ const fetchFail = (message) => {
   };
 };
 
-const setStatData = (data) => {
-  return { type: actionTypes.STAT_SET_DATA, data: data, loading: false };
+const setStatData = (data, type) => {
+  return {
+    type: actionTypes.STAT_SET_DATA,
+    data: data,
+    loading: false,
+    dataType: type,
+  };
 };
 
 export const getStatAPI = (data) => {
@@ -42,7 +47,7 @@ export const getStatAPI = (data) => {
     if (!res) return;
     const result = res.data.packet;
     console.log(result);
-    dispatch(setStatData(result));
+    dispatch(setStatData(result, data.type));
   };
 };
 

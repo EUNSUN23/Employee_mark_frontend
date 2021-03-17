@@ -12,6 +12,7 @@ import keywords from "./store/reducers/keywords";
 import searchEMP from "./store/reducers/searchEMP";
 import searchBar from "./store/reducers/searchBar";
 import statBar from "./store/reducers/statBar";
+import statPage from "./store/reducers/statPage";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   searchEMP: searchEMP,
   searchBar: searchBar,
   statBar: statBar,
+  statPage: statPage,
 });
 
 const store = createStore(

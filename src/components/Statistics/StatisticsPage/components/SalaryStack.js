@@ -5,16 +5,11 @@ import DeptChart from "../../Graph/SalaryStackChart/DeptChart";
 import EmpChart from "../../Graph/SalaryStackChart/EmpChart";
 
 const SalaryStack = () => {
-  const selected = useSelector((state) => state.statBar.selected);
+  const selected = useSelector((state) => state.statBar.selected.type);
 
   const salaryStack =
     selected === "dept" ? (
-      <Grid container spacing={2} className={classes.chartContainer}>
-        <DeptChart />
-        <Grid item>
-          <ChartSelect onCheckHandler={chartSelectHandler} checked={checked} />
-        </Grid>
-      </Grid>
+      <DeptChart />
     ) : (
       <Grid container>
         <Grid item xs={1}></Grid>

@@ -137,7 +137,7 @@ export const setStatOption = (state, option) => {
 };
 
 export const setDetail = (state, detail) => {
-  const newDetail = { detail: detail };
+  const newDetail = { optionDetail: detail };
   return updateObject(state, newDetail);
 };
 
@@ -187,11 +187,11 @@ const arrangeStack = (resData) => {
   return arrangedData;
 };
 
-export const setStatData = (state, data, isLoading) => {
+export const setStatData = (state, data, isLoading, type) => {
   let chartData;
   let updatedData;
 
-  switch (data.type) {
+  switch (type) {
     case "emp":
       chartData = arrangeStack(data);
       updatedData = { empData: chartData, loading: isLoading };
