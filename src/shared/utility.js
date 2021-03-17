@@ -193,8 +193,10 @@ export const setStatData = (state, data, isLoading, type) => {
 
   switch (type) {
     case "emp":
-      chartData = arrangeStack(data);
-      updatedData = { empData: chartData, loading: isLoading };
+      data.sort((a, b) => {
+        return a.sal - b.sal;
+      });
+      updatedData = { empData: data, loading: isLoading };
       return updateObject(state, updatedData);
     case "dept":
       chartData = arrangeStack(data);
