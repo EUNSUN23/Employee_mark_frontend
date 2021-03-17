@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { setChartColor } from "../../../../shared/utility";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+import { curveCardinal } from "d3-shape";
 import ChartSelect from "../../Graph/ChartSelect";
 
 const useStyles = makeStyles(() => ({
@@ -29,8 +30,8 @@ const useStyles = makeStyles(() => ({
 const DeptChart = () => {
   const [checked, setChecked] = useState(["Customer Service"]);
   const deptData = useSelector((state) => state.statPage.deptData);
-
   const classes = useStyles();
+  const cardinal = curveCardinal.tension(0.3);
 
   console.log("DeptChart", deptData);
 
@@ -50,7 +51,7 @@ const DeptChart = () => {
       return (
         <Area
           key={chartName}
-          type="monotone"
+          type={cardinal}
           dataKey={chartName}
           stroke={color}
           fillOpacity={0.5}
