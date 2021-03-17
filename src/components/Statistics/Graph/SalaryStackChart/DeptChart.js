@@ -29,7 +29,10 @@ const useStyles = makeStyles(() => ({
 const DeptChart = () => {
   const [checked, setChecked] = useState(["Customer Service"]);
   const deptData = useSelector((state) => state.statPage.deptData);
+
   const classes = useStyles();
+
+  console.log("DeptChart", deptData);
 
   const chartSelectHandler = (selected) => {
     setChecked(selected);
@@ -37,7 +40,7 @@ const DeptChart = () => {
 
   const makeChart = () => {
     console.log("MAKE CHART____", "checked", checked, "chartData", deptData);
-    if (checked.length === 0 || !deptData) return;
+    if (checked.length === 0) return;
     let chart;
 
     chart = checked.map((data, idx) => {
@@ -58,46 +61,45 @@ const DeptChart = () => {
     return chart;
   };
 
-  const content =
-    checked.length > 0 && deptData ? (
-      <Grid item>
-        <AreaChart
-          width={650}
-          height={250}
-          data={deptData}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="name" />
-          <YAxis type="number" domain={[0, 20000]} />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Tooltip />
-          {makeChart()}
-        </AreaChart>
-      </Grid>
-    ) : (
-      <Grid item>
-        <div className={classes.initText}>부서를 선택하세요</div>
-      </Grid>
-    );
+  const deptChart = checked.length ? (
+    <Grid item>
+      <AreaChart
+        width={650}
+        height={250}
+        data={deptData}
+        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+      >
+        <defs>
+          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+          </linearGradient>
+          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+          </linearGradient>
+        </defs>
+        <XAxis dataKey="name" />
+        <YAxis type="number" domain={[0, 20000]} />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Tooltip />
+        {makeChart()}
+      </AreaChart>
+    </Grid>
+  ) : (
+    <Grid item>
+      <div className={classes.initText}>부서를 선택하세요</div>
+    </Grid>
+  );
 
-  return (
+  return deptData ? (
     <Grid container spacing={2} className={classes.chartContainer}>
-      {content}
+      {deptChart}
       <Grid item>
         <ChartSelect onCheckHandler={chartSelectHandler} checked={checked} />
       </Grid>
     </Grid>
-  );
+  ) : null;
 };
 
 export default DeptChart;

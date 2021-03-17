@@ -5,13 +5,16 @@ import { Grid } from "@material-ui/core";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import StatisticsBar from "./StatisticsBar/StatisticsBar";
-import StatisticsPage from "./StatisticsPage/StatisticsPage";
+import SalaryStack from "./StatisticsPage/SalaryStack";
+import SalaryDist from "./StatisticsPage/SalaryDist";
 
 const Statistics = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.statPage.loading);
   const openErrorMs = useSelector((state) => state.statPage.errorMs !== null);
   const errorMs = useSelector((state) => state.statPage.errorMs);
+
+  const optionDetail = useSelector((state) => state.statBar.optionDetail);
   const handleCloseMs = () => {
     dispatch(initError());
   };
@@ -38,19 +41,25 @@ const Statistics = () => {
   //                      <액션>    setOption, setOptionDetail, setOptionInput, setTrackInput
   // 고민 - getState ?...
 
+  const statisticsPage = () => {
+    switch (optionDetail) {
+      case "조직":
+        return <SalaryStack />;
+      case "급여":
+        return <SalaryDist />;
+      default:
+        return null;
+    }
+  };
+
   const statistics = isLoading ? (
     <Loader size="large" />
   ) : (
-    <Grid container direction="column" spacing={10}>
+    <Grid container direction="column" spacing={8}>
       <Modal open={openErrorMs} message={errorMs} handleClose={handleCloseMs} />
       <Grid item></Grid>
-      <Grid item container>
-        <Grid item xs={false} sm={1} />
-        <Grid item xs={12} sm={10}>
-          <StatisticsPage />
-        </Grid>
-        <Grid item xs={false} sm={1} />
-      </Grid>
+      <Grid item></Grid>
+      <Grid item>{statisticsPage()}</Grid>
     </Grid>
   );
 
