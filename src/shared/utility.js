@@ -190,12 +190,14 @@ const arrangeStack = (resData) => {
 export const setStatData = (state, data, isLoading, type) => {
   let chartData;
   let updatedData;
+  let customData;
 
   switch (type) {
     case "emp":
       data.sort((a, b) => {
         return a.sal - b.sal;
       });
+
       updatedData = { empData: data, loading: isLoading };
       return updateObject(state, updatedData);
     case "dept":
