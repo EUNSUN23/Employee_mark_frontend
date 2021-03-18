@@ -15,7 +15,6 @@ import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import { Grid } from "@material-ui/core";
 import SearchOption from "./components/SearchOption";
 import SearchInput from "./components/SearchInput";
-import SearchCategory from "./components/SearchCategory";
 import { getStatAPI } from "../../../store/actions/statPage";
 
 const useStyles = makeStyles((theme) => ({
@@ -299,9 +298,6 @@ const StatisticsBar = memo(() => {
                   className={classes.searchContainer}
                 >
                   <Grid item>
-                    <SearchCategory />
-                  </Grid>
-                  <Grid MenuItem>
                     <SearchOption />
                   </Grid>
                   <Grid item>

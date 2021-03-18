@@ -1,9 +1,5 @@
 import * as actionTypes from "./actionTypes";
 
-export const setOption = (option) => {
-  return { type: actionTypes.STAT_BAR_OPTION, option: option };
-};
-
 export const setDetail = (detail) => {
   return { type: actionTypes.STAT_BAR_DETAIL, detail: detail };
 };
