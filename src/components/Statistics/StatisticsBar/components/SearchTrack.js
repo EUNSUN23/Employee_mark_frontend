@@ -1,51 +1,36 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+
 import Slider from "@material-ui/core/Slider";
-import Typography from "@material-ui/core/Typography";
-import Tooltip from "@material-ui/core/Tooltip";
+import Input from "@material-ui/core/Input";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
-    width: 300 + theme.spacing(3) * 2,
+    width: 320,
   },
-  margin: {
-    height: theme.spacing(3),
+  input: {
+    width: 65,
+    color: "white",
+    fontSize: 15,
+    backgroundColor: "transparent",
   },
-}));
+  label: {
+    fontSize: 13,
+    color: "#444",
+    ":focus": {
+      color: "white",
+    },
+  },
+});
 
-function ValueLabelComponent(props) {
-  const { children, open, value } = props;
-
-  return (
-    <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
-      {children}
-    </Tooltip>
-  );
-}
-
-ValueLabelComponent.propTypes = {
-  children: PropTypes.element.isRequired,
-  open: PropTypes.bool.isRequired,
-  value: PropTypes.number.isRequired,
+const CustomLabel = ({ label }) => {
+  const classes = useStyles();
+  return <span className={classes.label}>{label}</span>;
 };
 
 const iOSBoxShadow =
   "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
-
-const createLabel = (label, onChangeLabel) => {
-  return (
-    <label
-      htmlFor={`label_for_{label}`}
-      style={{ border: "1px solid black" }}
-      onClick={() => {
-        onChangeLabel(label);
-      }}
-    >
-      <span id={`label_for_${label}`}>{label}</span>
-    </label>
-  );
-};
 
 const IOSSlider = withStyles({
   root: {
@@ -105,71 +90,113 @@ const IOSSlider = withStyles({
   },
 })(Slider);
 
-export default function CustomizedSlider() {
-  const [value, setValue] = useState("");
+export default function InputSlider() {
   const classes = useStyles();
-  const onChangeLabel = (label) => {
-    console.log(label);
-    setValue(label);
-  };
-  useEffect(() => {
-    console.log("setValue", value);
-  });
+  const [value, setValue] = React.useState(40000);
 
-  console.log("setValue", value);
+  const handleSliderChange = (event, newValue) => {
+    const left = parseInt(event.target.style.left);
+    console.log(left);
+
+    switch (left) {
+      case 0:
+        return setValue(40000);
+      case 16:
+        return setValue(60000);
+      case 33:
+        return setValue(80000);
+      case 50:
+        return setValue(100000);
+      case 66:
+        return setValue(120000);
+      case 83:
+        return setValue(140000);
+      case 100:
+        return setValue(160000);
+      default:
+        return setValue(newValue);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    setValue(event.target.value === "" ? "" : Number(event.target.value));
+  };
+
+  const handleBlur = () => {
+    if (value < 40000) {
+      setValue(40000);
+    } else if (value > 160000) {
+      setValue(160000);
+    }
+  };
+
   const marks = [
     {
       value: 40000,
-      label: createLabel(40000, onChangeLabel),
+      label: <CustomLabel label="4.0" />,
     },
 
     {
       value: 60000,
+      label: <CustomLabel label="6.0" />,
     },
 
     {
       value: 80000,
-      label: 80000,
+      label: <CustomLabel label="8.0" />,
     },
 
     {
       value: 100000,
+      label: <CustomLabel label="10.0" />,
     },
 
     {
       value: 120000,
-      label: createLabel(120000, onChangeLabel),
+      label: <CustomLabel label="12.0" />,
     },
 
     {
       value: 140000,
+      label: <CustomLabel label="14.0" />,
     },
 
     {
       value: 160000,
-      label: createLabel(160000, onChangeLabel),
+      label: <CustomLabel label="16.0" />,
     },
   ];
 
-  const onTrackHandler = (e) => {
-    const { value } = e.target;
-    console.log("value", e.target.nodeList);
-  };
-
   return (
     <div className={classes.root}>
-      <Typography gutterBottom>iOS</Typography>
-      <IOSSlider
-        track={true}
-        min={40000}
-        max={160000}
-        aria-label="ios slider"
-        defaultValue={40000}
-        marks={marks}
-        valueLabelDisplay="on"
-        // value={value}
-        // onChange={onTrackHandler}
-      />
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs>
+          <IOSSlider
+            track={true}
+            value={typeof value === "number" ? value : 0}
+            onChange={handleSliderChange}
+            aria-labelledby="input-slider"
+            min={40000}
+            max={160000}
+            marks={marks}
+          />
+        </Grid>
+        <Grid item>
+          <Input
+            className={classes.input}
+            value={value}
+            margin="dense"
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            inputProps={{
+              min: 40000,
+              max: 160000,
+              type: "number",
+              "aria-labelledby": "input-slider",
+            }}
+          />
+        </Grid>
+      </Grid>
     </div>
   );
 }
