@@ -318,7 +318,6 @@ const StatisticsBar = memo(() => {
               </form>
             </Grid>
             <Grid item container xs={2} sm={2} md={3}>
-              {/* <Grid item xs={1} style={{ border: "1px solid red" }} /> */}
               <Grid item container className={classes.sectionDesktop}>
                 <Grid
                   item

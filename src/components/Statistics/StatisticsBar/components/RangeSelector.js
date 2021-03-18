@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { memo } from "react";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import FormControl from "@material-ui/core/FormControl";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   formControl: {
-    // margin: theme.spacing(1),
     position: "absolute",
     top: "50%",
     transform: "translate(50%,-50%)",
@@ -14,17 +14,16 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 14,
     },
   },
-  selectEmpty: {
-    // marginTop: theme.spacing(2),
-  },
+  selectEmpty: {},
 }));
 
-const RangeSelector = () => {
+const RangeSelector = memo((props) => {
   const classes = useStyles();
-  const [range, setRange] = useState("");
+  const { range, handleRangeChange } = props;
 
   const handleChange = (event) => {
-    setRange(event.target.value);
+    const { value } = event.target;
+    handleRangeChange(value);
   };
 
   return (
@@ -42,6 +41,6 @@ const RangeSelector = () => {
       </NativeSelect>
     </FormControl>
   );
-};
+});
 
 export default RangeSelector;

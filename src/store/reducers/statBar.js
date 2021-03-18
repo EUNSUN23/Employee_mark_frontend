@@ -1,10 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-import {
-  setStatOption,
-  setDetail,
-  setArea,
-  setSelected,
-} from "../../shared/utility";
+import { setDetail, setArea, setSelected } from "../../shared/utility";
 
 const initState = {
   optionDetail: null,

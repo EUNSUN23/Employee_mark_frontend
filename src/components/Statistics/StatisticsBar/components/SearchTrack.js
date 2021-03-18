@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { withStyles, makeStyles, fade } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
 import Input from "@material-ui/core/Input";
 import RangeSelector from "./RangeSelector";
+import { setArea } from "../../../../store/actions/statBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,6 +69,9 @@ const SalarySlider = withStyles({
   },
   track: {
     height: 2,
+    "& $rail": {
+      backgroundColor: "#3880ff",
+    },
   },
 
   trackInverted: {
@@ -78,7 +83,6 @@ const SalarySlider = withStyles({
   rail: {
     height: 2,
     opacity: 0.5,
-    backgroundColor: "#bfbfbf",
   },
   mark: {
     backgroundColor: "#bfbfbf",
@@ -92,9 +96,24 @@ const SalarySlider = withStyles({
   },
 })(Slider);
 
-export default function InputSlider() {
+const SearchTrack = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState(40000);
+  const dispatch = useDispatch();
+  const [range, setRange] = useState(null);
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!range || !value) return;
+    const area = { type: range, salary: value };
+    dispatch(setArea(area));
+  }, [range, value]);
+
+  const handleRangeChange = useCallback(
+    (range) => {
+      setRange(range);
+    },
+    [setRange]
+  );
 
   const handleSliderChange = (event, newValue) => {
     const left = parseInt(event.target.style.left);
@@ -169,12 +188,14 @@ export default function InputSlider() {
     },
   ];
 
+  const trackType = range === "above" ? "inverted" : true;
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3} alignItems="center">
         <Grid item xs={8} justify="flex-start">
           <SalarySlider
-            track={true}
+            track={trackType}
             value={typeof value === "number" ? value : 0}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
@@ -200,9 +221,11 @@ export default function InputSlider() {
           />
         </Grid>
         <Grid item xs={1} className={classes.selector}>
-          <RangeSelector />
+          <RangeSelector range={range} handleRangeChange={handleRangeChange} />
         </Grid>
       </Grid>
     </div>
   );
-}
+};
+
+export default SearchTrack;
