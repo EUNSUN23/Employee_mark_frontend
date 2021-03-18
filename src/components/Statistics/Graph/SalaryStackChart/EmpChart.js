@@ -39,7 +39,7 @@ const CustomizedXAxisTick = (props) => {
   return (
     <g transform={`translate(${x},${y})`}>
       <text x={0} y={0} dy={18} textAnchor="middle" fill="#666" fontSize="13px">
-        {`$${payload.value}`}
+        {payload.value}
       </text>
     </g>
   );
@@ -63,7 +63,7 @@ const EmpChart = () => {
   return empData ? (
     <AreaChart
       className={classes.empChart}
-      width={800}
+      width={1000}
       height={400}
       data={empData}
       margin={{
@@ -75,9 +75,9 @@ const EmpChart = () => {
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="sal" tick={<CustomizedXAxisTick />} />
-      <YAxis tick={<CustomizedYAxisTick />} />
-      <Tooltip content={<CustomTooltip />} />
-      <Area type="monotone" dataKey="cnt" stroke="#8884d8" fill="#8884d8" />
+      <YAxis type="number" domain={[0, 80000]} tick={<CustomizedYAxisTick />} />
+      <Tooltip formatter={(value, name, props) => [`${value}명`, name]} />
+      <Area type="monotone" dataKey="emp" stroke="#8884d8" fill="#8884d8" />
     </AreaChart>
   ) : null;
 };

@@ -175,7 +175,7 @@ const arrangeStack = (resData) => {
     const deptNameArr = data.map((data, idx) => {
       return data.dept_name;
     });
-    dataObj.name = `${data[0].sal / 10000}만`;
+    dataObj.name = data[0].sal;
     const dataCount = deptNameArr.length; //9,8,6..등
     for (let i = 0; i < dataCount; i++) {
       dataObj[deptNameArr[i]] = data[i].cnt;
@@ -190,18 +190,20 @@ const arrangeStack = (resData) => {
 export const setStatData = (state, data, isLoading, type) => {
   let chartData;
   let updatedData;
-  let customData;
 
   switch (type) {
     case "emp":
       data.sort((a, b) => {
         return a.sal - b.sal;
       });
-
-      updatedData = { empData: data, loading: isLoading };
+      const customized = data.map((data, idx) => {
+        return { sal: `$${data.sal}`, emp: data.cnt };
+      });
+      updatedData = { empData: customized, loading: isLoading };
       return updateObject(state, updatedData);
     case "dept":
       chartData = arrangeStack(data);
+      chartData.forEach((el, idx) => (el.name = `$${el.name}`));
       updatedData = { deptData: chartData, loading: isLoading };
       return updateObject(state, updatedData);
     case "below":

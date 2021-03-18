@@ -11,7 +11,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
-import { curveCardinal } from "d3-shape";
+
 import ChartSelect from "../../Graph/ChartSelect";
 
 const useStyles = makeStyles(() => ({
@@ -25,13 +25,41 @@ const useStyles = makeStyles(() => ({
     border: "1px solid #999999",
     borderRadius: "2px",
   },
+  tooltip: {
+    padding: "0 10px",
+    backgroundColor: "#ffffff",
+    border: "1px solid #666",
+  },
 }));
+
+const CustomizedXAxisTick = (props) => {
+  const { x, y, payload } = props;
+
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dy={18} textAnchor="middle" fill="#666" fontSize="13px">
+        {payload.value}
+      </text>
+    </g>
+  );
+};
+
+const CustomizedYAxisTick = (props) => {
+  const { x, y, payload } = props;
+
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text x={0} y={0} dy={5} textAnchor="end" fill="#666" fontSize="13px">
+        {`${payload.value}명`}
+      </text>
+    </g>
+  );
+};
 
 const DeptChart = () => {
   const [checked, setChecked] = useState(["Customer Service"]);
   const deptData = useSelector((state) => state.statPage.deptData);
   const classes = useStyles();
-  const cardinal = curveCardinal.tension(0.3);
 
   console.log("DeptChart", deptData);
 
@@ -51,7 +79,7 @@ const DeptChart = () => {
       return (
         <Area
           key={chartName}
-          type={cardinal}
+          type="monotone"
           dataKey={chartName}
           stroke={color}
           fillOpacity={0.5}
@@ -65,8 +93,9 @@ const DeptChart = () => {
   const deptChart = checked.length ? (
     <Grid item>
       <AreaChart
+        className={classes.deptChart}
         width={650}
-        height={250}
+        height={300}
         data={deptData}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
@@ -80,10 +109,14 @@ const DeptChart = () => {
             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <XAxis dataKey="name" />
-        <YAxis type="number" domain={[0, 20000]} />
+        <XAxis dataKey="name" tick={<CustomizedXAxisTick />} />
+        <YAxis
+          type="number"
+          domain={[0, 20000]}
+          tick={<CustomizedYAxisTick />}
+        />
         <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip />
+        <Tooltip formatter={(value, name, props) => [`${value}명`, name]} />
         {makeChart()}
       </AreaChart>
     </Grid>
@@ -94,7 +127,7 @@ const DeptChart = () => {
   );
 
   return deptData ? (
-    <Grid container spacing={2} className={classes.chartContainer}>
+    <Grid container spacing={2} justify="center">
       {deptChart}
       <Grid item>
         <ChartSelect onCheckHandler={chartSelectHandler} checked={checked} />

@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
   },
   paper: {
-    width: 200,
-    height: 230,
+    width: 230,
+    height: 270,
     overflow: "auto",
   },
   button: {
