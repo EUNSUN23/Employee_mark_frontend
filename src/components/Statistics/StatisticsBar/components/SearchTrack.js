@@ -1,38 +1,40 @@
 import React, { useEffect } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles, fade } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-
 import Slider from "@material-ui/core/Slider";
 import Input from "@material-ui/core/Input";
+import RangeSelector from "./RangeSelector";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 320,
+    transform: "translateY(5%)",
   },
   input: {
-    width: 65,
+    width: 70,
     color: "white",
     fontSize: 15,
-    backgroundColor: "transparent",
+    paddingLeft: 5,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
   },
   label: {
-    fontSize: 13,
+    fontSize: 12,
     color: "#444",
-    ":focus": {
-      color: "white",
-    },
   },
-});
+  selector: {
+    height: 30,
+  },
+}));
 
 const CustomLabel = ({ label }) => {
   const classes = useStyles();
   return <span className={classes.label}>{label}</span>;
 };
 
-const iOSBoxShadow =
+const BoxShadow =
   "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
 
-const IOSSlider = withStyles({
+const SalarySlider = withStyles({
   root: {
     color: "#3880ff",
     height: 2,
@@ -42,7 +44,7 @@ const IOSSlider = withStyles({
     height: 15,
     width: 15,
     backgroundColor: "#fff",
-    boxShadow: iOSBoxShadow,
+    boxShadow: BoxShadow,
     marginTop: -8,
     marginLeft: -8,
     "&:focus, &:hover, &$active": {
@@ -50,7 +52,7 @@ const IOSSlider = withStyles({
         "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)",
       // Reset on touch devices, it doesn't add specificity
       "@media (hover: none)": {
-        boxShadow: iOSBoxShadow,
+        boxShadow: BoxShadow,
       },
     },
   },
@@ -169,9 +171,9 @@ export default function InputSlider() {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item xs>
-          <IOSSlider
+      <Grid container spacing={3} alignItems="center">
+        <Grid item xs={8} justify="flex-start">
+          <SalarySlider
             track={true}
             value={typeof value === "number" ? value : 0}
             onChange={handleSliderChange}
@@ -181,7 +183,8 @@ export default function InputSlider() {
             marks={marks}
           />
         </Grid>
-        <Grid item>
+
+        <Grid item xs={2}>
           <Input
             className={classes.input}
             value={value}
@@ -195,6 +198,9 @@ export default function InputSlider() {
               "aria-labelledby": "input-slider",
             }}
           />
+        </Grid>
+        <Grid item xs={1} className={classes.selector}>
+          <RangeSelector />
         </Grid>
       </Grid>
     </div>

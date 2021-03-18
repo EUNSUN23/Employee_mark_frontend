@@ -19,7 +19,10 @@ const SearchInput = memo((props) => {
         return searchInput;
       case "급여":
         searchInput = (
-          <div className={classes.search_track}>
+          <div
+            className={classes.search_track}
+            style={{ border: "1px solid red" }}
+          >
             <SearchTrack />
           </div>
         );

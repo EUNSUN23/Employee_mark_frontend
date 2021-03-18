@@ -97,15 +97,14 @@ const useStyles = makeStyles((theme) => ({
   },
   search_track: {
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    marginLeft: theme.spacing(3),
-    width: "50%",
+    // backgroundColor: fade(theme.palette.common.white, 0.15),
+    // marginLeft: theme.spacing(3),
+    width: "100%",
     [theme.breakpoints.only("sm")]: {
-      marginLeft: theme.spacing(5),
+      // marginLeft: theme.spacing(5),
       width: "80%",
     },
     [theme.breakpoints.only("xs")]: {
-      marginLeft: theme.spacing(5),
       width: "80%",
     },
   },
@@ -294,16 +293,16 @@ const StatisticsBar = memo(() => {
                   direction="row"
                   alignItems="center"
                   justify="center"
-                  spacing={3}
                   className={classes.searchContainer}
+                  style={{ border: "1px solid black" }}
                 >
-                  <Grid item>
+                  <Grid item xs={1} style={{ border: "1px solid black" }}>
                     <SearchOption />
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={10} style={{ border: "1px solid black" }}>
                     <SearchInput classes={classes} />
                   </Grid>
-                  <Grid item>
+                  <Grid item item xs={1} style={{ border: "1px solid black" }}>
                     <Button
                       variant="contained"
                       color="secondary"
