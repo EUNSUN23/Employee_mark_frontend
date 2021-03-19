@@ -70,7 +70,6 @@ const History = memo((props) => {
     ) : (
       <SalaryHistory data={data.salary[0]} />
     );
-
   return (
     <>
       <Accordion

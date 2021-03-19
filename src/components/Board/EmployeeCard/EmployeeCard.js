@@ -71,7 +71,12 @@ const EmployeeCard = memo((props) => {
         }
         subheader={<div className={classes.subHeader}>{subHeader}</div>}
       />
-      <CardAccordion emp_no={emp_no} dept_name={dept_name} title={title} />
+      <CardAccordion
+        emp_no={emp_no}
+        dept_name={dept_name}
+        title={title}
+        left={left}
+      />
     </div>
   );
 });

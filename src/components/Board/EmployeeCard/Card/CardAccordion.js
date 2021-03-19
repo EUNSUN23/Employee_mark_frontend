@@ -1,8 +1,10 @@
 import React, { useState, memo } from "react";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import History from "./History/History";
 import useEmployeeData from "../../../../hooks/useEmployeeData";
 import Rank from "./Rank/Rank";
+import { leftError } from "../../../../store/actions/searchEMP";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,14 +36,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CardAccordion = memo((props) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [data, getData] = useEmployeeData();
 
-  const { emp_no, dept_name, title } = props;
+  const { emp_no, dept_name, title, left } = props;
 
   /*패널 클릭시 데이터 받아오기 */
   const onChangeAccordion = (panel) => (event, isExpanded) => {
+    if (left) return dispatch(leftError("퇴사자입니다"));
     if (isExpanded) {
       setExpanded(panel);
       switch (panel) {

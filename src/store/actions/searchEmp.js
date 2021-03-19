@@ -66,3 +66,7 @@ export const getEmpData = (selected, page, isIntersected) => {
 export const initError = () => {
   return { type: actionTypes.EMP_INIT_ERR };
 };
+
+export const leftError = (message) => {
+  return { type: actionTypes.EMP_LEFT_ERROR, message: message };
+};

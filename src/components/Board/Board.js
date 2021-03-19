@@ -18,7 +18,9 @@ const Board = () => {
 
   const message = useSelector((state) => state.searchEMP.errorMs);
   const open = useSelector((state) => state.searchEMP.errorMs !== null);
-  const handleClose = dispatch(initError());
+  const handleClose = () => {
+    dispatch(initError());
+  };
 
   const handleScroll = (e) => {
     const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);

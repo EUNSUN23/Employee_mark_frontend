@@ -11,7 +11,6 @@ import {
 const SalaryHistory = (props) => {
   const { data } = props;
   const [history, setHistory] = useState(null);
-  console.log("SalHistory", data);
 
   useEffect(() => {
     if (!data) return;

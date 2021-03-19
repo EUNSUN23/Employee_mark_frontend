@@ -30,6 +30,9 @@ const reducer = (state = initState, action) => {
       return addPage(state);
     case actionTypes.EMP_INIT_BOARD:
       return initBoard(state);
+    case actionTypes.EMP_LEFT_ERROR:
+      const updatedErr = { errorMs: action.message };
+      return { ...state, ...updatedErr };
 
     default:
       return state;
