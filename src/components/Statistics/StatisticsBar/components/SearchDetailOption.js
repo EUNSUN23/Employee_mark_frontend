@@ -14,9 +14,9 @@ const useStyles = makeStyles(() => ({
   title_container: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "100%",
+    width: "30ch",
     [theme.breakpoints.up("md")]: {
-      width: "25ch",
+      width: "45ch",
     },
     height: "35px",
   },
@@ -36,7 +36,7 @@ const useStyles = makeStyles(() => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      width: "45ch",
     },
   },
   menu_container: {
@@ -44,7 +44,7 @@ const useStyles = makeStyles(() => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "25ch",
+      width: "45ch",
     },
   },
 }));
@@ -75,7 +75,7 @@ const StyledMenuItem = withStyles((theme) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
+      width: "45ch",
     },
     height: "30px",
     "&:focus": {

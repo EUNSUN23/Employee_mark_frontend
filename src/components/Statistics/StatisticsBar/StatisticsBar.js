@@ -95,15 +95,17 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     color: "white",
     fontSize: 14,
-    minWidth: 65,
+    width: 65,
+    [theme.breakpoints.only("xs")]: {
+      minWidth: 40,
+      transform: "translateX(-100%)",
+    },
   },
   search_track: {
     borderRadius: theme.shape.borderRadius,
-    // backgroundColor: fade(theme.palette.common.white, 0.15),
-    // marginLeft: theme.spacing(3),
+
     width: "100%",
     [theme.breakpoints.only("sm")]: {
-      // marginLeft: theme.spacing(5),
       width: "80%",
     },
     [theme.breakpoints.only("xs")]: {
@@ -113,10 +115,9 @@ const useStyles = makeStyles((theme) => ({
   search_select: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    marginLeft: theme.spacing(3),
+
     width: "100%",
-    [theme.breakpoints.only("sm")]: {
-      marginLeft: theme.spacing(4.5),
+    [theme.breakpoints.only("xs")]: {
       width: "80%",
     },
   },
@@ -311,12 +312,12 @@ const StatisticsBar = memo(() => {
                   <Grid item xs={1}>
                     <SearchOption />
                   </Grid>
-                  <Grid item container xs={9} justify="space-evenly">
+                  <Grid item container xs={10} sm={9} justify="center">
                     <Grid item>
                       <SearchInput classes={classes} />
                     </Grid>
                   </Grid>
-                  <Grid item item xs={1}>
+                  <Grid item xs={1}>
                     <Button
                       variant="contained"
                       color="secondary"

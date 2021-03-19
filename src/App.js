@@ -8,7 +8,9 @@ import { setCategory } from "./store/actions/searchBar";
 
 const App = () => {
   const dispatch = useDispatch();
+  const searchCategory = useSelector((state) => state.searchBar.loading);
   useEffect(() => {
+    if (searchCategory) return;
     dispatch(setCategory());
   }, []);
 

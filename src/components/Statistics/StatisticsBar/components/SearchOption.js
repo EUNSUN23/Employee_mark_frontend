@@ -11,7 +11,7 @@ import { setDetail } from "../../../../store/actions/statBar";
 
 const useStyles = makeStyles(() => ({
   title_container: {
-    minWidth: "65px",
+    minWidth: "70px",
     minHeight: "35px",
   },
   title_listItemIcon: {

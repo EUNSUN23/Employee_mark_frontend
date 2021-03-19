@@ -1,80 +1,42 @@
-// import React from "react";
-// import {
-//   VictoryChart,
-//   VictoryLine,
-//   VictoryScatter,
-//   VictoryAxis,
-// } from "victory";
-// import styles from "./SalaryHistory.module.css";
+import React, { useEffect, useState } from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from "recharts";
 
-// const SalaryHistory = (props) => {
-//   const { data } = props;
+const SalaryHistory = (props) => {
+  const { data } = props;
+  const [history, setHistory] = useState(null);
+  console.log("SalHistory", data);
 
-//   console.log(data);
+  useEffect(() => {
+    if (!data) return;
+    const historyData = data.map((obj, idx) => {
+      const slicedDate = obj.from_date.slice(0, 7);
+      const salary = obj.salary;
+      return { date: slicedDate, salary: salary };
+    });
 
-//   const chartData = data.salary.map((salary, idx) => {
-//     return {
-//       x: salary.from_date.slice(0, 4),
-//       y: salary.salary,
-//     };
-//   });
-//   const firstValue = chartData[0].y;
-//   const lastValue = chartData[chartData.length - 1].y;
+    setHistory(historyData);
+  }, [data]);
 
-//   return (
-//     <div className={styles.Chart}>
-//       <VictoryChart height={200}>
-//         <VictoryLine
-//           interpolation="linear"
-//           data={chartData}
-//           style={{ data: { stroke: "#b3b3b3" } }}
-//         />
-//         <VictoryScatter
-//           style={{
-//             data: {
-//               fill: ({ datum }) => {
-//                 let color;
-//                 if (datum.y === firstValue) {
-//                   color = "red";
-//                 } else if (datum.y === lastValue) {
-//                   color = "green";
-//                 } else {
-//                   color = "#999999";
-//                 }
-//                 return color;
-//               },
+  const salaryHistory = history ? (
+    <div>
+      <LineChart width={300} height={100} data={history}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" interval="preserveStartEnd" />
+        <YAxis interval="preserveStartEnd" />
+        <Tooltip />
+        <Line type="monotone" dataKey="salary" stroke="#82ca9d" />
+      </LineChart>
+    </div>
+  ) : null;
 
-//               stroke: ({ datum }) =>
-//                 datum.y === lastValue ? "green" : "#e8e8e8",
-//               fillOpacity: 1,
-//               strokeWidth: 1,
-//             },
-//             labels: {
-//               fontSize: 13,
-//               fontWeight: "bold",
-//               fill: ({ datum }) =>
-//                 datum.y === firstValue || datum.y === lastValue
-//                   ? "#000000"
-//                   : "#d3d3d3",
-//             },
-//           }}
-//           size={9}
-//           data={chartData}
-//           labels={({ datum }) => datum.y}
-//         />
-//         <VictoryAxis
-//           dependentAxis
-//           style={{
-//             axis: { stroke: "transparent" },
-//             ticks: { stroke: "transparent" },
-//             tickLabels: { fill: "transparent" },
-//           }}
-//           tickValues={[30000, 70000, 110000]}
-//         />
-//         <VictoryAxis />
-//       </VictoryChart>
-//     </div>
-//   );
-// };
+  return salaryHistory;
+};
 
-// export default SalaryHistory;
+export default SalaryHistory;
