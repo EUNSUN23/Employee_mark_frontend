@@ -11,8 +11,8 @@ import { setDetail } from "../../../../store/actions/statBar";
 
 const useStyles = makeStyles(() => ({
   title_container: {
-    width: "90px",
-    height: "35px",
+    minWidth: "65px",
+    minHeight: "35px",
   },
   title_listItemIcon: {
     position: "absolute",
@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     left: "50%",
     transform: "translateX(-50%)",
+    fontSize: 13,
   },
   menu_container: {
     position: "relative",

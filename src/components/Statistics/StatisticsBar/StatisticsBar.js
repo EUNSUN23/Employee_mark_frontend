@@ -94,6 +94,8 @@ const useStyles = makeStyles((theme) => ({
 
   submit: {
     color: "white",
+    fontSize: 14,
+    minWidth: 65,
   },
   search_track: {
     borderRadius: theme.shape.borderRadius,
@@ -272,7 +274,13 @@ const StatisticsBar = memo(() => {
     <div className={classes.grow}>
       <AppBar position="fixed">
         <Toolbar>
-          <Grid container direction="row" className={classes.toolbarContainer}>
+          <Grid
+            container
+            direction="row"
+            className={classes.toolbarContainer}
+            alignItems="center"
+            justify="center"
+          >
             <Grid
               item
               xs={false}
@@ -292,17 +300,19 @@ const StatisticsBar = memo(() => {
                   container
                   direction="row"
                   alignItems="center"
-                  justify="center"
+                  justify="flex-end"
                   className={classes.searchContainer}
-                  style={{ border: "1px solid black" }}
+                  spacing={3}
                 >
-                  <Grid item xs={1} style={{ border: "1px solid black" }}>
+                  <Grid item xs={1}>
                     <SearchOption />
                   </Grid>
-                  <Grid item xs={10} style={{ border: "1px solid black" }}>
-                    <SearchInput classes={classes} />
+                  <Grid item container xs={9} justify="space-evenly">
+                    <Grid item>
+                      <SearchInput classes={classes} />
+                    </Grid>
                   </Grid>
-                  <Grid item item xs={1} style={{ border: "1px solid black" }}>
+                  <Grid item item xs={1}>
                     <Button
                       variant="contained"
                       color="secondary"

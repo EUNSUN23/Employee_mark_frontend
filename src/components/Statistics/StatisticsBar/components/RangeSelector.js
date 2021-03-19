@@ -9,7 +9,8 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     top: "50%",
     transform: "translate(50%,-50%)",
-    minWidth: 60,
+    minWidth: 55,
+    minHeight: 30,
     "& option": {
       fontSize: 14,
     },

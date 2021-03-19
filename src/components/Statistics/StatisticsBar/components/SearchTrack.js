@@ -23,9 +23,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 12,
     color: "#444",
   },
-  selector: {
-    height: 30,
-  },
 }));
 
 const CustomLabel = ({ label }) => {
@@ -192,8 +189,8 @@ const SearchTrack = () => {
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={3} alignItems="center">
-        <Grid item xs={8} justify="flex-start">
+      <Grid container spacing={4} alignItems="center" justify="flex-start">
+        <Grid item xs={8}>
           <SalarySlider
             track={trackType}
             value={typeof value === "number" ? value : 0}
