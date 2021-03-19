@@ -17,11 +17,10 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     fontSize: 15,
     paddingLeft: 5,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
   },
   label: {
     fontSize: 12,
-    color: "#444",
+    color: "#222",
   },
 }));
 
@@ -33,9 +32,9 @@ const CustomLabel = ({ label }) => {
 const BoxShadow =
   "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.02)";
 
-const SalarySlider = withStyles({
+const SalarySlider = withStyles((theme) => ({
   root: {
-    color: "#3880ff",
+    color: "#6868ff",
     height: 2,
     padding: "15px 0",
   },
@@ -56,30 +55,20 @@ const SalarySlider = withStyles({
     },
   },
   active: {},
-  valueLabel: {
-    left: "calc(-140% + 12px)",
-    top: -20,
-    "& *": {
-      background: "transparent",
-      color: "#000",
-    },
-  },
   track: {
     height: 2,
-    "& $rail": {
-      backgroundColor: "#3880ff",
-    },
   },
 
   trackInverted: {
     height: 2,
     "& $rail": {
-      backgroundColor: "#3880ff",
+      backgroundColor: "#6868ff",
     },
   },
   rail: {
     height: 2,
-    opacity: 0.5,
+    opacity: 1,
+    backgroundColor: fade(theme.palette.common.white, 0.5),
   },
   mark: {
     backgroundColor: "#bfbfbf",
@@ -89,9 +78,9 @@ const SalarySlider = withStyles({
   },
   markActive: {
     opacity: 1,
-    backgroundColor: "currentColor",
+    // backgroundColor: "currentColor",
   },
-})(Slider);
+}))(Slider);
 
 const SearchTrack = () => {
   const classes = useStyles();
@@ -217,7 +206,7 @@ const SearchTrack = () => {
             }}
           />
         </Grid>
-        <Grid item xs={1} className={classes.selector}>
+        <Grid item xs={1}>
           <RangeSelector range={range} handleRangeChange={handleRangeChange} />
         </Grid>
       </Grid>

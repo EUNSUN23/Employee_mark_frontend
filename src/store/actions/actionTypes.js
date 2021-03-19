@@ -13,6 +13,8 @@ export const BAR_SET_OPTION = "BAR_SET_OPTION";
 export const BAR_OPT_VAL = "BAR_OPT_VAL";
 export const BAR_INP_VAL = "BAR_INP_VAL";
 export const BAR_INIT_OPT = "BAR_INIT_OPT";
+export const BAR_FETCH_START = "BAR_FETCH_START";
+export const BAR_FETCH_FAIL = "BAR_FETCH_FAIL";
 
 export const KEYWORDS_INIT = "KEYWORDS_INIT";
 export const KEYWORDS_ADD = "KEYWORDS_ADD";

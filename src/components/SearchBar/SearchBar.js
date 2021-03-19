@@ -278,7 +278,6 @@ const SearchBar = memo(() => {
 
   useEffect(() => {
     if (keywords.length === 0) dispatch(initKeywords());
-    dispatch(setCategory());
   }, []);
 
   const submitData = (e) => {

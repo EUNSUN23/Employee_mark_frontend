@@ -1,10 +1,9 @@
 import React, { memo } from "react";
-import { useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, fade } from "@material-ui/core/styles";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import FormControl from "@material-ui/core/FormControl";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   formControl: {
     position: "absolute",
     top: "50%",
@@ -15,7 +14,9 @@ const useStyles = makeStyles(() => ({
       fontSize: 14,
     },
   },
-  selectEmpty: {},
+  selectInput: {
+    color: "#222",
+  },
 }));
 
 const RangeSelector = memo((props) => {
@@ -33,7 +34,7 @@ const RangeSelector = memo((props) => {
         value={range}
         onChange={handleChange}
         name="range"
-        className={classes.selectEmpty}
+        className={classes.selectInput}
         inputProps={{ "aria-label": "range" }}
       >
         <option value="">선택</option>

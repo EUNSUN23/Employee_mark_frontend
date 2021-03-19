@@ -122,11 +122,16 @@ export const setInpVal = (state, name) => {
   return updateObject(state, updatedInpVal);
 };
 
-export const initCategory = (state, data) => {
+export const initCategory = (state, data, loading) => {
   data.dept.unshift("dept");
   data.title.unshift("title");
-  const updatedCategory = { category: data };
+  const updatedCategory = { category: data, loading: loading };
   return updateObject(state, updatedCategory);
+};
+
+export const categoryFetchFail = (state, message, loading) => {
+  const failedCategory = { errorMs: message, loading: loading };
+  return updateObject(state, failedCategory);
 };
 
 // <--------- STAT_BAR ---------------->

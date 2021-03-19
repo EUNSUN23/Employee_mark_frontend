@@ -6,11 +6,13 @@ import CardContainer from "./EmployeeCard/Card/CardContainer";
 import ScrollToTop from "../UI/ScrollToTop";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
+import BoardLoader from "../UI/BoardLoader";
 
 const Board = () => {
   const [scrollToTop, setScrollToTop] = useState(null);
   const viewport = useRef(null);
   const isLoading = useSelector((state) => state.searchEMP.loading);
+  const isCategoryLoading = useSelector((state) => state.searchBar.loading);
 
   const handleScroll = (e) => {
     const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
@@ -53,12 +55,16 @@ const Board = () => {
     </Grid>
   );
 
-  return (
+  const content = isCategoryLoading ? (
+    <BoardLoader />
+  ) : (
     <>
       <SearchBar />
       {board}
     </>
   );
+
+  return content;
 };
 
 export default Board;

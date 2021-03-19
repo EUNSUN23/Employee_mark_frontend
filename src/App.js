@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Board from "./components/Board/Board";
 import Home from "./components/Home";
 import Statistics from "./components/Statistics/Statistics";
+import { setCategory } from "./store/actions/searchBar";
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCategory());
+  }, []);
+
   return (
     <div className="App">
       <Switch>

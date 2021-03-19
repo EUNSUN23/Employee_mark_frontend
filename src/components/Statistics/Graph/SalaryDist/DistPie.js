@@ -99,7 +99,7 @@ const DistPie = ({ data }) => {
         activeShape={renderActiveShape}
         data={data}
         cx={250}
-        cy={150}
+        cy={180}
         innerRadius={100}
         outerRadius={120}
         fill="#8884d8"

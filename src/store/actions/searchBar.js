@@ -4,7 +4,11 @@ import axios from "axios";
 // <-- setCategory -->
 
 const initCategory = (data) => {
-  return { type: actionTypes.BAR_INIT_CATEGORY, category: data };
+  return {
+    type: actionTypes.BAR_INIT_CATEGORY,
+    category: data,
+    loading: false,
+  };
 };
 
 const getDeptAPI = async () => {
@@ -24,10 +28,25 @@ const getCategoryAPI = async () => {
   return { dept: res[0], title: res[1] };
 };
 
+const fetchStart = () => {
+  return { type: actionTypes.BAR_FETCH_START };
+};
+
+const fetchCategoryFail = (message) => {
+  return { type: actionTypes.BAR_FETCH_FAIL, message: message, loading: false };
+};
+
 export const setCategory = () => {
   return async (dispatch) => {
     let category;
-    const res = await getCategoryAPI();
+    let res;
+    dispatch(fetchStart());
+    try {
+      res = await getCategoryAPI();
+    } catch (err) {
+      dispatch(fetchCategoryFail(err.response.status));
+    }
+
     if (res) {
       console.log(res.dept);
       const deptList = res.dept.map((obj, idx) => {
