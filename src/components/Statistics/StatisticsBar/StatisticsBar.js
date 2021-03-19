@@ -1,6 +1,6 @@
 import React, { useState, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";

@@ -1,15 +1,6 @@
 import React, { useState, useCallback } from "react";
-import { useSelector } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
 import { PieChart, Pie, Sector } from "recharts";
-
-const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
+import { _ } from "lodash";
 
 const renderActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
@@ -30,16 +21,23 @@ const renderActiveShape = (props) => {
   const cos = Math.cos(-RADIAN * midAngle);
   const sx = cx + (outerRadius + 10) * cos;
   const sy = cy + (outerRadius + 10) * sin;
-  const mx = cx + (outerRadius + 30) * cos;
-  const my = cy + (outerRadius + 30) * sin;
+  const mx = cx + (outerRadius + 32) * cos;
+  const my = cy + (outerRadius + 32) * sin;
   const ex = mx + (cos >= 0 ? 1 : -1) * 22;
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-        {payload.name}
+      <text
+        x={cx}
+        y={cy}
+        dy={8}
+        textAnchor="middle"
+        fill={fill}
+        style={{ fontSize: 20 }}
+      >
+        {payload.dept_name}
       </text>
       <Sector
         cx={cx}
@@ -64,13 +62,13 @@ const renderActiveShape = (props) => {
         stroke={fill}
         fill="none"
       />
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+      <circle cx={ex} cy={ey} r={3} fill={fill} stroke="none" />
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         textAnchor={textAnchor}
         fill="#333"
-      >{`PV ${value}`}</text>
+      >{`${value} 명`}</text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
@@ -84,8 +82,9 @@ const renderActiveShape = (props) => {
   );
 };
 
-const SalaryDist = () => {
+const DistPie = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
+
   const onPieEnter = useCallback(
     (_, index) => {
       setActiveIndex(index);
@@ -94,21 +93,20 @@ const SalaryDist = () => {
   );
 
   return (
-    <PieChart width={400} height={400}>
+    <PieChart width={550} height={350}>
       <Pie
         activeIndex={activeIndex}
         activeShape={renderActiveShape}
         data={data}
-        cx={200}
-        cy={200}
-        innerRadius={60}
-        outerRadius={80}
+        cx={250}
+        cy={150}
+        innerRadius={100}
+        outerRadius={120}
         fill="#8884d8"
-        dataKey="value"
+        dataKey="cnt"
         onMouseEnter={onPieEnter}
       />
     </PieChart>
   );
 };
-
-export default SalaryDist;
+export default DistPie;

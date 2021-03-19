@@ -207,9 +207,11 @@ export const setStatData = (state, data, isLoading, type) => {
       updatedData = { deptData: chartData, loading: isLoading };
       return updateObject(state, updatedData);
     case "below":
-      return;
+      updatedData = { belowData: data, loading: isLoading };
+      return updateObject(state, updatedData);
     case "above":
-      return;
+      updatedData = { aboveData: data, loading: isLoading };
+      return updateObject(state, updatedData);
     default:
       return;
   }

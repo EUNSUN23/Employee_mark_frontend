@@ -47,6 +47,7 @@ export const getStatAPI = (data) => {
     if (!res) return;
     const result = res.data.packet;
     console.log(result);
+
     dispatch(setStatData(result, data.type));
   };
 };
