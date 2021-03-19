@@ -37,9 +37,6 @@ const SalaryDist = () => {
       spacing={3}
     >
       <Grid item></Grid>
-      <Grid item>
-        <h2 className={classes.title}>{makeTitle()}</h2>
-      </Grid>
       <Grid item className={classes.distPie}>
         <DistPie data={data} />
       </Grid>

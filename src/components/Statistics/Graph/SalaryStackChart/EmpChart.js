@@ -9,6 +9,7 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  Legend,
 } from "recharts";
 
 const useStyles = makeStyles(() => ({
@@ -77,6 +78,7 @@ const EmpChart = () => {
       <XAxis dataKey="sal" tick={<CustomizedXAxisTick />} />
       <YAxis type="number" domain={[0, 80000]} tick={<CustomizedYAxisTick />} />
       <Tooltip formatter={(value, name, props) => [`${value}명`, name]} />
+      <Legend />
       <Area type="monotone" dataKey="emp" stroke="#8884d8" fill="#8884d8" />
     </AreaChart>
   ) : null;

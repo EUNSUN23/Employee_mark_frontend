@@ -10,6 +10,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  LabelList,
+  Legend,
 } from "recharts";
 
 import ChartSelect from "../../Graph/ChartSelect";
@@ -56,6 +58,16 @@ const CustomizedYAxisTick = (props) => {
   );
 };
 
+const CustomizedLabel = (props) => {
+  const { x, y, stroke, value } = props;
+
+  return (
+    <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">
+      {value}
+    </text>
+  );
+};
+
 const DeptChart = () => {
   const [checked, setChecked] = useState(["Customer Service"]);
   const deptData = useSelector((state) => state.statPage.deptData);
@@ -84,7 +96,7 @@ const DeptChart = () => {
           stroke={color}
           fillOpacity={0.5}
           fill={color}
-        />
+        ></Area>
       );
     });
     return chart;
@@ -95,10 +107,11 @@ const DeptChart = () => {
       <AreaChart
         className={classes.deptChart}
         width={650}
-        height={300}
+        height={400}
         data={deptData}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
       >
+        {" "}
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
@@ -118,6 +131,10 @@ const DeptChart = () => {
         <CartesianGrid strokeDasharray="3 3" />
         <Tooltip formatter={(value, name, props) => [`${value}명`, name]} />
         {makeChart()}
+        <Legend
+          verticalAlign="bottom"
+          wrapperStyle={{ position: "absolute", top: "105%" }}
+        />
       </AreaChart>
     </Grid>
   ) : (

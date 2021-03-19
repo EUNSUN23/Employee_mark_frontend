@@ -33,8 +33,9 @@ const Statistics = () => {
   const statistics = isLoading ? (
     <Loader size="large" />
   ) : (
-    <Grid container direction="column" spacing={10}>
+    <Grid container direction="column" spacing={6}>
       <Modal open={openErrorMs} message={errorMs} handleClose={handleCloseMs} />
+      <Grid item></Grid>
       <Grid item></Grid>
       <Grid item>{statisticsPage()}</Grid>
     </Grid>
