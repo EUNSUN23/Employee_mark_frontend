@@ -30,3 +30,7 @@ export const STAT_FETCH_START = "STAT_FETCH_START";
 export const STAT_FETCH_FAIL = "STAT_FETCH_FAIL";
 export const STAT_SET_DATA = "STAT_SET_DATA";
 export const STAT_INIT_ERROR = "STAT_INIT_ERROR";
+
+export const HOME_SET_TOTAL = "HOME_SET_TOTAL";
+export const HOME_SET_DEPT = "HOME_SET_DEPT";
+export const HOME_SET_LEFT = "HOME_SET_LEFT";

@@ -10,6 +10,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  LabelList,
 } from "recharts";
 
 const useStyles = makeStyles(() => ({
@@ -58,6 +59,16 @@ const CustomizedYAxisTick = (props) => {
   );
 };
 
+const CustomizedLabel = (props) => {
+  const { x, y, stroke, value } = props;
+
+  return (
+    <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">
+      {value}
+    </text>
+  );
+};
+
 const EmpChart = () => {
   const classes = useStyles();
   const empData = useSelector((state) => state.statPage.empData);
@@ -77,9 +88,17 @@ const EmpChart = () => {
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="sal" tick={<CustomizedXAxisTick />} />
       <YAxis type="number" domain={[0, 80000]} tick={<CustomizedYAxisTick />} />
-      <Tooltip formatter={(value, name, props) => [`${value}명`, name]} />
+      <Tooltip formatter={(value, name, props) => [`${value}명`]} />
       <Legend />
-      <Area type="monotone" dataKey="emp" stroke="#8884d8" fill="#8884d8" />
+      <Area
+        type="monotone"
+        dataKey="emp"
+        stroke="#8884d8"
+        fill="#8884d8"
+        dot={true}
+      >
+        <LabelList content={<CustomizedLabel />} />
+      </Area>
     </AreaChart>
   ) : null;
 };

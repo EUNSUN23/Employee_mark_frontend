@@ -10,7 +10,6 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  LabelList,
   Legend,
 } from "recharts";
 
@@ -55,16 +54,6 @@ const CustomizedYAxisTick = (props) => {
         {`${payload.value}명`}
       </text>
     </g>
-  );
-};
-
-const CustomizedLabel = (props) => {
-  const { x, y, stroke, value } = props;
-
-  return (
-    <text x={x} y={y} dy={-4} fill={stroke} fontSize={10} textAnchor="middle">
-      {value}
-    </text>
   );
 };
 
