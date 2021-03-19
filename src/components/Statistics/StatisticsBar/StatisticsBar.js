@@ -184,9 +184,13 @@ const StatisticsBar = memo(() => {
     console.log("onSubmit", optionDetail);
     switch (optionDetail) {
       case "조직":
-        return dispatch(getStatAPI(selectedData));
+        return selectedData
+          ? dispatch(getStatAPI(selectedData))
+          : window.alert("검색어를 입력하세요");
       case "급여":
-        return dispatch(getStatAPI(areaData));
+        return areaData
+          ? dispatch(getStatAPI(areaData))
+          : window.alert("검색어를 입력하세요");
       default:
         window.alert("검색어를 입력하세요");
         return;

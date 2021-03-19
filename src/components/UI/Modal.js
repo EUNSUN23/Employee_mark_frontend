@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -26,15 +25,10 @@ const useStyles = makeStyles({
   },
 });
 
-const Modal = memo(() => {
+const Modal = memo((props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
-  const message = useSelector((state) => state.searchEMP.errorMs);
-
-  const open = useSelector((state) => state.searchEMP.errorMs !== null);
-
-  const handleClose = dispatch(initError());
+  const { message, open, handleClose } = props;
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="contact" open={open}>
