@@ -6,58 +6,9 @@ import { Grid } from "@material-ui/core";
 import ChartSelect from "../ChartSelect";
 import { setChartColor } from "../../../../shared/utility";
 
-const data2 = [
-  { salary: "$40000", cnt: 352, name: 부서명 },
-  { salary: "$50000", cnt: 444 },
-];
-
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
-
 const DeptBar = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [salary, setSalary] = useState(40000);
   const [checked, setChecked] = useState([
     "Customer Service",
     "Development",
@@ -70,7 +21,6 @@ const DeptBar = () => {
     "Sales",
   ]);
   const deptData = useSelector((state) => state.statPage.deptData);
-  const activeItem = data[activeIndex];
 
   const handleClick = useCallback(
     (entry, index) => {
@@ -86,29 +36,41 @@ const DeptBar = () => {
     [setChecked]
   );
 
-  const deptBar = (
-    <Grid item>
-      <p>데이터 보기 : Bar 클릭</p>
-      <BarChart width={550} height={200} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis dataKey="uv" />
-        <Bar dataKey="uv" onClick={handleClick}>
-          {checked.map((entry, index) => {
-            const color =
-              index === activeIndex ? "#82ca9d" : setChartColor(entry);
+  const makeDeptBar = (salary) => {
+    const data = deptData[salary];
 
-            return <Cell cursor="pointer" fill={color} key={`cell-${index}`} />;
-          })}
-        </Bar>
-      </BarChart>
-      <p className="content">{`Uv of "${activeItem.name}": ${activeItem.uv}`}</p>
-    </Grid>
-  );
+    const arrangedData = Object.keys(data).map((dept, idx) => {
+      return { name: dept, cnt: data[dept] };
+    });
+
+    const activeItem = arrangedData[activeIndex];
+
+    return (
+      <Grid item>
+        <p>데이터 보기 : Bar 클릭</p>
+        <p className="content">{`"${activeItem.name}"의 $${salary}연봉자 수 : ${activeItem.cnt}명`}</p>
+        <BarChart width={800} height={300} data={arrangedData}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" fontSize="10" />
+          <YAxis dataKey="cnt" />
+          <Bar dataKey="cnt" onClick={handleClick}>
+            {checked.map((entry, index) => {
+              const color =
+                index === activeIndex ? "#82ca9d" : setChartColor(entry);
+
+              return (
+                <Cell cursor="pointer" fill={color} key={`cell-${index}`} />
+              );
+            })}
+          </Bar>
+        </BarChart>
+      </Grid>
+    );
+  };
 
   return deptData ? (
     <Grid container spacing={2} justify="center">
-      {deptBar}
+      {makeDeptBar(salary)}
       <Grid item>
         <ChartSelect onCheckHandler={chartSelectHandler} checked={checked} />
       </Grid>
