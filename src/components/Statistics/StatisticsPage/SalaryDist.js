@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import DistPie from "../Graph/SalaryDist/DistPie";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
 
 const SalaryDist = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const belowData = useSelector((state) => state.statPage.belowData);
   const aboveData = useSelector((state) => state.statPage.aboveData);
   const area = useSelector((state) => state.statBar.area);

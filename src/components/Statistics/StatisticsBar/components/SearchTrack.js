@@ -5,7 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Slider from "@material-ui/core/Slider";
 import Input from "@material-ui/core/Input";
 import RangeSelector from "./RangeSelector";
-import { setArea } from "../../../../store/actions/statBar";
+import { setArea, initArea } from "../../../../store/actions/statBar";
+import { initDist } from "../../../../store/actions/statPage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -89,9 +90,14 @@ const SearchTrack = () => {
   const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (!range || !value) return;
-    const area = { type: range, salary: value };
-    dispatch(setArea(area));
+    if (range && value) {
+      console.log("range", range, "value", value);
+      const area = { type: range, salary: value };
+      dispatch(setArea(area));
+    } else {
+      dispatch(initArea());
+      dispatch(initDist());
+    }
   }, [range, value]);
 
   const handleRangeChange = useCallback(
@@ -104,7 +110,8 @@ const SearchTrack = () => {
   const handleSliderChange = (event, newValue) => {
     const left = parseInt(event.target.style.left);
     console.log(left);
-
+    setRange(null);
+    // dispatch(initArea());
     switch (left) {
       case 0:
         return setValue(40000);
@@ -126,6 +133,7 @@ const SearchTrack = () => {
   };
 
   const handleInputChange = (event) => {
+    setRange(null);
     setValue(event.target.value === "" ? "" : Number(event.target.value));
   };
 
@@ -196,7 +204,7 @@ const SearchTrack = () => {
             className={classes.input}
             value={value}
             margin="dense"
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e)}
             onBlur={handleBlur}
             inputProps={{
               min: 40000,

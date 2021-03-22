@@ -19,8 +19,10 @@ const reducer = (state = initState, action) => {
     case actionTypes.STAT_SET_DATA:
       return setStatData(state, action.data, action.loading, action.dataType);
     case actionTypes.STAT_INIT_ERROR:
-      const initErrorMs = { errorMs: null };
-      return { ...state, initErrorMs };
+      return { ...state, errorMs: null };
+    case actionTypes.STAT_INIT_DIST:
+      const initDist = { belowData: null, aboveData: null };
+      return { ...state, ...initDist };
     default:
       return state;
   }

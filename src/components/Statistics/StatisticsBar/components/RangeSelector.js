@@ -31,7 +31,7 @@ const RangeSelector = memo((props) => {
   return (
     <FormControl className={classes.formControl}>
       <NativeSelect
-        value={range}
+        value={range || "선택"}
         onChange={handleChange}
         name="range"
         className={classes.selectInput}

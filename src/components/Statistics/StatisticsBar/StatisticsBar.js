@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ import { Grid } from "@material-ui/core";
 import SearchOption from "./components/SearchOption";
 import SearchInput from "./components/SearchInput";
 import { getStatAPI } from "../../../store/actions/statPage";
+import { initArea } from "../../../store/actions/statBar";
 
 const useStyles = makeStyles((theme) => ({
   menu: {

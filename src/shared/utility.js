@@ -147,8 +147,15 @@ export const setDetail = (state, detail) => {
 };
 
 export const setArea = (state, area) => {
-  const newArea = { area: area };
-  return updateObject(state, newArea);
+  const newArea = { type: area.type, salary: area.salary };
+  const updatedArea = { area: newArea };
+  return updateObject(state, updatedArea);
+};
+
+export const initArea = (state) => {
+  const initArea = { type: null, salary: null };
+  const updatedArea = { area: initArea };
+  return updateObject(state, updatedArea);
 };
 
 export const setSelected = (state, selected) => {

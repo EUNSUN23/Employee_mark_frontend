@@ -55,3 +55,7 @@ export const getStatAPI = (data) => {
 export const initError = () => {
   return { type: actionTypes.STAT_INIT_ERROR };
 };
+
+export const initDist = () => {
+  return { type: actionTypes.STAT_INIT_DIST };
+};
