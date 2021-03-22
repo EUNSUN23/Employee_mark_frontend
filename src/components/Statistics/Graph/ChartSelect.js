@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -21,24 +21,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChartSelect = (props) => {
+const list = [
+  "Customer Service",
+  "Development",
+  "Finance",
+  "Human Resources",
+  "Marketing",
+  "Production",
+  "Quality Management",
+  "Research",
+  "Sales",
+];
+
+const ChartSelect = memo((props) => {
   const { onCheckHandler, checked } = props;
   const classes = useStyles();
-  const [list, setList] = React.useState([
-    "Customer Service",
-    "Development",
-    "Finance",
-    "Human Resources",
-    "Marketing",
-    "Production",
-    "Quality Management",
-    "Research",
-    "Sales",
-  ]);
-
-  useEffect(() => {
-    console.log(checked);
-  });
 
   const handleToggle = (value) => () => {
     if (!checked) return;
@@ -84,6 +81,6 @@ const ChartSelect = (props) => {
   );
 
   return <div>{customList(list)}</div>;
-};
+});
 
 export default ChartSelect;

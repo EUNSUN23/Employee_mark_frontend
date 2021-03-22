@@ -171,6 +171,7 @@ export const setLoading = (state, isLoading) => {
 };
 
 const arrangeStack = (resData) => {
+  const result = new Set();
   const dataArr = [];
   let arrangedData;
 
@@ -187,7 +188,7 @@ const arrangeStack = (resData) => {
     const deptNameArr = data.map((data, idx) => {
       return data.dept_name;
     });
-    dataObj.name = data[0].sal;
+    dataObj.salary = data[0].sal;
     const dataCount = deptNameArr.length; //9,8,6..등
     for (let i = 0; i < dataCount; i++) {
       dataObj[deptNameArr[i]] = data[i].cnt;
@@ -196,7 +197,14 @@ const arrangeStack = (resData) => {
     return dataObj;
   });
 
-  return arrangedData;
+  for (let i = 0; i < 13; i++) {
+    const dataKey = arrangedData[i].salary;
+    const dataObj = arrangedData[i];
+    delete dataObj.salary;
+    result[dataKey] = dataObj;
+  }
+
+  return result;
 };
 
 export const setStatData = (state, data, isLoading, type) => {
@@ -215,7 +223,7 @@ export const setStatData = (state, data, isLoading, type) => {
       return updateObject(state, updatedData);
     case "dept":
       chartData = arrangeStack(data);
-      chartData.forEach((el, idx) => (el.name = `$${el.name}`));
+      chartData.forEach((el, idx) => (el.salary = `${el.salary}`));
       updatedData = { deptData: chartData, loading: isLoading };
       return updateObject(state, updatedData);
     case "below":
