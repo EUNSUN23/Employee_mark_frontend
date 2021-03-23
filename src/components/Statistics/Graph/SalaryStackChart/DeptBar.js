@@ -6,39 +6,27 @@ import ChartSelect from "../ChartSelect";
 import { setChartColor } from "../../../../shared/utility";
 import styled from "styled-components";
 
-// const CustomLabel = props => {
-//   console.log(props);
-//   return (
-//     <foreignObject class="label-wrapper" x={props.viewBox.x} y="0">
-//       <div xmlns="http://www.w3.org/1999/xhtml" class="custom-label">
-//         Label
-//       </div>
-//     </foreignObject>
-//   );
-// };
-
-const Tick = (props) => {
-  const { x, y, value } = props;
-  return (
-    <foreignObject x={x} y={y} width="60" height="30">
-      <span
-        xmlns="http://www.w3.org/1999/xhtml"
-        style={{ border: "1px solid black", position: "absolute" }}
-      >
-        {value}
-      </span>
-    </foreignObject>
-  );
-};
-
 const CustomizedTick = (tickProps) => {
   const { x, y, payload } = tickProps;
   const { value, offset } = payload;
-  console.log("tick", value);
 
-  console.log("props", tickProps);
+  console.log("tickProps", tickProps);
 
-  return <Tick x={x} y={y} value={value} />;
+  const Tick = styled.span`
+    font-size: ${(props) => (props.value.length > 8 ? "12px" : "14px")};
+    margin: 0 20px;
+    padding: ${(props) => (props.value.length <= 8 ? "0 25px" : "0 10px")};
+    position: absolute;
+    text-align: center;
+  `;
+
+  return (
+    <foreignObject x={x - 70} y={y} width="140" height="50">
+      <Tick xmlns="http://www.w3.org/1999/xhtml" value={value}>
+        {value}
+      </Tick>
+    </foreignObject>
+  );
 };
 
 const DeptBar = () => {
@@ -84,13 +72,19 @@ const DeptBar = () => {
       <Grid item>
         <p>데이터 보기 : Bar 클릭</p>
         <p className="content">{`"${activeItem.name}"의 $${salary}연봉자 수 : ${activeItem.cnt}명`}</p>
-        <BarChart width={800} height={350} data={arrangedData}>
+        <BarChart
+          width={900}
+          height={380}
+          data={arrangedData}
+          margin={{ top: 5, right: 5, bottom: 30, left: 5 }}
+        >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="name"
             interval={0}
             fill="#666"
             tick={<CustomizedTick />}
+            tickLine={false}
           />
           <YAxis dataKey="cnt" />
           <Bar dataKey="cnt" onClick={handleClick}>
