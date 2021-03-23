@@ -17,20 +17,28 @@ import styled from "styled-components";
 //   );
 // };
 
-const CustomTick = (tickProps) => {
+const Tick = (props) => {
+  const { x, y, value } = props;
+  return (
+    <foreignObject x={x} y={y} width="60" height="30">
+      <span
+        xmlns="http://www.w3.org/1999/xhtml"
+        style={{ border: "1px solid black", position: "absolute" }}
+      >
+        {value}
+      </span>
+    </foreignObject>
+  );
+};
+
+const CustomizedTick = (tickProps) => {
   const { x, y, payload } = tickProps;
   const { value, offset } = payload;
   console.log("tick", value);
 
-  const tick = (
-    <foreignObject width="20" height="20">
-      <p xmlns="http://www.w3.org/1999/xhtml">{value}</p>
-    </foreignObject>
-  );
-
   console.log("props", tickProps);
 
-  return tick;
+  return <Tick x={x} y={y} value={value} />;
 };
 
 const DeptBar = () => {
@@ -82,7 +90,7 @@ const DeptBar = () => {
             dataKey="name"
             interval={0}
             fill="#666"
-            tick={<CustomTick />}
+            tick={<CustomizedTick />}
           />
           <YAxis dataKey="cnt" />
           <Bar dataKey="cnt" onClick={handleClick}>
