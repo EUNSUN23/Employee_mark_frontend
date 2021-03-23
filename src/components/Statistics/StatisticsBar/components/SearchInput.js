@@ -15,12 +15,7 @@ const SearchInput = memo((props) => {
         searchInput = <SearchDetailOption className={classes.search_select} />;
         return searchInput;
       case "급여":
-        searchInput = (
-          <SearchTrack
-            className={classes.search_track}
-            style={{ border: "1px solid red" }}
-          />
-        );
+        searchInput = <SearchTrack className={classes.search_track} />;
         return searchInput;
 
       default:

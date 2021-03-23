@@ -21,13 +21,6 @@ const SalaryDist = () => {
   const area = useSelector((state) => state.statBar.area);
 
   const data = area && area.type === "below" ? belowData : aboveData;
-  const makeTitle = () => {
-    if (!area) return;
-    const range = area.type === "below" ? "이하" : "이상";
-    const salary = area.salary;
-
-    return `$${salary} ${range} 연봉을 받는 부서별 직원 수 분포`;
-  };
 
   const salaryDist = data ? (
     <Grid
