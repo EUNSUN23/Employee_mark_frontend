@@ -244,31 +244,32 @@ export const setChartColor = (chartName) => {
   let chartColor;
   switch (chartName) {
     case "Customer Service":
-      chartColor = "red";
+      chartColor = "#6DC3C1";
+
       return chartColor;
     case "Development":
-      chartColor = "orange";
+      chartColor = "#F8B128 ";
       return chartColor;
     case "Finance":
-      chartColor = "salmon";
+      chartColor = "#F5743A";
       return chartColor;
     case "Human Resources":
-      chartColor = "green";
+      chartColor = "#1E8F30";
       return chartColor;
     case "Marketing":
-      chartColor = "blue";
+      chartColor = "#9D792F";
       return chartColor;
     case "Production":
-      chartColor = "skyblue";
+      chartColor = "#2670F0";
       return chartColor;
     case "Quality Management":
-      chartColor = "purple";
+      chartColor = "#B654EF  ";
       return chartColor;
     case "Research":
-      chartColor = "plum";
+      chartColor = "#5BC34E ";
       return chartColor;
     case "Sales":
-      chartColor = "palegreen";
+      chartColor = "#ECEB2C ";
       return chartColor;
     default:
       return;

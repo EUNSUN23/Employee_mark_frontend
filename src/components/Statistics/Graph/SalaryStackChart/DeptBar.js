@@ -89,11 +89,18 @@ const DeptBar = () => {
           <YAxis dataKey="cnt" />
           <Bar dataKey="cnt" onClick={handleClick}>
             {checked.map((entry, index) => {
-              const color =
-                index === activeIndex ? "#82ca9d" : setChartColor(entry);
+              const color = setChartColor(entry);
+              const stroke = index === activeIndex && "red";
 
               return (
-                <Cell cursor="pointer" fill={color} key={`cell-${index}`} />
+                <Cell
+                  cursor="pointer"
+                  fill={color}
+                  key={`cell-${index}`}
+                  stroke={stroke}
+                  strokeWidth={2}
+                  strokeDasharray="5,5"
+                />
               );
             })}
           </Bar>
@@ -103,11 +110,8 @@ const DeptBar = () => {
   };
 
   return deptData ? (
-    <Grid container spacing={2} justify="center" alignItems="center">
+    <Grid container justify="center" alignItems="center">
       {makeDeptBar(salary)}
-      <Grid item>
-        <ChartSelect onCheckHandler={chartSelectHandler} checked={checked} />
-      </Grid>
     </Grid>
   ) : null;
 };
