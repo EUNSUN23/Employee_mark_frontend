@@ -12,31 +12,8 @@ import {
 import { Grid } from "@material-ui/core";
 import DeptBarSlider from "./DeptBarSlider";
 import { setChartColor } from "../../../../shared/utility";
-import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
-
-const Tick = styled.span`
-  font-size: ${(props) => (props.value.length > 8 ? "12px" : "14px")};
-  margin: 0 20px;
-  padding: ${(props) => (props.value.length <= 8 ? "0 25px" : "0 10px")};
-  position: absolute;
-  text-align: center;
-`;
-
-const CustomizedTick = (tickProps) => {
-  const { x, y, payload } = tickProps;
-  const { value, offset } = payload;
-
-  console.log("tickProps", tickProps);
-
-  return (
-    <foreignObject x={x - 70} y={y} width="140" height="50">
-      <Tick xmlns="http://www.w3.org/1999/xhtml" value={value}>
-        {value}
-      </Tick>
-    </foreignObject>
-  );
-};
+import CustomizedTick from "./CustomizedTick";
 
 const useStyles = makeStyles((theme) => ({
   barChartGrid: {
@@ -110,14 +87,15 @@ const DeptBar = () => {
               dataKey="name"
               interval={0}
               fill="#666"
-              tick={<CustomizedTick />}
+              tick={<CustomizedTick data={data} />}
               tickLine={false}
             />
             <YAxis dataKey="cnt" />
+
             <Bar dataKey="cnt" onClick={handleClick}>
               {deptSlice.map((entry, index) => {
                 const color = setChartColor(entry);
-                const stroke = index === activeIndex && "red";
+                const stroke = index === activeIndex ? "red" : "false";
 
                 return (
                   <Cell
