@@ -71,8 +71,8 @@ const DeptBar = () => {
 
     return (
       <Grid item xs={11} className={classes.barChartGrid}>
-        <p>데이터 보기 : Bar 클릭</p>
-        <p className="content">{`"${activeItem.name}"의 $${salary}연봉자 수 : ${activeItem.cnt}명`}</p>
+        {/* <p>데이터 보기 : Bar 클릭</p>
+        <p className="content">{`"${activeItem.name}"의 $${salary}연봉자 수 : ${activeItem.cnt}명`}</p> */}
         <ResponsiveContainer
           width="100%"
           height={380}
@@ -124,10 +124,8 @@ const DeptBar = () => {
       spacing={2}
     >
       <Grid item></Grid>
-      <Grid item></Grid>
-      <Grid item xs={1} style={{ border: "1px solid black" }}>
-        <DeptBarSlider handleChangeSlider={onChangeSlider} />
-      </Grid>
+      <DeptBarSlider handleChangeSlider={onChangeSlider} />
+
       {makeDeptBar()}
     </Grid>
   ) : null;
