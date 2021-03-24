@@ -59,7 +59,7 @@ const DeptBar = () => {
     [setActiveIndex]
   );
 
-  const makeDeptBar = () => {
+  const makeDeptBar = (activeIndex) => {
     console.log("deptData", deptData);
     console.log("salary", salary);
     const data = deptData[salary];
@@ -67,8 +67,6 @@ const DeptBar = () => {
     const arrangedData = Object.keys(data).map((dept, idx) => {
       return { name: dept, cnt: data[dept] };
     });
-
-    const activeItem = arrangedData[activeIndex];
 
     return (
       <Grid item xs={11} className={classes.barChartGrid}>
@@ -98,14 +96,13 @@ const DeptBar = () => {
             >
               {deptSlice.map((entry, index) => {
                 const color = setChartColor(entry);
-                const stroke = index === activeIndex ? "red" : "false";
 
                 return (
                   <Cell
                     cursor="pointer"
                     fill={color}
                     key={`cell-${index}`}
-                    stroke={stroke}
+                    stroke={false}
                     strokeWidth={2}
                     strokeDasharray="5,5"
                   />
@@ -127,9 +124,9 @@ const DeptBar = () => {
       spacing={2}
     >
       <Grid item></Grid>
-      <DeptBarSlider handleChangeSlider={onChangeSlider} />
 
-      {makeDeptBar()}
+      {makeDeptBar(activeIndex)}
+      <DeptBarSlider handleChangeSlider={onChangeSlider} />
     </Grid>
   ) : null;
 };

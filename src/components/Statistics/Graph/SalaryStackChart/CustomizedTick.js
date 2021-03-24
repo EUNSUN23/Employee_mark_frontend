@@ -5,9 +5,10 @@ const Tick = styled.span`
   font-size: ${(props) => (props.value.length > 8 ? "12px" : "14px")};
   margin: 0 20px;
   padding: ${(props) => (props.value.length <= 8 ? "0 25px" : "0 10px")};
-  color: ${(props) => (props.emp === 0 ? "#999" : "black")};
+  color: ${(props) => (props.emp === 0 ? "#999" : "#222")};
   position: absolute;
   text-align: center;
+  font-weight: bold;
 `;
 
 const CustomizedTick = memo((tickProps) => {

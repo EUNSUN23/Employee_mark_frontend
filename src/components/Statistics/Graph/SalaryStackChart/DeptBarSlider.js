@@ -6,110 +6,109 @@ import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "60%",
+    width: "40%",
     [theme.breakpoints.down("sm")]: {
       width: "80%",
     },
     height: 70,
-    borderRadius: 15,
+    borderRadius: 10,
     position: "relative",
     margin: "20px 0 40px 0",
-
+    // border: "1px solid #555",
     boxShadow:
-      "rgba(50, 50, 93, 0) 0px 50px 100px -20px, rgba(0, 0, 0, 0.1) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset",
+      "rgba(0, 0, 0, 0.15) 0px 10px 15px, rgba(0, 0, 0, 0.45) 0px 5px 5px",
+  },
+  subTitle: {
+    position: "absolute",
+    right: 10,
+    top: -20,
+  },
+  label: {
+    fontWeight: "bold",
+    fontSize: 14,
   },
 }));
 
-function ValueLabelComponent(props) {
-  const { children, open, value } = props;
-
-  return (
-    <foreignObject>
-      <span xmlns="http://www.w3.org/1999/xhtml">{children}</span>
-    </foreignObject>
-  );
-}
-
-ValueLabelComponent.propTypes = {
-  children: PropTypes.element.isRequired,
-  open: PropTypes.bool.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
 const CustomLabel = ({ label }) => {
   const classes = useStyles();
-  return <span className={classes.label}>{label}</span>;
+  return (
+    <foreignObject>
+      <span xmlns="http://www.w3.org/1999/xhtml" className={classes.label}>
+        {label}
+      </span>
+    </foreignObject>
+  );
 };
 
 const mark = [
   {
     value: 40000,
-    label: <CustomLabel label="4.0" />,
+    label: <CustomLabel label="4" />,
   },
   {
     value: 50000,
-    label: <CustomLabel label="5.0" />,
+    label: <CustomLabel label="5" />,
   },
   {
     value: 60000,
-    label: <CustomLabel label="6.0" />,
+    label: <CustomLabel label="6" />,
   },
   {
     value: 70000,
-    label: <CustomLabel label="7.0" />,
+    label: <CustomLabel label="7" />,
   },
   {
     value: 80000,
-    label: <CustomLabel label="8.0" />,
+    label: <CustomLabel label="8" />,
   },
   {
     value: 90000,
-    label: <CustomLabel label="9.0" />,
+    label: <CustomLabel label="9" />,
   },
 
   {
     value: 100000,
-    label: <CustomLabel label="10.0" />,
+    label: <CustomLabel label="10" />,
   },
   {
     value: 110000,
-    label: <CustomLabel label="11.0" />,
+    label: <CustomLabel label="11" />,
   },
   {
     value: 120000,
-    label: <CustomLabel label="12.0" />,
+    label: <CustomLabel label="12" />,
   },
   {
     value: 130000,
-    label: <CustomLabel label="13.0" />,
+    label: <CustomLabel label="13" />,
   },
   {
     value: 140000,
-    label: <CustomLabel label="14.0" />,
+    label: <CustomLabel label="14" />,
   },
   {
     value: 150000,
-    label: <CustomLabel label="15.0" />,
+    label: <CustomLabel label="15" />,
   },
   {
     value: 160000,
-    label: <CustomLabel label="16.0" />,
+    label: <CustomLabel label="16" />,
   },
 ];
 
 const PrettoSlider = withStyles({
   root: {
-    color: "#52af77",
-    height: "30%",
+    color: "#303F99 ",
+    height: "20%",
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
-    width: "85%",
+    width: "80%",
   },
   thumb: {
-    height: 24,
-    width: 24,
+    height: 20,
+    width: 20,
     backgroundColor: "#fff",
     border: "2px solid currentColor",
     marginTop: -8,
@@ -118,16 +117,22 @@ const PrettoSlider = withStyles({
       boxShadow: "inherit",
     },
   },
+
   active: {},
   valueLabel: {
     left: "calc(-50% + 4px)",
   },
+  mark: {
+    width: 1,
+    height: 6,
+    backgroundColor: "white",
+  },
   track: {
-    height: 8,
+    height: 5,
     borderRadius: 2,
   },
   rail: {
-    height: 8,
+    height: 5,
     borderRadius: 2,
   },
 })(Slider);
@@ -138,8 +143,9 @@ const DeptBarSlider = memo((props) => {
 
   return (
     <Grid item className={classes.root}>
+      <h6 className={classes.subTitle}>단위 : 만(10,000)</h6>
       <PrettoSlider
-        valueLabelDisplay="on"
+        valueLabelDisplay="off"
         aria-label="pretto slider"
         defaultValue={40000}
         step={10000}
