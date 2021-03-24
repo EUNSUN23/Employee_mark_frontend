@@ -14,6 +14,7 @@ import DeptBarSlider from "./DeptBarSlider";
 import { setChartColor } from "../../../../shared/utility";
 import { makeStyles } from "@material-ui/core/styles";
 import CustomizedTick from "./CustomizedTick";
+import CustomizedLabel from "./CustomizedLabel";
 
 const useStyles = makeStyles((theme) => ({
   barChartGrid: {
@@ -71,8 +72,6 @@ const DeptBar = () => {
 
     return (
       <Grid item xs={11} className={classes.barChartGrid}>
-        {/* <p>데이터 보기 : Bar 클릭</p>
-        <p className="content">{`"${activeItem.name}"의 $${salary}연봉자 수 : ${activeItem.cnt}명`}</p> */}
         <ResponsiveContainer
           width="100%"
           height={380}
@@ -80,7 +79,7 @@ const DeptBar = () => {
         >
           <BarChart
             data={arrangedData}
-            margin={{ top: 5, right: 5, bottom: 30, left: 5 }}
+            margin={{ top: 30, right: 5, bottom: 30, left: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -90,9 +89,13 @@ const DeptBar = () => {
               tick={<CustomizedTick data={data} />}
               tickLine={false}
             />
-            <YAxis dataKey="cnt" />
+            <YAxis dataKey="cnt" allowDataOverflow={true} />
 
-            <Bar dataKey="cnt" onClick={handleClick}>
+            <Bar
+              dataKey="cnt"
+              onClick={handleClick}
+              label={<CustomizedLabel />}
+            >
               {deptSlice.map((entry, index) => {
                 const color = setChartColor(entry);
                 const stroke = index === activeIndex ? "red" : "false";
