@@ -269,7 +269,7 @@ export const setChartColor = (chartName) => {
       chartColor = "#5BC34E ";
       return chartColor;
     case "Sales":
-      chartColor = "#F7E957";
+      chartColor = "#F9F86B";
       return chartColor;
     default:
       return;

@@ -49,7 +49,6 @@ const SalarySlider = withStyles((theme) => ({
     "&:focus, &:hover, &$active": {
       boxShadow:
         "0 3px 1px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.3),0 0 0 1px rgba(0,0,0,0.02)",
-      // Reset on touch devices, it doesn't add specificity
       "@media (hover: none)": {
         boxShadow: BoxShadow,
       },

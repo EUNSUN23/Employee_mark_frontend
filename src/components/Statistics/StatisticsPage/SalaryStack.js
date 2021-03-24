@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import DeptBar from "../Graph/SalaryStackChart/DeptBar";
 import EmpChart from "../Graph/SalaryStackChart/EmpChart";
 
-const SalaryStack = (props) => {
+const SalaryStack = () => {
   const type = useSelector((state) => {
     const selected = state.statBar.selected;
     return selected ? state.statBar.selected.type : null;

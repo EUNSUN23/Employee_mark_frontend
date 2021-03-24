@@ -1,18 +1,19 @@
 import React, { useState, useCallback, memo } from "react";
 import { useSelector, shallowEqual } from "react-redux";
-import { BarChart, Bar, Cell, CartesianGrid, XAxis, YAxis } from "recharts";
+import {
+  BarChart,
+  Bar,
+  Cell,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+} from "recharts";
 import { Grid } from "@material-ui/core";
 import DeptBarSlider from "./DeptBarSlider";
 import { setChartColor } from "../../../../shared/utility";
 import styled from "styled-components";
 import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles(() => ({
-  deptSlider: {
-    position: "absolute",
-    top: "25%",
-  },
-}));
 
 const Tick = styled.span`
   font-size: ${(props) => (props.value.length > 8 ? "12px" : "14px")};
@@ -37,9 +38,21 @@ const CustomizedTick = (tickProps) => {
   );
 };
 
+const useStyles = makeStyles((theme) => ({
+  barChartGrid: {
+    width: "100%",
+    height: 380,
+    [theme.breakpoints.only("sm")]: {
+      width: "80%",
+    },
+    [theme.breakpoints.only("xs")]: {
+      width: "60%",
+    },
+  },
+}));
+
 const DeptBar = () => {
   const classes = useStyles();
-
   const [activeIndex, setActiveIndex] = useState(0);
   const [salary, setSalary] = useState(40000);
 
@@ -80,49 +93,61 @@ const DeptBar = () => {
     const activeItem = arrangedData[activeIndex];
 
     return (
-      <Grid item>
+      <Grid item xs={11} className={classes.barChartGrid}>
         <p>데이터 보기 : Bar 클릭</p>
         <p className="content">{`"${activeItem.name}"의 $${salary}연봉자 수 : ${activeItem.cnt}명`}</p>
-        <BarChart
-          width={900}
+        <ResponsiveContainer
+          width="100%"
           height={380}
-          data={arrangedData}
-          margin={{ top: 5, right: 5, bottom: 30, left: 5 }}
+          style={{ border: "1px solid red" }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="name"
-            interval={0}
-            fill="#666"
-            tick={<CustomizedTick />}
-            tickLine={false}
-          />
-          <YAxis dataKey="cnt" />
-          <Bar dataKey="cnt" onClick={handleClick}>
-            {deptSlice.map((entry, index) => {
-              const color = setChartColor(entry);
-              const stroke = index === activeIndex && "red";
+          <BarChart
+            data={arrangedData}
+            margin={{ top: 5, right: 5, bottom: 30, left: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="name"
+              interval={0}
+              fill="#666"
+              tick={<CustomizedTick />}
+              tickLine={false}
+            />
+            <YAxis dataKey="cnt" />
+            <Bar dataKey="cnt" onClick={handleClick}>
+              {deptSlice.map((entry, index) => {
+                const color = setChartColor(entry);
+                const stroke = index === activeIndex && "red";
 
-              return (
-                <Cell
-                  cursor="pointer"
-                  fill={color}
-                  key={`cell-${index}`}
-                  stroke={stroke}
-                  strokeWidth={2}
-                  strokeDasharray="5,5"
-                />
-              );
-            })}
-          </Bar>
-        </BarChart>
+                return (
+                  <Cell
+                    cursor="pointer"
+                    fill={color}
+                    key={`cell-${index}`}
+                    stroke={stroke}
+                    strokeWidth={2}
+                    strokeDasharray="5,5"
+                  />
+                );
+              })}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
       </Grid>
     );
   };
 
   return deptData && category ? (
-    <Grid container justify="flex-end" alignItems="center">
-      <Grid item className={classes.deptSlider}>
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      spacing={2}
+    >
+      <Grid item></Grid>
+      <Grid item></Grid>
+      <Grid item xs={1} style={{ border: "1px solid black" }}>
         <DeptBarSlider handleChangeSlider={onChangeSlider} />
       </Grid>
       {makeDeptBar()}

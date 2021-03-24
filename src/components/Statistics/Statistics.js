@@ -8,11 +8,9 @@ import Loader from "../UI/Loader";
 import StatisticsBar from "./StatisticsBar/StatisticsBar";
 import SalaryStack from "./StatisticsPage/SalaryStack";
 import SalaryDist from "./StatisticsPage/SalaryDist";
-import BoardLoader from "../UI/BoardLoader";
 
 const Statistics = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const { isLoading, openErrorMs, errorMs } = useSelector(
     (state) => ({

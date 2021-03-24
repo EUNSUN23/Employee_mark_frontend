@@ -6,10 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 300 + theme.spacing(3) * 2,
-  },
-  margin: {
-    height: theme.spacing(3),
+    width: 400 + theme.spacing(3) * 2,
   },
 }));
 
@@ -17,9 +14,9 @@ function ValueLabelComponent(props) {
   const { children, open, value } = props;
 
   return (
-    <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
-      {children}
-    </Tooltip>
+    <foreignObject>
+      <span xmlns="http://www.w3.org/1999/xhtml">{children}</span>
+    </foreignObject>
   );
 }
 
@@ -47,6 +44,67 @@ const marks = [
   },
 ];
 
+const CustomLabel = ({ label }) => {
+  const classes = useStyles();
+  return <span className={classes.label}>{label}</span>;
+};
+
+const mark = [
+  {
+    value: 40000,
+    label: <CustomLabel label="4.0" />,
+  },
+  {
+    value: 50000,
+    label: <CustomLabel label="5.0" />,
+  },
+  {
+    value: 60000,
+    label: <CustomLabel label="6.0" />,
+  },
+  {
+    value: 70000,
+    label: <CustomLabel label="7.0" />,
+  },
+  {
+    value: 80000,
+    label: <CustomLabel label="8.0" />,
+  },
+  {
+    value: 90000,
+    label: <CustomLabel label="9.0" />,
+  },
+
+  {
+    value: 100000,
+    label: <CustomLabel label="10.0" />,
+  },
+  {
+    value: 110000,
+    label: <CustomLabel label="11.0" />,
+  },
+  {
+    value: 120000,
+    label: <CustomLabel label="12.0" />,
+  },
+  {
+    value: 130000,
+    label: <CustomLabel label="13.0" />,
+  },
+  {
+    value: 140000,
+    label: <CustomLabel label="14.0" />,
+  },
+  {
+    value: 150000,
+    label: <CustomLabel label="15.0" />,
+  },
+  {
+    value: 160000,
+    label: <CustomLabel label="16.0" />,
+  },
+];
+
 const PrettoSlider = withStyles({
   root: {
     color: "#52af77",
@@ -69,11 +127,11 @@ const PrettoSlider = withStyles({
   },
   track: {
     height: 8,
-    borderRadius: 4,
+    borderRadius: 2,
   },
   rail: {
     height: 8,
-    borderRadius: 4,
+    borderRadius: 2,
   },
 })(Slider);
 
@@ -88,7 +146,7 @@ const DeptBarSlider = memo((props) => {
         aria-label="pretto slider"
         defaultValue={40000}
         step={10000}
-        marks
+        marks={mark}
         min={40000}
         max={160000}
         onChange={handleChangeSlider}
