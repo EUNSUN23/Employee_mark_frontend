@@ -185,13 +185,21 @@ const arrangeStack = (resData) => {
 
   arrangedData = dataArr.map((data, idx) => {
     const dataObj = new Set();
-    const deptNameArr = data.map((data, idx) => {
-      return data.dept_name;
-    });
+    const deptNameArr = [
+      "Customer Service",
+      "Development",
+      "Finance",
+      "Human Resources",
+      "Marketing",
+      "Production",
+      "Quality Management",
+      "Research",
+      "Sales",
+    ];
     dataObj.salary = data[0].sal;
-    const dataCount = deptNameArr.length; //9,8,6..등
-    for (let i = 0; i < dataCount; i++) {
-      dataObj[deptNameArr[i]] = data[i].cnt;
+
+    for (let i = 0; i < deptNameArr.length; i++) {
+      dataObj[deptNameArr[i]] = data[i] ? data[i].cnt : 0;
     }
 
     return dataObj;
