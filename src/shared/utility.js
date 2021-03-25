@@ -206,28 +206,41 @@ const arrangeDist = (data) => {
 };
 
 const arrangeStack = (resData) => {
-  const result = new Set();
-  const dataArr = [];
-  let arrangedData;
+  const deptArr = [
+    "Customer Service",
+    "Development",
+    "Finance",
+    "Human Resources",
+    "Marketing",
+    "Production",
+    "Quality Management",
+    "Research",
+    "Sales",
+  ];
+  const dataObj = new Set();
 
-  for (let i = 0; i < 13; i++) {
-    const salaryData = resData.filter(
-      (data, idx) => data.sal === 40000 + 10000 * i
-    );
+  for (let i = 0; i < deptArr.length; i++) {
+    const deptData = resData.filter((data, idx) => {
+      if (data.dept_name === deptArr[i]) {
+        delete data.dept_name;
+        return data;
+      }
+    });
 
-    dataArr.push(salaryData);
+    deptData.sort((a, b) => a.sal - b.sal);
+
+    for (let j = 0; j < 13; j++) {
+      console.log("deptData", deptData);
+      if (!deptData[j]) {
+        deptData[j] = new Set();
+        deptData[j].sal = 40000 + 10000 * j;
+        deptData[j].cnt = 0;
+      }
+    }
+    dataObj[deptArr[i]] = deptData;
   }
 
-  arrangedData = setZeroData(dataArr);
-
-  for (let i = 0; i < 13; i++) {
-    const dataKey = arrangedData[i].salary;
-    const dataObj = arrangedData[i];
-    delete dataObj.salary;
-    result[dataKey] = dataObj;
-  }
-
-  return result;
+  console.log("arrangeStack, dataObj", dataObj);
 };
 
 export const setStatData = (state, data, isLoading, type) => {
@@ -246,7 +259,7 @@ export const setStatData = (state, data, isLoading, type) => {
       return updateObject(state, updatedData);
     case "dept":
       chartData = arrangeStack(data);
-      chartData.forEach((el, idx) => (el.salary = `${el.salary}`));
+      // chartData.forEach((el, idx) => (el.salary = `${el.salary}`));
       updatedData = { deptData: chartData, loading: isLoading };
       return updateObject(state, updatedData);
     case "below":
