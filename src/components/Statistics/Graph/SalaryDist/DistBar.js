@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector, shallowEqual } from "react-redux";
 import {
   BarChart,
   Bar,
@@ -67,7 +66,6 @@ const DistBar = ({ data, type, salary }) => {
                     fill={color}
                     key={`cell-${index}`}
                     stroke={false}
-                    strokeWidth={2}
                     strokeDasharray="5,5"
                   />
                 );

@@ -184,10 +184,6 @@ const setZeroData = (dataArr) => {
     "Sales",
   ];
 
-  // if (data[0].sal) {
-  //   dataObj.salary = data[0].sal;
-  // }
-
   for (let i = 0; i < deptNameArr.length; i++) {
     dataObj[deptNameArr[i]] = dataArr[i] ? dataArr[i].cnt : 0;
   }
@@ -221,16 +217,12 @@ const arrangeStack = (resData) => {
 
   for (let i = 0; i < deptArr.length; i++) {
     const deptData = resData.filter((data, idx) => {
-      if (data.dept_name === deptArr[i]) {
-        delete data.dept_name;
-        return data;
-      }
+      return data.dept_name === deptArr[i];
     });
 
     deptData.sort((a, b) => a.sal - b.sal);
 
     for (let j = 0; j < 13; j++) {
-      console.log("deptData", deptData);
       if (!deptData[j]) {
         deptData[j] = new Set();
         deptData[j].sal = 40000 + 10000 * j;
@@ -239,12 +231,9 @@ const arrangeStack = (resData) => {
     }
     dataObj[deptArr[i]] = deptData;
   }
-
-  console.log("arrangeStack, dataObj", dataObj);
 };
 
 export const setStatData = (state, data, isLoading, type) => {
-  let chartData;
   let updatedData;
 
   switch (type) {
@@ -258,9 +247,8 @@ export const setStatData = (state, data, isLoading, type) => {
       updatedData = { empData: customized, loading: isLoading };
       return updateObject(state, updatedData);
     case "dept":
-      chartData = arrangeStack(data);
-      // chartData.forEach((el, idx) => (el.salary = `${el.salary}`));
-      updatedData = { deptData: chartData, loading: isLoading };
+      const deptData = arrangeStack(data);
+      updatedData = { deptData: deptData, loading: isLoading };
       return updateObject(state, updatedData);
     case "below":
       const belowData = arrangeDist(data);
