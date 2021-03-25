@@ -1,6 +1,6 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import DistPie from "../Graph/SalaryDist/DistPie";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import DistBar from "../Graph/SalaryDist/DistBar";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -15,29 +15,37 @@ const useStyles = makeStyles(() => ({
 
 const SalaryDist = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const belowData = useSelector((state) => state.statPage.belowData);
-  const aboveData = useSelector((state) => state.statPage.aboveData);
-  const area = useSelector((state) => state.statBar.area);
+  const { aboveData, belowData, area } = useSelector(
+    (state) => ({
+      aboveData: state.statPage.aboveData,
+      belowData: state.statPage.belowData,
+      area: state.statBar.area,
+    }),
+    shallowEqual
+  );
 
-  const data = area && area.type === "below" ? belowData : aboveData;
+  const makeDistBar = (area) => {
+    if (!area) return null;
+    let data;
+    if (area.type) {
+      data = area.type === "below" ? belowData : aboveData;
+      if (!data) {
+        return null;
+      } else {
+        return (
+          <Grid container>
+            <Grid item xs={false} sm={1}></Grid>
+            <Grid item xs={12} sm={10}>
+              <DistBar data={data} type={area.type} salary={area.salary} />
+            </Grid>
+            <Grid item xs={false} sm={1}></Grid>
+          </Grid>
+        );
+      }
+    }
+  };
 
-  const salaryDist = data ? (
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-      spacing={3}
-    >
-      <Grid item></Grid>
-      <Grid item className={classes.distPie}>
-        <DistPie data={data} />
-      </Grid>
-    </Grid>
-  ) : null;
-
-  return salaryDist;
+  return makeDistBar(area);
 };
 
 export default SalaryDist;

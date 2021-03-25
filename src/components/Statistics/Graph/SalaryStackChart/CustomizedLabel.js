@@ -19,7 +19,7 @@ const Title = styled.h6`
 `;
 
 const CustomizedLabel = memo((props) => {
-  const { name, x, y, fill, value, viewBox, index, activeIndex } = props;
+  const { x, y, fill, value, viewBox, index, activeIndex } = props;
   const { width } = viewBox;
   const mh = (width / 2).toFixed();
   console.log("label", props);

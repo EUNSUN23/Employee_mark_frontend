@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from "react";
+import React from "react";
 import { useSelector, shallowEqual } from "react-redux";
 import {
   BarChart,
@@ -10,11 +10,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Grid } from "@material-ui/core";
-import DeptBarSlider from "./DeptBarSlider";
 import { setChartColor } from "../../../../shared/utility";
 import { makeStyles } from "@material-ui/core/styles";
-import CustomizedTick from "./CustomizedTick";
-import CustomizedLabel from "./CustomizedLabel";
+import CustomizedTick from "../SalaryStackChart/CustomizedTick";
+import CustomizedLabel from "../SalaryStackChart/CustomizedLabel";
 
 const useStyles = makeStyles((theme) => ({
   barChartGrid: {
@@ -27,57 +26,39 @@ const useStyles = makeStyles((theme) => ({
       width: "60%",
     },
   },
+  salary: {
+    position: "absolute",
+    top: "15%",
+    left: "50%",
+    transform: "translateX(-50%)",
+    textShadow: "2px 6px 4px #CECECE ",
+    zIndex: 500,
+    color: "#414352",
+  },
 }));
 
-const DeptBar = () => {
+const DistBar = ({ data, type, salary }) => {
   const classes = useStyles();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [salary, setSalary] = useState(40000);
 
   const category = useSelector(
     (state) => state.searchBar.category,
     shallowEqual
   );
-  const deptData = useSelector(
-    (state) => state.statPage.deptData,
-    shallowEqual
-  );
 
-  const deptSlice = category ? category.dept.slice(1) : null;
+  const makeDistBar = () => {
+    const deptSlice = category ? category.dept.slice(1) : null;
+    const distData = data.map((data, idx) => ({
+      name: data.dept_name,
+      cnt: data.cnt,
+    }));
 
-  const onChangeSlider = useCallback(
-    (e, sal) => {
-      setSalary(sal);
-    },
-    [setSalary]
-  );
-
-  const handleClick = useCallback(
-    (entry, index) => {
-      setActiveIndex(index);
-    },
-    [setActiveIndex]
-  );
-
-  const makeDeptBar = (activeIndex) => {
-    console.log("deptData", deptData);
-    console.log("salary", salary);
-    const data = deptData[salary];
-
-    const arrangedData = Object.keys(data).map((dept, idx) => {
-      return { name: dept, cnt: data[dept] };
-    });
-
+    console.log("makeDeptBar", distData, category);
     return (
       <Grid item xs={11} className={classes.barChartGrid}>
-        <ResponsiveContainer
-          width="100%"
-          height={380}
-          style={{ border: "1px solid red" }}
-        >
+        <ResponsiveContainer width="100%" height={400}>
           <BarChart
-            data={arrangedData}
-            margin={{ top: 30, right: 5, bottom: 30, left: 5 }}
+            data={distData}
+            margin={{ top: 60, right: 5, bottom: 30, left: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -89,17 +70,12 @@ const DeptBar = () => {
             />
             <YAxis dataKey="cnt" allowDataOverflow={true} />
 
-            <Bar
-              dataKey="cnt"
-              onClick={handleClick}
-              label={<CustomizedLabel />}
-            >
+            <Bar dataKey="cnt" label={<CustomizedLabel />}>
               {deptSlice.map((entry, index) => {
                 const color = setChartColor(entry);
 
                 return (
                   <Cell
-                    cursor="pointer"
                     fill={color}
                     key={`cell-${index}`}
                     stroke={false}
@@ -115,7 +91,9 @@ const DeptBar = () => {
     );
   };
 
-  return deptData && category ? (
+  const compare = type === "below" ? "<" : ">";
+
+  return category ? (
     <Grid
       container
       direction="column"
@@ -123,12 +101,13 @@ const DeptBar = () => {
       alignItems="center"
       spacing={2}
     >
-      <Grid item></Grid>
-
-      {makeDeptBar(activeIndex)}
-      <DeptBarSlider handleChangeSlider={onChangeSlider} />
+      <Grid item>
+        {" "}
+        <h1 className={classes.salary}>{`Salary ${compare} ${salary}`}</h1>
+      </Grid>
+      {makeDistBar()}
     </Grid>
   ) : null;
 };
 
-export default DeptBar;
+export default DistBar;
