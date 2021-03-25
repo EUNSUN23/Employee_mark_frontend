@@ -19,11 +19,9 @@ const Title = styled.h6`
 `;
 
 const CustomizedLabel = memo((props) => {
-  const { x, y, fill, value, viewBox, index, activeIndex } = props;
+  const { x, y, fill, value, viewBox } = props;
   const { width } = viewBox;
   const mh = (width / 2).toFixed();
-  console.log("label", props);
-  console.log("index", index, activeIndex);
   const cx = x + mh;
 
   //name :부서이름, fill: bar색깔, value:직원수
@@ -36,7 +34,7 @@ const CustomizedLabel = memo((props) => {
           points={point}
           stroke={fill}
           fill="transparent"
-          stroke-width="1"
+          strokeWidth="1"
         />
         <circle
           cx={cx}
@@ -44,9 +42,8 @@ const CustomizedLabel = memo((props) => {
           r={4}
           fill={fill}
           stroke="#fff"
-          stroke-width="2"
+          strokeWidth="2"
         />
-
         <foreignObject x={x + 30} y={y - 35} width="100" height="100">
           <Label xmlns="http://www.w3.org/1999/xhtml" fill={fill}>
             <Title xmlns="http://www.w3.org/1999/xhtml">{value}명</Title>

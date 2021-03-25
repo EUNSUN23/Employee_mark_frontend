@@ -40,24 +40,13 @@ const useStyles = makeStyles((theme) => ({
 const DistBar = ({ data, type, salary }) => {
   const classes = useStyles();
 
-  const category = useSelector(
-    (state) => state.searchBar.category,
-    shallowEqual
-  );
-
   const makeDistBar = () => {
-    const deptSlice = category ? category.dept.slice(1) : null;
-    const distData = data.map((data, idx) => ({
-      name: data.dept_name,
-      cnt: data.cnt,
-    }));
-
-    console.log("makeDeptBar", distData, category);
+    console.log("makeDeptBar", data);
     return (
       <Grid item xs={11} className={classes.barChartGrid}>
         <ResponsiveContainer width="100%" height={400}>
           <BarChart
-            data={distData}
+            data={data}
             margin={{ top: 60, right: 5, bottom: 30, left: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
@@ -71,9 +60,8 @@ const DistBar = ({ data, type, salary }) => {
             <YAxis dataKey="cnt" allowDataOverflow={true} />
 
             <Bar dataKey="cnt" label={<CustomizedLabel />}>
-              {deptSlice.map((entry, index) => {
-                const color = setChartColor(entry);
-
+              {data.map((entry, index) => {
+                const color = setChartColor(entry.name);
                 return (
                   <Cell
                     fill={color}
@@ -93,7 +81,7 @@ const DistBar = ({ data, type, salary }) => {
 
   const compare = type === "below" ? "<" : ">";
 
-  return category ? (
+  return (
     <Grid
       container
       direction="column"
@@ -107,7 +95,7 @@ const DistBar = ({ data, type, salary }) => {
       </Grid>
       {makeDistBar()}
     </Grid>
-  ) : null;
+  );
 };
 
 export default DistBar;

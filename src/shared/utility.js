@@ -170,6 +170,41 @@ export const setLoading = (state, isLoading) => {
   return updateObject(state, updatedLoading);
 };
 
+const setZeroData = (dataArr) => {
+  const dataObj = new Set();
+  const deptNameArr = [
+    "Customer Service",
+    "Development",
+    "Finance",
+    "Human Resources",
+    "Marketing",
+    "Production",
+    "Quality Management",
+    "Research",
+    "Sales",
+  ];
+
+  // if (data[0].sal) {
+  //   dataObj.salary = data[0].sal;
+  // }
+
+  for (let i = 0; i < deptNameArr.length; i++) {
+    dataObj[deptNameArr[i]] = dataArr[i] ? dataArr[i].cnt : 0;
+  }
+
+  return dataObj;
+};
+
+const arrangeDist = (data) => {
+  const dataObj = setZeroData(data);
+  console.log("dataObj", dataObj);
+  const arrangedData = Object.keys(dataObj).map((dept, idx) => ({
+    name: dept,
+    cnt: dataObj[dept],
+  }));
+  return arrangedData;
+};
+
 const arrangeStack = (resData) => {
   const result = new Set();
   const dataArr = [];
@@ -183,27 +218,7 @@ const arrangeStack = (resData) => {
     dataArr.push(salaryData);
   }
 
-  arrangedData = dataArr.map((data, idx) => {
-    const dataObj = new Set();
-    const deptNameArr = [
-      "Customer Service",
-      "Development",
-      "Finance",
-      "Human Resources",
-      "Marketing",
-      "Production",
-      "Quality Management",
-      "Research",
-      "Sales",
-    ];
-    dataObj.salary = data[0].sal;
-
-    for (let i = 0; i < deptNameArr.length; i++) {
-      dataObj[deptNameArr[i]] = data[i] ? data[i].cnt : 0;
-    }
-
-    return dataObj;
-  });
+  arrangedData = setZeroData(dataArr);
 
   for (let i = 0; i < 13; i++) {
     const dataKey = arrangedData[i].salary;
@@ -235,10 +250,14 @@ export const setStatData = (state, data, isLoading, type) => {
       updatedData = { deptData: chartData, loading: isLoading };
       return updateObject(state, updatedData);
     case "below":
-      updatedData = { belowData: data, loading: isLoading };
+      const belowData = arrangeDist(data);
+      belowData.sort((a, b) => b.cnt - a.cnt);
+      updatedData = { belowData: belowData, loading: isLoading };
       return updateObject(state, updatedData);
     case "above":
-      updatedData = { aboveData: data, loading: isLoading };
+      const aboveData = arrangeDist(data);
+      aboveData.sort((a, b) => b.cnt - a.cnt);
+      updatedData = { aboveData: aboveData, loading: isLoading };
       return updateObject(state, updatedData);
     default:
       return;
