@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   BarChart,
   Bar,
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DistBar = ({ data, type, salary }) => {
+const DistBar = memo(({ data, type, salary }) => {
   const classes = useStyles();
 
   const makeDistBar = () => {
@@ -94,6 +94,6 @@ const DistBar = ({ data, type, salary }) => {
       {makeDistBar()}
     </Grid>
   );
-};
+});
 
 export default DistBar;

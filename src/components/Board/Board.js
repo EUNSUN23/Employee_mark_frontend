@@ -7,17 +7,17 @@ import ScrollToTop from "../UI/ScrollToTop";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import BoardLoader from "../UI/BoardLoader";
-import { initError } from "../../store/actions/searchEMP";
+import { initError } from "../../store/actions/searchEmp";
 
 const Board = () => {
   const dispatch = useDispatch();
   const [scrollToTop, setScrollToTop] = useState(null);
   const viewport = useRef(null);
-  const isLoading = useSelector((state) => state.searchEMP.loading);
+  const isLoading = useSelector((state) => state.searchEmp.loading);
   const isCategoryLoading = useSelector((state) => state.searchBar.loading);
 
-  const message = useSelector((state) => state.searchEMP.errorMs);
-  const open = useSelector((state) => state.searchEMP.errorMs !== null);
+  const message = useSelector((state) => state.searchEmp.errorMs);
+  const open = useSelector((state) => state.searchEmp.errorMs !== null);
   const handleClose = () => {
     dispatch(initError());
   };

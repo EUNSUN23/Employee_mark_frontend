@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 
 const Label = styled.div`
@@ -18,17 +18,17 @@ const Title = styled.h6`
   margin: 0 0 2px 0;
 `;
 
-const CustomizedLabel = memo((props) => {
+const CustomizedLabel = (props) => {
   const { x, y, fill, value, viewBox } = props;
   const { width } = viewBox;
-  const mh = (width / 2).toFixed();
-  const cx = x + mh;
+  console.log("CustomizedLabel", props);
 
-  //name :부서이름, fill: bar색깔, value:직원수
-  const point = `${cx} ${y}, ${x + 15} ${y - 20}, ${x + 40} ${y - 20}`;
-
-  return (
-    <>
+  const makeIndicator = (width, x, y, fill) => {
+    const point =
+      width >= 40
+        ? `${x} ${y}, ${x + 15} ${y - 20}, ${x + 40} ${y - 20}`
+        : `${x} ${y}, ${x + 10} ${y - 10}, ${x + 10} ${y - 10}`;
+    return (
       <g>
         <polyline
           points={point}
@@ -36,22 +36,27 @@ const CustomizedLabel = memo((props) => {
           fill="transparent"
           strokeWidth="1"
         />
-        <circle
-          cx={cx}
-          cy={y}
-          r={4}
-          fill={fill}
-          stroke="#fff"
-          strokeWidth="2"
-        />
-        <foreignObject x={x + 30} y={y - 35} width="100" height="100">
-          <Label xmlns="http://www.w3.org/1999/xhtml" fill={fill}>
+        <circle cx={x} cy={y} r={4} fill={fill} stroke="#fff" strokeWidth="2" />
+      </g>
+    );
+  };
+
+  const textXPoint = width >= 40 ? x + 20 : x + 2;
+  const textYPoint = width >= 40 ? y - 35 : y - 28;
+  const labelFill = width >= 40 ? fill : null;
+
+  return (
+    <>
+      <g>
+        {makeIndicator(width, x, y, fill)}
+        <foreignObject x={textXPoint} y={textYPoint} width="100" height="100">
+          <Label xmlns="http://www.w3.org/1999/xhtml" fill={labelFill}>
             <Title xmlns="http://www.w3.org/1999/xhtml">{value}명</Title>
           </Label>
         </foreignObject>
       </g>
     </>
   );
-});
+};
 
 export default CustomizedLabel;

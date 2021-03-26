@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import keywords from "./store/reducers/keywords";
-import searchEMP from "./store/reducers/searchEMP";
+import searchEmp from "./store/reducers/searchEmp";
 import searchBar from "./store/reducers/searchBar";
 import statBar from "./store/reducers/statBar";
 import statPage from "./store/reducers/statPage";
@@ -23,7 +23,7 @@ const composeEnhancers =
 
 const rootReducer = combineReducers({
   keywords: keywords,
-  searchEMP: searchEMP,
+  searchEmp: searchEmp,
   searchBar: searchBar,
   statBar: statBar,
   statPage: statPage,

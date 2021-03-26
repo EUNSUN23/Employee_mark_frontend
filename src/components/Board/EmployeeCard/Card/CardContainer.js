@@ -4,15 +4,15 @@ import EmployeeCard from "../EmployeeCard";
 import { debounce } from "lodash";
 import { Grid } from "@material-ui/core";
 import Loader from "../../../UI/Loader";
-import { getEmpData } from "../../../../store/actions/searchEMP";
+import { getEmpData } from "../../../../store/actions/searchEmp";
 import { getCurrent } from "../../../../shared/utility";
 
 const CardContainer = memo(() => {
   const dispatch = useDispatch();
 
-  const employeeData = useSelector((state) => state.searchEMP.employeeData);
-  const page = useSelector((state) => state.searchEMP.page);
-  const isNextLoading = useSelector((state) => state.searchEMP.nextLoading);
+  const employeeData = useSelector((state) => state.searchEmp.employeeData);
+  const page = useSelector((state) => state.searchEmp.page);
+  const isNextLoading = useSelector((state) => state.searchEmp.nextLoading);
 
   const nextPage = useRef(page);
   const target = useRef(null);

@@ -16,7 +16,7 @@ import SearchMenu from "./components/SearchMenu";
 import SearchInput from "./components/SearchInput";
 import { Grid } from "@material-ui/core";
 import { initKeywords, addKeywords } from "../../store/actions/keywords";
-import { getEmpData } from "../../store/actions/searchEMP";
+import { getEmpData } from "../../store/actions/searchEmp";
 import { isValid, getKeywords } from "../../shared/utility";
 import { setCategory } from "../../store/actions/searchBar";
 
@@ -265,7 +265,7 @@ const SearchBar = memo(() => {
 
   const dispatch = useDispatch();
   const keywords = useSelector((state) => state.keywords.keywords);
-  const page = useSelector((state) => state.searchEMP.page);
+  const page = useSelector((state) => state.searchEmp.page);
   const option = useSelector((state) => state.searchBar.option);
   const inputVal = useSelector((state) => state.searchBar.inputVal);
   const optionVal = useSelector((state) => state.searchBar.optionVal);

@@ -5,7 +5,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
 import ErrorIcon from "@material-ui/icons/Error";
-import { initError } from "../../store/actions/searchEMP";
+import { initError } from "../../store/actions/searchEmp";
 
 const useStyles = makeStyles({
   wrapper: {

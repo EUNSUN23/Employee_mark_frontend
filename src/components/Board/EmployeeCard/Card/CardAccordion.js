@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import History from "./History/History";
 import useEmployeeData from "../../../../hooks/useEmployeeData";
 import Rank from "./Rank/Rank";
-import { leftError } from "../../../../store/actions/searchEMP";
+import { leftError } from "../../../../store/actions/searchEmp";
 
 const useStyles = makeStyles((theme) => ({
   root: {

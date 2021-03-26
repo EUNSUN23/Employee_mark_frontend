@@ -1,5 +1,10 @@
-import React, { useState, useCallback } from "react";
-import { setChartColor } from "../../../../shared/utility";
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination } from "swiper/core";
+import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.min.css";
+import "swiper/components/pagination/pagination.min.css";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   BarChart,
   Bar,
@@ -9,12 +14,9 @@ import {
   Cell,
   ResponsiveContainer,
 } from "recharts";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination } from "swiper/core";
-import "swiper/swiper.min.css";
-import "swiper/components/navigation/navigation.min.css";
-import "swiper/components/pagination/pagination.min.css";
-import { makeStyles } from "@material-ui/core/styles";
+import { setChartColor } from "../../../../shared/utility";
+import CustomizedLabel from "../SalaryDist/CustomizedLabel";
+import CustomizedTick from "../SalaryDist/CustomizedTick";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -38,7 +40,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const DeptChart = ({ deptData }) => {
-  // const [dept, setDept] = useState("Customer Service");
   const classes = useStyles();
 
   const makeDeptChart = (deptData) => {
@@ -48,7 +49,7 @@ const DeptChart = ({ deptData }) => {
       <Swiper
         slidesPerView={1}
         id="main"
-        spaceBetween={500}
+        spaceBetween={50}
         pagination
         navigation
         scrollbar={{ draggable: true }}
@@ -65,11 +66,15 @@ const DeptChart = ({ deptData }) => {
                 height={360}
                 className={classes.chartContainer}
               >
-                <BarChart data={data}>
+                <BarChart data={data} margin={{ top: 50 }}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="sal" />
+                  <XAxis
+                    dataKey="sal"
+                    tick={<CustomizedTick data={data} />}
+                    interval={3}
+                  />
                   <YAxis dataKey="cnt" />
-                  <Bar dataKey="cnt" fill="#8884d8">
+                  <Bar dataKey="cnt" fill="#8884d8" label={<CustomizedLabel />}>
                     {data.map((entry, index) => {
                       const color = setChartColor(entry.dept_name);
                       return (

@@ -1,4 +1,3 @@
-import { memo } from "react";
 import styled from "styled-components";
 
 const Tick = styled.span`
@@ -11,22 +10,25 @@ const Tick = styled.span`
   font-weight: bold;
 `;
 
-const CustomizedTick = memo((tickProps) => {
-  const { x, y, payload, data } = tickProps;
-  const { value, offset } = payload;
-
-  console.log("tickProps", tickProps);
+const CustomizedTick = (tickProps) => {
+  const { x, y, payload, data, width } = tickProps;
+  const { value } = payload;
 
   const emp = data[value];
-  console.log("emp", emp);
+  console.log("tick", tickProps);
 
   return (
     <foreignObject x={x - 70} y={y} width="140" height="50">
-      <Tick xmlns="http://www.w3.org/1999/xhtml" value={value} emp={emp}>
+      <Tick
+        xmlns="http://www.w3.org/1999/xhtml"
+        value={value}
+        emp={emp}
+        width={width}
+      >
         {value}
       </Tick>
     </foreignObject>
   );
-});
+};
 
 export default CustomizedTick;
