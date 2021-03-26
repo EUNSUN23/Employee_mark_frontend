@@ -18,8 +18,8 @@ import statPage from "./store/reducers/statPage";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    : null || compose;
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    : null;
 
 const rootReducer = combineReducers({
   keywords: keywords,
