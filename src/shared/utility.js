@@ -231,6 +231,8 @@ const arrangeStack = (resData) => {
     }
     dataObj[deptArr[i]] = deptData;
   }
+
+  return dataObj;
 };
 
 export const setStatData = (state, data, isLoading, type) => {
@@ -248,6 +250,7 @@ export const setStatData = (state, data, isLoading, type) => {
       return updateObject(state, updatedData);
     case "dept":
       const deptData = arrangeStack(data);
+      console.log("deptData", deptData);
       updatedData = { deptData: deptData, loading: isLoading };
       return updateObject(state, updatedData);
     case "below":

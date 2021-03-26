@@ -35,7 +35,7 @@ const Statistics = () => {
       <Modal open={openErrorMs} message={errorMs} handleClose={handleCloseMs} />
       <Grid item></Grid>
       <Grid item></Grid>
-      <Grid item>{chart}</Grid>
+      {chart}
     </Grid>
   );
 

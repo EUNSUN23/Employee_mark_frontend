@@ -1,13 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { shallowEqual, useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
-import EmpChart from "../Graph/SalaryStackChart/EmpChart";
+import DeptChart from "../Graph/SalaryStackChart/DeptChart";
 
 const SalaryStack = () => {
-  const type = useSelector((state) => {
-    const selected = state.statBar.selected;
-    return selected ? state.statBar.selected.type : null;
-  });
+  const { deptData, empData, type } = useSelector(
+    (state) => ({
+      deptData: state.statPage.deptData,
+      empData: state.statPage.empData,
+      type: state.statBar.selected ? state.statBar.selected.type : null,
+    }),
+    shallowEqual
+  );
 
   const chart = () => {
     switch (type) {
@@ -16,7 +20,7 @@ const SalaryStack = () => {
           <Grid container>
             <Grid item xs={false} sm={1}></Grid>
             <Grid item xs={12} sm={10}>
-              <EmpChart />
+              {/* <> */}
             </Grid>
             <Grid item xs={false} sm={1}></Grid>
           </Grid>
@@ -25,11 +29,9 @@ const SalaryStack = () => {
       case "dept":
         return (
           <Grid container>
-            <Grid item xs={false} sm={1}></Grid>
             <Grid item xs={12} sm={10}>
-              {/* <DeptBar /> */}
+              <DeptChart deptData={deptData} />
             </Grid>
-            <Grid item xs={false} sm={1}></Grid>
           </Grid>
         );
 

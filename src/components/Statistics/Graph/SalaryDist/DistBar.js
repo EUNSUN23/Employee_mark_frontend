@@ -11,8 +11,8 @@ import {
 import { Grid } from "@material-ui/core";
 import { setChartColor } from "../../../../shared/utility";
 import { makeStyles } from "@material-ui/core/styles";
-import CustomizedTick from "../SalaryStackChart/CustomizedTick";
-import CustomizedLabel from "../SalaryStackChart/CustomizedLabel";
+import CustomizedTick from "./CustomizedTick";
+import CustomizedLabel from "./CustomizedLabel";
 
 const useStyles = makeStyles((theme) => ({
   barChartGrid: {

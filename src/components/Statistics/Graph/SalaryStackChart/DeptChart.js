@@ -1,145 +1,97 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useCallback } from "react";
 import { setChartColor } from "../../../../shared/utility";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
 import {
-  AreaChart,
-  Area,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend,
+  Cell,
+  ResponsiveContainer,
 } from "recharts";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination } from "swiper/core";
+import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.min.css";
+import "swiper/components/pagination/pagination.min.css";
+import { makeStyles } from "@material-ui/core/styles";
 
-import ChartSelect from "../../Graph/ChartSelect";
+SwiperCore.use([Navigation, Pagination]);
 
 const useStyles = makeStyles(() => ({
-  initText: {
-    fontSize: 60,
-    color: "#e8e8e8",
-    textAlign: "center",
-    lineHeight: "250px",
-    width: 650,
-    height: 250,
-    border: "1px solid #999999",
-    borderRadius: "2px",
+  root: {
+    width: "80%",
+    position: "absolute",
+    left: "50%",
+    transform: "translateX(-50%)",
   },
-  tooltip: {
-    padding: "0 10px",
-    backgroundColor: "#ffffff",
-    border: "1px solid #666",
+  swiperSlide: {
+    listStyle: "none",
+    position: "relative",
+    height: 380,
+  },
+  chartContainer: {
+    position: "absolute",
+    left: "48%",
+    transform: "translateX(-50%)",
   },
 }));
 
-const CustomizedXAxisTick = (props) => {
-  const { x, y, payload } = props;
-
-  return (
-    <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={18} textAnchor="middle" fill="#666" fontSize="13px">
-        {payload.value}
-      </text>
-    </g>
-  );
-};
-
-const CustomizedYAxisTick = (props) => {
-  const { x, y, payload } = props;
-
-  return (
-    <g transform={`translate(${x},${y})`}>
-      <text x={0} y={0} dy={5} textAnchor="end" fill="#666" fontSize="13px">
-        {`${payload.value}명`}
-      </text>
-    </g>
-  );
-};
-
-const DeptChart = () => {
-  const [checked, setChecked] = useState(["Customer Service"]);
-  const deptData = useSelector((state) => state.statPage.deptData);
+const DeptChart = ({ deptData }) => {
+  // const [dept, setDept] = useState("Customer Service");
   const classes = useStyles();
 
-  console.log("DeptChart", deptData);
+  const makeDeptChart = (deptData) => {
+    if (!deptData) return null;
 
-  const chartSelectHandler = (selected) => {
-    setChecked(selected);
-  };
-
-  const makeChart = () => {
-    console.log("MAKE CHART____", "checked", checked, "chartData", deptData);
-    if (checked.length === 0) return;
-    let chart;
-
-    chart = checked.map((data, idx) => {
-      const color = setChartColor(data);
-      const chartName = data;
-      console.log("chartName", data, "color", color);
-      return (
-        <Area
-          key={chartName}
-          type="monotone"
-          dataKey={chartName}
-          stroke={color}
-          fillOpacity={0.5}
-          fill={color}
-        ></Area>
-      );
-    });
-    return chart;
-  };
-
-  const deptChart = checked.length ? (
-    <Grid item>
-      <AreaChart
-        className={classes.deptChart}
-        width={650}
-        height={400}
-        data={deptData}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+    return (
+      <Swiper
+        slidesPerView={1}
+        id="main"
+        spaceBetween={500}
+        pagination
+        navigation
+        scrollbar={{ draggable: true }}
+        onSwiper={(swiper) => console.log(swiper)}
+        onSlideChange={() => console.log("slide change")}
+        className={classes.root}
       >
-        {" "}
-        <defs>
-          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-          </linearGradient>
-          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-          </linearGradient>
-        </defs>
-        <XAxis dataKey="name" tick={<CustomizedXAxisTick />} />
-        <YAxis
-          type="number"
-          domain={[0, 20000]}
-          tick={<CustomizedYAxisTick />}
-        />
-        <CartesianGrid strokeDasharray="3 3" />
-        <Tooltip formatter={(value, name, props) => [`${value}명`, name]} />
-        {makeChart()}
-        <Legend
-          verticalAlign="bottom"
-          wrapperStyle={{ position: "absolute", top: "105%" }}
-        />
-      </AreaChart>
-    </Grid>
-  ) : (
-    <Grid item>
-      <div className={classes.initText}>부서를 선택하세요</div>
-    </Grid>
-  );
+        {Object.keys(deptData).map((dept, index) => {
+          const data = deptData[dept];
+          return (
+            <SwiperSlide key={`chart-${dept}`} className={classes.swiperSlide}>
+              <ResponsiveContainer
+                width="70%"
+                height={360}
+                className={classes.chartContainer}
+              >
+                <BarChart data={data}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="sal" />
+                  <YAxis dataKey="cnt" />
+                  <Bar dataKey="cnt" fill="#8884d8">
+                    {data.map((entry, index) => {
+                      const color = setChartColor(entry.dept_name);
+                      return (
+                        <Cell
+                          fill={color}
+                          key={`cell-${index}`}
+                          stroke="false"
+                          strokeDasharray="5,5"
+                        />
+                      );
+                    })}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    );
+  };
 
-  return deptData ? (
-    <Grid container spacing={2} justify="center">
-      {deptChart}
-      <Grid item>
-        <ChartSelect onCheckHandler={chartSelectHandler} checked={checked} />
-      </Grid>
-    </Grid>
-  ) : null;
+  return makeDeptChart(deptData);
 };
 
 export default DeptChart;
