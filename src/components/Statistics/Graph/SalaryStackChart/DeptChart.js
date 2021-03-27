@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper/core";
 import "swiper/swiper.min.css";
@@ -13,10 +13,12 @@ import {
   CartesianGrid,
   Cell,
   ResponsiveContainer,
+  Customized,
 } from "recharts";
 import { setChartColor } from "../../../../shared/utility";
 import CustomizedLabel from "../SalaryDist/CustomizedLabel";
 import CustomizedTick from "../SalaryDist/CustomizedTick";
+import CustomizedFilter from "./CustomizedFilter";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -30,7 +32,7 @@ const useStyles = makeStyles(() => ({
   swiperSlide: {
     listStyle: "none",
     position: "relative",
-    height: 380,
+    height: 600,
   },
   chartContainer: {
     position: "absolute",
@@ -41,6 +43,14 @@ const useStyles = makeStyles(() => ({
 
 const DeptChart = ({ deptData }) => {
   const classes = useStyles();
+  const [salary, setSalary] = useState(40000);
+
+  const onChangeFilter = useCallback(
+    (value) => {
+      setSalary(value);
+    },
+    [setSalary]
+  );
 
   const makeDeptChart = (deptData) => {
     if (!deptData) return null;
@@ -61,12 +71,15 @@ const DeptChart = ({ deptData }) => {
           const data = deptData[dept];
           return (
             <SwiperSlide key={`chart-${dept}`} className={classes.swiperSlide}>
+              <Customized
+                component={<CustomizedFilter onChangeFilter={onChangeFilter} />}
+              />
               <ResponsiveContainer
                 width="90%"
-                height={360}
+                height={400}
                 className={classes.chartContainer}
               >
-                <BarChart data={data} margin={{ top: 50 }}>
+                <BarChart data={data}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
                     dataKey="sal"
@@ -75,6 +88,7 @@ const DeptChart = ({ deptData }) => {
                     tickLine={false}
                   />
                   <YAxis dataKey="cnt" />
+
                   <Bar dataKey="cnt" fill="#8884d8" label={<CustomizedLabel />}>
                     {data.map((entry, index) => {
                       const color = setChartColor(entry.dept_name);
