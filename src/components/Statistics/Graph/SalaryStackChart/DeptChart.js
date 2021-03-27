@@ -17,9 +17,7 @@ import {
 } from "recharts";
 import { setChartColor } from "../../../../shared/utility";
 import CustomizedLabel from "../SalaryDist/CustomizedLabel";
-import CustomizedTick from "../SalaryDist/CustomizedTick";
-import CustomizedFilter from "./CustomizedFilter";
-
+import SalaryFilter from "./SalaryFilter";
 SwiperCore.use([Navigation, Pagination]);
 
 const useStyles = makeStyles(() => ({
@@ -32,7 +30,7 @@ const useStyles = makeStyles(() => ({
   swiperSlide: {
     listStyle: "none",
     position: "relative",
-    height: 600,
+    height: 430,
   },
   chartContainer: {
     position: "absolute",
@@ -43,14 +41,7 @@ const useStyles = makeStyles(() => ({
 
 const DeptChart = ({ deptData }) => {
   const classes = useStyles();
-  const [salary, setSalary] = useState(40000);
-
-  const onChangeFilter = useCallback(
-    (value) => {
-      setSalary(value);
-    },
-    [setSalary]
-  );
+  const [dept, setDept] = useState("Customer Serivce");
 
   const makeDeptChart = (deptData) => {
     if (!deptData) return null;
@@ -67,26 +58,19 @@ const DeptChart = ({ deptData }) => {
         onSlideChange={() => console.log("slide change")}
         className={classes.root}
       >
+        <SalaryFilter />
         {Object.keys(deptData).map((dept, index) => {
           const data = deptData[dept];
           return (
             <SwiperSlide key={`chart-${dept}`} className={classes.swiperSlide}>
-              <Customized
-                component={<CustomizedFilter onChangeFilter={onChangeFilter} />}
-              />
               <ResponsiveContainer
                 width="90%"
                 height={400}
                 className={classes.chartContainer}
               >
-                <BarChart data={data}>
+                <BarChart data={data} margin={{ top: 50 }}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="sal"
-                    tick={<CustomizedTick data={data} />}
-                    interval={3}
-                    tickLine={false}
-                  />
+                  <XAxis dataKey="sal" tick={false} />
                   <YAxis dataKey="cnt" />
 
                   <Bar dataKey="cnt" fill="#8884d8" label={<CustomizedLabel />}>
