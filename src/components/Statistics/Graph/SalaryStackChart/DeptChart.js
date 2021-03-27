@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, memo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper/core";
 import "swiper/swiper.min.css";
@@ -21,81 +21,111 @@ import SalaryFilter from "./SalaryFilter";
 SwiperCore.use([Navigation, Pagination]);
 
 const useStyles = makeStyles(() => ({
+  dept: {
+    position: "absolute",
+    left: "25%",
+  },
   root: {
-    width: "80%",
+    width: "65%",
     position: "absolute",
     left: "50%",
+    top: "20%",
     transform: "translateX(-50%)",
   },
   swiperSlide: {
+    display: "grid",
+    gridTemplateColumns: "auto auto auto auto auto auto auto auto auto auto",
     listStyle: "none",
     position: "relative",
     height: 430,
   },
   chartContainer: {
     position: "absolute",
-    left: "48%",
-    transform: "translateX(-50%)",
+    left: 0,
   },
 }));
 
-const DeptChart = ({ deptData }) => {
+const DeptChart = memo(({ deptData }) => {
   const classes = useStyles();
-  const [dept, setDept] = useState("Customer Serivce");
+  const [dept, setDept] = useState("Customer ServIce");
+  const [value, setValue] = useState(40000);
 
-  const makeDeptChart = (deptData) => {
+  const onClickFilter = useCallback(
+    (icon) => {
+      const newValue = icon === "up" ? value + 10000 : value - 10000;
+      if (newValue <= 160000 && newValue >= 40000) setValue(newValue);
+    },
+    [value]
+  );
+
+  const makeDeptChart = (deptData, value) => {
     if (!deptData) return null;
 
     return (
-      <Swiper
-        slidesPerView={1}
-        id="main"
-        spaceBetween={50}
-        pagination
-        navigation
-        scrollbar={{ draggable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log("slide change")}
-        className={classes.root}
-      >
-        <SalaryFilter />
-        {Object.keys(deptData).map((dept, index) => {
-          const data = deptData[dept];
-          return (
-            <SwiperSlide key={`chart-${dept}`} className={classes.swiperSlide}>
-              <ResponsiveContainer
-                width="90%"
-                height={400}
-                className={classes.chartContainer}
-              >
-                <BarChart data={data} margin={{ top: 50 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="sal" tick={false} />
-                  <YAxis dataKey="cnt" />
+      <>
+        <h1 className={classes.dept}>{dept}</h1>
 
-                  <Bar dataKey="cnt" fill="#8884d8" label={<CustomizedLabel />}>
-                    {data.map((entry, index) => {
-                      const color = setChartColor(entry.dept_name);
-                      return (
-                        <Cell
-                          fill={color}
-                          key={`cell-${index}`}
-                          stroke="false"
-                          strokeDasharray="5,5"
-                        />
-                      );
-                    })}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+        <Swiper
+          slidesPerView={1}
+          id="main"
+          spaceBetween={40}
+          pagination
+          navigation
+          scrollbar={{ draggable: true }}
+          onSwiper={(swiper) => console.log(swiper)}
+          onSlideChange={() => console.log("slide change")}
+          className={classes.root}
+        >
+          {Object.keys(deptData).map((dept, idx) => {
+            const data = deptData[dept];
+            return (
+              <SwiperSlide
+                key={`chart-${dept}`}
+                className={classes.swiperSlide}
+              >
+                <ResponsiveContainer
+                  width="100%"
+                  height={380}
+                  className={classes.chartContainer}
+                >
+                  <BarChart data={data} margin={{ top: 50 }}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="sal" tick={false} />
+                    <YAxis dataKey="cnt" />
+
+                    <Bar
+                      dataKey="cnt"
+                      fill="#8884d8"
+                      label={<CustomizedLabel currentVal={value} />}
+                    >
+                      {data.map((entry, index) => {
+                        const color =
+                          entry.sal === value
+                            ? "red"
+                            : setChartColor(entry.dept_name);
+
+                        return (
+                          <Cell
+                            fill={color}
+                            key={`cell-${index}`}
+                            stroke="false"
+                            strokeDasharray="5,5"
+                          />
+                        );
+                      })}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+        <SalaryFilter onClickFilter={onClickFilter} value={value} />
+      </>
     );
   };
 
-  return makeDeptChart(deptData);
-};
+  return makeDeptChart(deptData, value);
+});
 
 export default DeptChart;
