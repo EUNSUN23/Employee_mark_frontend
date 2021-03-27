@@ -62,7 +62,7 @@ const DeptChart = ({ deptData }) => {
           return (
             <SwiperSlide key={`chart-${dept}`} className={classes.swiperSlide}>
               <ResponsiveContainer
-                width="70%"
+                width="90%"
                 height={360}
                 className={classes.chartContainer}
               >
@@ -72,6 +72,7 @@ const DeptChart = ({ deptData }) => {
                     dataKey="sal"
                     tick={<CustomizedTick data={data} />}
                     interval={3}
+                    tickLine={false}
                   />
                   <YAxis dataKey="cnt" />
                   <Bar dataKey="cnt" fill="#8884d8" label={<CustomizedLabel />}>

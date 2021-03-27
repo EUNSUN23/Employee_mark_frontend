@@ -8,24 +8,25 @@ const Tick = styled.span`
   position: absolute;
   text-align: center;
   font-weight: bold;
+  left: 5%;
 `;
 
 const CustomizedTick = (tickProps) => {
-  const { x, y, payload, data, width } = tickProps;
+  const { x, y, payload, data, width, index } = tickProps;
   const { value } = payload;
 
   const emp = data[value];
-  console.log("tick", tickProps);
+  const tickVal = typeof value === "string" ? value : `${value / 10000}만`;
 
   return (
     <foreignObject x={x - 70} y={y} width="140" height="50">
       <Tick
         xmlns="http://www.w3.org/1999/xhtml"
-        value={value}
+        value={tickVal}
         emp={emp}
         width={width}
       >
-        {value}
+        {tickVal}
       </Tick>
     </foreignObject>
   );
