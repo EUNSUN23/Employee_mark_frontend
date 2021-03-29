@@ -270,37 +270,37 @@ export const setStatData = (state, data, isLoading, type) => {
 
 // <------------------ STACK CHART ----------------------->
 
-export const setChartColor = (chartName) => {
+export const setChartColor = (chartName, highlight) => {
   console.log(chartName);
   let chartColor;
+  if (highlight) return "#E20830";
   switch (chartName) {
     case "Customer Service":
       chartColor = "#6DC3C1";
-
       return chartColor;
     case "Development":
       chartColor = "#F8B128 ";
       return chartColor;
     case "Finance":
-      chartColor = "#F5743A";
+      chartColor = "#FF8927 ";
       return chartColor;
     case "Human Resources":
-      chartColor = "#1E8F30";
+      chartColor = "#2BA43E";
       return chartColor;
     case "Marketing":
-      chartColor = "#9D792F";
+      chartColor = "#AE8734";
       return chartColor;
     case "Production":
-      chartColor = "#2670F0";
+      chartColor = "#1968F0";
       return chartColor;
     case "Quality Management":
-      chartColor = "#B654EF  ";
+      chartColor = "#AB50E0  ";
       return chartColor;
     case "Research":
       chartColor = "#5BC34E ";
       return chartColor;
     case "Sales":
-      chartColor = "#F9F86B";
+      chartColor = "#FAEB4D";
       return chartColor;
     default:
       return;

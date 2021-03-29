@@ -132,11 +132,8 @@ const DeptChart = memo(({ deptData }) => {
                       label={<CustomizedLabel currentVal={value} />}
                     >
                       {data.map((entry, index) => {
-                        const color =
-                          entry.sal === value
-                            ? "red"
-                            : setChartColor(entry.dept_name);
-
+                        const highlight = entry.sal === value;
+                        const color = setChartColor(entry.dept_name, highlight);
                         return (
                           <Cell
                             fill={color}
