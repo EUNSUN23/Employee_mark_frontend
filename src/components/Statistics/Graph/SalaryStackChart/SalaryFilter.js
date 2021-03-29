@@ -31,6 +31,7 @@ const useStyles = makeStyles(() => ({
   button: {
     height: "50px",
     position: "relative",
+
     "& div:nth-child(1)": {
       top: "8%",
     },
@@ -39,27 +40,26 @@ const useStyles = makeStyles(() => ({
       transform: "translateY(-50%)",
       left: "50%",
       transform: "translateX(-50%)",
-      zIndex: 500,
+
       boxShadow: "2px 1px 2px 0px #CECECE",
       height: "20px",
+      zIndex: 500,
     },
   },
   icon: {
     position: "absolute",
+    cursor: "pointer",
     left: "50%",
     transform: "translateX(-50%)",
     width: "20px",
     height: "20px",
     borderTop: "1px solid #EFEFF0",
     borderLeft: "1px solid #EFEFF0",
-    cursor: "pointer",
-    zIndex: 500,
     backgroundColor: "#ffffff",
     boxShadow: "2px 1px 2px 0px #CECECE",
   },
 
   icon_disabled: {
-    cursor: "pointer",
     color: "grey",
     position: "absolute",
     left: "50%",
@@ -68,8 +68,6 @@ const useStyles = makeStyles(() => ({
     height: "20px",
     borderTop: "1px solid #EFEFF0",
     borderLeft: "1px solid #EFEFF0",
-    cursor: "pointer",
-    zIndex: 500,
     backgroundColor: "#ffffff",
     boxShadow: "2px 1px 2px 0px #CECECE",
   },

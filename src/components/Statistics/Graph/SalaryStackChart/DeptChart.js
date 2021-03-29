@@ -24,7 +24,7 @@ SwiperCore.use([Navigation, Pagination]);
 const useStyles = makeStyles(() => ({
   title: {
     display: "none",
-    border: "1px solid black",
+
     [theme.breakpoints.up("sm")]: {
       display: "flex",
       width: "400px",
@@ -87,10 +87,8 @@ const DeptChart = memo(({ deptData }) => {
           justify="center"
           alignItems="center"
           style={{
-            position: "absolute",
-            left: "50%",
-            paddingTop: "10px",
-            transform: "translateX(-50%)",
+            width: "100%",
+            paddingLeft: "50px",
           }}
         >
           <Grid item component="h1">
