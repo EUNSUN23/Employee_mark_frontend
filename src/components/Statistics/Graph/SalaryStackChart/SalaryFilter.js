@@ -106,7 +106,7 @@ const SalaryFilter = memo(({ onClickFilter, value }) => {
       </Grid>
       <Grid
         item
-        xs={1}
+        xs={2}
         direction="column"
         container
         className={classes.button}

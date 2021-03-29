@@ -22,7 +22,7 @@ const Title = styled.h6`
 
 const Highlight = styled.div`
   color: #222;
-  font-size: 18px;
+  font-size: 23px;
   text-shadow: 1px 2px 0px #d6d6dd;
 `;
 
@@ -73,7 +73,7 @@ const CustomizedLabel = (props) => {
       );
     } else {
       label = (
-        <foreignObject x={x} y={y - 20} width="100" height="100">
+        <foreignObject x={x} y={y - 25} width="100" height="100">
           <Highlight
             xmlns="http://www.w3.org/1999/xhtml"
             fill={labelFill}

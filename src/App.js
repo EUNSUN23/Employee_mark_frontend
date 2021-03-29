@@ -5,6 +5,7 @@ import Board from "./components/Board/Board";
 import Home from "./components/Home";
 import Statistics from "./components/Statistics/Statistics";
 import { setCategory } from "./store/actions/searchBar";
+import CustomSwiper from "./components/Statistics/Graph/SalaryStackChart/CustomSwiper";
 
 const App = () => {
   const dispatch = useDispatch();
