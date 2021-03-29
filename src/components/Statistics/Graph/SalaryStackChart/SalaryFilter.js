@@ -2,15 +2,12 @@ import React, { memo } from "react";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Icon } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import theme from "../../../../theme";
 
 const useStyles = makeStyles(() => ({
   root: {
-    position: "absolute",
-    top: "18%",
-    left: "60%",
-    width: "230px",
+    width: "210px",
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "flex",
@@ -20,17 +17,22 @@ const useStyles = makeStyles(() => ({
     textAlign: "right",
   },
   value: {
-    width: "120px",
-    "& span": {
+    "& span:nth-child(1)": {
+      fontSize: "18px",
+      color: "#222",
+      fontWeight: "bold",
+    },
+    "& span:nth-child(2)": {
       fontSize: "26px",
       color: "#222",
       fontWeight: "bold",
     },
   },
   button: {
+    height: "50px",
     position: "relative",
     "& div:nth-child(1)": {
-      top: "17%",
+      top: "8%",
     },
     "& div:nth-child(2)": {
       top: "50%",
@@ -79,8 +81,6 @@ const useStyles = makeStyles(() => ({
 const SalaryFilter = memo(({ onClickFilter, value }) => {
   const classes = useStyles();
 
-  console.log("value", value);
-
   const upClassName = value === 160000 ? "icon_disabled" : "icon";
 
   const downClassName = value === 40000 ? "icon_disabled" : "icon";
@@ -89,24 +89,26 @@ const SalaryFilter = memo(({ onClickFilter, value }) => {
     onClickFilter(icon);
   };
   return (
-    <Grid container className={classes.root}>
-      <Grid item xs={4} className={classes.salary}>
-        <h4>연봉 :</h4>
-      </Grid>
+    <Grid item container className={classes.root} justify="flex-end">
       <Grid
         item
         container
-        direction="column"
         className={classes.value}
-        xs={5}
+        xs={9}
         justify="center"
         alignItems="center"
+        spacing={1}
       >
-        <span>{value}</span>
+        <Grid item component="span">
+          연봉 :
+        </Grid>
+        <Grid item component="span">
+          {value}
+        </Grid>
       </Grid>
       <Grid
         item
-        xs={2}
+        xs={1}
         direction="column"
         container
         className={classes.button}

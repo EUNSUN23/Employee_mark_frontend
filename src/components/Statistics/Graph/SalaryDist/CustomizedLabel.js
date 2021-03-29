@@ -8,7 +8,7 @@ const Label = styled.div`
   font-size: ${(props) => (props.expand ? "12px" : "10px")};
   border: ${(props) => `1.5px solid ${props.fill}`};
   padding: ${(props) => props.expand && "5px"};
-
+  background-color: ${(props) => props.expand && "#ffffff"};
   box-shadow: ${(props) =>
     props.expand &&
     "rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,rgba(0, 0, 0, 0.3) 0px 1px 3px -1px"};
@@ -30,13 +30,12 @@ const CustomizedLabel = (props) => {
   const { x, y, fill, value, viewBox, index, currentVal } = props;
   const { width } = viewBox;
 
-  console.log("label", props);
   const makeIndicator = (width, x, y, fill) => {
     const expand = width >= 45;
     const point = expand
-      ? `${x} ${y}, ${x + 15} ${y - 20}, ${x + 40} ${y - 20}`
+      ? `${x} ${y}, ${x + 10} ${y - 20}, ${x + 40} ${y - 20}`
       : `${x} ${y}`;
-    const r = expand ? 4 : 3.5;
+    const r = expand ? 4 : 0;
     return (
       <g>
         <polyline
@@ -52,7 +51,7 @@ const CustomizedLabel = (props) => {
 
   const makeLabel = (width, fill, value, index, currentVal) => {
     const expand = width >= 45;
-    const textXPoint = expand ? x + 28 : x;
+    const textXPoint = expand ? x + 20 : x + 5;
     const textYPoint = expand ? y - 35 : y - 17;
     const labelFill = expand ? fill : null;
 
@@ -62,7 +61,7 @@ const CustomizedLabel = (props) => {
     let label;
     if (!highlight) {
       label = (
-        <foreignObject x={textXPoint} y={textYPoint} width="150" height="100">
+        <foreignObject x={textXPoint} y={textYPoint} width="100" height="100">
           <Label
             xmlns="http://www.w3.org/1999/xhtml"
             fill={labelFill}

@@ -5,6 +5,7 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 import { makeStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 import {
   BarChart,
   Bar,
@@ -13,14 +14,32 @@ import {
   CartesianGrid,
   Cell,
   ResponsiveContainer,
-  Customized,
 } from "recharts";
 import { setChartColor } from "../../../../shared/utility";
 import CustomizedLabel from "../SalaryDist/CustomizedLabel";
 import SalaryFilter from "./SalaryFilter";
+import theme from "../../../../theme";
 SwiperCore.use([Navigation, Pagination]);
 
 const useStyles = makeStyles(() => ({
+  title: {
+    display: "none",
+    border: "1px solid black",
+    [theme.breakpoints.up("sm")]: {
+      display: "flex",
+      width: "400px",
+    },
+    "& span:nth-child(1)": {
+      fontSize: "18px",
+      color: "#222",
+      fontWeight: "bold",
+    },
+    "& span:nth-child(2)": {
+      fontSize: "26px",
+      color: "#222",
+      fontWeight: "bold",
+    },
+  },
   dept: {
     position: "absolute",
     left: "25%",
@@ -47,7 +66,7 @@ const useStyles = makeStyles(() => ({
 
 const DeptChart = memo(({ deptData }) => {
   const classes = useStyles();
-  const [dept, setDept] = useState("Customer ServIce");
+  const [dept, setDept] = useState("Customer Service");
   const [value, setValue] = useState(40000);
 
   const onClickFilter = useCallback(
@@ -58,13 +77,27 @@ const DeptChart = memo(({ deptData }) => {
     [value]
   );
 
-  const makeDeptChart = (deptData, value) => {
+  const makeDeptChart = () => {
     if (!deptData) return null;
 
     return (
       <>
-        <h1 className={classes.dept}>{dept}</h1>
-
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          style={{
+            position: "absolute",
+            left: "50%",
+            paddingTop: "10px",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <Grid item component="h1">
+            {dept}
+          </Grid>
+          <SalaryFilter onClickFilter={onClickFilter} value={value} />
+        </Grid>
         <Swiper
           slidesPerView={1}
           id="main"
@@ -120,12 +153,11 @@ const DeptChart = memo(({ deptData }) => {
             );
           })}
         </Swiper>
-        <SalaryFilter onClickFilter={onClickFilter} value={value} />
       </>
     );
   };
 
-  return makeDeptChart(deptData, value);
+  return makeDeptChart();
 });
 
 export default DeptChart;

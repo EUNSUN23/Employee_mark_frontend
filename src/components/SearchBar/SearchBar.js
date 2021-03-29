@@ -17,8 +17,7 @@ import SearchInput from "./components/SearchInput";
 import { Grid } from "@material-ui/core";
 import { initKeywords, addKeywords } from "../../store/actions/keywords";
 import { getEmpData } from "../../store/actions/searchEmp";
-import { isValid, getKeywords } from "../../shared/utility";
-import { setCategory } from "../../store/actions/searchBar";
+import { isValid } from "../../shared/utility";
 
 const useStyles = makeStyles((theme) => ({
   menu: {
@@ -270,12 +269,6 @@ const SearchBar = memo(() => {
   const inputVal = useSelector((state) => state.searchBar.inputVal);
   const optionVal = useSelector((state) => state.searchBar.optionVal);
 
-  //name 보낼 때 띄어쓰기 제거하고 보내기
-  //searchOption, searchOptionVal(searchDetail),searchInputVal은 리듀서로 몰아넣기.
-  //useInput은 searchInput안에 넣고, debounce로 리듀서에 value저장되는 타이밍 조정
-  //submit함수는 searchInput안에서 버튼 눌렀을 때 직접 호출하도록.
-  // option, inputVal, optionVal, page
-
   useEffect(() => {
     if (keywords.length === 0) dispatch(initKeywords());
   }, []);
@@ -288,7 +281,6 @@ const SearchBar = memo(() => {
       dispatch(addKeywords("name", inputVal));
     } else {
       isValid(optionVal.value);
-      console.log("page", page);
       dispatch(getEmpData(optionVal, page, "noPage"));
       dispatch(addKeywords(optionVal.category, optionVal.value));
     }
