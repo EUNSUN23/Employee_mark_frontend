@@ -65,15 +65,13 @@ const renderActiveShape = (props) => {
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (outerRadius + 20) * cos;
-  const sy = cy + (outerRadius + 20) * sin;
-  const mx = cx + (outerRadius + 40) * cos;
-  const my = cy + (outerRadius + 40) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 40;
+  const sx = cx + (outerRadius - 10) * cos;
+  const sy = cy + (outerRadius - 10) * sin;
+  const mx = cx + (outerRadius + 20) * cos;
+  const my = cy + (outerRadius + 30) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * 35;
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
-
-  console.log("pay", payload.emp, cx, cy);
 
   return (
     <g>
@@ -94,7 +92,7 @@ const renderActiveShape = (props) => {
         cx={cx}
         cy={cy}
         innerRadius={innerRadius}
-        outerRadius={outerRadius + 20}
+        outerRadius={outerRadius}
         startAngle={startAngle}
         endAngle={endAngle}
         fill={fill}
@@ -105,13 +103,13 @@ const renderActiveShape = (props) => {
       <path
         d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
         stroke={fill}
-        strokeWidth={1}
+        strokeWidth={2}
         fill="none"
       />
       <circle
         cx={ex}
         cy={ey}
-        r={4}
+        r={4.5}
         fill={fill}
         stroke="#FFF"
         strokeWidth={2}
@@ -154,11 +152,13 @@ const renderActiveShape = (props) => {
 
 const EmpPie = ({ empData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [value, setValue] = useState(40000);
+  const [value, setValue] = useState(null);
 
   const onClickFilter = useCallback(
     (icon) => {
-      const newValue = icon === "up" ? value + 10000 : value - 10000;
+      const currentValue = value ? value : 40000;
+      const newValue =
+        icon === "up" ? currentValue + 10000 : currentValue - 10000;
       if (newValue <= 160000 && newValue >= 40000) {
         const index = newValue === 40000 ? 0 : (newValue - 40000) / 10000;
         setValue(newValue);
@@ -167,6 +167,7 @@ const EmpPie = ({ empData }) => {
     },
     [value]
   );
+  const salary = value ? value : 40000;
 
   if (!empData) return null;
 
@@ -184,18 +185,19 @@ const EmpPie = ({ empData }) => {
               outerRadius="100%"
               stroke="none"
               paddingAngle="5"
-              label={<CustomizedPieLabel activeIndex={activeIndex} />}
+              label={
+                <CustomizedPieLabel activeIndex={activeIndex} salary={value} />
+              }
               labelLine={false}
             >
               {empData.map((data, index) => {
-                console.log(COLOR[index]);
                 return <Cell key={`salary-${data.sal}`} fill={COLOR[index]} />;
               })}
             </Pie>
           </PieChart>
         </ResponsiveContainer>
         <Filter>
-          <SalaryFilter value={value} onClickFilter={onClickFilter} />
+          <SalaryFilter value={salary} onClickFilter={onClickFilter} />
         </Filter>
       </ChartContainer>
     </>
