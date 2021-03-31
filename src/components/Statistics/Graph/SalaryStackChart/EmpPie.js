@@ -200,7 +200,7 @@ const EmpPie = ({ empData }) => {
                 return <Cell key={`salary-${data.sal}`} fill={COLOR[index]} />;
               })}
             </Pie>
-            <Tooltip />
+            {/* <Tooltip /> */}
           </PieChart>
         </ResponsiveContainer>
         <Filter>
