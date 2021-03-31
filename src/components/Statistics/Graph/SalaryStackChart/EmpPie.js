@@ -1,5 +1,12 @@
 import React, { useCallback, useState } from "react";
-import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Sector,
+  ResponsiveContainer,
+  Cell,
+  Tooltip,
+} from "recharts";
 import SalaryFilter from "./SalaryFilter";
 import styled from "styled-components";
 import CustomizedPieLabel from "./CustomizedPieLabel";
@@ -77,7 +84,7 @@ const renderActiveShape = (props) => {
     <g>
       <defs>
         <filter id="f1" x="0" y="0" width="200%" height="200%">
-          <feOffset result="offOut" in="SourceGraphic" dx="5" dy="-2" />
+          <feOffset result="offOut" in="SourceGraphic" dx="5" dy="2" />
           <feColorMatrix
             result="matrixOut"
             in="offOut"
@@ -97,7 +104,6 @@ const renderActiveShape = (props) => {
         endAngle={endAngle}
         fill={fill}
         filter="url(#f1)"
-        // stroke="transparent"
       />
 
       <path
@@ -194,6 +200,7 @@ const EmpPie = ({ empData }) => {
                 return <Cell key={`salary-${data.sal}`} fill={COLOR[index]} />;
               })}
             </Pie>
+            <Tooltip />
           </PieChart>
         </ResponsiveContainer>
         <Filter>

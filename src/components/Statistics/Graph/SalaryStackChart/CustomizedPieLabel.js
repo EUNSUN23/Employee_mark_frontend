@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 
 const PieLabel = styled.span`
@@ -19,7 +19,7 @@ const CustomizedPieLabel = memo(
       payload,
       activeIndex,
       index,
-      value,
+      salary,
     } = props;
 
     const cos = Math.cos(-RADIAN * midAngle);
@@ -44,19 +44,19 @@ const CustomizedPieLabel = memo(
           fill="none"
         />
         <foreignObject
-          x={ex + (cos > 0 ? 0.5 : -4.5) * 12}
+          x={ex + (cos > 0 ? 0.5 : -3) * 12}
           y={ey - (cos > 0 ? 15 : 15)}
           width="100"
           height="20"
           textAnchor={textAnchor}
         >
-          <PieLabel color="#BFBFBF ">{`sal. ${payload.sal}`}</PieLabel>
+          <PieLabel color="#BFBFBF ">{`${payload.sal}`}</PieLabel>
         </foreignObject>
       </g>
     );
   },
   (prevProps, nextProps) => {
-    return !nextProps.salary;
+    return prevProps.salary === nextProps.salary || nextProps.salary === null;
   }
 );
 export default CustomizedPieLabel;
