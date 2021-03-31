@@ -27,6 +27,7 @@ const Highlight = styled.div`
 `;
 
 const CustomizedLabel = (props) => {
+  console.log("props", props);
   const { x, y, fill, value, viewBox, index, currentVal } = props;
   const { width } = viewBox;
 

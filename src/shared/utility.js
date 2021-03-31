@@ -244,7 +244,7 @@ export const setStatData = (state, data, isLoading, type) => {
         return a.sal - b.sal;
       });
       const customized = data.map((data, idx) => {
-        return { sal: `$${data.sal}`, emp: data.cnt };
+        return { sal: data.sal, emp: data.cnt };
       });
       updatedData = { empData: customized, loading: isLoading };
       return updateObject(state, updatedData);

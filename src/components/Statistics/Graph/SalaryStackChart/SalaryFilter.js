@@ -9,6 +9,7 @@ const useStyles = makeStyles(() => ({
   root: {
     width: "210px",
     display: "none",
+    backgroundColor: "#fff",
     [theme.breakpoints.up("sm")]: {
       display: "flex",
     },
