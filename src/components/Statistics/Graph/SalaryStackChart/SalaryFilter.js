@@ -82,10 +82,6 @@ const useStyles = makeStyles(() => ({
 const SalaryFilter = memo(({ onClickFilter, value }) => {
   const classes = useStyles();
 
-  const upClassName = value === 160000 ? "icon_disabled" : "icon";
-
-  const downClassName = value === 40000 ? "icon_disabled" : "icon";
-
   const onClickHandler = (icon) => {
     onClickFilter(icon);
   };
@@ -117,13 +113,13 @@ const SalaryFilter = memo(({ onClickFilter, value }) => {
         justify="flex-start"
       >
         <div
-          className={classes[upClassName]}
+          className={classes.icon}
           onClick={() => onClickHandler("up", value)}
         >
           <ArrowDropUpIcon fontSize="large" className={classes.iconInner} />
         </div>
         <div
-          className={classes[downClassName]}
+          className={classes.icon}
           onClick={() => onClickHandler("down", value)}
         >
           <ArrowDropDownIcon fontSize="large" className={classes.iconInner} />

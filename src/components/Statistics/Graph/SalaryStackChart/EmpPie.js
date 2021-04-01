@@ -1,12 +1,5 @@
 import React, { useCallback, useState } from "react";
-import {
-  PieChart,
-  Pie,
-  Sector,
-  ResponsiveContainer,
-  Cell,
-  Tooltip,
-} from "recharts";
+import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from "recharts";
 import SalaryFilter from "./SalaryFilter";
 import styled from "styled-components";
 import CustomizedPieLabel from "./CustomizedPieLabel";
@@ -160,19 +153,39 @@ const EmpPie = ({ empData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [value, setValue] = useState(null);
 
+  const goReverse = (icon) => {
+    if (icon === "up") {
+      setValue(40000);
+      setActiveIndex(0);
+    } else {
+      setValue(160000);
+      setActiveIndex(12);
+    }
+  };
+
+  const go = (icon) => {
+    let nextValue;
+    if (icon === "up") {
+      nextValue = value ? value + 10000 : 50000;
+    } else {
+      nextValue = value ? value - 10000 : 160000;
+    }
+    setValue(nextValue);
+    setActiveIndex((nextValue - 40000) / 10000);
+  };
+
   const onClickFilter = useCallback(
     (icon) => {
-      const currentValue = value ? value : 40000;
-      const newValue =
-        icon === "up" ? currentValue + 10000 : currentValue - 10000;
-      if (newValue <= 160000 && newValue >= 40000) {
-        const index = newValue === 40000 ? 0 : (newValue - 40000) / 10000;
-        setValue(newValue);
-        setActiveIndex(index);
+      switch (icon) {
+        case "up":
+          return value === 160000 ? goReverse("up") : go("up");
+        case "down":
+          return value === 40000 ? goReverse("down") : go("down");
       }
     },
     [value]
   );
+
   const salary = value ? value : 40000;
 
   if (!empData) return null;
