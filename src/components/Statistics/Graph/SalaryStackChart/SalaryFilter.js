@@ -13,7 +13,12 @@ import theme from "../../../../theme";
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: "210px",
+    [theme.breakpoints.up("sm")]: {
+      width: "210px",
+    },
+    [theme.breakpoints.only("xs")]: {
+      width: "180px",
+    },
     backgroundColor: "#fff",
   },
   salary: {
@@ -21,18 +26,33 @@ const useStyles = makeStyles(() => ({
   },
   value: {
     "& span:nth-child(1)": {
-      fontSize: "18px",
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "18px",
+      },
+      [theme.breakpoints.only("xs")]: {
+        fontSize: "15px",
+      },
       color: "#222",
       fontWeight: "bold",
     },
     "& span:nth-child(2)": {
-      fontSize: "26px",
+      [theme.breakpoints.up("sm")]: {
+        fontSize: "26px",
+      },
+      [theme.breakpoints.only("xs")]: {
+        fontSize: "20px",
+      },
       color: "#222",
       fontWeight: "bold",
     },
   },
   button: {
-    height: "50px",
+    [theme.breakpoints.up("sm")]: {
+      height: "50px",
+    },
+    [theme.breakpoints.only("xs")]: {
+      height: "30px",
+    },
     position: "relative",
 
     "& div:nth-child(1)": {
@@ -40,12 +60,16 @@ const useStyles = makeStyles(() => ({
     },
     "& div:nth-child(2)": {
       top: "50%",
-      transform: "translateY(-50%)",
       left: "50%",
-      transform: "translateX(-50%)",
 
+      [theme.breakpoints.up("sm")]: {
+        transform: "translate(-50%,0%)",
+      },
+      [theme.breakpoints.only("xs")]: {
+        transform: "translate(-50%,20%)",
+      },
       boxShadow: "2px 1px 2px 0px #CECECE",
-      height: "20px",
+
       zIndex: 500,
     },
   },
@@ -54,28 +78,27 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
     left: "50%",
     transform: "translateX(-50%)",
-    width: "20px",
-    height: "20px",
-    borderTop: "1px solid #EFEFF0",
-    borderLeft: "1px solid #EFEFF0",
-    backgroundColor: "#ffffff",
-    boxShadow: "2px 1px 2px 0px #CECECE",
-  },
 
-  icon_disabled: {
-    color: "grey",
-    position: "absolute",
-    left: "50%",
-    transform: "translateX(-50%)",
-    width: "20px",
-    height: "20px",
+    [theme.breakpoints.up("sm")]: {
+      width: "20px",
+      height: "20px",
+    },
+    [theme.breakpoints.only("xs")]: {
+      width: "15px",
+      height: "15px",
+    },
     borderTop: "1px solid #EFEFF0",
     borderLeft: "1px solid #EFEFF0",
     backgroundColor: "#ffffff",
     boxShadow: "2px 1px 2px 0px #CECECE",
   },
   iconInner: {
-    fontSize: 20,
+    [theme.breakpoints.up("sm")]: {
+      fontSize: 20,
+    },
+    [theme.breakpoints.only("xs")]: {
+      fontSize: 15,
+    },
   },
 }));
 

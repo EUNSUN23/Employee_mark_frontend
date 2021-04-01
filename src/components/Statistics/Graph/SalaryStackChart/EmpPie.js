@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useMemo, memo } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from "recharts";
 import SalaryFilter from "./SalaryFilter";
 import styled from "styled-components";
 import CustomizedPieLabel from "./CustomizedPieLabel";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const Filter = styled.div`
   position: absolute;
@@ -17,16 +18,11 @@ const ChartContainer = styled.div`
   width: 100%;
 `;
 
-const SalaryLabel = styled.span`
-  font-size: 30px;
-  font-weight: bold;
-  color: #333;
-  text-shadow: 1px 2px 0px #d6d6dd;
-`;
-
 const EmpLabel = styled.span`
   font-size: 23px;
   font-weight: bold;
+  width: 120px;
+  text-align: center;
   color: #333;
   top: 0;
   padding-left: ${(props) => props.cos < 0 && "100px"};
@@ -49,8 +45,9 @@ const COLOR = [
   "#000000",
 ];
 
-const renderActiveShape = (props) => {
+const ActiveShape = (props) => {
   const RADIAN = Math.PI / 180;
+
   const {
     cx,
     cy,
@@ -62,16 +59,38 @@ const renderActiveShape = (props) => {
     fill,
     payload,
     percent,
+    matchMd,
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (outerRadius - 10) * cos;
-  const sy = cy + (outerRadius - 10) * sin;
-  const mx = cx + (outerRadius + 20) * cos;
-  const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 35;
+  const sx = cx + (matchMd ? outerRadius - 10 : outerRadius) * cos;
+  const sy = cy + (matchMd ? outerRadius - 10 : outerRadius) * sin;
+  const mx = cx + (matchMd ? outerRadius + 20 : outerRadius) * cos;
+  const my = cy + (matchMd ? outerRadius + 30 : outerRadius) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * (matchMd ? 35 : -2);
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
+
+  const empX = matchMd ? ex + (cos > 0 ? 0.8 : -9) * 12 : cx - 30;
+  const empY = matchMd ? ey - 25 : cy + 20;
+  const percentX = matchMd
+    ? ex + (cos > 0 ? 2 : -2) * 12
+    : cos > 0
+    ? cx - 30
+    : cx + 40;
+  const percentY = matchMd ? ey : cy + 50;
+
+  const circle = matchMd ? (
+    <circle
+      cx={ex}
+      cy={ey}
+      r={4.5}
+      fill={fill}
+      stroke="#FFF"
+      strokeWidth={2}
+      textAnchor={textAnchor}
+    />
+  ) : null;
 
   return (
     <g>
@@ -105,18 +124,10 @@ const renderActiveShape = (props) => {
         strokeWidth={2}
         fill="none"
       />
-      <circle
-        cx={ex}
-        cy={ey}
-        r={4.5}
-        fill={fill}
-        stroke="#FFF"
-        strokeWidth={2}
-        textAnchor={textAnchor}
-      />
+      {circle}
       <foreignObject
-        x={ex + (cos > 0 ? 0.8 : -9) * 12}
-        y={ey - 25}
+        x={empX}
+        y={empY}
         width="100"
         height="40"
         textAnchor={textAnchor}
@@ -126,56 +137,46 @@ const renderActiveShape = (props) => {
         </EmpLabel>
       </foreignObject>
       <text
-        x={ex + (cos > 0 ? 2 : -2) * 12}
-        y={ey}
+        x={percentX}
+        y={percentY}
         dy={18}
         textAnchor={textAnchor}
         fill="#999"
       >
         {`( ${(percent * 100).toFixed(2)}%)`}
       </text>
-      <foreignObject
-        x={cx - 40}
-        y={cy - 20}
-        width="300"
-        height="50"
-        textAnchor={textAnchor}
-      >
-        <SalaryLabel xmlns="http://www.w3.org/1999/xhtml">
-          {payload.sal}
-        </SalaryLabel>
-      </foreignObject>
     </g>
   );
 };
 
-const EmpPie = ({ empData }) => {
+const EmpPie = memo(({ empData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [value, setValue] = useState(null);
-
-  const goReverse = (icon) => {
-    if (icon === "up") {
-      setValue(40000);
-      setActiveIndex(0);
-    } else {
-      setValue(160000);
-      setActiveIndex(12);
-    }
-  };
-
-  const go = (icon) => {
-    let nextValue;
-    if (icon === "up") {
-      nextValue = value ? value + 10000 : 50000;
-    } else {
-      nextValue = value ? value - 10000 : 160000;
-    }
-    setValue(nextValue);
-    setActiveIndex((nextValue - 40000) / 10000);
-  };
+  const matchMd = useMediaQuery("(min-width:600px)");
 
   const onClickFilter = useCallback(
     (icon) => {
+      const goReverse = (icon) => {
+        if (icon === "up") {
+          setValue(40000);
+          setActiveIndex(0);
+        } else {
+          setValue(160000);
+          setActiveIndex(12);
+        }
+      };
+
+      const go = (icon) => {
+        let nextValue;
+        if (icon === "up") {
+          nextValue = value ? value + 10000 : 50000;
+        } else {
+          nextValue = value ? value - 10000 : 160000;
+        }
+        setValue(nextValue);
+        setActiveIndex((nextValue - 40000) / 10000);
+      };
+
       switch (icon) {
         case "up":
           return value === 160000 ? goReverse("up") : go("up");
@@ -186,7 +187,22 @@ const EmpPie = ({ empData }) => {
     [value]
   );
 
-  const salary = value ? value : 40000;
+  console.log("render");
+
+  const renderPieLabel = useMemo(
+    (props) => {
+      const widthMatch = { matchMd: matchMd };
+      const salary = { salary: value };
+      const active = { activeIndex: activeIndex };
+
+      const newProps = { ...props, ...widthMatch, ...salary, ...active };
+
+      console.log("new", newProps);
+
+      return <CustomizedPieLabel {...newProps} />;
+    },
+    [matchMd, value]
+  );
 
   if (!empData) return null;
 
@@ -196,32 +212,39 @@ const EmpPie = ({ empData }) => {
         <ResponsiveContainer width="100%" height={500}>
           <PieChart margin={{ top: 60, bottom: 60 }}>
             <Pie
+              matchMd={matchMd}
               activeIndex={activeIndex}
-              activeShape={renderActiveShape}
+              activeShape={<ActiveShape matchMd={matchMd} />}
               data={empData}
               dataKey="emp"
               innerRadius="65%"
               outerRadius="100%"
               stroke="none"
               paddingAngle="5"
-              label={
-                <CustomizedPieLabel activeIndex={activeIndex} salary={value} />
-              }
+              label={renderPieLabel}
               labelLine={false}
             >
               {empData.map((data, index) => {
-                return <Cell key={`salary-${data.sal}`} fill={COLOR[index]} />;
+                return (
+                  <Cell
+                    key={`salary-${data.sal}`}
+                    fill={COLOR[index]}
+                    matchMd={matchMd}
+                  />
+                );
               })}
             </Pie>
-            {/* <Tooltip /> */}
           </PieChart>
         </ResponsiveContainer>
         <Filter>
-          <SalaryFilter value={salary} onClickFilter={onClickFilter} />
+          <SalaryFilter
+            value={value ? value : 40000}
+            onClickFilter={onClickFilter}
+          />
         </Filter>
       </ChartContainer>
     </>
   );
-};
+});
 
 export default EmpPie;
