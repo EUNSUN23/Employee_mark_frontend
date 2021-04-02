@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import theme from "../../theme";
+import theme from "../../../theme";
+import CustomizedRadarTick from "./CustomizedRadarTick";
 
 import {
   Radar,
@@ -113,7 +114,10 @@ const EmpRadar = ({ data }) => {
           margin={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <PolarGrid />
-          <PolarAngleAxis dataKey="dept_name" />
+          <PolarAngleAxis
+            dataKey="dept_name"
+            tick={<CustomizedRadarTick data={deptEmp} />}
+          />
           <PolarRadiusAxis />
           <Radar
             name="Employees"
@@ -137,7 +141,10 @@ const EmpRadar = ({ data }) => {
           margin={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <PolarGrid />
-          <PolarAngleAxis dataKey="title" />
+          <PolarAngleAxis
+            dataKey="title"
+            tick={<CustomizedRadarTick data={titleEmp} />}
+          />
           <PolarRadiusAxis />
           <Radar
             name="Employees"

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Board from "./components/Board/Board";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 import Statistics from "./components/Statistics/Statistics";
 import { setCategory } from "./store/actions/searchBar";
 import { getEmp } from "./store/actions/home";

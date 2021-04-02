@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import EmpRadar from "./Graph/EmpRadar";
-import MainLoader from "./UI/MainLoader";
+import MainLoader from "../UI/MainLoader";
 
 const Container = styled.div`
   display: grid;
