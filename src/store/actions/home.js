@@ -1,8 +1,17 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
-const setEmp = (empData) => {
-  return { type: actionTypes.HOME_SET_Emp, emp: empData, loading: false };
+const setEmp = (emp) => {
+  return { type: actionTypes.HOME_SET_EMP, emp: emp };
+};
+
+const setTotal = (total) => {
+  console.log("total", total);
+  return {
+    type: actionTypes.HOME_SET_TOTAL,
+    total: total.total,
+    left: total.left,
+  };
 };
 
 const empFetchStart = () => {
@@ -17,38 +26,62 @@ const empFetchFail = (message) => {
   };
 };
 
-const getDeptEmp = async () =>
-  await axios.get("http://localhost:3008/api/emp/count/dept").data.packet;
+const getDeptEmp = async () => {
+  return await axios.get("http://localhost:3008/api/emp/count/dept");
+};
 
-const getTitleEmp = async () =>
-  await axios.get("http://localhost:3008/api/emp/count/title").data.packet;
+const getTitleEmp = async () => {
+  return await axios.get("http://localhost:3008/api/emp/count/title");
+};
 
-const getLeftEmp = async () =>
-  await axios.get("http://localhost:3008/api/emp/count/title").data.packet;
+const getTotalEmp = async () => {
+  return await axios.get("http://localhost:3008/api/emp/total");
+};
 
-const getTotalEmp = async () =>
-  await axios.get("http://localhost:3008/api/emp/count/total").data.packet;
+const getLeftEmp = async () => {
+  return await axios.get("http://localhost:3008/api/emp/total/left");
+};
 
 const getEmpAPI = async () => {
-  const res = await Promise.all([
-    getDeptEmp(),
-    getTitleEmp(),
-    getLeftEmp(),
-    getTotalEmp(),
-  ]);
-  return { dept: res[0], title: res[1], left: res[2], total: res[3] };
+  const res = await Promise.all([getDeptEmp(), getTitleEmp()]);
+
+  const deptEmp = res[0].data.packet.map((emp, idx) => ({
+    [emp.dept_name]: emp.count,
+  }));
+
+  const titleEmp = res[1].data.packet.map((emp, idx) => ({
+    [emp.title]: emp.count,
+  }));
+
+  return {
+    dept: deptEmp,
+    title: titleEmp,
+  };
+};
+
+const getTotalAPI = async () => {
+  const res = await Promise.all([getTotalEmp(), getLeftEmp()]);
+  console.log("RES", res);
+  const total = res[0].data.packet[0].count;
+  const left = res[1].data.packet[0].count;
+  return {
+    total: total,
+    left: left,
+  };
 };
 
 export const getEmp = () => {
   return async (dispatch) => {
-    let data;
+    let emp;
+    let total;
+    dispatch(empFetchStart());
     try {
-      dispatch(empFetchStart());
-      data = await getEmpAPI();
+      total = await getTotalAPI();
+      dispatch(setTotal(total));
+      emp = await getEmpAPI();
+      dispatch(setEmp(emp));
     } catch (err) {
       dispatch(empFetchFail(err.response.status));
     }
-    if (!data) return;
-    dispatch(setEmp(data));
   };
 };

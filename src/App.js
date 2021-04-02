@@ -5,6 +5,7 @@ import Board from "./components/Board/Board";
 import Home from "./components/Home";
 import Statistics from "./components/Statistics/Statistics";
 import { setCategory } from "./store/actions/searchBar";
+import { getEmp } from "./store/actions/home";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const App = () => {
   useEffect(() => {
     if (searchCategory) return;
     dispatch(setCategory());
+    dispatch(getEmp());
   }, []);
 
   return (

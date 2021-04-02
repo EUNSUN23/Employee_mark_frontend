@@ -318,3 +318,8 @@ export const setEmpError = (state, message, loading) => {
   const updatedError = { errorMs: message, loading: loading };
   return updateObject(state, updatedError);
 };
+
+export const setTotal = (state, total, left) => {
+  const updatedTotal = { total: total, left: left };
+  return updateObject(state, updatedTotal);
+};
