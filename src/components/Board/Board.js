@@ -64,11 +64,12 @@ const Board = () => {
     </Grid>
   );
 
-  return;
-  <>
-    <SearchBar />
-    {board}
-  </>;
+  return (
+    <>
+      <SearchBar />
+      {board}
+    </>
+  );
 };
 
 export default Board;
