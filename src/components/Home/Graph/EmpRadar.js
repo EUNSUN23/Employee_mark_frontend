@@ -118,7 +118,7 @@ const EmpRadar = ({ data }) => {
             dataKey="dept_name"
             tick={<CustomizedRadarTick data={deptEmp} />}
           />
-          <PolarRadiusAxis />
+
           <Radar
             name="Employees"
             dataKey="count"
@@ -138,14 +138,14 @@ const EmpRadar = ({ data }) => {
           cy="50%"
           outerRadius="90%"
           data={titleEmp}
-          margin={{ top: 20, bottom: 20, left: 20, right: 20 }}
+          margin={{ top: 50, bottom: 20, left: 20, right: 20 }}
         >
           <PolarGrid />
           <PolarAngleAxis
             dataKey="title"
             tick={<CustomizedRadarTick data={titleEmp} />}
           />
-          <PolarRadiusAxis />
+
           <Radar
             name="Employees"
             dataKey="count"

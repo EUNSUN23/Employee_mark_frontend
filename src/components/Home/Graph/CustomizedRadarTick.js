@@ -3,12 +3,13 @@ import styled from "styled-components";
 const Tick = styled.span`
   font-size: ${(props) => (props.value.length > 8 ? "12px" : "14px")};
   margin: 0 20px;
-  padding: ${(props) => (props.value.length <= 8 ? "0 20px" : "0 12px")};
+  padding: ${(props) => (props.value.length <= 16 ? "0px 20px " : "0px 15px ")};
   color: ${(props) => (props.emp === 0 ? "#999" : "#222")};
   position: absolute;
   text-align: center;
   font-weight: bold;
   left: 5%;
+  border: 1px solid black;
   div {
     font-weight: normal;
     color: grey;
@@ -35,7 +36,7 @@ const CustomizedRadarTick = (tickProps) => {
   let YPoint;
 
   if (labelAngle < 90 && labelAngle > -70) {
-    XPoint = x - d;
+    XPoint = x - 1 * d;
     YPoint = y - 10;
     console.log("first", XPoint, YPoint);
   }
@@ -47,7 +48,7 @@ const CustomizedRadarTick = (tickProps) => {
   }
 
   if (labelAngle <= -150 && labelAngle >= -230) {
-    XPoint = x - 3 * d;
+    XPoint = x - 3.3 * d;
     YPoint = y - 10;
     console.log("3", XPoint, YPoint);
   }
@@ -59,7 +60,7 @@ const CustomizedRadarTick = (tickProps) => {
   }
 
   return (
-    <foreignObject x={XPoint} y={YPoint} width="140" height="50">
+    <foreignObject x={XPoint} y={YPoint} width="170" height="80">
       <Tick
         xmlns="http://www.w3.org/1999/xhtml"
         value={tickVal}
