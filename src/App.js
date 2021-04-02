@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Board from "./components/Board/Board";
 import Home from "./components/Home";
@@ -9,8 +9,11 @@ import { getEmp } from "./store/actions/home";
 
 const App = () => {
   const dispatch = useDispatch();
-  const categoryLoaded = useSelector((state) => state.searchBar.category);
-  const empLoaded = useSelector((state) => state.home.total);
+  const categoryLoaded = useSelector(
+    (state) => state.searchBar.category,
+    shallowEqual
+  );
+  const empLoaded = useSelector((state) => state.home.total, shallowEqual);
   useEffect(() => {
     if (categoryLoaded && empLoaded) return;
     !categoryLoaded && dispatch(setCategory());

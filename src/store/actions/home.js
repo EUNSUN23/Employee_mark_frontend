@@ -1,19 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
-const setEmp = (emp) => {
-  return { type: actionTypes.HOME_SET_EMP, emp: emp };
-};
-
-const setTotal = (total) => {
-  return {
-    type: actionTypes.HOME_SET_TOTAL,
-    total: total.total,
-    left: total.left,
-    loading: false,
-  };
-};
-
 const empFetchStart = () => {
   return { type: actionTypes.HOME_FETCH_START };
 };
@@ -42,7 +29,7 @@ const getLeftEmp = async () => {
   return await axios.get("http://localhost:3008/api/emp/total/left");
 };
 
-const getEmpAPI = async () => {
+export const getEmpAPI = async () => {
   const res = await Promise.all([getDeptEmp(), getTitleEmp()]);
 
   const deptEmp = res[0].data.packet;
@@ -55,7 +42,7 @@ const getEmpAPI = async () => {
   };
 };
 
-const getTotalAPI = async () => {
+export const getTotalAPI = async () => {
   const res = await Promise.all([getTotalEmp(), getLeftEmp()]);
   console.log("RES", res);
   const total = res[0].data.packet[0].count;
@@ -66,6 +53,20 @@ const getTotalAPI = async () => {
   };
 };
 
+const setEmp = (emp) => {
+  return { type: actionTypes.HOME_SET_EMP, emp: emp, loading: false };
+};
+
+const setTotal = (total) => {
+  console.log("total", total);
+  return {
+    type: actionTypes.HOME_SET_TOTAL,
+    total: total.total,
+    left: total.left,
+    loading: false,
+  };
+};
+
 export const getEmp = () => {
   return async (dispatch) => {
     let emp;
@@ -73,11 +74,14 @@ export const getEmp = () => {
     dispatch(empFetchStart());
     try {
       emp = await getEmpAPI();
-      dispatch(setEmp(emp));
       total = await getTotalAPI();
-      dispatch(setTotal(total));
     } catch (err) {
       dispatch(empFetchFail(err.response.status));
+    }
+
+    if (emp && total) {
+      dispatch(setEmp(emp));
+      dispatch(setTotal(total));
     }
   };
 };
