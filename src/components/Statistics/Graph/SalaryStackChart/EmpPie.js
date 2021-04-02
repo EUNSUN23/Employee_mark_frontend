@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, memo } from "react";
+import React, { useCallback, useState, useMemo, memo, useRef } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from "recharts";
 import SalaryFilter from "./SalaryFilter";
 import styled from "styled-components";
@@ -187,25 +187,11 @@ const EmpPie = memo(({ empData }) => {
     [value]
   );
 
-  console.log("render");
-
-  const renderPieLabel = useMemo(
-    (props) => {
-      const widthMatch = { matchMd: matchMd };
-      const salary = { salary: value };
-      const active = { activeIndex: activeIndex };
-
-      const newProps = { ...props, ...widthMatch, ...salary, ...active };
-
-      console.log("new", newProps);
-
-      return <CustomizedPieLabel {...newProps} />;
-    },
-    [matchMd, value]
-  );
-
   if (!empData) return null;
 
+  const cell = empData.map((data, index) => {
+    return <Cell key={`salary-${data.sal}`} fill={COLOR[index]} />;
+  });
   return (
     <>
       <ChartContainer>
@@ -221,18 +207,16 @@ const EmpPie = memo(({ empData }) => {
               outerRadius="100%"
               stroke="none"
               paddingAngle="5"
-              label={renderPieLabel}
+              label={
+                <CustomizedPieLabel
+                  activeIndex={activeIndex}
+                  matchMd={matchMd}
+                  salary={value}
+                />
+              }
               labelLine={false}
             >
-              {empData.map((data, index) => {
-                return (
-                  <Cell
-                    key={`salary-${data.sal}`}
-                    fill={COLOR[index]}
-                    matchMd={matchMd}
-                  />
-                );
-              })}
+              {cell}
             </Pie>
           </PieChart>
         </ResponsiveContainer>
