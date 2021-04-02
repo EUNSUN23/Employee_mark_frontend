@@ -306,3 +306,15 @@ export const setChartColor = (chartName, highlight) => {
       return;
   }
 };
+
+// <--------- HOME ----------->
+
+export const setEmp = (state, emp, loading) => {
+  const updatedEmp = { emp: emp, loading: loading };
+  return updateObject(state, updatedEmp);
+};
+
+export const setEmpError = (state, message, loading) => {
+  const updatedError = { errorMs: message, loading: loading };
+  return updateObject(state, updatedError);
+};

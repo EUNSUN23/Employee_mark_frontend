@@ -1,26 +1,23 @@
-// import * as actionTypes from "../actions/actionTypes";
-// import {} from "../../shared/utility";
+import * as actionTypes from "../actions/actionTypes";
+import { setEmp, setEmpError } from "../../shared/utility";
 
-// const initState = {
-//   total: "",
-//   dept: "",
-//   left: "",
-//   loading: false,
-//   errorMs: null,
-// };
+const initState = {
+  emp: null,
+  loading: false,
+  errorMs: null,
+};
 
-// const reducer = (state = initState, action) => {
-//   switch (action.type) {
-//     case actionTypes.HOME_SET_DEPT:
-//       return setDept(state, action.dept);
-//     case actionTypes.HOME_SET_TOTAL:
-//       return setTotal(state, action.total);
-//     case actionTypes.HOME_SET_LEFT:
-//       return setLeft(state, action.left);
+const reducer = (state = initState, action) => {
+  switch (action.type) {
+    case actionTypes.HOME_SET_EMP:
+      return setEmp(state, action.emp, action.loading);
+    case actionTypes.HOME_FETCH_START:
+      return { ...state, loading: true };
+    case actionTypes.HOME_FETCH_FAIL:
+      return setEmpError(state, action.message, action.loading);
+    default:
+      return state;
+  }
+};
 
-//     default:
-//       return state;
-//   }
-// };
-
-// export default reducer;
+export default reducer;

@@ -33,6 +33,6 @@ export const STAT_SET_DATA = "STAT_SET_DATA";
 export const STAT_INIT_ERROR = "STAT_INIT_ERROR";
 export const STAT_INIT_DIST = "STAT_INIT_DIST";
 
-export const HOME_SET_TOTAL = "HOME_SET_TOTAL";
-export const HOME_SET_DEPT = "HOME_SET_DEPT";
-export const HOME_SET_LEFT = "HOME_SET_LEFT";
+export const HOME_SET_EMP = "HOME_SET_EMP";
+export const HOME_FETCH_START = "HOME_FETCH_START";
+export const HOME_FETCH_FAIL = "HOME_FETCH_FAIL";

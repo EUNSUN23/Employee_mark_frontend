@@ -1,8 +1,20 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
-const setDept = (dept) => {
-  return { type: actionTypes.HOME_SET_DEPT, dept: dept, loading: false };
+const setEmp = (empData) => {
+  return { type: actionTypes.HOME_SET_Emp, emp: empData, loading: false };
+};
+
+const empFetchStart = () => {
+  return { type: actionTypes.HOME_FETCH_START };
+};
+
+const empFetchFail = (message) => {
+  return {
+    type: actionTypes.HOME_FETCH_FAIL,
+    message: message,
+    loading: false,
+  };
 };
 
 const getDeptEmp = async () =>
@@ -31,11 +43,12 @@ export const getEmp = () => {
   return async (dispatch) => {
     let data;
     try {
+      dispatch(empFetchStart());
       data = await getEmpAPI();
     } catch (err) {
-      console.log(err.response.status);
+      dispatch(empFetchFail(err.response.status));
     }
     if (!data) return;
-    dispatch(setDept(data));
+    dispatch(setEmp(data));
   };
 };
