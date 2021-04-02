@@ -1,21 +1,22 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { Grid } from "@material-ui/core";
 import SearchBar from "../SearchBar/SearchBar";
 import CardContainer from "./EmployeeCard/Card/CardContainer";
 import ScrollToTop from "../UI/ScrollToTop";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
-import BoardLoader from "../UI/BoardLoader";
 import { initError } from "../../store/actions/searchEmp";
 
 const Board = () => {
   const dispatch = useDispatch();
   const [scrollToTop, setScrollToTop] = useState(null);
-  const viewport = useRef(null);
-  const isLoading = useSelector((state) => state.searchEmp.loading);
-  const isCategoryLoading = useSelector((state) => state.searchBar.loading);
 
+  const viewport = useRef(null);
+  const isLoading = useSelector(
+    (state) => state.searchEmp.loading,
+    shallowEqual
+  );
   const message = useSelector((state) => state.searchEmp.errorMs);
   const open = useSelector((state) => state.searchEmp.errorMs !== null);
   const handleClose = () => {
@@ -63,16 +64,11 @@ const Board = () => {
     </Grid>
   );
 
-  const content = isCategoryLoading ? (
-    <BoardLoader />
-  ) : (
-    <>
-      <SearchBar />
-      {board}
-    </>
-  );
-
-  return content;
+  return;
+  <>
+    <SearchBar />
+    {board}
+  </>;
 };
 
 export default Board;

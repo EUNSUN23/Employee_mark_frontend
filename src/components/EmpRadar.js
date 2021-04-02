@@ -1,5 +1,6 @@
 import "./styles.css";
 import React from "react";
+
 import {
   Radar,
   RadarChart,
@@ -8,21 +9,7 @@ import {
   PolarRadiusAxis,
 } from "recharts";
 
-const data = [
-  [
-    { dept_name: "Development", count: 76958 },
-    { dept_name: "Sales", count: 46922 },
-    { dept_name: "Production", count: 66675 },
-    { dept_name: "Human Resources", count: 16071 },
-    { dept_name: "Research", count: 19285 },
-    { dept_name: "Quality Management", count: 18295 },
-    { dept_name: "Customer Service", count: 21813 },
-    { dept_name: "Marketing", count: 18426 },
-    { dept_name: "Finance", count: 15579 },
-  ],
-];
-
-const EmpRadar = () => {
+const EmpRadar = ({ data }) => {
   return (
     <RadarChart
       cx={300}

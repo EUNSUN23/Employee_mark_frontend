@@ -1,7 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const Home = () => {
+  const { emp, total, loading } = useSelector((state) => ({
+    emp: state.home.emp,
+    total: state.home.total,
+    loading: state.home.loading,
+  }));
+
   return (
     <div>
       <h1>Home</h1>

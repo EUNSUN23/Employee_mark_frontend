@@ -6,11 +6,11 @@ const setEmp = (emp) => {
 };
 
 const setTotal = (total) => {
-  console.log("total", total);
   return {
     type: actionTypes.HOME_SET_TOTAL,
     total: total.total,
     left: total.left,
+    loading: false,
   };
 };
 
@@ -45,13 +45,9 @@ const getLeftEmp = async () => {
 const getEmpAPI = async () => {
   const res = await Promise.all([getDeptEmp(), getTitleEmp()]);
 
-  const deptEmp = res[0].data.packet.map((emp, idx) => ({
-    [emp.dept_name]: emp.count,
-  }));
+  const deptEmp = res[0].data.packet;
 
-  const titleEmp = res[1].data.packet.map((emp, idx) => ({
-    [emp.title]: emp.count,
-  }));
+  const titleEmp = res[1].data.packet;
 
   return {
     dept: deptEmp,
@@ -76,10 +72,10 @@ export const getEmp = () => {
     let total;
     dispatch(empFetchStart());
     try {
-      total = await getTotalAPI();
-      dispatch(setTotal(total));
       emp = await getEmpAPI();
       dispatch(setEmp(emp));
+      total = await getTotalAPI();
+      dispatch(setTotal(total));
     } catch (err) {
       dispatch(empFetchFail(err.response.status));
     }

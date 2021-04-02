@@ -9,11 +9,12 @@ import { getEmp } from "./store/actions/home";
 
 const App = () => {
   const dispatch = useDispatch();
-  const searchCategory = useSelector((state) => state.searchBar.loading);
+  const categoryLoaded = useSelector((state) => state.searchBar.category);
+  const empLoaded = useSelector((state) => state.home.total);
   useEffect(() => {
-    if (searchCategory) return;
-    dispatch(setCategory());
-    dispatch(getEmp());
+    if (categoryLoaded && empLoaded) return;
+    !categoryLoaded && dispatch(setCategory());
+    !empLoaded && dispatch(getEmp());
   }, []);
 
   return (

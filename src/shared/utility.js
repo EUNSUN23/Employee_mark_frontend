@@ -309,8 +309,8 @@ export const setChartColor = (chartName, highlight) => {
 
 // <--------- HOME ----------->
 
-export const setEmp = (state, emp, loading) => {
-  const updatedEmp = { emp: emp, loading: loading };
+export const setEmp = (state, emp) => {
+  const updatedEmp = { emp: emp };
   return updateObject(state, updatedEmp);
 };
 
@@ -319,7 +319,7 @@ export const setEmpError = (state, message, loading) => {
   return updateObject(state, updatedError);
 };
 
-export const setTotal = (state, total, left) => {
-  const updatedTotal = { total: total, left: left };
+export const setTotal = (state, total, left, loading) => {
+  const updatedTotal = { total: total, left: left, loading: loading };
   return updateObject(state, updatedTotal);
 };

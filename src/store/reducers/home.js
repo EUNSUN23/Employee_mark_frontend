@@ -12,9 +12,9 @@ const initState = {
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.HOME_SET_EMP:
-      return setEmp(state, action.emp, action.loading);
+      return setEmp(state, action.emp);
     case actionTypes.HOME_SET_TOTAL:
-      return setTotal(state, action.total, action.left);
+      return setTotal(state, action.total, action.left, action.loading);
     case actionTypes.HOME_FETCH_START:
       return { ...state, loading: true };
     case actionTypes.HOME_FETCH_FAIL:
