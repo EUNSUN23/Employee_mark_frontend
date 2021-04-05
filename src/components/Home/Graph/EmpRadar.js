@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import theme from "../../../theme";
 import CustomizedRadarTick from "./CustomizedRadarTick";
+import CustomizedRadarLabel from "./CustomizedRadarLabel";
 
 import {
   Radar,
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
-    animation: `$dept 10000ms 0s infinite ${theme.transitions.easing.easeOut} alternate`,
+    // animation: `$dept 10000ms 0s infinite ${theme.transitions.easing.easeOut} alternate`,
   },
 
   "@keyframes dept": {
@@ -61,7 +62,7 @@ const useStyles = makeStyles(() => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
-    // animation: `$title 10000ms 0s infinite ${theme.transitions.easing.easeIn} alternate`,
+    animation: `$title 10000ms 0s infinite ${theme.transitions.easing.easeIn} alternate`,
   },
   "@keyframes title": {
     "0%": {
@@ -99,13 +100,19 @@ const useStyles = makeStyles(() => ({
 }));
 
 const EmpRadar = ({ data }) => {
+  const [activeValue, setActiveValue] = useState();
   const classes = useStyles();
   const deptEmp = data.dept;
   const titleEmp = data.title;
 
+  const onMouseTick = (e) => {
+    const { value } = e;
+    setActiveValue(value);
+  };
+
   return (
     <>
-      {/* <ResponsiveContainer width="90%" height={450} className={classes.deptEmp}>
+      <ResponsiveContainer width="90%" height={450} className={classes.deptEmp}>
         <RadarChart
           cx="50%"
           cy="50%"
@@ -116,7 +123,10 @@ const EmpRadar = ({ data }) => {
           <PolarGrid />
           <PolarAngleAxis
             dataKey="dept_name"
-            tick={<CustomizedRadarTick data={deptEmp} />}
+            tick={
+              <CustomizedRadarTick data={deptEmp} activeValue={activeValue} />
+            }
+            onMouseEnter={(e) => onMouseTick(e)}
           />
 
           <Radar
@@ -125,10 +135,12 @@ const EmpRadar = ({ data }) => {
             stroke="#8884d8"
             fill="#8884d8"
             fillOpacity={0.6}
+            // dot
+            label={<CustomizedRadarLabel activeValue={activeValue} />}
           />
         </RadarChart>
-      </ResponsiveContainer> */}
-      <ResponsiveContainer
+      </ResponsiveContainer>
+      {/* <ResponsiveContainer
         width="90%"
         height={450}
         className={classes.titleEmp}
@@ -154,7 +166,7 @@ const EmpRadar = ({ data }) => {
             fillOpacity={0.6}
           />
         </RadarChart>
-      </ResponsiveContainer>
+      </ResponsiveContainer> */}
     </>
   );
 };

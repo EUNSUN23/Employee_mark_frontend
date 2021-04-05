@@ -4,15 +4,16 @@ import Svg from "../../../shared/svgIcons";
 const Tick = styled.div`
   position: relative;
   width: 170px;
+  height: 100px;
   left: 0;
-
+  color: ${(props) => (props.activeValue === props.value ? "green" : "black")};
   margin: 0 20px;
 `;
 
 const Label = styled.span`
   text-align: left;
   font-weight: bold;
-  font-size: ${(props) => (props.value.length <= 16 ? "14px" : "12px")};
+  font-size: ${(props) => (props.value.length <= 16 ? "15px" : "13px")};
   padding: ${(props) =>
     props.value.length <= 16 ? "0px 30px 0px" : "0px 30px 0px"};
   position: absolute;
@@ -28,7 +29,7 @@ const Icon = styled.div`
 `;
 
 const CustomizedRadarTick = (tickProps) => {
-  const { x, y, payload, data, width, radius, index } = tickProps;
+  const { x, y, payload, data, width, radius, index, activeValue } = tickProps;
   const { coordinate, value } = payload;
 
   const d =
@@ -41,18 +42,16 @@ const CustomizedRadarTick = (tickProps) => {
 
   const labelAngle = Math.round(coordinate);
 
-  console.log(value, tickProps);
-
   let XPoint;
   let YPoint;
 
   if (labelAngle < 90 && labelAngle > -70) {
-    XPoint = radius > 180 ? x + d : x;
+    XPoint = radius > 180 ? x + d : x - 10;
     YPoint = y - 10;
   }
-  if (labelAngle <= -70 && labelAngle >= -120) {
+  if (labelAngle <= -60 && labelAngle >= -120) {
     XPoint = x - 1.5 * d;
-    YPoint = y + 10;
+    YPoint = y + 15;
   }
 
   if (labelAngle <= -150 && labelAngle >= -230) {
@@ -61,7 +60,7 @@ const CustomizedRadarTick = (tickProps) => {
   }
 
   if (labelAngle === 90) {
-    XPoint = x - 2 * d;
+    XPoint = radius > 180 ? x - 2 * d : x - d;
     YPoint = y - 30;
   }
 
@@ -70,14 +69,12 @@ const CustomizedRadarTick = (tickProps) => {
       <Tick
         xmlns="http://www.w3.org/1999/xhtml"
         value={tickVal}
-        emp={emp}
-        width={width}
+        activeValue={activeValue}
       >
         <Icon>
           <Svg label={tickVal} />
         </Icon>
         <Label value={tickVal}>{tickVal}</Label>
-        {/* <LabelVal label={tickVal}>{`${emp}명`}</LabelVal> */}
       </Tick>
     </foreignObject>
   );
