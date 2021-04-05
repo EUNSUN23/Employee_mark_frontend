@@ -61,7 +61,7 @@ const useStyles = makeStyles(() => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
-    animation: `$title 10000ms 0s infinite ${theme.transitions.easing.easeIn} alternate`,
+    // animation: `$title 10000ms 0s infinite ${theme.transitions.easing.easeIn} alternate`,
   },
   "@keyframes title": {
     "0%": {
@@ -105,7 +105,7 @@ const EmpRadar = ({ data }) => {
 
   return (
     <>
-      <ResponsiveContainer width="90%" height={450} className={classes.deptEmp}>
+      {/* <ResponsiveContainer width="90%" height={450} className={classes.deptEmp}>
         <RadarChart
           cx="50%"
           cy="50%"
@@ -127,7 +127,7 @@ const EmpRadar = ({ data }) => {
             fillOpacity={0.6}
           />
         </RadarChart>
-      </ResponsiveContainer>
+      </ResponsiveContainer> */}
       <ResponsiveContainer
         width="90%"
         height={450}
