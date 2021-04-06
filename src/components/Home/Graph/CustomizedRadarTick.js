@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import Svg from "../../../shared/svgIcons";
+import { setChartColor } from "../../../shared/utility";
 
 const Tick = styled.div`
   position: relative;
   width: 170px;
   height: 100px;
   left: 0;
-  color: ${(props) => (props.activeValue === props.value ? "green" : "black")};
+  color: ${(props) =>
+    props.activeValue === props.value ? props.fill : "black"};
   margin: 0 20px;
+  cursor: pointer;
 `;
 
 const Label = styled.span`
@@ -64,11 +67,14 @@ const CustomizedRadarTick = (tickProps) => {
     YPoint = y - 30;
   }
 
+  const fill = setChartColor(tickVal) || "green";
+
   return (
     <foreignObject x={XPoint} y={YPoint} width="170" height="80">
       <Tick
         xmlns="http://www.w3.org/1999/xhtml"
         value={tickVal}
+        fill={fill}
         activeValue={activeValue}
       >
         <Icon>

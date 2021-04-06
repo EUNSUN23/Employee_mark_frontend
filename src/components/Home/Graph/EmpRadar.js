@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import theme from "../../../theme";
 import CustomizedRadarTick from "./CustomizedRadarTick";
 import CustomizedRadarLabel from "./CustomizedRadarLabel";
+import CustomizedDot from "./CustomizedDot";
 
 import {
   Radar,
@@ -18,13 +19,13 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     top: "50%",
     left: "50%",
-    // transform: "translate(100%,-50%)",
+    transform: "translate(-50%,-50%)",
     animation: `$dept 20000ms 0s infinite ${theme.transitions.easing.easeInOut} `,
   },
 
   "@keyframes dept": {
     "0%": {
-      transform: "translate(-20%,-50%)",
+      transform: "translate(-50%,-50%)",
     },
     "3%": { transform: "translate(-50%,-50%)" },
     "20%": {
@@ -82,20 +83,19 @@ const useStyles = makeStyles(() => ({
 }));
 
 const EmpRadar = ({ data }) => {
-  const [activeDept, setActiveDept] = useState();
-  const [activeTitle, setActiveTitle] = useState();
+  const [activeDept, setActiveDept] = useState("Development");
+  const [activeTitle, setActiveTitle] = useState("Senior Engineer");
   const classes = useStyles();
   const deptEmp = data.dept;
   const titleEmp = data.title;
 
   const onMouseTick = (e, name) => {
     const { value } = e;
-    console.log("on", value, name);
+
     name === "dept" ? setActiveDept(value) : setActiveTitle(value);
   };
 
   const onMouseLeaveTick = (e, name) => {
-    console.log("leave", e.value, name);
     name === "dept" ? setActiveDept(null) : setActiveTitle(null);
   };
 
@@ -125,7 +125,7 @@ const EmpRadar = ({ data }) => {
             stroke="#8884d8"
             fill="#8884d8"
             fillOpacity={0.6}
-            // dot
+            dot={<CustomizedDot activeValue={activeDept} />}
             label={<CustomizedRadarLabel activeValue={activeDept} />}
           />
         </RadarChart>
@@ -158,6 +158,7 @@ const EmpRadar = ({ data }) => {
             stroke="#8884d8"
             fill="#8884d8"
             fillOpacity={0.6}
+            dot={<CustomizedDot activeValue={activeTitle} />}
             label={<CustomizedRadarLabel activeValue={activeTitle} />}
           />
         </RadarChart>
