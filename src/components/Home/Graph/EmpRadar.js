@@ -101,15 +101,16 @@ const EmpRadar = ({ data }) => {
 
   return (
     <>
-      <ResponsiveContainer width="90%" height={450} className={classes.deptEmp}>
+      <ResponsiveContainer width="90%" height="90%" className={classes.deptEmp}>
         <RadarChart
           cx="50%"
           cy="50%"
           outerRadius="90%"
           data={deptEmp}
-          margin={{ top: 20, bottom: 20, left: 20, right: 20 }}
+          margin={{ top: 20, bottom: 30, left: 20, right: 20 }}
         >
           <PolarGrid />
+          <PolarRadiusAxis datKey="count" />
           <PolarAngleAxis
             dataKey="dept_name"
             tick={
@@ -132,7 +133,7 @@ const EmpRadar = ({ data }) => {
       </ResponsiveContainer>
       <ResponsiveContainer
         width="90%"
-        height={450}
+        height="90%"
         className={classes.titleEmp}
       >
         <RadarChart
@@ -140,9 +141,10 @@ const EmpRadar = ({ data }) => {
           cy="50%"
           outerRadius="90%"
           data={titleEmp}
-          margin={{ top: 50, bottom: 20, left: 20, right: 20 }}
+          margin={{ top: 20, bottom: 30, left: 20, right: 20 }}
         >
           <PolarGrid />
+          <PolarRadiusAxis datKey="count" />
           <PolarAngleAxis
             dataKey="title"
             onMouseEnter={(e) => onMouseTick(e, "title")}
@@ -155,8 +157,8 @@ const EmpRadar = ({ data }) => {
           <Radar
             name="Employees"
             dataKey="count"
-            stroke="#8884d8"
-            fill="#8884d8"
+            stroke="green"
+            fill="green"
             fillOpacity={0.6}
             dot={<CustomizedDot activeValue={activeTitle} />}
             label={<CustomizedRadarLabel activeValue={activeTitle} />}

@@ -7,36 +7,49 @@ import MainLoader from "../UI/MainLoader";
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 1fr 1fr 5fr;
+  height: 90%;
+  grid-template-rows: 1fr 4.5fr 1fr;
   grid-template-columns: 1fr;
+  grid-gap: 2vh;
+  padding-bottom: 30px;
+  justify-items: center;
+  align-contents: center;
 `;
 
 const Header = styled.h1`
   width: 100%;
-  margin: 20px auto;
+  margin: 0 auto;
+  padding-top: 5vh;
+  font-size: 5.5vw;
   text-align: center;
-  border: 1px solid black;
 `;
 
 const NavTab = styled.ul`
   display: grid;
-  align-items: center;
+  justify-items: center;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
-  border: 1px solid black;
-  width: 100%;
-  padding: 0;
+  width: 45%;
 `;
 
 const NavItem = styled.li`
   text-align: center;
-  font-size: 20px;
-  border: 1px solid black;
+  font-size: 2vw;
+  border-radius: 5px;
+  background-color: #2196f3;
   list-style: none;
+  padding: 5% 15%;
+  line-height: 300%;
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
 `;
 
 const Main = styled.div`
   position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 const Home = () => {
@@ -52,15 +65,19 @@ const Home = () => {
   ) : (
     <Container>
       <Header>Employee Mark</Header>
+      <Main>{main}</Main>
       <NavTab>
         <NavItem>
-          <NavLink to="/board">직원 검색</NavLink>
+          <NavLink to="/board" component="a">
+            직원 검색
+          </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/statistics">통계 그래프</NavLink>
+          <NavLink to="/statistics" component="a">
+            연봉 통계
+          </NavLink>
         </NavItem>
       </NavTab>
-      <Main>{main}</Main>
     </Container>
   );
 
