@@ -21,7 +21,6 @@ const InnerLabel = styled.div`
 
 const CustomizedRadarLabel = (props) => {
   const { x, y, cx, cy, angle, radius, value, name, activeValue } = props;
-  console.log("label", props);
 
   const XPoint = radius <= 90 ? x - radius / 2 : x - (180 - radius) / 2;
 

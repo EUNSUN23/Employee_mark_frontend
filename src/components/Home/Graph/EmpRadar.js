@@ -15,99 +15,88 @@ import {
 
 const useStyles = makeStyles(() => ({
   deptEmp: {
-    border: "1px solid blue",
     position: "absolute",
     top: "50%",
     left: "50%",
-    transform: "translate(-50%,-50%)",
-    // animation: `$dept 10000ms 0s infinite ${theme.transitions.easing.easeOut} alternate`,
+    // transform: "translate(100%,-50%)",
+    animation: `$dept 20000ms 0s infinite ${theme.transitions.easing.easeInOut} `,
   },
 
   "@keyframes dept": {
     "0%": {
-      opacity: 1,
+      transform: "translate(-20%,-50%)",
     },
-    "10%": { opacity: 1 },
+    "3%": { transform: "translate(-50%,-50%)" },
     "20%": {
-      opacity: 1,
+      transform: "translate(-50%,-50%)",
     },
     "30%": {
-      opacity: 1,
+      transform: "translate(-50%,-50%)",
     },
     "40%": {
-      opacity: 1,
+      transform: "translate(-50%,-50%)",
     },
+
     "50%": {
-      opacity: 0,
+      transform: "translate(-50%,-50%)",
+    },
+    "55%": {
+      transform: "translate(-200%,-50%)",
     },
     "60%": {
-      opacity: 0,
+      transform: "translate(-200%,-50%)",
     },
     "70%": {
-      opacity: 0,
+      transform: "translate(-200%,-50%)",
     },
     "80%": {
-      opacity: 0,
+      transform: "translate(-200%,-50%)",
     },
     "90%": {
-      opacity: 0,
+      transform: "translate(-200%,-50%)",
     },
     "100%": {
-      opacity: 0,
+      transform: "translate(-200%,-50%)",
     },
   },
   titleEmp: {
-    border: "1px solid blue",
     position: "absolute",
     top: "50%",
     left: "50%",
-    transform: "translate(-50%,-50%)",
-    animation: `$title 10000ms 0s infinite ${theme.transitions.easing.easeIn} alternate`,
+    animation: `$title 20000ms 0s infinite ${theme.transitions.easing.easeInOut} `,
   },
   "@keyframes title": {
-    "0%": {
-      opacity: 0,
-    },
-    "10%": { opacity: 0 },
-    "20%": {
-      opacity: 0,
-    },
-    "30%": {
-      opacity: 0,
-    },
-    "40%": {
-      opacity: 0,
-    },
-    "50%": {
-      opacity: 1,
-    },
-    "60%": {
-      opacity: 1,
-    },
-    "70%": {
-      opacity: 1,
-    },
-    "80%": {
-      opacity: 1,
-    },
-    "90%": {
-      opacity: 1,
-    },
-    "100%": {
-      opacity: 1,
-    },
+    "0%": { transform: "translate(200%,-50%)" },
+    "10%": { transform: "translate(200%,-50%)" },
+    "20%": { transform: "translate(200%,-50%)" },
+    "30%": { transform: "translate(200%,-50%)" },
+    "40%": { transform: "translate(200%,-50%)" },
+    "50%": { transform: "translate(200%,-50%)" },
+    "55%": { transform: "translate(-50%,-50%)" },
+    "60%": { transform: "translate(-50%,-50%)" },
+    "70%": { transform: "translate(-50%,-50%)" },
+    "80%": { transform: "translate(-50%,-50%)" },
+    "90%": { transform: "translate(-50%,-50%)" },
+    "100%": { transform: "translate(-50%,-50%)" },
   },
 }));
 
 const EmpRadar = ({ data }) => {
-  const [activeValue, setActiveValue] = useState();
+  const [activeDept, setActiveDept] = useState();
+  const [activeTitle, setActiveTitle] = useState();
   const classes = useStyles();
   const deptEmp = data.dept;
   const titleEmp = data.title;
 
-  const onMouseTick = (e) => {
+  const onMouseTick = (e, name) => {
     const { value } = e;
-    setActiveValue(value);
+    console.log("on", value, name);
+    name === "dept" ? setActiveDept(value) : setActiveTitle(value);
+  };
+
+  const onMouseLeaveTick = (e, name) => {
+    console.log("leave", e.value, name);
+    name === "dept" ? setActiveDept(null) : setActiveTitle(null);
   };
 
   return (
@@ -124,9 +113,10 @@ const EmpRadar = ({ data }) => {
           <PolarAngleAxis
             dataKey="dept_name"
             tick={
-              <CustomizedRadarTick data={deptEmp} activeValue={activeValue} />
+              <CustomizedRadarTick data={deptEmp} activeValue={activeDept} />
             }
-            onMouseEnter={(e) => onMouseTick(e)}
+            onMouseEnter={(e) => onMouseTick(e, "dept")}
+            onMouseLeave={(e) => onMouseLeaveTick(e, "dept")}
           />
 
           <Radar
@@ -136,11 +126,11 @@ const EmpRadar = ({ data }) => {
             fill="#8884d8"
             fillOpacity={0.6}
             // dot
-            label={<CustomizedRadarLabel activeValue={activeValue} />}
+            label={<CustomizedRadarLabel activeValue={activeDept} />}
           />
         </RadarChart>
       </ResponsiveContainer>
-      {/* <ResponsiveContainer
+      <ResponsiveContainer
         width="90%"
         height={450}
         className={classes.titleEmp}
@@ -155,7 +145,11 @@ const EmpRadar = ({ data }) => {
           <PolarGrid />
           <PolarAngleAxis
             dataKey="title"
-            tick={<CustomizedRadarTick data={titleEmp} />}
+            onMouseEnter={(e) => onMouseTick(e, "title")}
+            onMouseLeave={(e) => onMouseLeaveTick(e, "title")}
+            tick={
+              <CustomizedRadarTick data={titleEmp} activeValue={activeTitle} />
+            }
           />
 
           <Radar
@@ -164,9 +158,10 @@ const EmpRadar = ({ data }) => {
             stroke="#8884d8"
             fill="#8884d8"
             fillOpacity={0.6}
+            label={<CustomizedRadarLabel activeValue={activeTitle} />}
           />
         </RadarChart>
-      </ResponsiveContainer> */}
+      </ResponsiveContainer>
     </>
   );
 };
