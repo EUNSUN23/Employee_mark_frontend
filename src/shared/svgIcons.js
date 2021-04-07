@@ -1,9 +1,9 @@
 import React from "react";
 import { SvgIcon } from "@material-ui/core";
 
-const Staff = () => {
+const Staff = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -20,9 +20,9 @@ const Staff = () => {
   );
 };
 
-const SeniorStaff = () => {
+const SeniorStaff = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -89,9 +89,9 @@ const SeniorStaff = () => {
   );
 };
 
-const Engineer = () => {
+const Engineer = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -217,9 +217,9 @@ const Engineer = () => {
   );
 };
 
-const AssistantEngineer = () => {
+const AssistantEngineer = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Capa_1"
@@ -273,9 +273,9 @@ const AssistantEngineer = () => {
   );
 };
 
-const Manager = () => {
+const Manager = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -295,9 +295,9 @@ const Manager = () => {
   );
 };
 
-const TechniqueLeader = () => {
+const TechniqueLeader = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
@@ -314,9 +314,9 @@ const TechniqueLeader = () => {
   );
 };
 
-const SeniorEngineer = () => {
+const SeniorEngineer = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -361,9 +361,9 @@ const SeniorEngineer = () => {
   );
 };
 
-const Development = () => {
+const Development = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -492,9 +492,9 @@ const Development = () => {
   );
 };
 
-const Finance = () => {
+const Finance = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -626,9 +626,9 @@ const Finance = () => {
   );
 };
 
-const Marketing = () => {
+const Marketing = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -720,9 +720,9 @@ const Marketing = () => {
   );
 };
 
-export const Sales = () => {
+export const Sales = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.2"
         baseProfile="tiny"
@@ -750,9 +750,9 @@ export const Sales = () => {
   );
 };
 
-const QualityManagement = () => {
+const QualityManagement = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -818,9 +818,9 @@ const QualityManagement = () => {
   );
 };
 
-const Production = () => {
+const Production = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -915,9 +915,9 @@ const Production = () => {
   );
 };
 
-const CustomerService = () => {
+const CustomerService = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -981,9 +981,9 @@ const CustomerService = () => {
   );
 };
 
-const HumanResources = () => {
+const HumanResources = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.2"
         baseProfile="tiny"
@@ -1060,9 +1060,9 @@ const HumanResources = () => {
   );
 };
 
-const Research = () => {
+const Research = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Capa_1"
@@ -1140,9 +1140,9 @@ const Research = () => {
   );
 };
 
-const EmployeeSearch = () => {
+const EmployeeSearch = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -1199,9 +1199,9 @@ const EmployeeSearch = () => {
   );
 };
 
-const SalaryStatistics = () => {
+const SalaryStatistics = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Layer_1"
@@ -1304,52 +1304,53 @@ const SalaryStatistics = () => {
   );
 };
 
-const Svg = ({ name, fontSize }) => {
-  const makeIcon = (name, fontSize) => {
+const Svg = ({ name, fontSize, component }) => {
+  const makeIcon = (name, fontSize, component) => {
     const size = fontSize ? fontSize : "default";
+    const element = component ? component : "svg";
     switch (name) {
       case "Customer Service":
-        return <CustomerService fontSize={size} />;
+        return <CustomerService fontSize={size} component={element} />;
       case "Development":
-        return <Development fontSize={size} />;
+        return <Development fontSize={size} component={element} />;
       case "Finance":
-        return <Finance fontSize={size} />;
+        return <Finance fontSize={size} component={element} />;
       case "Human Resources":
-        return <HumanResources fontSize={size} />;
+        return <HumanResources fontSize={size} component={element} />;
       case "Marketing":
-        return <Marketing fontSize={size} />;
+        return <Marketing fontSize={size} component={element} />;
       case "Production":
-        return <Production fontSize={size} />;
+        return <Production fontSize={size} component={element} />;
       case "Quality Management":
-        return <QualityManagement fontSize={size} />;
+        return <QualityManagement fontSize={size} component={element} />;
       case "Research":
-        return <Research fontSize={size} />;
+        return <Research fontSize={size} component={element} />;
       case "Sales":
-        return <Sales fontSize={size} />;
+        return <Sales fontSize={size} component={element} />;
       case "Staff":
-        return <Staff fontSize={size} />;
+        return <Staff fontSize={size} component={element} />;
       case "Senior Staff":
-        return <SeniorStaff fontSize={size} />;
+        return <SeniorStaff fontSize={size} component={element} />;
       case "Engineer":
-        return <Engineer fontSize={size} />;
+        return <Engineer fontSize={size} component={element} />;
       case "Senior Engineer":
-        return <SeniorEngineer fontSize={size} />;
+        return <SeniorEngineer fontSize={size} component={element} />;
       case "Assistant Engineer":
-        return <AssistantEngineer fontSize={size} />;
+        return <AssistantEngineer fontSize={size} component={element} />;
       case "Manager":
-        return <Manager fontSize={size} />;
+        return <Manager fontSize={size} component={element} />;
       case "Technique Leader":
-        return <TechniqueLeader fontSize={size} />;
+        return <TechniqueLeader fontSize={size} component={element} />;
       case "EmployeeSearch":
-        return <EmployeeSearch fontSize={size} />;
+        return <EmployeeSearch fontSize={size} component={element} />;
       case "SalaryStatistics":
-        return <SalaryStatistics fontSize={size} />;
+        return <SalaryStatistics fontSize={size} component={element} />;
       default:
         return;
     }
   };
 
-  return makeIcon(name, fontSize);
+  return makeIcon(name, fontSize, component);
 };
 
 export default Svg;

@@ -1,8 +1,6 @@
-import React, { useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper";
+import { Swiper } from "swiper";
 import SwiperCore, { Navigation, Pagination, Scrollbar } from "swiper/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
 import {
   BarChart,
   Bar,

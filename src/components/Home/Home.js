@@ -9,7 +9,7 @@ import Svg from "../../shared/svgIcons";
 const Container = styled.div`
   display: grid;
   height: 90%;
-  grid-template-rows: 1fr 4.5fr 1fr;
+  grid-template-rows: 1fr 5.5fr;
   grid-template-columns: 1fr;
   grid-gap: 2vh;
   padding-bottom: 30px;
@@ -26,30 +26,45 @@ const Header = styled.h1`
 `;
 
 const NavTab = styled.ul`
+  position: absolute;
+  top: 20%;
   display: grid;
+  grid-gap: 2vh;
   justify-items: center;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-  width: 45%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 20%;
 `;
 
 const NavItem = styled.li`
+  position: relative;
   text-align: center;
-  font-size: 2vw;
+  font-size: 1.8vw;
   border-radius: 5px;
   background-color: #2196f3;
-  padding: 5% 15%;
+  padding: 2% 20%;
   list-style: none;
-  line-height: 300%;
+
   a {
     text-decoration: none;
     color: #fff;
+  }
+  span {
+    position: relative;
+    left: 20%;
+    line-height: 300%;
+  }
+  div {
+    position: absolute;
+    left: 10%;
+    top: 20%;
   }
 `;
 
 const Main = styled.div`
   position: relative;
-  width: 100%;
+  border: 1px solid black;
+  width: 70%;
   height: 100%;
 `;
 
@@ -70,14 +85,14 @@ const Home = () => {
       <NavTab>
         <NavItem>
           <NavLink to="/board" component="a">
-            <Svg name="EmployeeSearch" fontSize="large" />
-            직원 검색
+            <Svg name="EmployeeSearch" fontSize="large" component="div" />
+            <span>직원 검색</span>
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/statistics" component="a">
-            <Svg name="SalaryStatistics" fontSize="large" />
-            연봉 통계
+            <Svg name="SalaryStatistics" fontSize="large" component="div" />
+            <span>연봉 통계</span>
           </NavLink>
         </NavItem>
       </NavTab>

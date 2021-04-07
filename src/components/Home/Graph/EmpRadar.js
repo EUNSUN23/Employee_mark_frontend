@@ -1,171 +1,70 @@
-import React, { useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import theme from "../../../theme";
-import CustomizedRadarTick from "./CustomizedRadarTick";
-import CustomizedRadarLabel from "./CustomizedRadarLabel";
-import CustomizedDot from "./CustomizedDot";
+import { Swiper, SwiperSlide } from "swiper/react";
+import DeptEmpRadar from "./DeptEmpRadar";
+import TitleEmpRadar from "./TitleEmpRadar";
 
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
-} from "recharts";
+import SwiperCore, { Navigation, Autoplay } from "swiper/core";
+import "swiper/swiper.min.css";
+
+SwiperCore.use([Navigation, Autoplay]);
 
 const useStyles = makeStyles(() => ({
-  deptEmp: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%,-50%)",
-    animation: `$dept 20000ms 0s infinite ${theme.transitions.easing.easeInOut} `,
-  },
-
-  "@keyframes dept": {
-    "0%": {
-      transform: "translate(-50%,-50%)",
-    },
-    "3%": { transform: "translate(-50%,-50%)" },
-    "20%": {
-      transform: "translate(-50%,-50%)",
-    },
-    "30%": {
-      transform: "translate(-50%,-50%)",
-    },
-    "40%": {
-      transform: "translate(-50%,-50%)",
-    },
-
-    "50%": {
-      transform: "translate(-50%,-50%)",
-    },
-    "55%": {
-      transform: "translate(-200%,-50%)",
-    },
-    "60%": {
-      transform: "translate(-200%,-50%)",
-    },
-    "70%": {
-      transform: "translate(-200%,-50%)",
-    },
-    "80%": {
-      transform: "translate(-200%,-50%)",
-    },
-    "90%": {
-      transform: "translate(-200%,-50%)",
-    },
-    "100%": {
-      transform: "translate(-200%,-50%)",
-    },
-  },
-  titleEmp: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    animation: `$title 20000ms 0s infinite ${theme.transitions.easing.easeInOut} `,
-  },
-  "@keyframes title": {
-    "0%": { transform: "translate(200%,-50%)" },
-    "10%": { transform: "translate(200%,-50%)" },
-    "20%": { transform: "translate(200%,-50%)" },
-    "30%": { transform: "translate(200%,-50%)" },
-    "40%": { transform: "translate(200%,-50%)" },
-    "50%": { transform: "translate(200%,-50%)" },
-    "55%": { transform: "translate(-50%,-50%)" },
-    "60%": { transform: "translate(-50%,-50%)" },
-    "70%": { transform: "translate(-50%,-50%)" },
-    "80%": { transform: "translate(-50%,-50%)" },
-    "90%": { transform: "translate(-50%,-50%)" },
-    "100%": { transform: "translate(-50%,-50%)" },
+  radarSwiper: {
+    border: "1px solid red",
+    padding: 0,
+    display: "grid",
+    gridTemplateColumns: "auto auto",
+    height: "500px",
   },
 }));
 
 const EmpRadar = ({ data }) => {
-  const [activeDept, setActiveDept] = useState("Development");
-  const [activeTitle, setActiveTitle] = useState("Senior Engineer");
   const classes = useStyles();
   const deptEmp = data.dept;
   const titleEmp = data.title;
+  const swiperRef = useRef(null);
 
-  const onMouseTick = (e, name) => {
-    const { value } = e;
+  useEffect(() => {
+    console.log(swiperRef.current.swiper);
+    // swiperRef.current.swiper.autoplay.start();
+  }, []);
 
-    name === "dept" ? setActiveDept(value) : setActiveTitle(value);
-  };
-
-  const onMouseLeaveTick = (e, name) => {
-    name === "dept" ? setActiveDept(null) : setActiveTitle(null);
+  const onReachEndHandler = (swiper, deptEmp, titleEmp) => {
+    console.log("end");
+    const firstRadar = document.getElementById("deptEmpRadar");
+    const secondRadar = document.getElementById("titleEmpRadar");
+    const firstClone = firstRadar.cloneNode(true);
+    const secondClone = secondRadar.cloneNode(true);
+    swiper.activeIndex % 2 === 0
+      ? swiper.appendSlide(secondClone)
+      : swiper.appendSlide(firstClone);
   };
 
   return (
-    <>
-      <ResponsiveContainer width="90%" height="95%" className={classes.deptEmp}>
-        <RadarChart
-          cx="50%"
-          cy="50%"
-          outerRadius="90%"
-          data={deptEmp}
-          margin={{ top: 20, bottom: 65, left: 20, right: 20 }}
-        >
-          <PolarGrid />
-          <PolarRadiusAxis datKey="count" />
-          <PolarAngleAxis
-            dataKey="dept_name"
-            tick={
-              <CustomizedRadarTick data={deptEmp} activeValue={activeDept} />
-            }
-            onMouseEnter={(e) => onMouseTick(e, "dept")}
-            onMouseLeave={(e) => onMouseLeaveTick(e, "dept")}
-          />
-
-          <Radar
-            name="Employees"
-            dataKey="count"
-            stroke="#8884d8"
-            fill="#8884d8"
-            fillOpacity={0.6}
-            dot={<CustomizedDot activeValue={activeDept} />}
-            label={<CustomizedRadarLabel activeValue={activeDept} />}
-          />
-        </RadarChart>
-      </ResponsiveContainer>
-      <ResponsiveContainer
-        width="90%"
-        height="95%"
-        className={classes.titleEmp}
-      >
-        <RadarChart
-          cx="50%"
-          cy="50%"
-          outerRadius="90%"
-          data={titleEmp}
-          margin={{ top: 20, bottom: 65, left: 20, right: 20 }}
-        >
-          <PolarGrid />
-          <PolarRadiusAxis datKey="count" />
-          <PolarAngleAxis
-            dataKey="title"
-            onMouseEnter={(e) => onMouseTick(e, "title")}
-            onMouseLeave={(e) => onMouseLeaveTick(e, "title")}
-            tick={
-              <CustomizedRadarTick data={titleEmp} activeValue={activeTitle} />
-            }
-          />
-
-          <Radar
-            name="Employees"
-            dataKey="count"
-            stroke="green"
-            fill="green"
-            fillOpacity={0.6}
-            dot={<CustomizedDot activeValue={activeTitle} />}
-            label={<CustomizedRadarLabel activeValue={activeTitle} />}
-          />
-        </RadarChart>
-      </ResponsiveContainer>
-    </>
+    <Swiper
+      ref={swiperRef}
+      className={classes.radarSwiper}
+      slidesPerView={1}
+      id="empRadar"
+      spaceBetween={100}
+      cssMode={true}
+      loop={true}
+      onSlideChange={() =>
+        console.log("active", swiperRef.current.swiper.activeIndex)
+      }
+      onReachEnd={() => onReachEndHandler(swiperRef.current.swiper)}
+      autoplay={{
+        delay: 10000,
+      }}
+    >
+      <SwiperSlide className={classes.deptEmpRadar} id="deptEmpRadar">
+        <DeptEmpRadar deptEmp={deptEmp} />
+      </SwiperSlide>
+      <SwiperSlide className={classes.titleEmpRadar} id="titleEmpRadar">
+        <TitleEmpRadar titleEmp={titleEmp} />
+      </SwiperSlide>
+    </Swiper>
   );
 };
 

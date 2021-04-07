@@ -58,6 +58,7 @@ const useStyles = makeStyles(() => ({
     transform: "translateX(-50%)",
   },
   swiperSlide: {
+    border: "1px solid red",
     display: "grid",
     gridTemplateColumns: "auto auto auto auto auto auto auto auto auto auto",
     listStyle: "none",

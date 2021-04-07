@@ -50,7 +50,7 @@ export const setCategory = () => {
     if (res) {
       console.log(res.dept);
       const deptList = res.dept.map((obj, idx) => {
-        console.log(obj.dept_name);
+        // console.log(obj.dept_name);
         return obj.dept_name;
       });
 

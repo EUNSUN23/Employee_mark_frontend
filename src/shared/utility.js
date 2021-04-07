@@ -271,7 +271,7 @@ export const setStatData = (state, data, isLoading, type) => {
 // <------------------ STACK CHART ----------------------->
 
 export const setChartColor = (chartName, highlight) => {
-  console.log(chartName);
+  // console.log(chartName);
   let chartColor;
   if (highlight) return "#E20830";
   switch (chartName) {

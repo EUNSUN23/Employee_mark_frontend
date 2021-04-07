@@ -35,7 +35,7 @@ const CustomizedRadarTick = (tickProps) => {
   const { x, y, payload, data, width, radius, index, activeValue } = tickProps;
   const { coordinate, value } = payload;
 
-  console.log("activeValue", radius);
+  // console.log("activeValue", radius);
 
   const d =
     radius > 180
