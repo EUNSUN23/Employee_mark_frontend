@@ -1,8 +1,9 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Swiper, SwiperSlide } from "swiper/react";
 import DeptEmpRadar from "./DeptEmpRadar";
 import TitleEmpRadar from "./TitleEmpRadar";
+import { debounce } from "lodash";
 
 import SwiperCore, { Navigation, Autoplay } from "swiper/core";
 import "swiper/swiper.min.css";
@@ -25,20 +26,9 @@ const EmpRadar = ({ data }) => {
   const titleEmp = data.title;
   const swiperRef = useRef(null);
 
-  useEffect(() => {
-    console.log(swiperRef.current.swiper);
-    // swiperRef.current.swiper.autoplay.start();
-  }, []);
-
-  const onReachEndHandler = (swiper, deptEmp, titleEmp) => {
-    console.log("end");
-    const firstRadar = document.getElementById("deptEmpRadar");
-    const secondRadar = document.getElementById("titleEmpRadar");
-    const firstClone = firstRadar.cloneNode(true);
-    const secondClone = secondRadar.cloneNode(true);
-    swiper.activeIndex % 2 === 0
-      ? swiper.appendSlide(secondClone)
-      : swiper.appendSlide(firstClone);
+  const updateSlides = (swiper) => {
+    console.log("observe");
+    // swiper.update();
   };
 
   return (
@@ -49,13 +39,9 @@ const EmpRadar = ({ data }) => {
       id="empRadar"
       spaceBetween={100}
       cssMode={true}
-      loop={true}
-      onSlideChange={() =>
-        console.log("active", swiperRef.current.swiper.activeIndex)
-      }
-      onReachEnd={() => onReachEndHandler(swiperRef.current.swiper)}
       autoplay={{
-        delay: 10000,
+        delay: 5000,
+        disableOnInteraction: false,
       }}
     >
       <SwiperSlide className={classes.deptEmpRadar} id="deptEmpRadar">

@@ -37,6 +37,8 @@ const CustomizedRadarTick = (tickProps) => {
 
   // console.log("activeValue", radius);
 
+  console.log("tick render");
+
   const d =
     radius > 180
       ? (Math.round(radius) / 4.5).toFixed()
