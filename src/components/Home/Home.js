@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import EmpRadar from "./Graph/EmpRadar";
 import MainLoader from "../UI/MainLoader";
+import Svg from "../../shared/svgIcons";
 
 const Container = styled.div`
   display: grid;
@@ -37,8 +38,8 @@ const NavItem = styled.li`
   font-size: 2vw;
   border-radius: 5px;
   background-color: #2196f3;
-  list-style: none;
   padding: 5% 15%;
+  list-style: none;
   line-height: 300%;
   a {
     text-decoration: none;
@@ -69,11 +70,13 @@ const Home = () => {
       <NavTab>
         <NavItem>
           <NavLink to="/board" component="a">
+            <Svg name="EmployeeSearch" fontSize="large" />
             직원 검색
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink to="/statistics" component="a">
+            <Svg name="SalaryStatistics" fontSize="large" />
             연봉 통계
           </NavLink>
         </NavItem>

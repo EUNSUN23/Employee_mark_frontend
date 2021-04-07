@@ -101,13 +101,13 @@ const EmpRadar = ({ data }) => {
 
   return (
     <>
-      <ResponsiveContainer width="90%" height="90%" className={classes.deptEmp}>
+      <ResponsiveContainer width="90%" height="95%" className={classes.deptEmp}>
         <RadarChart
           cx="50%"
           cy="50%"
           outerRadius="90%"
           data={deptEmp}
-          margin={{ top: 20, bottom: 30, left: 20, right: 20 }}
+          margin={{ top: 20, bottom: 65, left: 20, right: 20 }}
         >
           <PolarGrid />
           <PolarRadiusAxis datKey="count" />
@@ -133,7 +133,7 @@ const EmpRadar = ({ data }) => {
       </ResponsiveContainer>
       <ResponsiveContainer
         width="90%"
-        height="90%"
+        height="95%"
         className={classes.titleEmp}
       >
         <RadarChart
@@ -141,7 +141,7 @@ const EmpRadar = ({ data }) => {
           cy="50%"
           outerRadius="90%"
           data={titleEmp}
-          margin={{ top: 20, bottom: 30, left: 20, right: 20 }}
+          margin={{ top: 20, bottom: 65, left: 20, right: 20 }}
         >
           <PolarGrid />
           <PolarRadiusAxis datKey="count" />

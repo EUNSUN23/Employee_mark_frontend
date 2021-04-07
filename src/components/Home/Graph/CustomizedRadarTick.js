@@ -16,7 +16,7 @@ const Tick = styled.div`
 const Label = styled.span`
   text-align: left;
   font-weight: bold;
-  font-size: ${(props) => (props.value.length <= 16 ? "15px" : "13px")};
+  font-size: 19px;
   padding: ${(props) =>
     props.value.length <= 16 ? "0px 30px 0px" : "0px 30px 0px"};
   position: absolute;
@@ -35,12 +35,13 @@ const CustomizedRadarTick = (tickProps) => {
   const { x, y, payload, data, width, radius, index, activeValue } = tickProps;
   const { coordinate, value } = payload;
 
+  console.log("activeValue", radius);
+
   const d =
     radius > 180
-      ? (Math.round(radius) / 5).toFixed()
+      ? (Math.round(radius) / 4.5).toFixed()
       : (Math.round(radius) / 3.5).toFixed(); // 그래프 크기에 따라서 label간격조정
 
-  const emp = data[index].count;
   const tickVal = typeof value === "string" ? value : `${value / 10000}만`;
 
   const labelAngle = Math.round(coordinate);
@@ -49,7 +50,7 @@ const CustomizedRadarTick = (tickProps) => {
   let YPoint;
 
   if (labelAngle < 90 && labelAngle > -70) {
-    XPoint = radius > 180 ? x + d : x - 10;
+    XPoint = radius > 180 ? x + d + 10 : x - 10;
     YPoint = y - 10;
   }
   if (labelAngle <= -60 && labelAngle >= -120) {
@@ -58,13 +59,13 @@ const CustomizedRadarTick = (tickProps) => {
   }
 
   if (labelAngle <= -150 && labelAngle >= -230) {
-    XPoint = radius > 180 ? x - 3.3 * d : x - 2.5 * d;
+    XPoint = radius > 180 ? x - 3.5 * d : x - 2.5 * d;
     YPoint = y - 10;
   }
 
   if (labelAngle === 90) {
     XPoint = radius > 180 ? x - 2 * d : x - d;
-    YPoint = y - 30;
+    YPoint = y - 45;
   }
 
   const fill = setChartColor(tickVal) || "green";
@@ -78,7 +79,7 @@ const CustomizedRadarTick = (tickProps) => {
         activeValue={activeValue}
       >
         <Icon>
-          <Svg label={tickVal} />
+          <Svg name={tickVal} />
         </Icon>
         <Label value={tickVal}>{tickVal}</Label>
       </Tick>
