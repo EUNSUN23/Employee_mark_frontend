@@ -59,28 +59,28 @@ const ActiveShape = (props) => {
     fill,
     payload,
     percent,
-    matchMd,
+    overSm,
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (matchMd ? outerRadius - 10 : outerRadius) * cos;
-  const sy = cy + (matchMd ? outerRadius - 10 : outerRadius) * sin;
-  const mx = cx + (matchMd ? outerRadius + 20 : outerRadius) * cos;
-  const my = cy + (matchMd ? outerRadius + 30 : outerRadius) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * (matchMd ? 35 : -2);
+  const sx = cx + (overSm ? outerRadius - 10 : outerRadius) * cos;
+  const sy = cy + (overSm ? outerRadius - 10 : outerRadius) * sin;
+  const mx = cx + (overSm ? outerRadius + 20 : outerRadius) * cos;
+  const my = cy + (overSm ? outerRadius + 30 : outerRadius) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * (overSm ? 35 : -2);
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
 
-  const empX = matchMd ? ex + (cos > 0 ? 0.8 : -9) * 12 : cx - 30;
-  const empY = matchMd ? ey - 25 : cy + 20;
-  const percentX = matchMd
+  const empX = overSm ? ex + (cos > 0 ? 0.8 : -9) * 12 : cx - 30;
+  const empY = overSm ? ey - 25 : cy + 20;
+  const percentX = overSm
     ? ex + (cos > 0 ? 2 : -2) * 12
     : cos > 0
     ? cx - 30
     : cx + 40;
-  const percentY = matchMd ? ey : cy + 50;
+  const percentY = overSm ? ey : cy + 50;
 
-  const circle = matchMd ? (
+  const circle = overSm ? (
     <circle
       cx={ex}
       cy={ey}
@@ -152,7 +152,7 @@ const ActiveShape = (props) => {
 const EmpPie = memo(({ empData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [value, setValue] = useState(null);
-  const matchMd = useMediaQuery("(min-width:600px)");
+  const overSm = useMediaQuery("(min-width:600px)");
 
   const onClickFilter = useCallback(
     (icon) => {
@@ -198,9 +198,9 @@ const EmpPie = memo(({ empData }) => {
         <ResponsiveContainer width="100%" height={500}>
           <PieChart margin={{ top: 60, bottom: 60 }}>
             <Pie
-              matchMd={matchMd}
+              overSm={overSm}
               activeIndex={activeIndex}
-              activeShape={<ActiveShape matchMd={matchMd} />}
+              activeShape={<ActiveShape overSm={overSm} />}
               data={empData}
               dataKey="emp"
               innerRadius="65%"
@@ -210,7 +210,7 @@ const EmpPie = memo(({ empData }) => {
               label={
                 <CustomizedPieLabel
                   activeIndex={activeIndex}
-                  matchMd={matchMd}
+                  overSm={overSm}
                   salary={value}
                 />
               }

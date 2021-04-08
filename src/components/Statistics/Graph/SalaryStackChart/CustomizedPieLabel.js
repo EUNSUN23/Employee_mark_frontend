@@ -18,7 +18,7 @@ const CustomizedPieLabel = (props) => {
     payload,
     activeIndex,
     index,
-    matchMd,
+    overSm,
   } = props;
 
   const cos = Math.cos(-RADIAN * midAngle);
@@ -31,7 +31,7 @@ const CustomizedPieLabel = (props) => {
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
 
-  if (activeIndex === index || !matchMd) return null;
+  if (activeIndex === index || !overSm) return null;
 
   console.log("label render");
 

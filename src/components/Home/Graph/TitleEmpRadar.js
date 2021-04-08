@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import CustomizedRadarTick from "./CustomizedRadarTick";
 import CustomizedRadarLabel from "./CustomizedRadarLabel";
 import CustomizedDot from "./CustomizedDot";
@@ -13,6 +14,9 @@ import {
 
 const TitleEmpRadar = ({ titleEmp }) => {
   const [activeTitle, setActiveTitle] = useState("Senior Engineer");
+  const overMd = useMediaQuery("(min-width:768px)");
+  const outerR = overMd ? "100%" : "70%";
+
   const onMouseTick = (e, name) => {
     const { value } = e;
     setActiveTitle(value);
@@ -23,13 +27,13 @@ const TitleEmpRadar = ({ titleEmp }) => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height="90%">
+    <ResponsiveContainer width="100%" height="100%">
       <RadarChart
         cx="50%"
         cy="50%"
-        outerRadius="90%"
+        outerRadius={outerR}
         data={titleEmp}
-        margin={{ top: 20, bottom: 65, left: 20, right: 20 }}
+        margin={{ top: 5, bottom: 85, left: 40, right: 40 }}
       >
         <PolarGrid />
         <PolarRadiusAxis datKey="count" />

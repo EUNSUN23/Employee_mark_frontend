@@ -1304,6 +1304,40 @@ const SalaryStatistics = ({ fontSize, component }) => {
   );
 };
 
+const TotalEmployees = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <g data-name="Layer 2">
+          <g data-name="person-done">
+            <rect width="24" height="24" opacity="0" />
+            <path d="M21.66 4.25a1 1 0 0 0-1.41.09l-1.87 2.15-.63-.71a1 1 0 0 0-1.5 1.33l1.39 1.56a1 1 0 0 0 .75.33 1 1 0 0 0 .74-.34l2.61-3a1 1 0 0 0-.08-1.41z" />
+            <path d="M10 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" />
+            <path d="M16 21a1 1 0 0 0 1-1 7 7 0 0 0-14 0 1 1 0 0 0 1 1" />
+          </g>
+        </g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+const LeftEmployees = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <g data-name="Layer 2">
+          <g data-name="person-delete">
+            <rect width="24" height="24" opacity="0" />
+            <path d="M20.47 7.5l.73-.73a1 1 0 0 0-1.47-1.47L19 6l-.73-.73a1 1 0 0 0-1.47 1.5l.73.73-.73.73a1 1 0 0 0 1.47 1.47L19 9l.73.73a1 1 0 0 0 1.47-1.5z" />
+            <path d="M10 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4z" />
+            <path d="M16 21a1 1 0 0 0 1-1 7 7 0 0 0-14 0 1 1 0 0 0 1 1z" />
+          </g>
+        </g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
 const Svg = ({ name, fontSize, component }) => {
   const makeIcon = (name, fontSize, component) => {
     const size = fontSize ? fontSize : "default";
@@ -1345,6 +1379,10 @@ const Svg = ({ name, fontSize, component }) => {
         return <EmployeeSearch fontSize={size} component={element} />;
       case "SalaryStatistics":
         return <SalaryStatistics fontSize={size} component={element} />;
+      case "TotalEmployees":
+        return <TotalEmployees fontSize={size} component={element} />;
+      case "LeftEmployees":
+        return <LeftEmployees fontSize={size} component={element} />;
       default:
         return;
     }
