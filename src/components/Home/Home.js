@@ -66,7 +66,8 @@ const Total = styled.div`
     flex: 10%;
   }
   span {
-    flex: 10%;
+    flex: 20%;
+    margin-left: -10%;
     font-size: 1.2vw;
   }
 `;
@@ -87,7 +88,8 @@ const Left = styled.div`
     flex: 10%;
   }
   span {
-    flex: 10%;
+    flex: 20%;
+    margin-left: -10%;
     font-size: 1.2vw;
   }
 `;
@@ -111,7 +113,7 @@ const NavItem = styled.li`
   border-radius: 5px;
   background-color: #2196f3;
   :hover {
-    background-color: #24ad54;
+    background-color: #35c265;
   }
   padding: 2% 20%;
   list-style: none;
