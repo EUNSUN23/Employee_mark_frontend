@@ -6,6 +6,7 @@ import { Grid } from "@material-ui/core";
 import Loader from "../../../UI/Loader";
 import { getEmpData } from "../../../../store/actions/searchEmp";
 import { getCurrent } from "../../../../shared/utility";
+import BoardBackground from "../../BoardBackground";
 
 const CardContainer = memo(() => {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ const CardContainer = memo(() => {
 
   const createEmployeeList = (employeeData) => {
     if (!employeeData) {
-      return;
+      return <BoardBackground />;
     }
     const employeeList = employeeData.map((el, idx) => {
       const lastEl = idx === employeeData[employeeData.length - 1].id;
