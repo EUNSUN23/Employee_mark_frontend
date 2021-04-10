@@ -1,15 +1,11 @@
 import * as actionTypes from "../actions/actionTypes";
-import {
-  setDetail,
-  setArea,
-  setSelected,
-  initArea,
-} from "../../shared/utility";
+import { setDetail, setArea, setSelected } from "../../shared/utility";
 
 const initState = {
-  optionDetail: null,
   area: null,
   selected: null,
+  isDeptSent: false,
+  isAreaSent: false,
 };
 
 const reducer = (state = initState, action) => {
@@ -23,6 +19,10 @@ const reducer = (state = initState, action) => {
       return setSelected(state, action.selected);
     case actionTypes.STAT_INIT_AREA:
       return { ...state, area: null };
+    case actionTypes.STAT_DEPT_SENT:
+      return { ...state, isDeptSent: true };
+    case actionTypes.STAT_AREA_SENT:
+      return { ...state, isAreaSent: true };
     default:
       return state;
   }

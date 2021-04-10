@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import { setDataSent } from "../actions/statBar";
 import axios from "axios";
 
 const fetchStart = () => {
@@ -46,8 +47,7 @@ export const getStatAPI = (data) => {
     }
     if (!res) return;
     const result = res.data.packet;
-    console.log(result);
-
+    dispatch(setDataSent(data.type));
     dispatch(setStatData(result, data.type));
   };
 };

@@ -16,3 +16,10 @@ export const setSelected = (selected) => {
 export const initArea = () => {
   return { type: actionTypes.STAT_INIT_AREA };
 };
+
+export const setDataSent = (type) => {
+  if (type === "dept" || type === "emp")
+    return { type: actionTypes.STAT_DEPT_SENT };
+  if (type === "below" || type === "above")
+    return { type: actionTypes.STAT_AREA_SENT };
+};

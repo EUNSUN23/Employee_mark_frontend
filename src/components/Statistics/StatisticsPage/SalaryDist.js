@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import React from "react";
+import { useSelector, shallowEqual } from "react-redux";
 import DistBar from "../Graph/SalaryDist/DistBar";
 import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles(() => ({
-  title: {
-    color: "#333",
-  },
-  distPie: {
-    margin: "0 auto",
-  },
-}));
+import StatBackground from "../StatBackground";
 
 const SalaryDist = () => {
-  const classes = useStyles();
   const { aboveData, belowData, area } = useSelector(
     (state) => ({
       aboveData: state.statPage.aboveData,
@@ -25,12 +15,12 @@ const SalaryDist = () => {
   );
 
   const makeDistBar = (area) => {
-    if (!area) return null;
+    if (!area) return <StatBackground />;
     let data;
     if (area.type) {
       data = area.type === "below" ? belowData : aboveData;
       if (!data) {
-        return null;
+        return <StatBackground />;
       } else {
         return (
           <Grid container>

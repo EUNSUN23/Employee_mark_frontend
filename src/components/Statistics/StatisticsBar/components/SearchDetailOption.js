@@ -14,10 +14,7 @@ const useStyles = makeStyles(() => ({
   title_container: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "30ch",
-    [theme.breakpoints.up("md")]: {
-      width: "45ch",
-    },
+    width: "30vw",
     height: "35px",
   },
   title_listItemIcon: {
@@ -34,18 +31,12 @@ const useStyles = makeStyles(() => ({
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
     transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "45ch",
-    },
+    width: "30vw",
   },
   menu_container: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "45ch",
-    },
+    width: "30vw",
   },
 }));
 
@@ -73,10 +64,7 @@ const StyledMenuItem = withStyles((theme) => ({
   root: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "45ch",
-    },
+    width: "30vw",
     height: "30px",
     "&:focus": {
       backgroundColor: theme.palette.primary.main,
@@ -106,11 +94,9 @@ const SearchDetailOption = () => {
     handleClose();
     switch (type) {
       case "emp":
-        return setDetailTitle("전체");
+        return setDetailTitle("전사 연봉 분포");
       case "dept":
-        return setDetailTitle("부서");
-      case "default":
-        return setDetailTitle("범위");
+        return setDetailTitle("부서별 연봉 분포");
       default:
         return;
     }
@@ -130,7 +116,7 @@ const SearchDetailOption = () => {
           <ArrowDropDownIcon fontSize="large" />
         </ListItemIcon>
         <ListItemText
-          primary={detailTitle ? detailTitle : "범위"}
+          primary={detailTitle ? detailTitle : "연봉 통계 그래프"}
           className={classes.title_listItemText}
         />
       </Button>
@@ -144,25 +130,25 @@ const SearchDetailOption = () => {
       >
         <StyledMenuItem
           onClick={() => {
-            onSelectClick("default");
-          }}
-        >
-          <ListItemText primary="범위" />
-        </StyledMenuItem>
-        <StyledMenuItem
-          onClick={() => {
             onSelectClick("emp");
           }}
         >
-          <ListItemText primary="전체" />
+          <ListItemText primary="전사 연봉 분포" />
         </StyledMenuItem>
-
         <StyledMenuItem
           onClick={() => {
             onSelectClick("dept");
           }}
         >
-          <ListItemText primary="부서" />
+          <ListItemText primary="부서별 연봉 분포" />
+        </StyledMenuItem>
+
+        <StyledMenuItem
+          onClick={() => {
+            onSelectClick("area");
+          }}
+        >
+          <ListItemText primary="상세 연봉별 부서순위" />
         </StyledMenuItem>
       </StyledMenu>
     </div>

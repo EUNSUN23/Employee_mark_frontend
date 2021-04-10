@@ -3,6 +3,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 import DeptChart from "../Graph/SalaryStackChart/DeptChart";
 import EmpPie from "../Graph/SalaryStackChart/EmpPie";
+import StatBackground from "../StatBackground";
 
 const SalaryStack = () => {
   const { deptData, empData, type } = useSelector(
@@ -37,7 +38,7 @@ const SalaryStack = () => {
         );
 
       default:
-        return null;
+        return <StatBackground />;
     }
   };
 
