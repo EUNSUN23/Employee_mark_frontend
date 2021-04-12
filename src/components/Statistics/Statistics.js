@@ -50,8 +50,8 @@ const Statistics = () => {
     aboveData,
     belowData
   ) => {
-    switch (selected) {
-      case "전사 연봉 분포":
+    switch (selected.type) {
+      case "emp":
         return empData ? (
           <Grid container>
             <Grid item xs={false} sm={1}></Grid>
@@ -61,7 +61,7 @@ const Statistics = () => {
             <Grid item xs={false} sm={1}></Grid>
           </Grid>
         ) : null;
-      case "부서별 연봉 분포":
+      case "dept":
         return deptData ? (
           <Grid container>
             <Grid item xs={12} sm={10}>
@@ -69,7 +69,7 @@ const Statistics = () => {
             </Grid>
           </Grid>
         ) : null;
-      case "상세 연봉별 부서순위":
+      case "area":
         if (!area) return null;
         const data = area.type === "below" ? belowData : aboveData;
         return (

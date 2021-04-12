@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const DistBar = memo(({ data, type, salary }) => {
   const classes = useStyles();
 
-  const makeDistBar = () => {
+  const makeDistBar = (data) => {
     console.log("makeDeptBar", data);
     return (
       <Grid item xs={11} className={classes.barChartGrid}>
@@ -91,7 +91,7 @@ const DistBar = memo(({ data, type, salary }) => {
         {" "}
         <h1 className={classes.salary}>{`Salary ${compare} ${salary}`}</h1>
       </Grid>
-      {makeDistBar()}
+      {makeDistBar(data)}
     </Grid>
   );
 });

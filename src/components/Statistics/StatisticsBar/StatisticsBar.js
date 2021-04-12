@@ -15,8 +15,9 @@ import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
 import { Grid } from "@material-ui/core";
 import SearchInput from "./components/SearchInput";
 import { getStatAPI } from "../../../store/actions/statPage";
+import theme from "../../../theme";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   menu: {
     display: "flex",
     flexDirection: "row",
@@ -102,7 +103,8 @@ const useStyles = makeStyles((theme) => ({
     minWidth: "6vw",
     [theme.breakpoints.down("sm")]: {
       position: "absolute",
-      left: "45vw",
+      left: (props) =>
+        props.selected && props.selected.type === "area" ? "45vw" : "60vw",
       top: "50%",
       transform: "translateY(-50%)",
       fontSize: "1.3vw",
@@ -129,38 +131,34 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-}));
+});
 
 const StatisticsBar = memo(() => {
-  const classes = useStyles();
   const dispatch = useDispatch();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
 
   const { area, selected, isDeptSent } = useSelector(
-    (state) => (
-      {
-        selected: state.statBar.selected,
-        area: state.statBar.area,
-        isDeptSent: state.statBar.isDeptSent,
-      },
-      shallowEqual
-    )
+    (state) => ({
+      selected: state.statBar.selected,
+      area: state.statBar.area,
+      isDeptSent: state.statBar.isDeptSent,
+    }),
+    shallowEqual
   );
 
-  const onSubmitHandler = (e, selected) => {
+  const classes = useStyles({ theme, selected });
+
+  const onSubmitHandler = (e, selected, area, isDeptSent) => {
     e.preventDefault();
-    console.log("onSubmit", selected);
-    switch (selected) {
-      case "전사 연봉 분포" || "부서별 연봉 분포":
+
+    if (!selected || !area) return window.alert("검색어를 입력하세요");
+    switch (selected.type) {
+      case "emp" || "dept":
         if (isDeptSent) return;
-        return selected
-          ? dispatch(getStatAPI(selected))
-          : window.alert("검색어를 입력하세요");
-      case "상세 연봉별 부서순위":
-        return area
-          ? dispatch(getStatAPI(area))
-          : window.alert("검색어를 입력하세요");
+        return dispatch(getStatAPI(selected));
+      case "area":
+        return dispatch(getStatAPI(area));
       default:
         window.alert("검색어를 입력하세요");
         return;
@@ -257,7 +255,7 @@ const StatisticsBar = memo(() => {
             <Typography className={classes.title}>Employee Mark</Typography>
             <form
               onSubmit={(e) => {
-                onSubmitHandler(e, selected);
+                onSubmitHandler(e, selected, area, isDeptSent);
               }}
             >
               <Grid
@@ -265,20 +263,21 @@ const StatisticsBar = memo(() => {
                 direction="row"
                 alignItems="center"
                 justify="center"
-                selected={selected}
                 className={classes.searchContainer}
+                selected={selected}
               >
                 <Grid item sm={9} md={8}>
                   <SearchInput classes={classes} />
                 </Grid>
-                <Grid item xs={1} md={1}>
+                <Grid item xs={1} md={1} selected={selected}>
                   <Button
+                    selected={selected}
                     variant="contained"
                     color="secondary"
                     className={classes.submit}
-                    onClick={(e) => {
-                      onSubmitHandler(e, selected);
-                    }}
+                    onClick={(e) =>
+                      onSubmitHandler(e, selected, area, isDeptSent)
+                    }
                   >
                     검색
                   </Button>
