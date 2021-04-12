@@ -137,30 +137,36 @@ const StatisticsBar = memo(() => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
 
-  const { area, selected, isDeptSent } = useSelector(
+  const { area, selected, isDeptSent, isEmpSent } = useSelector(
     (state) => ({
       selected: state.statBar.selected,
       area: state.statBar.area,
       isDeptSent: state.statBar.isDeptSent,
+      isEmpSent: state.statBar.isEmpSent,
     }),
     shallowEqual
   );
 
   const classes = useStyles({ theme, selected });
 
-  const onSubmitHandler = (e, selected, area, isDeptSent) => {
+  const getBarData = (isSent) => {
+    if (isSent) return;
+    return dispatch(getStatAPI(selected));
+  };
+
+  const onSubmitHandler = (e, selected, area, isDeptSent, isEmpSent) => {
     e.preventDefault();
 
-    if (!selected || !area) return window.alert("검색어를 입력하세요");
+    if (!selected) return window.alert("검색어를 입력하세요");
     switch (selected.type) {
-      case "emp" || "dept":
-        if (isDeptSent) return;
-        return dispatch(getStatAPI(selected));
+      case "emp":
+        return getBarData(isEmpSent);
+      case "dept":
+        return getBarData(isDeptSent);
       case "area":
         return dispatch(getStatAPI(area));
       default:
-        window.alert("검색어를 입력하세요");
-        return;
+        return window.alert("검색어를 입력하세요");
     }
   };
 
@@ -254,7 +260,7 @@ const StatisticsBar = memo(() => {
             <Typography className={classes.title}>Employee Mark</Typography>
             <form
               onSubmit={(e) => {
-                onSubmitHandler(e, selected, area, isDeptSent);
+                onSubmitHandler(e, selected, area, isDeptSent, isEmpSent);
               }}
             >
               <Grid
@@ -275,7 +281,7 @@ const StatisticsBar = memo(() => {
                     color="secondary"
                     className={classes.submit}
                     onClick={(e) =>
-                      onSubmitHandler(e, selected, area, isDeptSent)
+                      onSubmitHandler(e, selected, area, isDeptSent, isEmpSent)
                     }
                   >
                     검색

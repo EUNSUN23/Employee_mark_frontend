@@ -5,7 +5,7 @@ const initState = {
   area: null,
   selected: null,
   isDeptSent: false,
-  isAreaSent: false,
+  isEmpSent: false,
 };
 
 const reducer = (state = initState, action) => {
@@ -13,7 +13,6 @@ const reducer = (state = initState, action) => {
     case actionTypes.STAT_BAR_DETAIL:
       return setDetail(state, action.detail);
     case actionTypes.STAT_BAR_AREA:
-      console.log("setArea", action.area);
       return setArea(state, action.area);
     case actionTypes.STAT_BAR_SELECT:
       return setSelected(state, action.selected);
@@ -21,8 +20,8 @@ const reducer = (state = initState, action) => {
       return { ...state, area: null };
     case actionTypes.STAT_DEPT_SENT:
       return { ...state, isDeptSent: true };
-    case actionTypes.STAT_AREA_SENT:
-      return { ...state, isAreaSent: true };
+    case actionTypes.STAT_EMP_SENT:
+      return { ...state, isEmpSent: true };
     default:
       return state;
   }

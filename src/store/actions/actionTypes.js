@@ -27,7 +27,7 @@ export const STAT_BAR_AREA = "STAT_BAR_AREA";
 export const STAT_BAR_SELECT = "STAT_BAR_SELECT";
 export const STAT_INIT_AREA = "STAT_INIT_AREA";
 export const STAT_DEPT_SENT = "STAT_DEPT_SENT";
-export const STAT_AREA_SENT = "STAT_AREA_SENT";
+export const STAT_EMP_SENT = "STAT_EMP_SENT";
 
 export const STAT_FETCH_START = "STAT_FETCH_START";
 export const STAT_FETCH_FAIL = "STAT_FETCH_FAIL";

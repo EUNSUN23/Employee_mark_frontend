@@ -17,8 +17,6 @@ export const initArea = () => {
 };
 
 export const setDataSent = (type) => {
-  if (type === "dept" || type === "emp")
-    return { type: actionTypes.STAT_DEPT_SENT };
-  if (type === "below" || type === "above")
-    return { type: actionTypes.STAT_AREA_SENT };
+  if (type === "dept") return { type: actionTypes.STAT_DEPT_SENT };
+  if (type === "emp") return { type: actionTypes.STAT_EMP_SENT };
 };
