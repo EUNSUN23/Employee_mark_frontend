@@ -14,7 +14,11 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1.3vw",
       width: "5vw",
     },
+    [theme.breakpoints.down("sm")]: {
+      marginWidth: "3vw",
+    },
     [theme.breakpoints.up("md")]: {
+      minWidth: "5vw",
       marginLeft: "6%",
     },
   },

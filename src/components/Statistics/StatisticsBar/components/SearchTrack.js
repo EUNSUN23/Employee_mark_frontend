@@ -41,10 +41,13 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateY(-50%)",
     display: "block",
     color: "#fff",
-    fontSize: "2.5vw",
+    fontSize: "1.2vw",
     width: "7vw",
     [theme.breakpoints.up("md")]: {
       display: "none",
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2.5vw",
     },
   },
   label: {
@@ -54,10 +57,15 @@ const useStyles = makeStyles((theme) => ({
   backBtn: {
     position: "absolute",
     right: "-25%",
+    [theme.breakpoints.down("sm")]: {
+      right: "-50%",
+      width: "15vw",
+      fontSize: "1vw",
+    },
     width: "11vw",
     height: "5vh",
     [theme.breakpoints.up("md")]: {
-      right: "-8%",
+      right: "-10%",
       width: "9vw",
       height: "6vh",
     },
@@ -267,7 +275,7 @@ const SearchTrack = () => {
               }}
             />
           </Grid>
-          <Grid item xs={3} sm={2}>
+          <Grid item xs={1} sm={2}>
             <RangeSelector
               range={range}
               handleRangeChange={handleRangeChange}

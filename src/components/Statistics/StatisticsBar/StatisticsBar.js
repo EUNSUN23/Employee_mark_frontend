@@ -99,7 +99,15 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     color: "white",
     fontSize: "1.3vw",
-    width: "5vw",
+    minWidth: "6vw",
+    [theme.breakpoints.down("sm")]: {
+      position: "absolute",
+      left: "45vw",
+      top: "50%",
+      transform: "translateY(-50%)",
+      fontSize: "1.3vw",
+      minWidth: "4vw",
+    },
   },
 
   sectionDesktop: {
@@ -263,7 +271,7 @@ const StatisticsBar = memo(() => {
                 <Grid item sm={9} md={8}>
                   <SearchInput classes={classes} />
                 </Grid>
-                <Grid item sm={1} md={1}>
+                <Grid item xs={1} md={1}>
                   <Button
                     variant="contained"
                     color="secondary"
