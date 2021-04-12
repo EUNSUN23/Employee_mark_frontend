@@ -37,8 +37,6 @@ export const getStatAPI = (data) => {
       url = `http://localhost:3008/api/stat/distribution/above/${data.salary}`;
     }
 
-    console.log("URL", url);
-
     try {
       dispatch(fetchStart());
       res = await axios.get(url);

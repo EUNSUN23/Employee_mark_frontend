@@ -5,7 +5,6 @@ const PieLabel = styled.span`
   font-size: 11px;
   font-weight: bold;
   color: ${(props) => props.color};
-  //   border: 1px solid black;
 `;
 
 const CustomizedPieLabel = (props) => {

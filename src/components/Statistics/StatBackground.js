@@ -40,12 +40,8 @@ const StatBackground = () => {
       <Svg name="Statistics" component="div" />
       <ul>
         <li>
-          연봉 범위를 <strong>직접 설정</strong>하려면{" "}
-          <strong>'기준-급여'</strong> 카테고리를,
-        </li>
-        <li>
-          만(10,000)단위 연봉 분포도를 조회하려면 <strong>'기준-조직'</strong>{" "}
-          카테고리를 선택하세요
+          <strong>TIP)</strong> <strong>'상세 연봉별 부서순위'</strong>를 통해서
+          상세 연봉에 따른 부서 순위를 조회할 수 있습니다.
         </li>
       </ul>
     </Container>
