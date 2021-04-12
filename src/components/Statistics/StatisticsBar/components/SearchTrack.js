@@ -7,21 +7,64 @@ import Input from "@material-ui/core/Input";
 import RangeSelector from "./RangeSelector";
 import { setArea, initArea } from "../../../../store/actions/statBar";
 import { initDist } from "../../../../store/actions/statPage";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 320,
-    transform: "translateY(5%)",
+  container: {
+    position: "absolute",
+    top: "50%",
+    left: 0,
+    transform: "translateY(-50%)",
+    height: "7vh",
+    width: "50vw",
+    display: "flex",
+  },
+  track: {
+    width: "30vw",
   },
   input: {
-    width: 70,
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    width: "10vw",
+    fontSize: "2vw",
+    [theme.breakpoints.up("md")]: {
+      width: "6.5vw",
+      fontSize: "1.4vw",
+    },
     color: "white",
-    fontSize: 15,
-    paddingLeft: 5,
+  },
+  inputLabel: {
+    position: "absolute",
+    left: "10%",
+    top: "50%",
+    transform: "translateY(-50%)",
+    display: "block",
+    color: "#fff",
+    fontSize: "2.5vw",
+    width: "7vw",
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
   },
   label: {
-    fontSize: 12,
+    fontSize: "1.1vw",
     color: "#222",
+  },
+  backBtn: {
+    position: "absolute",
+    right: "-25%",
+    width: "11vw",
+    height: "5vh",
+    [theme.breakpoints.up("md")]: {
+      right: "-8%",
+      width: "9vw",
+      height: "6vh",
+    },
+    top: "50%",
+    transform: "translateY(-50%)",
+    fontSize: "1.2vw",
+    color: "white",
   },
 }));
 
@@ -38,13 +81,22 @@ const SalarySlider = withStyles((theme) => ({
     color: "#6868ff",
     height: 2,
     padding: "15px 0",
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "block",
+    },
   },
   thumb: {
-    height: 15,
-    width: 15,
+    height: "15px",
+    width: "15px",
+    [theme.breakpoints.up("lg")]: {
+      height: "25px",
+      width: "25px",
+      marginTop: -10,
+    },
     backgroundColor: "#fff",
     boxShadow: BoxShadow,
-    marginTop: -8,
+    marginTop: -6,
     marginLeft: -8,
     "&:focus, &:hover, &$active": {
       boxShadow:
@@ -54,31 +106,29 @@ const SalarySlider = withStyles((theme) => ({
       },
     },
   },
-  active: {},
   track: {
-    height: 2,
+    height: "1vh",
   },
 
   trackInverted: {
-    height: 2,
+    height: "1vh",
     "& $rail": {
       backgroundColor: "#6868ff",
     },
   },
   rail: {
-    height: 2,
+    height: "1vh",
     opacity: 1,
     backgroundColor: fade(theme.palette.common.white, 0.5),
   },
   mark: {
     backgroundColor: "#bfbfbf",
-    height: 8,
+    height: "2vh",
     width: 1,
-    marginTop: -3,
+    marginTop: -4,
   },
   markActive: {
     opacity: 1,
-    // backgroundColor: "currentColor",
   },
 }))(Slider);
 
@@ -184,39 +234,50 @@ const SearchTrack = () => {
   const trackType = range === "above" ? "inverted" : true;
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={4} alignItems="center" justify="flex-start">
-        <Grid item xs={8}>
-          <SalarySlider
-            track={trackType}
-            value={typeof value === "number" ? value : 0}
-            onChange={handleSliderChange}
-            aria-labelledby="input-slider"
-            min={40000}
-            max={160000}
-            marks={marks}
-          />
+    <div className={classes.container}>
+      <div className={classes.track}>
+        <Grid container spacing={4} alignItems="center" justify="space-between">
+          <Grid item md={8}>
+            <SalarySlider
+              track={trackType}
+              value={typeof value === "number" ? value : 0}
+              onChange={handleSliderChange}
+              aria-labelledby="input-slider"
+              min={40000}
+              max={160000}
+              marks={marks}
+            />
+          </Grid>
+          <Grid item xs={1} sm={1}>
+            <label htmlFor="salaryInput" className={classes.inputLabel}>
+              연봉 :
+            </label>
+            <Input
+              id="salaryInput"
+              className={classes.input}
+              value={value}
+              margin="dense"
+              onChange={(e) => handleInputChange(e)}
+              onBlur={handleBlur}
+              inputProps={{
+                min: 40000,
+                max: 160000,
+                type: "number",
+                "aria-labelledby": "input-slider",
+              }}
+            />
+          </Grid>
+          <Grid item xs={3} sm={2}>
+            <RangeSelector
+              range={range}
+              handleRangeChange={handleRangeChange}
+            />
+          </Grid>
         </Grid>
-
-        <Grid item xs={2}>
-          <Input
-            className={classes.input}
-            value={value}
-            margin="dense"
-            onChange={(e) => handleInputChange(e)}
-            onBlur={handleBlur}
-            inputProps={{
-              min: 40000,
-              max: 160000,
-              type: "number",
-              "aria-labelledby": "input-slider",
-            }}
-          />
-        </Grid>
-        <Grid item xs={1}>
-          <RangeSelector range={range} handleRangeChange={handleRangeChange} />
-        </Grid>
-      </Grid>
+      </div>
+      <Button variant="contained" color="primary" className={classes.backBtn}>
+        돌아가기
+      </Button>
     </div>
   );
 };

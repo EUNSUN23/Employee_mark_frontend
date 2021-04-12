@@ -21,7 +21,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
   },
-
+  appBar: {
+    height: "14vh",
+    [theme.breakpoints.up("lg")]: {
+      height: "10vh",
+    },
+  },
   home: {
     cursor: "pointer",
     width: 80,
@@ -66,84 +71,37 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: "block",
-    fontSize: 23,
-
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "block",
+      fontSize: "2vw",
     },
   },
   link: {
     color: "white",
     textDecoration: "none",
+    fontSize: "1.5vw",
   },
   link_mobile: {
     color: "black",
     textDecoration: "none",
   },
   searchContainer: {
-    width: "100%",
-    [theme.breakpoints.only("sm")]: {
-      width: "150%",
-    },
-    [theme.breakpoints.only("xs")]: {
-      width: "110%",
+    position: "relative",
+    width: "100vw",
+    height: "14vh",
+    [theme.breakpoints.up("sm")]: {
+      width: (props) =>
+        props.selected && props.selected.type === "area" ? "70vw" : "48vw",
     },
   },
 
   submit: {
     color: "white",
-    fontSize: 14,
-    width: 65,
-    [theme.breakpoints.only("xs")]: {
-      minWidth: 40,
-      transform: "translateX(-100%)",
-    },
+    fontSize: "1.3vw",
+    width: "5vw",
   },
-  search_track: {
-    borderRadius: theme.shape.borderRadius,
 
-    width: "100%",
-    [theme.breakpoints.only("sm")]: {
-      width: "80%",
-    },
-    [theme.breakpoints.only("xs")]: {
-      width: "80%",
-    },
-  },
-  search_select: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-
-    width: "100%",
-    [theme.breakpoints.only("xs")]: {
-      width: "80%",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  trackRoot: {
-    color: "inherit",
-    width: "100%",
-  },
-  trackInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
@@ -215,7 +173,7 @@ const StatisticsBar = memo(() => {
     setHover(target);
   };
 
-  const changeBarType = (mode) => {
+  const changeLink = (mode) => {
     switch (mode) {
       case "desktop":
         return (
@@ -270,7 +228,7 @@ const StatisticsBar = memo(() => {
         </MenuItem>
       </Link>
       <Link to="/board" className={classes.link_mobile}>
-        <MenuItem>{changeBarType("mobile")}</MenuItem>
+        <MenuItem>{changeLink("mobile")}</MenuItem>
       </Link>
     </Menu>
   );
@@ -280,63 +238,47 @@ const StatisticsBar = memo(() => {
   }
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Grid
             container
             direction="row"
-            className={classes.toolbarContainer}
             alignItems="center"
-            justify="center"
+            justify="space-between"
           >
-            <Grid
-              item
-              xs={false}
-              sm={false}
-              md={2}
-              className={classes.titleContainer}
+            <Typography className={classes.title}>Employee Mark</Typography>
+            <form
+              onSubmit={(e) => {
+                onSubmitHandler(e, selected);
+              }}
             >
-              <Typography className={classes.title}>Employee Mark</Typography>
-            </Grid>
-            <Grid item xs={10} sm={8} md={7} className={classes.formContainer}>
-              <form
-                onSubmit={(e) => {
-                  onSubmitHandler(e, selected);
-                }}
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justify="center"
+                selected={selected}
+                className={classes.searchContainer}
               >
-                <Grid
-                  container
-                  direction="row"
-                  alignItems="center"
-                  justify="flex-end"
-                  className={classes.searchContainer}
-                  spacing={3}
-                >
-                  {/* <Grid item xs={1}>
-                    <SearchOption />
-                  </Grid> */}
-                  <Grid item container xs={10} sm={9} justify="center">
-                    <Grid item>
-                      <SearchInput classes={classes} />
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={1}>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      className={classes.submit}
-                      onClick={(e) => {
-                        onSubmitHandler(e, selected);
-                      }}
-                    >
-                      검색
-                    </Button>
-                  </Grid>
+                <Grid item sm={9} md={8}>
+                  <SearchInput classes={classes} />
                 </Grid>
-              </form>
-            </Grid>
-            <Grid item container xs={2} sm={2} md={3}>
-              <Grid item container className={classes.sectionDesktop}>
+                <Grid item sm={1} md={1}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.submit}
+                    onClick={(e) => {
+                      onSubmitHandler(e, selected);
+                    }}
+                  >
+                    검색
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+            <Grid container xs={2} sm={2} md={3}>
+              <Grid container className={classes.sectionDesktop}>
                 <Grid
                   item
                   container
@@ -387,7 +329,7 @@ const StatisticsBar = memo(() => {
                     onMouseEnter={() => setIndicator("statistics")}
                     onMouseLeave={() => setIndicator(null)}
                   >
-                    {changeBarType("desktop")}
+                    {changeLink("desktop")}
                   </Grid>
                 </Grid>
               </Grid>

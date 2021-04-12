@@ -7,15 +7,20 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     position: "absolute",
     top: "50%",
-    transform: "translate(50%,-50%)",
-    minWidth: 55,
-    minHeight: 30,
+    transform: "translateY(-50%)",
+    minWidth: "5vw",
+
     "& option": {
-      fontSize: 14,
+      fontSize: "1.3vw",
+      width: "5vw",
+    },
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "6%",
     },
   },
+
   selectInput: {
-    color: "#222",
+    color: "black",
   },
 }));
 

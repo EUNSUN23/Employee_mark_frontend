@@ -11,7 +11,7 @@ const SearchInput = memo((props) => {
     let searchInput;
     searchInput =
       selected && selected.type === "area" ? (
-        <SearchTrack className={classes.search_track} />
+        <SearchTrack />
       ) : (
         <SearchDetailOption className={classes.search_select} />
       );

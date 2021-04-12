@@ -14,8 +14,15 @@ const useStyles = makeStyles(() => ({
   title_container: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "30vw",
-    height: "35px",
+    width: "50vw",
+    [theme.breakpoints.up("md")]: {
+      width: "30vw",
+    },
+    height: "8vh",
+    [theme.breakpoints.up("lg")]: {
+      height: "4.5vh",
+      fontSize: "25px",
+    },
   },
   title_listItemIcon: {
     position: "absolute",
@@ -31,12 +38,21 @@ const useStyles = makeStyles(() => ({
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
     transition: theme.transitions.create("width"),
-    width: "30vw",
+    width: "50vw",
+    [theme.breakpoints.up("md")]: {
+      width: "30vw",
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "25px",
+    },
   },
   menu_container: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "30vw",
+    width: "50vw",
+    [theme.breakpoints.up("md")]: {
+      width: "30vw",
+    },
   },
 }));
 
@@ -64,8 +80,15 @@ const StyledMenuItem = withStyles((theme) => ({
   root: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "30vw",
-    height: "30px",
+    width: "50vw",
+    [theme.breakpoints.up("md")]: {
+      width: "30vw",
+    },
+    height: "8vh",
+    [theme.breakpoints.up("lg")]: {
+      height: "4.5vh",
+      fontSize: "25px",
+    },
     "&:focus": {
       backgroundColor: theme.palette.primary.main,
       "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
