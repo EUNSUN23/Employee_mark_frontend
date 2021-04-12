@@ -50,6 +50,7 @@ const Statistics = () => {
     aboveData,
     belowData
   ) => {
+    if (!selected) return <StatBackground />;
     switch (selected.type) {
       case "emp":
         return empData ? (
@@ -60,7 +61,9 @@ const Statistics = () => {
             </Grid>
             <Grid item xs={false} sm={1}></Grid>
           </Grid>
-        ) : null;
+        ) : (
+          <StatBackground />
+        );
       case "dept":
         return deptData ? (
           <Grid container>
@@ -68,11 +71,13 @@ const Statistics = () => {
               <DeptChart deptData={deptData} />
             </Grid>
           </Grid>
-        ) : null;
+        ) : (
+          <StatBackground />
+        );
       case "area":
-        if (!area) return null;
+        if (!area) return <StatBackground />;
         const data = area.type === "below" ? belowData : aboveData;
-        return (
+        return data ? (
           <Grid container>
             <Grid item xs={false} sm={1}></Grid>
             <Grid item xs={12} sm={10}>
@@ -80,7 +85,10 @@ const Statistics = () => {
             </Grid>
             <Grid item xs={false} sm={1}></Grid>
           </Grid>
+        ) : (
+          <StatBackground />
         );
+
       default:
         return <StatBackground />;
     }

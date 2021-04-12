@@ -5,7 +5,6 @@ export const setDetail = (detail) => {
 };
 
 export const setArea = (area) => {
-  console.log("setArea action", area);
   return { type: actionTypes.STAT_BAR_AREA, area: area };
 };
 

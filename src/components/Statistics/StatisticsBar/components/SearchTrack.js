@@ -8,6 +8,7 @@ import RangeSelector from "./RangeSelector";
 import { setArea, initArea } from "../../../../store/actions/statBar";
 import { initDist } from "../../../../store/actions/statPage";
 import Button from "@material-ui/core/Button";
+import { setSelected } from "../../../../store/actions/statBar";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -241,6 +242,10 @@ const SearchTrack = () => {
 
   const trackType = range === "above" ? "inverted" : true;
 
+  const onClickBackBtn = () => {
+    dispatch(setSelected(null));
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.track}>
@@ -283,7 +288,12 @@ const SearchTrack = () => {
           </Grid>
         </Grid>
       </div>
-      <Button variant="contained" color="primary" className={classes.backBtn}>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.backBtn}
+        onClick={() => onClickBackBtn()}
+      >
         돌아가기
       </Button>
     </div>

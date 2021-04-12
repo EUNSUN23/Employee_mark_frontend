@@ -92,8 +92,7 @@ const useStyles = makeStyles({
     width: "100vw",
     height: "14vh",
     [theme.breakpoints.up("sm")]: {
-      width: (props) =>
-        props.selected && props.selected.type === "area" ? "70vw" : "48vw",
+      width: "48vw",
     },
   },
 
