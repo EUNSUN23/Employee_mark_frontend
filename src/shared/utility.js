@@ -1,4 +1,4 @@
-// <-- board -->
+// <-- searchEmp -->
 
 export const updateObject = (oldObject, updatedProperties) => {
   return {
@@ -40,12 +40,11 @@ export const setEmployeeData = (state, data, intersecting) => {
 
     loading = "loading";
   }
-  console.log("loading", loading);
+
   updatedObj = {
     employeeData: updatedData,
     [loading]: false,
   };
-  console.log("updatedObject", updateObject(state, updatedObj));
 
   return updateObject(state, updatedObj);
 };
@@ -250,7 +249,6 @@ export const setStatData = (state, data, isLoading, type) => {
       return updateObject(state, updatedData);
     case "dept":
       const deptData = arrangeStack(data);
-      console.log("deptData", deptData);
       updatedData = { deptData: deptData, loading: isLoading };
       return updateObject(state, updatedData);
     case "below":
@@ -271,7 +269,6 @@ export const setStatData = (state, data, isLoading, type) => {
 // <------------------ STACK CHART ----------------------->
 
 export const setChartColor = (chartName, highlight) => {
-  // console.log(chartName);
   let chartColor;
   if (highlight) return "#E20830";
   switch (chartName) {

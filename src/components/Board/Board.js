@@ -7,21 +7,11 @@ import ScrollToTop from "../UI/ScrollToTop";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import { initError } from "../../store/actions/searchEmp";
+import MainLoader from "../UI/MainLoader";
 
 const Board = () => {
   const dispatch = useDispatch();
   const [scrollToTop, setScrollToTop] = useState(null);
-
-  const viewport = useRef(null);
-  const isLoading = useSelector(
-    (state) => state.searchEmp.loading,
-    shallowEqual
-  );
-  const message = useSelector((state) => state.searchEmp.errorMs);
-  const open = useSelector((state) => state.searchEmp.errorMs !== null);
-  const handleClose = () => {
-    dispatch(initError());
-  };
 
   const handleScroll = (e) => {
     const scrollTop = ("scroll", e.srcElement.scrollingElement.scrollTop);
@@ -38,12 +28,28 @@ const Board = () => {
     };
   }, [scrollToTop]);
 
+  const viewport = useRef(null);
+
+  const { isLoading, message, open, categoryObj } = useSelector(
+    (state) => ({
+      isLoading: state.searchEmp.loading,
+      message: state.searchEmp.errorMs,
+      open: state.searchEmp.errorMs !== null,
+      categoryObj: state.searchBar.category,
+    }),
+    shallowEqual
+  );
+
+  const handleClose = () => {
+    dispatch(initError());
+  };
+
   const handleOnScrollBtn = useCallback(() => {
     setScrollToTop(false);
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
-  const board = isLoading ? (
+  const content = isLoading ? (
     <Loader size="large" />
   ) : (
     <Grid container direction="column" spacing={10}>
@@ -64,12 +70,16 @@ const Board = () => {
     </Grid>
   );
 
-  return (
+  const board = categoryObj ? (
     <>
       <SearchBar />
-      {board}
+      {content}
     </>
+  ) : (
+    <MainLoader />
   );
+
+  return board;
 };
 
 export default Board;

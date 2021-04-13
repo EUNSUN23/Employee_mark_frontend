@@ -8,7 +8,8 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Loader from "../../../../UI/Loader";
-import SalaryHistory from "../../../../Graph/SalaryHistory/SalaryHistory";
+import SalaryHistory from "../../../Graph/History/SalaryHistory";
+import TransferHistory from "../../../Graph/History/TransferHistory";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -50,10 +51,12 @@ const useStyles = makeStyles(() => ({
       border: "none",
     },
   },
+
+  history: {},
 }));
 
 const History = memo((props) => {
-  const [historyType, setHistoryType] = useState();
+  const [historyType, setHistoryType] = useState("dept");
 
   const btnClasses = useStyles(); //버튼
   const { data, isLoading, expanded, onChangeAccordion, classes } = props;
@@ -62,14 +65,15 @@ const History = memo((props) => {
     setHistoryType(type);
   };
 
-  const trackType = historyType ? historyType : "salary";
-
-  const historyContent =
-    isLoading || !data ? (
-      <Loader size="small" />
+  const makeHistoryContent = (isLoading, data, historyType) => {
+    if (isLoading || !data) return <Loader size="small" />;
+    return historyType === "dept" ? (
+      <TransferHistory data={data.dept} />
     ) : (
-      <SalaryHistory data={data.salary[0]} />
+      <SalaryHistory data={data.salary} />
     );
+  };
+
   return (
     <>
       <Accordion
@@ -99,7 +103,7 @@ const History = memo((props) => {
                 <div className={btnClasses.wrapper}>
                   <Button
                     className={
-                      historyType === null || historyType === "dept"
+                      historyType === "dept"
                         ? btnClasses.clicked
                         : btnClasses.unClicked
                     }
@@ -129,8 +133,8 @@ const History = memo((props) => {
                   </Button>
                 </div>
               </Grid>
-              <Grid item className={classes.track}>
-                {historyContent}
+              <Grid item className={classes.history}>
+                {makeHistoryContent(isLoading, data, historyType)}
               </Grid>
             </Grid>
           </AccordionDetails>

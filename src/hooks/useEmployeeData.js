@@ -6,8 +6,6 @@ const useEmployeeData = () => {
   const [dataType, setDataType] = useState(null);
   const [data, setData] = useState();
 
-  // /api/emp/history/:emp_no 부서이동 및 연봉변동
-
   const getApiData = async (panel, type, emp_no, dept_name, title) => {
     let url;
     let result;
@@ -22,16 +20,17 @@ const useEmployeeData = () => {
     try {
       setIsLoading(true);
       const res = await axios.get(url);
-      console.log(res.data.packet);
       result = res.data.packet;
+      console.log(res);
     } catch (err) {
       setIsLoading(false);
       console.log(err);
     }
     if (result) {
       if (panel === "history") {
-        const dept_transfer = result[0];
-        const dept_history = result.splice(1, dept_transfer);
+        console.log("history result", result);
+        const transfer = result[0];
+        const dept_history = result.splice(1, transfer);
         const salary_history = result.slice(1);
         const historyResult = { dept: dept_history, salary: salary_history };
         console.log("History___Result", historyResult);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { setOptVal } from "../../../store/actions/searchBar";
 import { deleteKeyword } from "../../../store/actions/keywords";
@@ -96,10 +96,16 @@ const SearchDetail = () => {
   const [category, setCategory] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const categoryObj = useSelector((state) => state.searchBar.category);
-  const option = useSelector((state) => state.searchBar.option);
-  const optionVal = useSelector((state) => state.searchBar.optionVal);
-  const keywords = useSelector((state) => state.keywords.keywords);
+
+  const { categoryObj, option, optionVal, keywords } = useSelector(
+    (state) => ({
+      categoryObj: state.searchBar.category,
+      option: state.searchBar.option,
+      optionVal: state.searchBar.optionVal,
+      keywords: state.keywords.keywords,
+    }),
+    shallowEqual
+  );
 
   useEffect(() => {
     switch (option) {
