@@ -8,7 +8,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: auto;
-  width: 100%;
+  width: 90%;
   height: 60%;
   margin: 0 auto;
 `;
@@ -19,14 +19,32 @@ const Entire = styled.div`
 
 const Dept = styled.div`
   border: 1px solid red;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gird-template-rows: auto;
 `;
 
 const Title = styled.div`
   border: 1px solid green;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gird-template-rows: auto;
+`;
+
+const Badge = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  border: 1px solid black;
+  span {
+    font-size: 12px;
+    text-align: center;
+  }
 `;
 
 const RankCard = (props) => {
-  const { data, type } = props;
+  const { data } = props;
   const { dept_name, title } = useSelector(
     (state) => ({
       dept_name: state.searchEmp.openedEmp.dept_name,
@@ -35,28 +53,6 @@ const RankCard = (props) => {
     shallowEqual
   );
 
-  // const createRanks = (data, type) => {
-  //   const rankContents = Object.keys(data).map((key, idx) => {
-  //     return (
-  //       <Grid item className={classes.rank} key={type + "_" + key} xs={4}>
-  //         <Typography variant="h6" component="h2">
-  //           <div className={`${classes.rank} title`}>
-  //             <span>{data[key]}위</span>
-  //           </div>
-  //         </Typography>
-  //       </Grid>
-  //     );
-  //   });
-  //   console.log(rankContents);
-  //   return rankContents;
-  // };
-
-  // dept: 31438
-  // entire: 116860
-  // title: 55328
-
-  console.log("rank", data, type);
-
   return (
     <Container>
       <Entire>
@@ -64,11 +60,17 @@ const RankCard = (props) => {
         <span>{`${data.entire}위`}</span>
       </Entire>
       <Dept>
-        <Svg name={dept_name} component="span" />
+        <Badge>
+          <Svg name={dept_name} component="div" />
+          <span>{dept_name}</span>
+        </Badge>
         <span className="rank">{`${data.dept}위`}</span>
       </Dept>
       <Title>
-        <Svg name={title} component="span" />
+        <Badge>
+          <Svg name={title} component="div" />
+          <span>{title}</span>
+        </Badge>
         <span className="rank">{`${data.title}위`}</span>
       </Title>
     </Container>

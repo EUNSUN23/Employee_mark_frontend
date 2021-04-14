@@ -12,7 +12,6 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(() => ({
   wrapper: {
-    border: "1px solid black",
     display: "flex",
     flexDirection: "row",
   },
