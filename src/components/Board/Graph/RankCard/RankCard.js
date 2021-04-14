@@ -14,13 +14,15 @@ const Container = styled.div`
 
 const RankItem = styled.div`
   display: grid;
-
-  justify-items: space-evenly;
-  grid-template-rows: 2fr 1fr;
+  justify-items: center;
+  grid-template-rows: 2fr 2fr 1fr;
   grid-template-columns: auto;
   .rank {
     font-weight: bold;
     font-size: 16px;
+  }
+  .dots {
+    color: #4caf50;
   }
 `;
 
@@ -60,13 +62,20 @@ const RankCard = (props) => {
           <Svg name="Entire" component="div" />
           <span>전체</span>
         </Badge>
+        <div className="dots">
+          <Svg name="VerticalDots" component="div" fontSize="large" />
+        </div>
         <span className="rank">{`${data.entire}위`}</span>
       </Entire>
       <Dept>
         <Badge>
           <Svg name={dept_name} component="div" />
+
           <span>{dept_name}</span>
         </Badge>
+        <div className="dots">
+          <Svg name="VerticalDots" component="div" fontSize="large" />
+        </div>
         <span className="rank">{`${data.dept}위`}</span>
       </Dept>
       <Title>
@@ -74,6 +83,9 @@ const RankCard = (props) => {
           <Svg name={title} component="div" />
           <span>{title}</span>
         </Badge>
+        <div className="dots">
+          <Svg name="VerticalDots" component="div" fontSize="large" />
+        </div>
         <span className="rank">{`${data.title}위`}</span>
       </Title>
     </Container>
