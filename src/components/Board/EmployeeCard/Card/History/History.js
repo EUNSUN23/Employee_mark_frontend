@@ -133,9 +133,8 @@ const History = memo((props) => {
                   </Button>
                 </div>
               </Grid>
-              <Grid item className={classes.history}>
-                {makeHistoryContent(isLoading, data, historyType)}
-              </Grid>
+
+              {makeHistoryContent(isLoading, data, historyType)}
             </Grid>
           </AccordionDetails>
         )}

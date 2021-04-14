@@ -1,11 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Svg from "../../../../shared/svgIcons";
-
-// dept_name: "Development"
-// emp_no: 10001
-// from_date: "1986-06-25T15:00:00.000Z"
-// to_date: "present"
 
 const Container = styled.div`
   border: 1px solid #bebebe;

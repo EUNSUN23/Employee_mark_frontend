@@ -10,15 +10,19 @@ const Dot = styled.div`
   background-color: ${(props) => (props.active ? `${props.fill}` : `#fff`)};
 `;
 
-const Date = styled.div`
+const Label = styled.div`
   position: absolute;
   display: ${(props) => (props.active ? "block" : "none")};
-  width: 20px;
-  height: 20px;
-  padding: 0 10px;
-  left: -50%;
-  font-size: 12px;
-  border: 1px solid black;
+  width: 50px;
+  height: 30px;
+  top: 9%;
+  left: 0%;
+  font-size: 10px;
+  text-align: center;
+  div {
+    font-size: 11px;
+    font-weight: bold;
+  }
 `;
 
 const CustomDot = (props) => {
@@ -27,17 +31,17 @@ const CustomDot = (props) => {
 
   const active = index === activeIdx;
 
-  console.log("dot", props);
-
   const XPoint = active ? cx - 4 : cx - 3;
   const YPoint = active ? cy - 4 : cy - 3;
 
-  console.log("active?", active, index);
-
   return (
     <>
-      <foreignObject x={XPoint} y={YPoint} width="50" height="30">
-        <Date active={active}>{date}</Date>
+      <foreignObject x={XPoint} y={YPoint} width="100" height="100">
+        <Label active={active}>
+          <div>{salary}</div>
+          {date}
+        </Label>
+
         <Dot
           xmlns="http://www.w3.org/1999/xhtml"
           fill={stroke}
