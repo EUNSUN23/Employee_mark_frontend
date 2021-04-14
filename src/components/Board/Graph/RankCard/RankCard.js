@@ -4,39 +4,39 @@ import styled from "styled-components";
 import Svg from "../../../../shared/svgIcons";
 
 const Container = styled.div`
-  border: 1px solid black;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-columns: auto;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   width: 90%;
-  height: 60%;
   margin: 0 auto;
+  text-align: center;
 `;
 
-const Entire = styled.div`
-  border: 1px solid blue;
-`;
-
-const Dept = styled.div`
-  border: 1px solid red;
+const RankItem = styled.div`
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  gird-template-rows: auto;
+
+  justify-items: space-evenly;
+  grid-template-rows: 2fr 1fr;
+  grid-template-columns: auto;
+  .rank {
+    font-weight: bold;
+    font-size: 16px;
+  }
 `;
 
-const Title = styled.div`
-  border: 1px solid green;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  gird-template-rows: auto;
-`;
+const Entire = styled(RankItem)``;
+
+const Dept = styled(RankItem)``;
+
+const Title = styled(RankItem)``;
 
 const Badge = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: 1fr;
+  grid-template-rows: 2fr 1fr;
   justify-items: center;
-  border: 1px solid black;
+
   span {
     font-size: 12px;
     text-align: center;
@@ -56,8 +56,11 @@ const RankCard = (props) => {
   return (
     <Container>
       <Entire>
-        <span className="rank">전체</span>
-        <span>{`${data.entire}위`}</span>
+        <Badge>
+          <Svg name="Entire" component="div" />
+          <span>전체</span>
+        </Badge>
+        <span className="rank">{`${data.entire}위`}</span>
       </Entire>
       <Dept>
         <Badge>

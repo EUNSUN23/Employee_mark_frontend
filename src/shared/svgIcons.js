@@ -1535,6 +1535,60 @@ const Entire = ({ fontSize, component }) => {
   );
 };
 
+const VerticalDots = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg
+        width="24px"
+        height="24px"
+        viewBox="0 0 24 24"
+        id="three-dots"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          id="_20x20_three-dots--grey"
+          data-name="20x20/three-dots--grey"
+          transform="translate(24) rotate(90)"
+        >
+          <rect id="Rectangle" width="24" height="24" fill="none" />
+          <circle
+            id="Oval"
+            cx="1"
+            cy="1"
+            r="1"
+            transform="translate(5 11)"
+            stroke="#000"
+            stroke-miterlimit="10"
+            stroke-width="0.5"
+          />
+          <circle
+            id="Oval-2"
+            data-name="Oval"
+            cx="1"
+            cy="1"
+            r="1"
+            transform="translate(11 11)"
+            stroke="#000"
+            stroke-miterlimit="10"
+            stroke-width="0.5"
+          />
+          <circle
+            id="Oval-3"
+            data-name="Oval"
+            cx="1"
+            cy="1"
+            r="1"
+            transform="translate(17 11)"
+            stroke="#000"
+            stroke-miterlimit="10"
+            stroke-width="0.5"
+          />
+        </g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
 const Svg = ({ name, fontSize, component }) => {
   const makeIcon = (name, fontSize, component) => {
     const size = fontSize ? fontSize : "default";
@@ -1586,6 +1640,8 @@ const Svg = ({ name, fontSize, component }) => {
         return <Statistics fontSize={size} component={element} />;
       case "Entire":
         return <Entire fontSize={size} component={element} />;
+      case "VerticalDots":
+        return <VerticalDots fontSize={size} component={element} />;
       default:
         return;
     }
