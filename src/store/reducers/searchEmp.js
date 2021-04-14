@@ -4,6 +4,7 @@ import {
   fetchFail,
   addPage,
   initBoard,
+  setOpenedEmp,
 } from "../../shared/utility";
 
 const initState = {
@@ -13,6 +14,7 @@ const initState = {
   nextLoading: false,
   errorMs: null,
   page: 1,
+  openedEmp: null,
 };
 
 const reducer = (state = initState, action) => {
@@ -33,7 +35,8 @@ const reducer = (state = initState, action) => {
     case actionTypes.EMP_LEFT_ERROR:
       const updatedErr = { errorMs: action.message };
       return { ...state, ...updatedErr };
-
+    case actionTypes.EMP_SET_OPENED:
+      return setOpenedEmp(state, action.info);
     default:
       return state;
   }

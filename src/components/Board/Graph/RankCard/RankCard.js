@@ -1,71 +1,77 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { shallowEqual, useSelector } from "react-redux";
+import styled from "styled-components";
+import Svg from "../../../../shared/svgIcons";
 
-const useStyles = makeStyles(() => ({
-  rankWrapper: {
-    marginLeft: 23,
-    marginTop: 20,
-    // border: "1px solid red",
-  },
-  loaderWrapper: {
-    border: "1px solid black",
-    margin: "0 auto",
-  },
-  rank: {
-    position: "relative",
-    // margin: "0 auto",
-    width: 150,
-    "& .title": {
-      fontSize: 13,
-      // border: "1px solid blue",
-      width: 60,
-      "& span": {
-        position: "absolute",
-        marginLeft: 2,
-        width: 25,
-        height: 25,
-        backgroundColor: "#e7e7e7",
-        borderRadius: "100%",
-        textAlign: "center",
-        padding: 5,
-        top: "50%",
-        transform: "translateY(-50%)",
-        fontSize: 15,
-        fontWeight: "bold",
-        color: "#222",
-      },
-    },
-  },
-}));
+const Container = styled.div`
+  border: 1px solid black;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: auto;
+  width: 100%;
+  height: 60%;
+  margin: 0 auto;
+`;
 
-const rankTitle = ["부서", "전사", "직계"];
+const Entire = styled.div`
+  border: 1px solid blue;
+`;
+
+const Dept = styled.div`
+  border: 1px solid red;
+`;
+
+const Title = styled.div`
+  border: 1px solid green;
+`;
+
 const RankCard = (props) => {
-  const classes = useStyles();
   const { data, type } = props;
+  const { dept_name, title } = useSelector(
+    (state) => ({
+      dept_name: state.searchEmp.openedEmp.dept_name,
+      title: state.searchEmp.openedEmp.title,
+    }),
+    shallowEqual
+  );
 
-  const createRanks = (data, type) => {
-    const rankContents = Object.keys(data).map((key, idx) => {
-      return (
-        <Grid item className={classes.rank} key={type + "_" + key} xs={4}>
-          <Typography variant="h6" component="h2">
-            <div className={`${classes.rank} title`}>
-              {rankTitle[idx]}
-              <span>{data[key]}위</span>
-            </div>
-          </Typography>
-        </Grid>
-      );
-    });
-    console.log(rankContents);
-    return rankContents;
-  };
+  // const createRanks = (data, type) => {
+  //   const rankContents = Object.keys(data).map((key, idx) => {
+  //     return (
+  //       <Grid item className={classes.rank} key={type + "_" + key} xs={4}>
+  //         <Typography variant="h6" component="h2">
+  //           <div className={`${classes.rank} title`}>
+  //             <span>{data[key]}위</span>
+  //           </div>
+  //         </Typography>
+  //       </Grid>
+  //     );
+  //   });
+  //   console.log(rankContents);
+  //   return rankContents;
+  // };
+
+  // dept: 31438
+  // entire: 116860
+  // title: 55328
+
+  console.log("rank", data, type);
 
   return (
-    <Grid container direction="row" className={classes.rankWrapper}>
-      {createRanks(data, type)}
-    </Grid>
+    <Container>
+      <Entire>
+        <span className="rank">전체</span>
+        <span>{`${data.entire}위`}</span>
+      </Entire>
+      <Dept>
+        <Svg name={dept_name} component="span" />
+        <span className="rank">{`${data.dept}위`}</span>
+      </Dept>
+      <Title>
+        <Svg name={title} component="span" />
+        <span className="rank">{`${data.title}위`}</span>
+      </Title>
+    </Container>
   );
 };
 

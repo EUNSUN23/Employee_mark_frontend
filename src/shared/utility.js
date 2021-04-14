@@ -62,6 +62,16 @@ export const isValid = (data) => {
   }
 };
 
+export const setOpenedEmp = (state, info) => {
+  const empInfo = {
+    emp_no: info.emp_no,
+    dept_name: info.dept_name,
+    title: info.title,
+  };
+  const updatedOpened = { openedEmp: empInfo };
+  return updateObject(state, updatedOpened);
+};
+
 // <-- keywords -->
 
 export const saveCurrent = (data) => {

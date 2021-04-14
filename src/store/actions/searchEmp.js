@@ -70,3 +70,7 @@ export const initError = () => {
 export const leftError = (message) => {
   return { type: actionTypes.EMP_LEFT_ERROR, message: message };
 };
+
+export const setOpenedEmp = (info) => {
+  return { type: actionTypes.EMP_SET_OPENED, info: info };
+};

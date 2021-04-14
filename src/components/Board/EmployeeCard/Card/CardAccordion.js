@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import History from "./History/History";
 import useEmployeeData from "../../../../hooks/useEmployeeData";
 import Rank from "./Rank/Rank";
-import { leftError } from "../../../../store/actions/searchEmp";
+import { leftError, setOpenedEmp } from "../../../../store/actions/searchEmp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,22 +16,11 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: "100%",
     flexShrink: 0,
   },
-
   trackWrapper: {
     height: "230px",
   },
   rankCardWrapper: {
-    height: "130px",
-    marginTop: -20,
-    paddingLeft: 0,
-  },
-  track: {
-    transform: "translateY(-15%)",
-  },
-  rankName: {
-    marginLeft: 8,
-    fontSize: 13,
-    fontWeight: "bold",
+    height: "230px",
   },
 }));
 
@@ -46,6 +35,7 @@ const CardAccordion = memo((props) => {
   /*패널 클릭시 데이터 받아오기 */
   const onChangeAccordion = (panel) => (event, isExpanded) => {
     if (left) return dispatch(leftError("퇴사자입니다"));
+    dispatch(setOpenedEmp({ emp_no, dept_name, title }));
     if (isExpanded) {
       setExpanded(panel);
       switch (panel) {

@@ -2,9 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  border: 1px solid #bebebe;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 3px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 2px -1px;
   box-sizing: border-box;
-  width: 100%;
+  width: 90%;
+  margin: 0 auto;
   border-top: none;
 `;
 
@@ -19,10 +21,13 @@ const History = styled.div`
 
 const Title = styled.span`
   text-align: center;
-  background-color: #2196f3;
-  color: #fff;
+  background-color: #eeeeee;
+  color: #000;
+  font-weight: bold;
+  font-size: 12px;
   padding: 1% 0;
   border-right: 1px solid #fff;
+
   &.last-title {
     border: none;
   }

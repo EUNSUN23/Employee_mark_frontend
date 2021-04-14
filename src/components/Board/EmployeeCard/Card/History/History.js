@@ -51,8 +51,6 @@ const useStyles = makeStyles(() => ({
       border: "none",
     },
   },
-
-  history: {},
 }));
 
 const History = memo((props) => {
@@ -73,6 +71,12 @@ const History = memo((props) => {
       <SalaryHistory data={data.salary} />
     );
   };
+
+  const button_1 =
+    historyType === "dept" ? btnClasses.clicked : btnClasses.unClicked;
+
+  const button_2 =
+    historyType === "salary" ? btnClasses.clicked : btnClasses.unClicked;
 
   return (
     <>
@@ -102,11 +106,7 @@ const History = memo((props) => {
               <Grid item>
                 <div className={btnClasses.wrapper}>
                   <Button
-                    className={
-                      historyType === "dept"
-                        ? btnClasses.clicked
-                        : btnClasses.unClicked
-                    }
+                    className={button_1}
                     variant="outlined"
                     size="small"
                     color="primary"
@@ -116,11 +116,7 @@ const History = memo((props) => {
                     부서 변동
                   </Button>
                   <Button
-                    className={
-                      historyType === "salary"
-                        ? btnClasses.clicked
-                        : btnClasses.unClicked
-                    }
+                    className={button_2}
                     variant="outlined"
                     size="small"
                     color="primary"
@@ -133,7 +129,6 @@ const History = memo((props) => {
                   </Button>
                 </div>
               </Grid>
-
               {makeHistoryContent(isLoading, data, historyType)}
             </Grid>
           </AccordionDetails>

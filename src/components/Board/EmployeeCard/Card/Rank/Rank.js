@@ -11,7 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(() => ({
-  btnWrapper: {
+  wrapper: {
+    border: "1px solid black",
     display: "flex",
     flexDirection: "row",
   },
@@ -52,7 +53,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Rank = memo((props) => {
-  const rankClasses = useStyles(); //버튼
+  const btnClasses = useStyles(); //버튼
   const {
     expanded,
     onChangeAccordion,
@@ -71,38 +72,39 @@ const Rank = memo((props) => {
   );
 
   const button_1 =
-    type === null || type === "period"
-      ? rankClasses.clicked
-      : rankClasses.unClicked;
+    type === "period" ? btnClasses.clicked : btnClasses.unClicked;
 
   const button_2 =
-    type === "salary" ? rankClasses.clicked : rankClasses.unClicked;
-  const accordionSummary =
-    expanded === "panel2" ? classes.AccordionSummary_open : null;
+    type === "salary" ? btnClasses.clicked : btnClasses.unClicked;
 
   return (
-    <Accordion
-      square
-      expanded={expanded === "panel2"}
-      onChange={onChangeAccordion("panel2")}
-    >
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel6bh-content"
-        id="panel2bh-header"
-        className={accordionSummary}
+    <>
+      <Accordion
+        square
+        expanded={expanded === "panel2"}
+        onChange={onChangeAccordion("panel2")}
       >
-        <Typography className={classes.AccordionSummary_header}>
-          {" "}
-          종합 직원 랭킹
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel6bh-content"
+          id="panel2bh-header"
+        >
+          <Typography className={classes.AccordionSummary_header}>
+            종합 직원 랭킹
+          </Typography>
+        </AccordionSummary>
+
         {expanded !== "panel2" ? null : (
-          <AccordionDetails className={classes.rankCardWrapper}>
-            <Grid container item spacing={3} direction="column">
-              <Grid item className={classes.rankTypeBtn}>
-                <div className={rankClasses.btnWrapper}>
+          <AccordionDetails className={classes.AccordionDetails}>
+            <Grid
+              container
+              item
+              spacing={4}
+              direction="column"
+              className={classes.rankCardWrapper}
+            >
+              <Grid item>
+                <div className={btnClasses.wrapper}>
                   <Button
                     className={button_1}
                     variant="outlined"
@@ -141,12 +143,12 @@ const Rank = memo((props) => {
                   </Button>
                 </div>
               </Grid>
-              <Grid item>{rankCard}</Grid>
+              {rankCard}
             </Grid>
           </AccordionDetails>
         )}
-      </AccordionDetails>
-    </Accordion>
+      </Accordion>
+    </>
   );
 });
 
