@@ -8,6 +8,7 @@ const Dot = styled.div`
   border-radius: ${(props) => (props.active ? "6px" : "4px")};
   border: ${(props) => `1px solid ${props.fill}`};
   background-color: ${(props) => (props.active ? `${props.fill}` : `#fff`)};
+  cursor: pointer;
 `;
 
 const Label = styled.div`
@@ -41,7 +42,6 @@ const CustomDot = (props) => {
           <div>{salary}</div>
           {date}
         </Label>
-
         <Dot
           xmlns="http://www.w3.org/1999/xhtml"
           fill={stroke}

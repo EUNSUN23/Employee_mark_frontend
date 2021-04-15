@@ -2,8 +2,8 @@ import React, { memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
-import AnnouncementIcon from "@material-ui/icons/Announcement";
 import CardAccordion from "./Card/CardAccordion";
+import Svg from "../../../shared/svgIcons";
 
 const useStyles = makeStyles(() => ({
   cardContainer: {
@@ -20,18 +20,21 @@ const useStyles = makeStyles(() => ({
   content: {
     margin: 0,
   },
-
+  avatar: {
+    backgroundColor: "beige",
+    width: "40px",
+    height: "40px",
+  },
   info: {
     position: "relative",
   },
   left: {
-    backgroundColor: "#e6e6e6",
-    color: "grey",
+    backgroundColor: "transparent",
+    color: "#f71409",
   },
-
   stay: {
-    backgroundColor: "skyblue",
-    color: " #0288D1",
+    backgroundColor: "transparent",
+    color: "#1679f1",
   },
   name: {
     width: 200,
@@ -41,8 +44,56 @@ const useStyles = makeStyles(() => ({
   subHeader: {
     paddingTop: 30,
   },
-  more: {
+  award: {
+    position: "relative",
+    width: "100px",
+    height: "50px",
     color: "red",
+
+    "& div": {
+      position: "absolute",
+      paddingLeft: "3px",
+      marginTop: "-1px",
+      "&::before": {
+        // border: "1px solid green",
+        position: "absolute",
+        top: "0%",
+        left: "120%",
+        display: "block",
+        fontSize: "10px",
+        width: "90px",
+        height: "18px",
+        lineHeight: "18px",
+        content: '"임원급 연봉 수령자"',
+        padding: "2px 3px 0 3px",
+        boxShadow:
+          "rgba(0, 0, 0, 0.3) 2px 1px 2px 0px, rgba(0, 0, 0, 0.14) 1px 0px 0px 0px",
+        backgroundColor: "beige ",
+        color: "#000",
+        fontWeight: "bold",
+        // fontWeight: "bold",
+      },
+      "&::after": {
+        // border: "1px solid blue",
+        position: "absolute",
+        top: "-12%",
+        left: "104%",
+        display: "block",
+        width: "103px",
+        height: "28px",
+        content: '""',
+        backgroundColor: "#fff",
+        transformOrigin: "right",
+        transform: "scaleX(1)",
+        transition: "all 0.5s",
+      },
+      "&:hover": {
+        "&::after": {
+          transform: "scaleX(0)",
+          backgroundColor: "transparent",
+        },
+      },
+    },
   },
 }));
 
@@ -54,18 +105,31 @@ const EmployeeCard = memo((props) => {
   const subHeader = `${dept_name}, ${title}`;
   const name = `${first_name} ${last_name}`;
 
+  const profileIcon = left ? (
+    <div className={classes.left}>
+      <Svg name="LeftEmployees" fontSize="large" />
+    </div>
+  ) : (
+    <div className={classes.stay}>
+      <Svg name="Employees" fontSize="large" />
+    </div>
+  );
+
+  const moreInfo = more ? (
+    <span className={classes.award}>
+      <Svg name="Award" fontSize="small" component="div" />
+    </span>
+  ) : null;
+
   return (
     <div className={classes.cardContainer}>
       <CardHeader
         className={classes.cardHeader}
-        avatar={
-          <Avatar className={left ? classes.left : classes.stay}></Avatar>
-        }
+        avatar={<Avatar className={classes.avatar}>{profileIcon}</Avatar>}
         title={
           <span className={classes.info}>
             <span className={classes.name}>
-              {name}{" "}
-              {more ? <AnnouncementIcon className={classes.more} /> : null}
+              {name} {moreInfo}
             </span>
           </span>
         }

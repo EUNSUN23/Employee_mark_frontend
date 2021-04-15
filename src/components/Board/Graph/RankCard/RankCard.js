@@ -70,7 +70,6 @@ const RankCard = (props) => {
       <Dept>
         <Badge>
           <Svg name={dept_name} component="div" />
-
           <span>{dept_name}</span>
         </Badge>
         <div className="dots">

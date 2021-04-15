@@ -168,7 +168,7 @@ const Home = () => {
       <Header>Employee Mark</Header>
       <Employees>
         <Total>
-          <Svg name="TotalEmployees" fontSize={iconSize} component="div" />
+          <Svg name="Employees" fontSize={iconSize} component="div" />
           <h4>Total :</h4>
           <span>{total}명</span>
         </Total>
