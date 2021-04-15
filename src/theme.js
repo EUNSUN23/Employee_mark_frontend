@@ -4,6 +4,16 @@ import green from "@material-ui/core/colors/green";
 import grey from "@material-ui/core/colors/grey";
 
 const theme = createMuiTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 576,
+      md: 768,
+      lg: 992,
+      xl: 1200,
+    },
+  },
+
   palette: {
     primary: {
       main: blue[500],

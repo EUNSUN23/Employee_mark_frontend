@@ -4,8 +4,9 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import CardAccordion from "./Card/CardAccordion";
 import Svg from "../../../shared/svgIcons";
+import theme from "../../../theme";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   cardContainer: {
     borderRadius: "2px",
     boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
@@ -45,6 +46,7 @@ const useStyles = makeStyles(() => ({
     paddingTop: 30,
   },
   award: {
+    cursor: "pointer",
     position: "relative",
     width: "100px",
     height: "50px",
@@ -55,42 +57,34 @@ const useStyles = makeStyles(() => ({
       paddingLeft: "3px",
       marginTop: "-1px",
       "&::before": {
-        // border: "1px solid green",
         position: "absolute",
-        top: "0%",
-        left: "120%",
+        top: "-150%",
+        left: "-120%",
         display: "block",
-        fontSize: "10px",
-        width: "90px",
+        fontSize: "1%",
+        width: "12vw",
+        [theme.breakpoints.up("lg")]: {
+          width: "8vw",
+          top: "0%",
+          left: "120%",
+        },
         height: "18px",
         lineHeight: "18px",
         content: '"임원급 연봉 수령자"',
-        padding: "2px 3px 0 3px",
+        padding: "2px",
         boxShadow:
           "rgba(0, 0, 0, 0.3) 2px 1px 2px 0px, rgba(0, 0, 0, 0.14) 1px 0px 0px 0px",
         backgroundColor: "beige ",
         color: "#000",
         fontWeight: "bold",
-        // fontWeight: "bold",
-      },
-      "&::after": {
-        // border: "1px solid blue",
-        position: "absolute",
-        top: "-12%",
-        left: "104%",
-        display: "block",
-        width: "103px",
-        height: "28px",
-        content: '""',
-        backgroundColor: "#fff",
-        transformOrigin: "right",
-        transform: "scaleX(1)",
+
+        opacity: 0,
         transition: "all 0.5s",
       },
+
       "&:hover": {
-        "&::after": {
-          transform: "scaleX(0)",
-          backgroundColor: "transparent",
+        "&::before": {
+          opacity: 1,
         },
       },
     },
@@ -98,7 +92,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const EmployeeCard = memo((props) => {
-  const classes = useStyles();
+  const classes = useStyles(theme);
 
   const { emp_no, first_name, last_name, left, more, title, dept_name } = props;
 

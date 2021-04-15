@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
       width: "30vw",
     },
     height: "8vh",
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("xl")]: {
       height: "4.5vh",
       fontSize: "25px",
     },
@@ -42,7 +42,7 @@ const useStyles = makeStyles(() => ({
     [theme.breakpoints.up("md")]: {
       width: "30vw",
     },
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("xl")]: {
       fontSize: "25px",
     },
   },
@@ -85,7 +85,7 @@ const StyledMenuItem = withStyles((theme) => ({
       width: "30vw",
     },
     height: "8vh",
-    [theme.breakpoints.up("lg")]: {
+    [theme.breakpoints.up("xl")]: {
       height: "4.5vh",
       fontSize: "25px",
     },

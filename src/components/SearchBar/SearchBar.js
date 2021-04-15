@@ -11,170 +11,18 @@ import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import HomeIcon from "@material-ui/icons/Home";
 import Button from "@material-ui/core/Button";
-import AssessmentIcon from "@material-ui/icons/Assessment";
 import SearchMenu from "./components/SearchMenu";
 import SearchInput from "./components/SearchInput";
 import { Grid } from "@material-ui/core";
 import { initKeywords, addKeywords } from "../../store/actions/keywords";
 import { getEmpData } from "../../store/actions/searchEmp";
 import { isValid } from "../../shared/utility";
+import theme from "../../theme";
+import useAppBarStyles from "../../shared/useAppBarStyles";
+import Svg from "../../shared/svgIcons";
 
-const useStyles = makeStyles((theme) => ({
-  menu: {
-    display: "flex",
-    flexDirection: "row",
-    gap: "15px",
-  },
-
-  home: {
-    position: "relative",
-    cursor: "pointer",
-    width: 80,
-    height: 30,
-    flex: "1fr",
-    border: "none",
-    justifyContent: "space-between",
-    "& span": {
-      position: "absolute",
-      right: 2,
-      top: "50%",
-      transform: "translateY(-50%)",
-    },
-    "& .icon_home": {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      width: 29,
-      height: 29,
-    },
-  },
-  home_hover: {
-    position: "relative",
-    cursor: "pointer",
-    width: 80,
-    height: 30,
-    flex: "1fr",
-    justifyContent: "space-between",
-    "& span": {
-      position: "absolute",
-      right: 2,
-      top: "50%",
-      transform: "translateY(-50%)",
-    },
-    "& .icon_home": {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      width: 29,
-      height: 29,
-      border: "none",
-    },
-    borderBottom: "2px solid white",
-  },
-  statistics: {
-    position: "relative",
-    cursor: "pointer",
-    flex: "2fr",
-    width: 100,
-    height: 30,
-    border: "none",
-    boxSizing: "content-box",
-    justifyContent: "space-between",
-    "& span": {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      right: 0,
-    },
-    "& .icon_statistics": {
-      top: "50%",
-      transform: "translateY(-50%)",
-      position: "absolute",
-      width: 28,
-      height: 28,
-    },
-  },
-  statistics_hover: {
-    position: "relative",
-    cursor: "pointer",
-    flex: "2fr",
-    width: 100,
-    height: 30,
-    boxSizing: "content-box",
-    justifyContent: "space-between",
-    "& span": {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      right: 0,
-    },
-    "& .icon_statistics": {
-      top: "50%",
-      transform: "translateY(-50%)",
-      position: "absolute",
-      width: 28,
-      height: 28,
-      border: "none",
-    },
-    borderBottom: "2px solid white",
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: "block",
-    fontSize: 20,
-
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-  link: {
-    color: "white",
-    textDecoration: "none",
-  },
-  link_mobile: {
-    color: "black",
-    textDecoration: "none",
-  },
-  searchContainer: {
-    position: "relative",
-    width: "130%",
-    transform: "translateX(5%)",
-    [theme.breakpoints.only("sm")]: {
-      width: "150%",
-      transform: "translateX(-5%)",
-    },
-    [theme.breakpoints.only("xs")]: {
-      width: "110%",
-      transform: "translateX(-5%)",
-    },
-  },
-  searchOption: {
-    position: "relative",
-    [theme.breakpoints.down("md")]: {
-      transform: "translateX(20%)",
-    },
-  },
-  searchButton: {
-    position: "relative",
-    transform: "translateX(-140%)",
-    [theme.breakpoints.only("sm")]: {
-      transform: "translateX(5%)",
-    },
-    [theme.breakpoints.only("xs")]: {
-      transform: "translateX(40%)",
-    },
-  },
-  submit: {
-    position: "absolute",
-    top: "50%",
-    transform: "translate(-50%,-50%)",
-    color: "white",
-  },
+const useStyles = makeStyles((defaultBar) => ({
+  extend: defaultBar,
   search_input: {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -230,35 +78,27 @@ const useStyles = makeStyles((theme) => ({
       width: "20ch",
     },
   },
-  sectionDesktop: {
-    display: "none",
-    position: "absolute",
-    top: "50%",
-    transform: "translateY(-50%)",
-    paddingLeft: 70,
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
+  searchOption: {
+    position: "relative",
+    [theme.breakpoints.down("md")]: {
+      transform: "translateX(20%)",
     },
   },
-
-  navContainer: {},
-  sectionMobile: {
-    display: "block",
-    position: "absolute",
-    top: "50%",
-    right: 0,
-    transform: "translate(-50%,-50%)",
-    [theme.breakpoints.down("sm")]: {
-      transform: "translate(-25%,-50%)",
+  searchButton: {
+    position: "relative",
+    transform: "translateX(-140%)",
+    [theme.breakpoints.only("sm")]: {
+      transform: "translateX(5%)",
     },
-    [theme.breakpoints.up("md")]: {
-      display: "none",
+    [theme.breakpoints.only("xs")]: {
+      transform: "translateX(40%)",
     },
   },
 }));
 
 const SearchBar = memo(() => {
-  const classes = useStyles();
+  const selected = { selected: null };
+  const classes = useStyles(useAppBarStyles({ theme, selected }));
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [hover, setHover] = useState();
 
@@ -300,33 +140,31 @@ const SearchBar = memo(() => {
     setHover(target);
   };
 
-  const changeBarType = (mode) => {
+  const changeLink = (mode) => {
     switch (mode) {
       case "desktop":
         return (
           <>
-            {" "}
-            <AssessmentIcon
-              className={
-                hover === "statistics"
-                  ? `${classes.statistics_hover} icon_statistics`
-                  : `${classes.statistics} icon_statistics`
-              }
-            />
-            <Typography component="span" noWrap>
-              <Link to="/statistics" className={classes.link}>
-                통계 검색
-              </Link>
-            </Typography>
+            <Grid item>
+              <Svg name="SalaryStatistics" />
+            </Grid>
+            <Grid item>
+              <Typography component="span" noWrap>
+                <Link to="/board" className={classes.link}>
+                  직원 검색
+                </Link>
+              </Typography>
+            </Grid>
           </>
         );
       case "mobile":
         return (
           <>
-            <AssessmentIcon />
-            통계 검색
+            <Svg name="SalaryStatistics" />
+            연봉 통계
           </>
         );
+
       default:
         return;
     }
@@ -351,7 +189,7 @@ const SearchBar = memo(() => {
         </MenuItem>
       </Link>
       <Link to="/statistics" className={classes.link_mobile}>
-        <MenuItem>{changeBarType("mobile")}</MenuItem>
+        <MenuItem>{changeLink("mobile")}</MenuItem>
       </Link>
     </Menu>
   );
@@ -361,75 +199,91 @@ const SearchBar = memo(() => {
   }
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <Grid container direction="row" className={classes.toolbarContainer}>
-            <Grid
-              item
-              xs={false}
-              sm={false}
-              md={2}
-              className={classes.titleContainer}
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify="space-between"
+          >
+            <Typography className={classes.title}>Employee Mark</Typography>
+            <form
+              onSubmit={(e) => {
+                submitData(e);
+              }}
             >
-              <Typography className={classes.title}>Employee Mark</Typography>
-            </Grid>
-            <Grid item xs={10} sm={8} md={7} className={classes.formContainer}>
-              <form
-                onSubmit={(e) => {
-                  submitData(e);
-                }}
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justify="center"
+                className={classes.searchContainer}
               >
-                <Grid
-                  container
-                  direction="row"
-                  className={classes.searchContainer}
-                >
-                  <Grid item xs={2} className={classes.searchOption}>
-                    <SearchMenu />
-                  </Grid>
-                  <Grid item xs={8} className={classes.searchInputContainer}>
-                    <SearchInput classes={classes} />
-                  </Grid>
-                  <Grid item xs={2} className={classes.searchButton}>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      className={classes.submit}
-                      onClick={(e) => {
-                        submitData(e);
-                      }}
-                    >
-                      검색
-                    </Button>
-                  </Grid>
+                <Grid item xs={2} className={classes.searchOption}>
+                  <SearchMenu />
                 </Grid>
-              </form>
-            </Grid>
-            <Grid item xs={2} sm={2} md={3} className={classes.navContainer}>
-              <div className={classes.grow} />
-              <div className={classes.sectionDesktop}>
-                <div className={classes.menu}>
-                  <div
+                <Grid item xs={8} className={classes.searchInputContainer}>
+                  <SearchInput classes={classes} />
+                </Grid>
+                <Grid item xs={2} className={classes.searchButton}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={classes.submit}
+                    onClick={(e) => {
+                      submitData(e);
+                    }}
+                  >
+                    검색
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+            <Grid container xs={2} sm={2} md={3}>
+              <Grid container className={classes.sectionDesktop}>
+                <Grid
+                  item
+                  container
+                  className={classes.menu}
+                  alignItems="center"
+                  justify="flex-end"
+                >
+                  <Grid
+                    item
+                    xs={5}
+                    container
+                    alignItems="center"
+                    justify="center"
                     className={
                       hover === "home" ? classes.home_hover : classes.home
                     }
                     onMouseEnter={() => setIndicator("home")}
                     onMouseLeave={() => setIndicator(null)}
                   >
-                    <HomeIcon
-                      className={
-                        hover === "home"
-                          ? `${classes.home_hover} icon_home`
-                          : `${classes.home} icon_home`
-                      }
-                    />
-                    <Typography component="span" noWrap>
-                      <Link to="/" className={classes.link}>
-                        홈으로
-                      </Link>
-                    </Typography>
-                  </div>
-                  <div
+                    <Grid item>
+                      <HomeIcon
+                        className={
+                          hover === "home"
+                            ? `${classes.home_hover} icon_home`
+                            : `${classes.home} icon_home`
+                        }
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Typography component="span" noWrap>
+                        <Link to="/" className={classes.link}>
+                          홈으로
+                        </Link>
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid
+                    item
+                    container
+                    alignItems="center"
+                    justify="center"
+                    xs={5}
                     className={
                       hover === "statistics"
                         ? classes.statistics_hover
@@ -438,11 +292,11 @@ const SearchBar = memo(() => {
                     onMouseEnter={() => setIndicator("statistics")}
                     onMouseLeave={() => setIndicator(null)}
                   >
-                    {changeBarType("desktop")}
-                  </div>
-                </div>
-              </div>
-              <div className={classes.sectionMobile}>
+                    {changeLink("desktop")}
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item className={classes.sectionMobile}>
                 <IconButton
                   aria-label="show more"
                   aria-controls={mobileMenuId}
@@ -452,7 +306,7 @@ const SearchBar = memo(() => {
                 >
                   <MoreIcon />
                 </IconButton>
-              </div>
+              </Grid>
             </Grid>
           </Grid>
         </Toolbar>

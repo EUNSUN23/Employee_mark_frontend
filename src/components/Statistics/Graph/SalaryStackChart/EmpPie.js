@@ -152,7 +152,7 @@ const ActiveShape = (props) => {
 const EmpPie = memo(({ empData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [value, setValue] = useState(null);
-  const overSm = useMediaQuery("(min-width:600px)");
+  const overSm = useMediaQuery("(min-width:576px)");
 
   const onClickFilter = useCallback(
     (icon) => {
