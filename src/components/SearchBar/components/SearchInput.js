@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import SearchIcon from "@material-ui/icons/Search";
+import Svg from "../../../shared/svgIcons";
 import SearchDetail from "./SearchDetail";
 import InputBase from "@material-ui/core/InputBase";
 import { openKeywords } from "../../../store/actions/keywords";
@@ -20,7 +20,7 @@ const SearchInput = memo((props) => {
     option === "이름검색" ? (
       <div className={classes.search_input}>
         <div className={classes.searchIcon}>
-          <SearchIcon />
+          <Svg name="Search" />
         </div>
         <InputBase
           placeholder="Search…"

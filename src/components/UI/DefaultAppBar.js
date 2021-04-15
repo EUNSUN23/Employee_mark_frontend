@@ -8,8 +8,6 @@ import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Svg from "../../shared/svgIcons";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import HomeIcon from "@material-ui/icons/Home";
 import IconButton from "@material-ui/core/IconButton";
 import theme from "../../theme";
 
@@ -39,10 +37,6 @@ const useStyles = makeStyles({
       "& span": {
         fontWeight: "bold",
       },
-      "& .icon_home": {
-        width: 30,
-        height: 30,
-      },
     },
   },
   secondNav: {
@@ -56,10 +50,6 @@ const useStyles = makeStyles({
     "&:hover": {
       "& span": {
         fontWeight: "bold",
-      },
-      "& .icon_secondNav": {
-        width: 30,
-        height: 30,
       },
     },
   },
@@ -79,6 +69,9 @@ const useStyles = makeStyles({
   link_mobile: {
     color: "black",
     textDecoration: "none",
+    "& span": {
+      paddingLeft: "5px",
+    },
   },
 
   sectionDesktop: {
@@ -123,7 +116,7 @@ const DefaultAppBar = (props) => {
     type === "statistics" ? (
       <>
         <Grid item className="icon_secondNav">
-          <Svg name="SalaryStatistics" />
+          <Svg name="EmployeeSearch" size="large" />
         </Grid>
         <Grid item>
           <Typography component="span" noWrap>
@@ -136,7 +129,7 @@ const DefaultAppBar = (props) => {
     ) : (
       <>
         <Grid item className="icon_secondNav">
-          <Svg name="EmployeeSearch" />
+          <Svg name="SalaryStatistics" size="large" />
         </Grid>
         <Grid item>
           <Typography component="span" noWrap>
@@ -156,12 +149,12 @@ const DefaultAppBar = (props) => {
         return type === "statistics" ? (
           <>
             <Svg name="EmployeeSearch" />
-            직원 검색
+            <span>직원 검색</span>
           </>
         ) : (
           <>
             <Svg name="SalaryStatistics" />
-            연봉 통계
+            <span>연봉 통계</span>
           </>
         );
       default:
@@ -181,8 +174,8 @@ const DefaultAppBar = (props) => {
     >
       <Link to="/" className={classes.link_mobile}>
         <MenuItem>
-          <HomeIcon />
-          홈으로
+          <Svg name="Home" size="large" />
+          <span>홈으로</span>
         </MenuItem>
       </Link>
       <Link to="/board" className={classes.link_mobile}>
@@ -220,8 +213,8 @@ const DefaultAppBar = (props) => {
                     justify="center"
                     className={classes.home}
                   >
-                    <Grid item>
-                      <HomeIcon className="icon_home" />
+                    <Grid item className="icon_home">
+                      <Svg name="Home" size="large" />
                     </Grid>
                     <Grid item>
                       <Typography component="span" noWrap>
@@ -251,7 +244,7 @@ const DefaultAppBar = (props) => {
                   onClick={handleMobileMenuOpen}
                   color="inherit"
                 >
-                  <MoreIcon />
+                  <Svg name="More" />
                 </IconButton>
               </Grid>
             </Grid>
