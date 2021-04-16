@@ -33,7 +33,7 @@ const BoardBackground = () => {
   return (
     <EmployeeSearch>
       <Svg name="EmployeeCard" component="div" />
-      <span>부서/직급/이름으로 직원 정보를 조회하세요</span>
+      <span>Tip) 직원의 부서/직급/이름 정보를 입력하세요</span>
     </EmployeeSearch>
   );
 };
