@@ -1,10 +1,11 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, memo, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination } from "swiper/core";
+import SwiperCore, { Navigation, Pagination, Thumbs } from "swiper/core";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
-import Svg from "../../../../shared/svgIcons";
+// import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
+// import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import {
@@ -73,24 +74,16 @@ const useStyles = makeStyles(() => ({
     top: "18%",
     left: "15%",
     cursor: "pointer",
+
     zIndex: 500,
-    "& div": {
-      border: "1px solid red",
-      width: "50px",
-      height: "50px",
-    },
   },
   forward: {
     position: "absolute",
     top: "18%",
     right: "15%",
     cursor: "pointer",
+
     zIndex: 500,
-    "& div": {
-      border: "1px solid red",
-      width: "50px",
-      height: "50px",
-    },
   },
   moveInner: {
     fontSize: 80,
@@ -170,7 +163,7 @@ const DeptChart = ({ deptData }) => {
         alignItems="center"
         className={classes.titleContainer}
       >
-        <Grid item style={{ border: "1px solid black", width: "100px" }}>
+        <Grid item>
           <h1 ref={paginationRef} className="swiperPagination"></h1>
         </Grid>
         <SalaryFilter
@@ -188,6 +181,7 @@ const DeptChart = ({ deptData }) => {
           el: ".swiperPagination",
           type: "custom",
           renderCustom: (current) => {
+            console.log("index", current);
             const deptName = deptList[current - 1];
             return deptName;
           },
@@ -249,24 +243,20 @@ const DeptChart = ({ deptData }) => {
           );
         })}
       </Swiper>
-      <div
+      {/* <div
         ref={navigationPrevRef}
         onClick={() => onClickBackward(chartSwiper)}
         className={classes.backward}
       >
-        <div className={classes[backwardClass]}>
-          <Svg name="ArrowLeft" component="div" />
-        </div>
+        <ArrowLeftIcon className={classes[backwardClass]} />
       </div>
       <div
         ref={navigationNextRef}
         onClick={() => onClickForward(chartSwiper)}
         className={classes.forward}
       >
-        <div className={classes[forwardClass]}>
-          <Svg name="ArrowRight" component="div" />
-        </div>
-      </div>
+        <ArrowRightIcon className={classes[forwardClass]} />
+      </div> */}
     </>
   );
 };
