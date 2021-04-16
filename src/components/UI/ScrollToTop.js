@@ -1,19 +1,53 @@
 import React, { memo } from "react";
-import styles from "./ScrollToTop.module.css";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import styled from "styled-components";
+import Svg from "../../shared/svgIcons";
+
+const Container = styled.div`
+  position: relative;
+  width: 35px;
+  height: 35px;
+  padding: 3px;
+  background-color: green;
+  border-radius: 100%;
+  opacity: ${(props) => (props.show ? 1 : 0)};
+  position: fixed;
+  right: 20px;
+  bottom: 40px;
+  transition: all 0.2s;
+  cursor: pointer;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.23), 0 3px 6px rgba(0, 0, 0, 0.23);
+`;
+
+const Text = styled.span`
+  color: #fff;
+  font-size: 16px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const ArrowIcon = styled.div`
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -25%);
+`;
 
 const ScrollToTop = memo((props) => {
   const { show, handleOnScrollBtn } = props;
   return (
-    <div
+    <Container
+      show={show}
       onClick={() => {
         handleOnScrollBtn();
       }}
-      className={show ? styles.visible : styles.invisible}
     >
-      <ExpandLessIcon size="small" className={styles.arrow} />
-      <span className={styles.text}>top</span>
-    </div>
+      <ArrowIcon>
+        <Svg name="Expandless" size="small" />
+      </ArrowIcon>
+      <Text>top</Text>
+    </Container>
   );
 });
 

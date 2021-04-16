@@ -8,8 +8,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import Svg from "../../../shared/svgIcons";
 import theme from "../../../theme";
 
 const useStyles = makeStyles(() => ({
@@ -186,11 +185,13 @@ const SearchDetail = () => {
             }}
           />
           {clearBtn && category.length > 1 ? (
-            <DeleteForeverIcon
-              size="small"
-              onClick={(e) => onClickDel(e, item.index)}
-              className={classes.clearBtn}
-            />
+            <div className={classes.clearBtn}>
+              <Svg
+                name="Delete"
+                size="small"
+                onClick={(e) => onClickDel(e, item.index)}
+              />
+            </div>
           ) : null}
         </StyledMenuItem>
       );
@@ -205,7 +206,6 @@ const SearchDetail = () => {
       let detailList;
       if (optTitle === null || optTitle !== newTitle) {
         setOptTitle(newTitle);
-        // q. 첫 렌더시에만 전환이 느린 이유?
       }
 
       if (newTitle === "recent keyword") {
@@ -239,7 +239,7 @@ const SearchDetail = () => {
         className={classes.title_container}
       >
         <ListItemIcon className={classes.title_listItemIcon}>
-          <ArrowDropDownIcon fontSize="large" />
+          <Svg name="ArrowDown" fontSize="large" component="div" />
         </ListItemIcon>
         <ListItemText
           primary={optionVal ? optionVal.value : optTitle}

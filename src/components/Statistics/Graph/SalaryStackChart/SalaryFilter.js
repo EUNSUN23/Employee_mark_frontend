@@ -1,6 +1,5 @@
 import React, { memo } from "react";
-import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import Svg from "../../../../shared/svgIcons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import theme from "../../../../theme";
@@ -92,7 +91,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "#ffffff",
     boxShadow: "2px 1px 2px 0px #CECECE",
   },
-  iconInner: {
+  "& div": {
     [theme.breakpoints.up("sm")]: {
       fontSize: 20,
     },
@@ -139,13 +138,13 @@ const SalaryFilter = memo(({ onClickFilter, value }) => {
           className={classes.icon}
           onClick={() => onClickHandler("up", value)}
         >
-          <ArrowDropUpIcon fontSize="large" className={classes.iconInner} />
+          <Svg name="ArrowUp" fontSize="large" component="div" />
         </div>
         <div
           className={classes.icon}
           onClick={() => onClickHandler("down", value)}
         >
-          <ArrowDropDownIcon fontSize="large" className={classes.iconInner} />
+          <Svg name="ArrowDown" fontSize="large" component="div" />
         </div>
       </Grid>
     </Grid>

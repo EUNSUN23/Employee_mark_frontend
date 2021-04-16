@@ -7,7 +7,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import Svg from "../../../shared/svgIcons";
 
 const useStyles = makeStyles(() => ({
   title_container: {
@@ -19,8 +19,9 @@ const useStyles = makeStyles(() => ({
     height: "30px",
   },
   title_listItemIcon: {
-    position: "absolute",
-    left: "0%",
+    position: "relative",
+    left: "-25%",
+    top: "-50%",
     color: "white",
   },
   title_listItemText: {
@@ -101,7 +102,7 @@ const SearchMenu = memo(() => {
         className={classes.title_container}
       >
         <ListItemIcon className={classes.title_listItemIcon}>
-          <ArrowDropDownIcon fontSize="small" />
+          <Svg name="ArrowDown" component="div" />
         </ListItemIcon>
         <ListItemText className={classes.title_listItemText} primary={title} />
       </Button>
