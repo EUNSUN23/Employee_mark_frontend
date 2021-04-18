@@ -45,8 +45,11 @@ export const getStatAPI = (data) => {
     }
     if (!res) return;
     const result = res.data.packet;
-    dispatch(setDataSent(data.type));
     dispatch(setStatData(result, data.type));
+
+    return async (dispatch) => {
+      dispatch(setDataSent(data.type));
+    };
   };
 };
 

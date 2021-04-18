@@ -4,11 +4,12 @@ import styled from "styled-components";
 
 const Label = styled.div`
   color: #222;
-  position: "absolute";
-  font-size: "10px";
-  padding: "5px";
-  background-color: "#ffffff";
+  position: absolute;
+  font-size: 10px;
+  padding: 5px;
+  background-color: #ffffff;
   border-radius: 1px;
+  text-align: center;
 `;
 
 const Title = styled.h6`
@@ -26,15 +27,13 @@ const CustomizedLabel = (props) => {
   const { x, y, value, index, currentVal } = props;
 
   const makeLabel = (value, index, currentVal) => {
-    const textYPoint = y - 17;
-
     const salary = 40000 + 10000 * index;
     const highlight = salary === currentVal;
 
     let label;
     if (highlight) {
       label = (
-        <foreignObject x={x - 5} y={y - 25} width="100" height="100">
+        <foreignObject x={x - 5} y={y - 17} width="100" height="100">
           <Highlight xmlns="http://www.w3.org/1999/xhtml">
             <Title xmlns="http://www.w3.org/1999/xhtml">{`${value}명`}</Title>
           </Highlight>
@@ -42,7 +41,7 @@ const CustomizedLabel = (props) => {
       );
     } else {
       label = (
-        <foreignObject x={x} y={textYPoint} width="100" height="100">
+        <foreignObject x={x} y={y - 30} width="100" height="100">
           <Label xmlns="http://www.w3.org/1999/xhtml">
             <Title xmlns="http://www.w3.org/1999/xhtml">{`${value}명`}</Title>
           </Label>

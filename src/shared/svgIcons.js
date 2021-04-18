@@ -1966,8 +1966,8 @@ const Delete = ({ fontSize, component }) => {
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
-        viewBox="0 0 297 297"
-        enable-background="new 0 0 297 297"
+        viewBox="0 0 400 400"
+        enable-background="new 0 0 350 350"
       >
         <g>
           <g>
@@ -2049,8 +2049,8 @@ const Expandless = ({ fontSize, component }) => {
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
-        viewBox="0 0 487 487"
-        enable-background="new 0 0 487 487"
+        viewBox="0 0 800 800"
+        enable-background="new 0 0 800 800"
       >
         <g>
           <path
@@ -2087,7 +2087,7 @@ const ExpandMore = ({ fontSize, component }) => {
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
-        viewBox="0 0 55.751 55.751"
+        viewBox="0 0 90 90"
         enable-background="new 0 0 55.751 55.751"
       >
         <g>

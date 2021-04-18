@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateX(-50%)",
     textShadow: "2px 6px 4px #CECECE ",
     zIndex: 500,
-    color: "#414352",
+    color: "#000",
   },
 }));
 
