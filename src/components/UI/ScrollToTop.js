@@ -31,7 +31,7 @@ const ArrowIcon = styled.div`
   color: #fff;
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -25%);
+  transform: translate(-30%, -8%);
 `;
 
 const ScrollToTop = memo((props) => {
