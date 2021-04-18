@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
   },
   avatar: {
-    backgroundColor: "beige",
+    backgroundColor: "#EBF9CB ",
     width: "40px",
     height: "40px",
   },
