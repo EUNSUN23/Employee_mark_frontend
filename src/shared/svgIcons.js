@@ -1755,7 +1755,7 @@ const More = ({ fontSize, component }) => {
 
 const Search = ({ fontSize, component }) => {
   return (
-    <SvgIcon>
+    <SvgIcon fontSize={fontSize} component={component}>
       <svg
         version="1.1"
         id="Capa_1"
@@ -1773,6 +1773,330 @@ const Search = ({ fontSize, component }) => {
      c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z"
             />
           </g>
+        </g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+const ArrowDown = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg
+        version="1.1"
+        id="Layer_1"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 500.002 500.002"
+        enable-background="new 0 0 500.002 500.002"
+      >
+        <path
+          id="XMLID_23_"
+          d="M329.155,100.036c-2.108-6.011-7.784-10.035-14.154-10.035h-300c-6.371,0-12.046,4.024-14.154,10.035
+	c-2.109,6.011-0.19,12.699,4.784,16.678l150.004,120c2.739,2.191,6.055,3.287,9.37,3.287c3.316,0,6.631-1.096,9.371-3.287
+	l149.996-120C329.346,112.734,331.264,106.047,329.155,100.036z"
+        />
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+const ArrowUp = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 200.002 200.002"
+        enable-background="new 0 0 200.002 200.002"
+      >
+        <g>
+          <path
+            d="M66.18,29.742c-2.301-2.3-6.101-2.3-8.401,0l-56,56c-3.8,3.801-1.1,10.2,4.2,10.2h112c5.3,0,8-6.399,4.2-10.2L66.18,29.742
+		z"
+          />
+        </g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+const ArrowLeft = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 482 482"
+        enable-background="new 0 0 400 400"
+      >
+        <g>
+          <g>
+            <polygon points="332.668,490 82.631,244.996 332.668,0 407.369,76.493 235.402,244.996 407.369,413.507 		" />
+          </g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+          <g></g>
+        </g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+const ArrowRight = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 200 200"
+        enable-background="new 0 0 160 160"
+      >
+        <g>
+          <polygon points="63.993,199.404 163.695,99.702 63.993,0 35.709,28.285 107.127,99.702 35.709,171.119 	" />
+        </g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+const Delete = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg
+        version="1.1"
+        id="Layer_1"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 297 297"
+        enable-background="new 0 0 297 297"
+      >
+        <g>
+          <g>
+            <g>
+              <path
+                d="M216.979,150.445c-24.601,0-44.615,20.014-44.615,44.615s20.014,44.615,44.615,44.615
+				c24.6,0,44.615-20.014,44.615-44.615S241.58,150.445,216.979,150.445z M238.868,207.41c2.633,2.634,2.633,6.904,0,9.539
+				c-1.317,1.316-3.044,1.975-4.769,1.975c-1.725,0-3.452-0.659-4.769-1.975l-12.35-12.35l-12.35,12.35
+				c-1.317,1.316-3.044,1.975-4.769,1.975s-3.452-0.659-4.769-1.975c-2.633-2.634-2.633-6.904,0-9.539l12.35-12.35l-12.352-12.35
+				c-2.633-2.634-2.633-6.904,0-9.539c2.634-2.632,6.904-2.632,9.539,0l12.35,12.35l12.35-12.35c2.634-2.632,6.904-2.632,9.539,0
+				c2.633,2.634,2.633,6.904,0,9.539l-12.35,12.35L238.868,207.41z"
+              />
+              <path
+                d="M227.354,59.832L227.354,59.832c-0.001-10.822-8.806-19.626-19.628-19.626H55.033c-10.822,0-19.626,8.804-19.626,19.626
+				v18.244h191.948V59.832z"
+              />
+              <path
+                d="M216.979,136.957c1.233,0,2.454,0.052,3.668,0.128l2.716-45.521h-47.368v62.351
+				C186.51,143.442,200.999,136.957,216.979,136.957z"
+              />
+              <path
+                d="M103.885,13.488h54.99v13.229h13.488V6.744c0-3.725-3.019-6.744-6.744-6.744H97.14c-3.725,0-6.744,3.019-6.744,6.744
+				v19.973h13.488V13.488z"
+              />
+              <path
+                d="M175.994,273.748c0,5.393-4.372,9.764-9.764,9.764c-5.393,0-9.764-4.371-9.764-9.764V91.564h-50.173v182.184
+				c0,5.393-4.372,9.764-9.764,9.764c-5.393,0-9.764-4.371-9.764-9.764V91.564H39.398l11.881,199.094
+				C51.492,294.22,54.442,297,58.01,297h146.739c3.569,0,6.519-2.78,6.732-6.342l2.243-37.591
+				c-14.686-0.815-27.934-7.104-37.73-16.862V273.748z"
+              />
+            </g>
+          </g>
+        </g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+const Error = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg
+        width="24px"
+        height="24px"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12.45 2.15C14.992 4.05652 17.5866 5 20.25 5C20.6642 5 21 5.33579 21 5.75V11C21 16.0012 18.0424 19.6757 12.2749 21.9478C12.0982 22.0174 11.9018 22.0174 11.7251 21.9478C5.95756 19.6757 3 16.0012 3 11V5.75C3 5.33579 3.33579 5 3.75 5C6.41341 5 9.00797 4.05652 11.55 2.15C11.8167 1.95 12.1833 1.95 12.45 2.15ZM12 16C11.5858 16 11.25 16.3358 11.25 16.75C11.25 17.1642 11.5858 17.5 12 17.5C12.4142 17.5 12.75 17.1642 12.75 16.75C12.75 16.3358 12.4142 16 12 16ZM12 6.98211C11.6203 6.98211 11.3065 7.26427 11.2568 7.63034L11.25 7.73211V14.2321L11.2568 14.3339C11.3065 14.7 11.6203 14.9821 12 14.9821C12.3797 14.9821 12.6935 14.7 12.7432 14.3339L12.75 14.2321V7.73211L12.7432 7.63034C12.6935 7.26427 12.3797 6.98211 12 6.98211Z"
+          fill="#212121"
+        />
+      </svg>
+    </SvgIcon>
+  );
+};
+
+const Expandless = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 487 487"
+        enable-background="new 0 0 487 487"
+      >
+        <g>
+          <path
+            d="M397.7,376.1c20.4,20.4,53.6,20.4,74,0s20.4-53.6,0-74L280.5,110.9c-20.4-20.4-53.6-20.4-74,0L15.3,302.1
+		c-20.4,20.4-20.4,53.6,0,74s53.6,20.4,74,0l154.2-154.2L397.7,376.1z"
+          />
+        </g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
+    </SvgIcon>
+  );
+};
+
+const ExpandMore = ({ fontSize, component }) => {
+  return (
+    <SvgIcon fontSize={fontSize} component={component}>
+      <svg
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        viewBox="0 0 55.751 55.751"
+        enable-background="new 0 0 55.751 55.751"
+      >
+        <g>
+          <path
+            d="M31.836,43.006c0.282-0.281,0.518-0.59,0.725-0.912L54.17,20.485c2.107-2.109,2.109-5.528,0-7.638
+		c-2.109-2.107-5.527-2.109-7.638,0l-18.608,18.61L9.217,12.753c-2.109-2.108-5.527-2.109-7.637,0
+		C0.527,13.809-0.002,15.19,0,16.571c-0.002,1.382,0.527,2.764,1.582,3.816l21.703,21.706c0.207,0.323,0.445,0.631,0.729,0.913
+		c1.078,1.078,2.496,1.597,3.91,1.572C29.336,44.604,30.758,44.084,31.836,43.006z"
+          />
         </g>
         <g></g>
         <g></g>
@@ -1855,6 +2179,22 @@ const Svg = ({ name, fontSize, component }) => {
         return <More fontSize={size} component={element} />;
       case "Search":
         return <Search fontSize={size} component={element} />;
+      case "ArrowDown":
+        return <ArrowDown fontSize={size} component={element} />;
+      case "ArrowUp":
+        return <ArrowUp fontSize={size} component={element} />;
+      case "ArrowLeft":
+        return <ArrowLeft fontSize={size} component={element} />;
+      case "ArrowRight":
+        return <ArrowRight fontSize={size} component={element} />;
+      case "Delete":
+        return <Delete fontSize={size} component={element} />;
+      case "Error":
+        return <Error fontSize={size} component={element} />;
+      case "Expandless":
+        return <Expandless fontSize={size} component={element} />;
+      case "ExpandMore":
+        return <ExpandMore fontSize={size} component={element} />;
       default:
         return;
     }

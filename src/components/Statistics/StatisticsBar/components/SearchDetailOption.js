@@ -6,7 +6,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import Svg from "../../../../shared/svgIcons";
 import theme from "../../../../theme";
 import { setSelected } from "../../../../store/actions/statBar";
 
@@ -136,7 +136,7 @@ const SearchDetailOption = () => {
         className={classes.title_container}
       >
         <ListItemIcon className={classes.title_listItemIcon}>
-          <ArrowDropDownIcon fontSize="large" />
+          <Svg name="ArrowDown" fontSize="large" component="div" />
         </ListItemIcon>
         <ListItemText
           primary={detailTitle ? detailTitle : "연봉 통계 그래프"}

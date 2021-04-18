@@ -1,11 +1,10 @@
-import React, { useState, useCallback, memo, useRef, useEffect } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination, Thumbs } from "swiper/core";
+import SwiperCore, { Navigation, Pagination } from "swiper/core";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
-import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import Svg from "../../../../shared/svgIcons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import {
@@ -32,22 +31,10 @@ const useStyles = makeStyles(() => ({
     top: "15%",
     transform: "translateX(-50%)",
   },
-  title: {
-    display: "none",
-
-    [theme.breakpoints.up("sm")]: {
-      display: "flex",
-      width: "400px",
-    },
-    "& span:nth-child(1)": {
-      fontSize: "18px",
-
-      fontWeight: "bold",
-    },
-    "& span:nth-child(2)": {
-      fontSize: "26px",
-
-      fontWeight: "bold",
+  salaryFilter: {
+    [theme.breakpoints.down("sm")]: {
+      position: "absolute",
+      top: "70%",
     },
   },
   root: {
@@ -58,7 +45,6 @@ const useStyles = makeStyles(() => ({
     transform: "translateX(-50%)",
   },
   swiperSlide: {
-    border: "1px solid red",
     display: "grid",
     gridTemplateColumns: "auto auto auto auto auto auto auto auto auto auto",
     listStyle: "none",
@@ -71,19 +57,25 @@ const useStyles = makeStyles(() => ({
   },
   backward: {
     position: "absolute",
-    top: "18%",
+    top: "12%",
     left: "15%",
     cursor: "pointer",
-
     zIndex: 500,
+    "& div": {
+      width: "50px",
+      height: "50px",
+    },
   },
   forward: {
     position: "absolute",
-    top: "18%",
+    top: "12%",
     right: "15%",
     cursor: "pointer",
-
     zIndex: 500,
+    "& div": {
+      width: "50px",
+      height: "50px",
+    },
   },
   moveInner: {
     fontSize: 80,
@@ -166,11 +158,13 @@ const DeptChart = ({ deptData }) => {
         <Grid item>
           <h1 ref={paginationRef} className="swiperPagination"></h1>
         </Grid>
-        <SalaryFilter
-          onClickFilter={onClickFilter}
-          value={value}
-          className={classes.title}
-        />
+        <Grid item className={classes.salaryFilter}>
+          <SalaryFilter
+            onClickFilter={onClickFilter}
+            value={value}
+            className={classes.title}
+          />
+        </Grid>
       </Grid>
       <Swiper
         ref={swiperRef}
@@ -181,7 +175,6 @@ const DeptChart = ({ deptData }) => {
           el: ".swiperPagination",
           type: "custom",
           renderCustom: (swiper, current, total) => {
-            console.log("index", current);
             const deptName = deptList[current - 1];
             return deptName;
           },
@@ -248,14 +241,18 @@ const DeptChart = ({ deptData }) => {
         onClick={() => onClickBackward(chartSwiper)}
         className={classes.backward}
       >
-        <ArrowLeftIcon className={classes[backwardClass]} />
+        <div className={classes[backwardClass]}>
+          <Svg name="ArrowLeft" component="div" />
+        </div>
       </div>
       <div
         ref={navigationNextRef}
         onClick={() => onClickForward(chartSwiper)}
         className={classes.forward}
       >
-        <ArrowRightIcon className={classes[forwardClass]} />
+        <div className={classes[forwardClass]}>
+          <Svg name="ArrowRight" component="div" />
+        </div>
       </div>
     </>
   );

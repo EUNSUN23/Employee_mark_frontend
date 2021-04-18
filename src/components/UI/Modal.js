@@ -4,8 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import Typography from "@material-ui/core/Typography";
-import ErrorIcon from "@material-ui/icons/Error";
-import { initError } from "../../store/actions/searchEmp";
+import Svg from "../../shared/svgIcons";
 
 const useStyles = makeStyles({
   wrapper: {
@@ -17,7 +16,7 @@ const useStyles = makeStyles({
     padding: 4,
     paddingLeft: 35,
     fontSize: 20,
-    "& .icon": {
+    "& div": {
       position: "absolute",
       left: "-5%",
       top: "10%",
@@ -34,7 +33,7 @@ const Modal = memo((props) => {
     <Dialog onClose={handleClose} aria-labelledby="contact" open={open}>
       <DialogTitle id="contact" className={classes.wrapper}>
         <Typography className={classes.employeeInfo}>
-          <ErrorIcon className={`${classes.employeeInfo} icon`} />
+          <Svg name="Error" component="div" />
           <span>{message}</span>
         </Typography>
       </DialogTitle>
