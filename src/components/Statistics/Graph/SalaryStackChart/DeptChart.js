@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     width: "50%",
     left: "50%",
-    top: "15%",
+    top: "20%",
     transform: "translateX(-50%)",
   },
   salaryFilter: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles(() => ({
     width: "65%",
     position: "absolute",
     left: "50%",
-    top: "30%",
+    top: "40%",
     transform: "translateX(-50%)",
   },
   swiperSlide: {
@@ -57,8 +57,11 @@ const useStyles = makeStyles(() => ({
   },
   backward: {
     position: "absolute",
-    top: "12%",
-    left: "15%",
+    top: "16%",
+    [theme.breakpoints.up("md")]: {
+      left: "15%",
+    },
+    left: "10%",
     cursor: "pointer",
     zIndex: 500,
     "& div": {
@@ -68,8 +71,11 @@ const useStyles = makeStyles(() => ({
   },
   forward: {
     position: "absolute",
-    top: "12%",
-    right: "15%",
+    top: "16%",
+    [theme.breakpoints.up("md")]: {
+      right: "15%",
+    },
+    right: "10%",
     cursor: "pointer",
     zIndex: 500,
     "& div": {

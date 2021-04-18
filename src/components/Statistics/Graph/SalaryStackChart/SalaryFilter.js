@@ -58,7 +58,6 @@ const useStyles = makeStyles(() => ({
       top: "50%",
       left: "50%",
       transform: "translate(-50%,0%)",
-
       boxShadow: "2px 1px 2px 0px #CECECE",
 
       zIndex: 500,
@@ -71,7 +70,6 @@ const useStyles = makeStyles(() => ({
     transform: "translateX(-50%)",
     width: "20px",
     height: "20px",
-
     borderTop: "1px solid #EFEFF0",
     borderLeft: "1px solid #EFEFF0",
     backgroundColor: "#ffffff",
