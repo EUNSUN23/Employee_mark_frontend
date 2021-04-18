@@ -1841,10 +1841,8 @@ const ArrowUp = ({ fontSize, component }) => {
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
-        width="60px"
-        height="60px"
-        viewBox="0 0 500.002 500.002"
-        enable-background="new 0 0 500.002 500.002"
+        viewBox="0 0 200.002 200.002"
+        enable-background="new 0 0 200.002 200.002"
       >
         <g>
           <path
@@ -1881,7 +1879,7 @@ const ArrowLeft = ({ fontSize, component }) => {
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
         y="0px"
-        viewBox="0 0 460 460"
+        viewBox="0 0 482 482"
         enable-background="new 0 0 400 400"
       >
         <g>

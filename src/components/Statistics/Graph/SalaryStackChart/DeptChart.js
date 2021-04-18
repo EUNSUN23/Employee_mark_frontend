@@ -31,22 +31,10 @@ const useStyles = makeStyles(() => ({
     top: "15%",
     transform: "translateX(-50%)",
   },
-  title: {
-    display: "none",
-
-    [theme.breakpoints.up("sm")]: {
-      display: "flex",
-      width: "400px",
-    },
-    "& span:nth-child(1)": {
-      fontSize: "18px",
-
-      fontWeight: "bold",
-    },
-    "& span:nth-child(2)": {
-      fontSize: "26px",
-
-      fontWeight: "bold",
+  salaryFilter: {
+    [theme.breakpoints.down("sm")]: {
+      position: "absolute",
+      top: "70%",
     },
   },
   root: {
@@ -57,7 +45,6 @@ const useStyles = makeStyles(() => ({
     transform: "translateX(-50%)",
   },
   swiperSlide: {
-    border: "1px solid red",
     display: "grid",
     gridTemplateColumns: "auto auto auto auto auto auto auto auto auto auto",
     listStyle: "none",
@@ -70,24 +57,22 @@ const useStyles = makeStyles(() => ({
   },
   backward: {
     position: "absolute",
-    top: "18%",
+    top: "12%",
     left: "15%",
     cursor: "pointer",
     zIndex: 500,
     "& div": {
-      border: "1px solid red",
       width: "50px",
       height: "50px",
     },
   },
   forward: {
     position: "absolute",
-    top: "18%",
+    top: "12%",
     right: "15%",
     cursor: "pointer",
     zIndex: 500,
     "& div": {
-      border: "1px solid red",
       width: "50px",
       height: "50px",
     },
@@ -170,14 +155,16 @@ const DeptChart = ({ deptData }) => {
         alignItems="center"
         className={classes.titleContainer}
       >
-        <Grid item style={{ border: "1px solid black", width: "100px" }}>
+        <Grid item>
           <h1 ref={paginationRef} className="swiperPagination"></h1>
         </Grid>
-        <SalaryFilter
-          onClickFilter={onClickFilter}
-          value={value}
-          className={classes.title}
-        />
+        <Grid item className={classes.salaryFilter}>
+          <SalaryFilter
+            onClickFilter={onClickFilter}
+            value={value}
+            className={classes.title}
+          />
+        </Grid>
       </Grid>
       <Swiper
         ref={swiperRef}
@@ -187,7 +174,7 @@ const DeptChart = ({ deptData }) => {
         pagination={{
           el: ".swiperPagination",
           type: "custom",
-          renderCustom: (current) => {
+          renderCustom: (swiper, current, total) => {
             const deptName = deptList[current - 1];
             return deptName;
           },

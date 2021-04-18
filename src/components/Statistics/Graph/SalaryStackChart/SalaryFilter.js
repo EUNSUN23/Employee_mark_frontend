@@ -46,27 +46,19 @@ const useStyles = makeStyles(() => ({
     },
   },
   button: {
-    [theme.breakpoints.up("sm")]: {
-      height: "50px",
-    },
-    [theme.breakpoints.only("xs")]: {
-      height: "30px",
-    },
+    height: "50px",
+
     position: "relative",
 
     "& div:nth-child(1)": {
       top: "8%",
+      paddingTop: "1px",
     },
     "& div:nth-child(2)": {
       top: "50%",
       left: "50%",
+      transform: "translate(-50%,0%)",
 
-      [theme.breakpoints.up("sm")]: {
-        transform: "translate(-50%,0%)",
-      },
-      [theme.breakpoints.only("xs")]: {
-        transform: "translate(-50%,20%)",
-      },
       boxShadow: "2px 1px 2px 0px #CECECE",
 
       zIndex: 500,
@@ -77,26 +69,15 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
     left: "50%",
     transform: "translateX(-50%)",
+    width: "20px",
+    height: "20px",
 
-    [theme.breakpoints.up("sm")]: {
-      width: "20px",
-      height: "20px",
-    },
-    [theme.breakpoints.only("xs")]: {
-      width: "15px",
-      height: "15px",
-    },
     borderTop: "1px solid #EFEFF0",
     borderLeft: "1px solid #EFEFF0",
     backgroundColor: "#ffffff",
     boxShadow: "2px 1px 2px 0px #CECECE",
-  },
-  "& div": {
-    [theme.breakpoints.up("sm")]: {
-      fontSize: 20,
-    },
-    [theme.breakpoints.only("xs")]: {
-      fontSize: 15,
+    "& div": {
+      paddingLeft: "3px",
     },
   },
 }));
@@ -138,13 +119,13 @@ const SalaryFilter = memo(({ onClickFilter, value }) => {
           className={classes.icon}
           onClick={() => onClickHandler("up", value)}
         >
-          <Svg name="ArrowUp" fontSize="large" component="div" />
+          <Svg name="ArrowUp" component="div" fontSize="small" />
         </div>
         <div
           className={classes.icon}
           onClick={() => onClickHandler("down", value)}
         >
-          <Svg name="ArrowDown" fontSize="large" component="div" />
+          <Svg name="ArrowDown" component="div" fontSize="small" />
         </div>
       </Grid>
     </Grid>
