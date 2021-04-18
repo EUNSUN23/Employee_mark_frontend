@@ -7,7 +7,7 @@ import {
 } from "../../shared/utility";
 
 const initState = {
-  keywords: [],
+  keywords: ["recent keyword"],
   open: false,
 };
 

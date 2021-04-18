@@ -14,6 +14,7 @@ import DefaultAppBar from "../UI/DefaultAppBar";
 const useStyles = makeStyles({
   searchContainer: {
     position: "relative",
+    marginLeft: "8%",
     width: "70vw",
     height: "14vh",
     [theme.breakpoints.up("md")]: {
@@ -90,7 +91,7 @@ const SearchBar = () => {
   const optionVal = useSelector((state) => state.searchBar.optionVal);
 
   useEffect(() => {
-    if (keywords.length === 0) dispatch(initKeywords());
+    if (keywords.length === 1) dispatch(initKeywords());
   }, []);
 
   const submitData = (e) => {
@@ -119,6 +120,7 @@ const SearchBar = () => {
           alignItems="center"
           justify="center"
           className={classes.searchContainer}
+          spacing={2}
         >
           <Grid item xs={2} className={classes.searchOption}>
             <SearchMenu />
@@ -126,7 +128,7 @@ const SearchBar = () => {
           <Grid item xs={7} className={classes.searchInputContainer}>
             <SearchInput classes={classes} />
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={2}>
             <Button
               variant="contained"
               color="secondary"

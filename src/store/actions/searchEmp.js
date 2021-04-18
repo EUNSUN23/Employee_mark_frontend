@@ -41,7 +41,7 @@ export const getEmpData = (selected, page, isIntersected) => {
   const page_no = intersecting ? page + 1 : page;
   const url = isOptionVal
     ? `http://localhost:3008/api/emp/${selected.category}/${selected.value}/${page_no}`
-    : `http://localhost:3008/api/emp/${selected}/${page_no}`;
+    : `http://localhost:3008/api/emp/${selected.value}/${page_no}`;
 
   console.log(url);
   const current = isOptionVal

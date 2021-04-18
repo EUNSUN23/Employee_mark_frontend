@@ -11,19 +11,19 @@ export const initKeywords = () => {
 };
 
 export const addKeywords = (category, value) => {
-  return (dispatch) => {
-    const storage = getKeywords();
+  return (dispatch, getState) => {
     const newKeyword = {
       category: category,
       index: Date.now(),
       value: value,
     };
-    const addedStorage = storage ? storage.concat(newKeyword) : newKeyword;
-    setKeywords(addedStorage);
 
-    const added = ["recent keyword", ...addedStorage];
+    const currentKeyword = getState().keywords.keywords;
 
-    dispatch({ type: actionTypes.KEYWORDS_ADD, keywords: added });
+    const addedStorage = currentKeyword.concat(newKeyword);
+    setKeywords(addedStorage.slice(1));
+
+    dispatch({ type: actionTypes.KEYWORDS_ADD, keywords: addedStorage });
   };
 };
 

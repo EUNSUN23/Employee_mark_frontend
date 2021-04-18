@@ -24,6 +24,7 @@ const useStyles = makeStyles(() => ({
   title_listItemIcon: {
     position: "absolute",
     left: "0%",
+
     color: "white",
     height: "100%",
     pointerEvents: "none",
@@ -32,6 +33,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
   },
   title_listItemText: {
+    position: "relative",
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
     transition: theme.transitions.create("width"),
@@ -41,6 +43,9 @@ const useStyles = makeStyles(() => ({
     },
   },
   clearBtn: {
+    position: "absolute",
+    top: "20%",
+    right: "1%",
     "&:hover": {
       color: "red",
     },
@@ -169,7 +174,8 @@ const SearchDetail = () => {
       resultList = arr;
     }
 
-    const searchDetail = resultList.map((item, idx) => {
+    return resultList.map((item, idx) => {
+      console.log("value", item.value);
       return (
         <StyledMenuItem
           key={`category_${item.index}`}
@@ -196,8 +202,6 @@ const SearchDetail = () => {
         </StyledMenuItem>
       );
     });
-
-    return searchDetail;
   };
 
   const createSearchDetail = (category) => {
