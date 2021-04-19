@@ -7,7 +7,6 @@ import ScrollToTop from "../UI/ScrollToTop";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import { initError } from "../../store/actions/searchEmp";
-import MainLoader from "../UI/MainLoader";
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -50,7 +49,7 @@ const Board = () => {
   }, []);
 
   const content = isLoading ? (
-    <Loader size="large" />
+    <Loader type="large" />
   ) : (
     <Grid container direction="column" spacing={10}>
       <Modal message={message} open={open} handleClose={handleClose} />
@@ -76,7 +75,7 @@ const Board = () => {
       {content}
     </>
   ) : (
-    <MainLoader />
+    <Loader type="main" />
   );
 
   return board;

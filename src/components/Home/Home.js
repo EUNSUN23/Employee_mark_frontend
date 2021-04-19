@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import EmpRadar from "./Graph/EmpRadar";
-import MainLoader from "../UI/MainLoader";
+import Loader from "../UI/Loader";
 import Svg from "../../shared/svgIcons";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
@@ -162,7 +162,7 @@ const Home = () => {
 
   const main = emp ? <EmpRadar data={emp} /> : null;
   const home = loading ? (
-    <MainLoader />
+    <Loader type="main" />
   ) : (
     <Container>
       <Header>Employee Mark</Header>

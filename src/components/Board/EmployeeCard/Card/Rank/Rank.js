@@ -67,7 +67,7 @@ const Rank = memo((props) => {
   const rankCard = isLoading ? (
     <Grid container justify="center">
       <Grid />
-      <Loader size="small" />
+      <Loader type="small" />
       <Grid />
     </Grid>
   ) : (

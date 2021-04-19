@@ -43,7 +43,6 @@ export const getEmpData = (selected, page, isIntersected) => {
     ? `http://localhost:3008/api/emp/${selected.category}/${selected.value}/${page_no}`
     : `http://localhost:3008/api/emp/${selected.value}/${page_no}`;
 
-  console.log(url);
   const current = isOptionVal
     ? selected
     : { category: "name", value: selected };

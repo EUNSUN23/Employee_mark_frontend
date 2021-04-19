@@ -64,7 +64,7 @@ const History = memo((props) => {
   };
 
   const makeHistoryContent = (isLoading, data, historyType) => {
-    if (isLoading || !data) return <Loader size="small" />;
+    if (isLoading || !data) return <Loader type="small" />;
     return historyType === "dept" ? (
       <TransferHistory data={data.dept} />
     ) : (

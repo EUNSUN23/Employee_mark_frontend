@@ -87,7 +87,7 @@ const CardContainer = memo(() => {
       <Grid container spacing={4}>
         {createEmployeeList(employeeData)}
       </Grid>
-      {isNextLoading ? <Loader size="medium" /> : null}
+      {isNextLoading ? <Loader type="medium" /> : null}
     </>
   );
 });
