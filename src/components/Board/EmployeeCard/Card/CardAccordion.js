@@ -32,17 +32,16 @@ const CardAccordion = memo((props) => {
 
   const { emp_no, dept_name, title, left } = props;
 
-  /*패널 클릭시 데이터 받아오기 */
   const onChangeAccordion = (panel) => (event, isExpanded) => {
     if (left) return dispatch(leftError("퇴사자입니다"));
     dispatch(setOpenedEmp({ emp_no, dept_name, title }));
     if (isExpanded) {
       setExpanded(panel);
       switch (panel) {
-        case "panel1":
+        case "history":
           getData("history", "default", emp_no, dept_name, title);
           return;
-        case "panel2":
+        case "rank":
           getData("rank", "default", emp_no, dept_name, title);
           return;
         default:
@@ -53,19 +52,23 @@ const CardAccordion = memo((props) => {
     }
   };
 
+  const makeContent = (expanded, panel, data) => {
+    return expanded === panel && { type: data.type, data: data.data };
+  };
+
   return (
     <div className={classes.root}>
       <History
-        type={expanded === "panel1" ? data.type : null}
-        data={expanded === "panel1" ? data.data : null}
+        type={makeContent(expanded, "history", data).type}
+        data={makeContent(expanded, "history", data).data}
         isLoading={data.isLoading}
         expanded={expanded}
         onChangeAccordion={onChangeAccordion}
         classes={classes}
       />
       <Rank
-        type={expanded === "panel2" ? data.type : null}
-        data={expanded === "panel2" ? data.data : null}
+        type={makeContent(expanded, "rank", data).type}
+        data={makeContent(expanded, "rank", data).data}
         empInfo={{ emp_no: emp_no, dept_name: dept_name, title: title }}
         isLoading={data.isLoading}
         expanded={expanded}

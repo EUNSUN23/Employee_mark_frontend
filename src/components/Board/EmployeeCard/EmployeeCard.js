@@ -1,10 +1,10 @@
-import React, { memo } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
 import CardAccordion from "./Card/CardAccordion";
 import Svg from "../../../shared/svgIcons";
-import theme from "../../../theme";
+import theme from "../../../shared/theme";
 
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EmployeeCard = memo((props) => {
+const EmployeeCard = (props) => {
   const classes = useStyles(theme);
 
   const { emp_no, first_name, last_name, left, more, title, dept_name } = props;
@@ -137,6 +137,6 @@ const EmployeeCard = memo((props) => {
       />
     </div>
   );
-});
+};
 
 export default EmployeeCard;

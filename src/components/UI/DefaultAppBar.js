@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Svg from "../../shared/svgIcons";
 import IconButton from "@material-ui/core/IconButton";
-import theme from "../../theme";
+import theme from "../../shared/theme";
 
 const useStyles = makeStyles({
   grow: {

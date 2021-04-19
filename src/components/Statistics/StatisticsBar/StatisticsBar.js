@@ -3,7 +3,7 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import theme from "../../../theme";
+import theme from "../../../shared/theme";
 import { getStatAPI } from "../../../store/actions/statPage";
 import DefaultAppBar from "../../UI/DefaultAppBar";
 import SearchInput from "./components/SearchInput";

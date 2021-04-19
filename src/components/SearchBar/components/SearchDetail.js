@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Svg from "../../../shared/svgIcons";
-import theme from "../../../theme";
+import theme from "../../../shared/theme";
 
 const useStyles = makeStyles(() => ({
   title_container: {

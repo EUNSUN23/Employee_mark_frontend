@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import Svg from "../../../../shared/svgIcons";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
-import theme from "../../../../theme";
+import theme from "../../../../shared/theme";
 
 const useStyles = makeStyles(() => ({
   root: {

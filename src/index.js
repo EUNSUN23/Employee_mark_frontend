@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@material-ui/core/styles";
 // import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
 // const theme = unstable_createMuiStrictModeTheme();
-import theme from "./theme";
+import theme from "./shared/theme";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
 import thunk from "redux-thunk";

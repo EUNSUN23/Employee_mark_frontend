@@ -8,7 +8,7 @@ import { Grid } from "@material-ui/core";
 import { initKeywords, addKeywords } from "../../store/actions/keywords";
 import { getEmpData } from "../../store/actions/searchEmp";
 import { isValid } from "../../shared/utility";
-import theme from "../../theme";
+import theme from "../../shared/theme";
 import DefaultAppBar from "../UI/DefaultAppBar";
 
 const useStyles = makeStyles({

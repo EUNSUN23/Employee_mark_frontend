@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import styled from "styled-components";
 import Svg from "../../../../shared/svgIcons";

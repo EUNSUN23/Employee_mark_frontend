@@ -19,7 +19,7 @@ import {
 import { setChartColor } from "../../../../shared/utility";
 import CustomizedLabel from "../SalaryDist/CustomizedLabel";
 import SalaryFilter from "./SalaryFilter";
-import theme from "../../../../theme";
+import theme from "../../../../shared/theme";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -30,6 +30,12 @@ const useStyles = makeStyles(() => ({
     left: "50%",
     top: "20%",
     transform: "translateX(-50%)",
+    "& h1": {
+      [theme.breakpoints.down("md")]: {
+        fontSize: "30px",
+        marginTop: "-5px",
+      },
+    },
   },
   salaryFilter: {
     [theme.breakpoints.down("sm")]: {

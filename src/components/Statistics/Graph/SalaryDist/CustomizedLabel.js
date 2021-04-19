@@ -7,7 +7,6 @@ const Label = styled.div`
   position: absolute;
   font-size: 10px;
   padding: 5px;
-  background-color: #ffffff;
   border-radius: 1px;
   text-align: center;
 `;
@@ -33,7 +32,7 @@ const CustomizedLabel = (props) => {
     let label;
     if (highlight) {
       label = (
-        <foreignObject x={x - 5} y={y - 17} width="100" height="100">
+        <foreignObject x={x - 5} y={y - 30} width="100" height="100">
           <Highlight xmlns="http://www.w3.org/1999/xhtml">
             <Title xmlns="http://www.w3.org/1999/xhtml">{`${value}명`}</Title>
           </Highlight>
