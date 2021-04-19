@@ -6,7 +6,6 @@ import DefaultPanel from "../../../../UI/DefaultPanel";
 
 const History = (props) => {
   const [historyType, setHistoryType] = useState("dept");
-
   const { expanded, onChangeAccordion, type, data, isLoading } = props;
 
   const onChangeType = useCallback(
@@ -30,7 +29,7 @@ const History = (props) => {
       <DefaultPanel
         name="history"
         expanded={expanded}
-        type={type}
+        type={historyType}
         getData={onChangeType}
         onChangeAccordion={onChangeAccordion}
       >

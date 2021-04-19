@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CardHeader from "@material-ui/core/CardHeader";
 import Avatar from "@material-ui/core/Avatar";
@@ -94,7 +94,16 @@ const useStyles = makeStyles((theme) => ({
 const EmployeeCard = (props) => {
   const classes = useStyles(theme);
 
-  const { emp_no, first_name, last_name, left, more, title, dept_name } = props;
+  const {
+    emp_no,
+    first_name,
+    last_name,
+    left,
+    more,
+    title,
+    dept_name,
+    currentEmp,
+  } = props;
 
   const subHeader = `${dept_name}, ${title}`;
   const name = `${first_name} ${last_name}`;
@@ -139,4 +148,8 @@ const EmployeeCard = (props) => {
   );
 };
 
-export default EmployeeCard;
+export default memo(
+  EmployeeCard,
+  (prevProps, nextProps) =>
+    !prevProps.currentEmp || prevProps.emp_no === nextProps.currentEmp
+);

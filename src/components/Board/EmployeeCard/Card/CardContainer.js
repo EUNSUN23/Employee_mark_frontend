@@ -1,5 +1,5 @@
 import React, { useEffect, memo, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import EmployeeCard from "../EmployeeCard";
 import { debounce } from "lodash";
 import { Grid } from "@material-ui/core";
@@ -14,6 +14,11 @@ const CardContainer = memo(() => {
   const employeeData = useSelector((state) => state.searchEmp.employeeData);
   const page = useSelector((state) => state.searchEmp.page);
   const isNextLoading = useSelector((state) => state.searchEmp.nextLoading);
+
+  const currentEmp = useSelector(
+    (state) => state.searchEmp.openedEmp && state.searchEmp.openedEmp.emp_no,
+    shallowEqual
+  );
 
   const nextPage = useRef(page);
   const target = useRef(null);
@@ -59,7 +64,7 @@ const CardContainer = memo(() => {
     return () => io && io.disconnect();
   });
 
-  const createEmployeeList = (employeeData) => {
+  const createEmployeeList = (employeeData, current) => {
     if (!employeeData) {
       return <BoardBackground />;
     }
@@ -71,10 +76,11 @@ const CardContainer = memo(() => {
           key={"employee" + idx}
           item
           xs={12}
-          sm={6}
+          sm={12}
+          md={6}
           ref={lastEl ? target : null}
         >
-          <EmployeeCard {...el.employee} />
+          <EmployeeCard {...el.employee} currentEmp={current} />
         </Grid>
       );
     });
@@ -85,7 +91,7 @@ const CardContainer = memo(() => {
   return (
     <>
       <Grid container spacing={4}>
-        {createEmployeeList(employeeData)}
+        {createEmployeeList(employeeData, currentEmp)}
       </Grid>
       {isNextLoading ? <Loader type="medium" /> : null}
     </>

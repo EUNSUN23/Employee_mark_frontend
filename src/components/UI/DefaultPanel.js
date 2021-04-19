@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import theme from "../../shared/theme";
@@ -23,9 +23,10 @@ const useStyles = makeStyles({
   },
   btnWrapper: {
     display: "grid",
+    width: "30%",
     gridTemplateRows: "auto",
-    gridTemplateColumns: "15% 15%",
-    gridGap: "10%",
+    gridTemplateColumns: "1fr 1fr",
+    gridGap: "3px",
     "& .unClicked": {
       padding: 1,
       color: "#039BE5",
@@ -64,7 +65,7 @@ const DefaultPanel = (props) => {
   const { name, children, expanded, type, getData, onChangeAccordion } = props;
   const classes = useStyles();
 
-  const info = useSelector((state) => state.searchEmp.openedEmp);
+  const info = useSelector((state) => state.searchEmp.openedEmp, shallowEqual);
 
   const panelName =
     name === "history" ? "부서이동 및 연봉변동" : "종합 직원 랭킹";

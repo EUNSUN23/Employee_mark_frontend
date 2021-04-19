@@ -34,6 +34,7 @@ const CardAccordion = memo((props) => {
 
   const onChangeAccordion = (panel) => (event, isExpanded) => {
     if (left) return dispatch(leftError("퇴사자입니다"));
+
     dispatch(setOpenedEmp({ emp_no, dept_name, title }));
     if (isExpanded) {
       setExpanded(panel);

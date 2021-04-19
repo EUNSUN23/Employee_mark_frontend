@@ -57,7 +57,7 @@ const Small = styled(Large)`
     width: 8em;
     height: 8em;
   }
-  margin: 0px 30px;
+  margin: 30px;
   font-size: 5px;
   border-top: 1.2em solid rgba(43, 156, 243, 0.2);
   border-right: 1.2em solid rgba(43, 156, 243, 0.2);
