@@ -24,7 +24,6 @@ const useStyles = makeStyles(() => ({
   title_listItemIcon: {
     position: "absolute",
     left: "0%",
-
     color: "white",
     height: "100%",
     pointerEvents: "none",
@@ -43,9 +42,9 @@ const useStyles = makeStyles(() => ({
     },
   },
   clearBtn: {
-    position: "absolute",
-    top: "20%",
-    right: "1%",
+    margin: "0 5%",
+    transform: "translateX(70%)",
+    height: "20px",
     "&:hover": {
       color: "red",
     },
@@ -75,12 +74,13 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles((theme) => ({
   root: {
     position: "relative",
+    width: "100%",
     transition: theme.transitions.create("width"),
-    width: "30ch",
-    [theme.breakpoints.only("sm")]: {
-      width: "40ch",
+    textAlign: "center",
+    [theme.breakpoints.up("sm")]: {
+      width: "30ch",
     },
-    height: "30px",
+
     "&:focus": {
       backgroundColor: theme.palette.primary.main,
       "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
