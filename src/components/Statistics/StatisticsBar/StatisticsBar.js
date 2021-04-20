@@ -42,6 +42,7 @@ const useStyles = makeStyles({
 });
 
 const StatisticsBar = () => {
+  const classes = useStyles({ selected, theme });
   const dispatch = useDispatch();
 
   const { area, selected, isDeptSent, isEmpSent } = useSelector(
@@ -53,8 +54,6 @@ const StatisticsBar = () => {
     }),
     shallowEqual
   );
-
-  const classes = useStyles({ selected, theme });
 
   const getBarData = (isSent) => {
     if (isSent) return;

@@ -94,16 +94,7 @@ const useStyles = makeStyles((theme) => ({
 const EmployeeCard = (props) => {
   const classes = useStyles(theme);
 
-  const {
-    emp_no,
-    first_name,
-    last_name,
-    left,
-    more,
-    title,
-    dept_name,
-    currentEmp,
-  } = props;
+  const { emp_no, first_name, last_name, left, more, title, dept_name } = props;
 
   const subHeader = `${dept_name}, ${title}`;
   const name = `${first_name} ${last_name}`;

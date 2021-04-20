@@ -65,7 +65,6 @@ const CardAccordion = memo((props) => {
         isLoading={data.isLoading}
         expanded={expanded}
         onChangeAccordion={onChangeAccordion}
-        classes={classes}
       />
       <Rank
         type={makeContent(expanded, "rank", data).type}
@@ -75,7 +74,6 @@ const CardAccordion = memo((props) => {
         expanded={expanded}
         onChangeAccordion={onChangeAccordion}
         getData={getData}
-        classes={classes}
       />
     </div>
   );

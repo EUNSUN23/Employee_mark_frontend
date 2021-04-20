@@ -12,7 +12,7 @@ const Tick = styled.span`
 `;
 
 const CustomizedTick = (tickProps) => {
-  const { x, y, payload, data, width, index } = tickProps;
+  const { x, y, payload, data, width } = tickProps;
   const { value } = payload;
 
   const emp = data[value];

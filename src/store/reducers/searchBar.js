@@ -28,7 +28,7 @@ const reducer = (state = initState, action) => {
       return setInpVal(state, action.name);
     case actionTypes.BAR_INIT_OPT:
       const initOpt = { optionVal: null };
-      return { ...state, initOpt };
+      return { ...state, ...initOpt };
     case actionTypes.BAR_FETCH_START:
       const updatedLoading = { loading: true };
       return { ...state, ...updatedLoading };

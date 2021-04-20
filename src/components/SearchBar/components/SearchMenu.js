@@ -71,7 +71,7 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MenuItem);
 
-const SearchMenu = memo(() => {
+const SearchMenu = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -86,7 +86,6 @@ const SearchMenu = memo(() => {
   };
 
   const handleMenuClick = (option) => {
-    console.log("handleMenuClick", option);
     dispatch(initOptVal());
     dispatch(setOption(option));
     handleClose();
@@ -160,6 +159,6 @@ const SearchMenu = memo(() => {
       </StyledMenu>
     </div>
   );
-});
+};
 
 export default SearchMenu;

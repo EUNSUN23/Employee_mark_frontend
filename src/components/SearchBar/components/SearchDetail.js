@@ -111,7 +111,7 @@ const SearchDetail = () => {
     shallowEqual
   );
 
-  useEffect(() => {
+  const initOption = (option, categoryObj, keywords) => {
     switch (option) {
       case "직급검색":
         setCategory(categoryObj.title);
@@ -122,8 +122,14 @@ const SearchDetail = () => {
       case "최근검색":
         setCategory(keywords);
         return;
+      default:
+        return;
     }
-  }, [option, keywords]);
+  };
+
+  useEffect(() => {
+    initOption(option, categoryObj, keywords);
+  }, [option, categoryObj, keywords]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -191,12 +197,11 @@ const SearchDetail = () => {
             }}
           />
           {clearBtn && category.length > 1 ? (
-            <div className={classes.clearBtn}>
-              <Svg
-                name="Delete"
-                size="small"
-                onClick={(e) => onClickDel(e, item.index)}
-              />
+            <div
+              className={classes.clearBtn}
+              onClick={(e) => onClickDel(e, item.index)}
+            >
+              <Svg name="Delete" size="small" />
             </div>
           ) : null}
         </StyledMenuItem>
@@ -204,7 +209,7 @@ const SearchDetail = () => {
     });
   };
 
-  const createSearchDetail = (category) => {
+  const createSearchDetail = (optTitle, category) => {
     if (category) {
       const newTitle = category[0];
       let detailList;
@@ -257,7 +262,7 @@ const SearchDetail = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {createSearchDetail(category)}
+        {createSearchDetail(optTitle, category)}
       </StyledMenu>
     </div>
   );
