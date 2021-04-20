@@ -162,27 +162,30 @@ const DefaultAppBar = (props) => {
     }
   };
 
-  const renderMobileMenu = (type) => (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <Link to="/" className={classes.link_mobile}>
-        <MenuItem>
-          <Svg name="Home" size="large" />
-          <span>홈으로</span>
-        </MenuItem>
-      </Link>
-      <Link to="/board" className={classes.link_mobile}>
-        <MenuItem>{changeLink("mobile", type)}</MenuItem>
-      </Link>
-    </Menu>
-  );
+  const renderMobileMenu = (type) => {
+    const secondNavLink = type === "statistics" ? "/board" : "/statistics";
+    return (
+      <Menu
+        anchorEl={mobileMoreAnchorEl}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        id={mobileMenuId}
+        keepMounted
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isMobileMenuOpen}
+        onClose={handleMobileMenuClose}
+      >
+        <Link to="/" className={classes.link_mobile}>
+          <MenuItem>
+            <Svg name="Home" size="large" />
+            <span>홈으로</span>
+          </MenuItem>
+        </Link>
+        <Link to={secondNavLink} className={classes.link_mobile}>
+          <MenuItem>{changeLink("mobile", type)}</MenuItem>
+        </Link>
+      </Menu>
+    );
+  };
 
   return (
     <div className={classes.grow}>

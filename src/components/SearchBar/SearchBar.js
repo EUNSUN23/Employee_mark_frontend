@@ -108,7 +108,7 @@ const SearchBar = () => {
   };
 
   return (
-    <DefaultAppBar type="employeeSearch">
+    <DefaultAppBar type="board">
       <form
         onSubmit={(e) => {
           submitData(e);
