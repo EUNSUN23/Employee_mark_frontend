@@ -94,7 +94,7 @@ const SearchBar = () => {
     if (keywords.length === 1) dispatch(initKeywords());
   }, []);
 
-  const submitData = (e) => {
+  const submitData = (e, option, inputVal, optionVal, page) => {
     e.preventDefault();
     if (option === "이름검색") {
       isValid(inputVal);
@@ -134,7 +134,7 @@ const SearchBar = () => {
               color="secondary"
               className={classes.submit}
               onClick={(e) => {
-                submitData(e);
+                submitData(e, option, inputVal, optionVal, page);
               }}
             >
               검색
