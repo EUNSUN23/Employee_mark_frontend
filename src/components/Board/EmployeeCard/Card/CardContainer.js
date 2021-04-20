@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import EmployeeCard from "../EmployeeCard";
 import { debounce } from "lodash";
@@ -8,7 +8,7 @@ import { getEmpData } from "../../../../store/actions/searchEmp";
 import { getCurrent } from "../../../../shared/utility";
 import BoardBackground from "../../BoardBackground";
 
-const CardContainer = memo(() => {
+const CardContainer = () => {
   const dispatch = useDispatch();
 
   const employeeData = useSelector((state) => state.searchEmp.employeeData);
@@ -96,6 +96,6 @@ const CardContainer = memo(() => {
       {isNextLoading ? <Loader type="medium" /> : null}
     </>
   );
-});
+};
 
 export default CardContainer;

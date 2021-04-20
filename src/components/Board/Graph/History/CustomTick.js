@@ -10,7 +10,7 @@ const Text = styled.div`
 `;
 
 const CustomTick = (props) => {
-  const { payload, x, y, fill } = props;
+  const { payload, x, y } = props;
   const { value } = payload;
 
   return (

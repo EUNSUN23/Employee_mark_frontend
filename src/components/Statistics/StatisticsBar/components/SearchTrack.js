@@ -156,7 +156,7 @@ const SearchTrack = () => {
       dispatch(initArea());
       dispatch(initDist());
     }
-  }, [range, value]);
+  }, [range, value, dispatch]);
 
   const handleRangeChange = useCallback(
     (range) => {

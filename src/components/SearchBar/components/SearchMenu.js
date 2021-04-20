@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setOption, initOptVal } from "../../../store/actions/searchBar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";

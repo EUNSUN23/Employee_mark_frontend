@@ -95,7 +95,6 @@ const useStyles = makeStyles(() => ({
   },
   disabled: {
     fontSize: 80,
-    color: "#333",
     color: "grey",
   },
 }));

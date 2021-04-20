@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Label = styled.div`
@@ -20,7 +20,7 @@ const InnerLabel = styled.div`
 `;
 
 const CustomizedRadarLabel = (props) => {
-  const { x, y, cx, cy, angle, radius, value, name, activeValue } = props;
+  const { x, y, radius, value, name, activeValue } = props;
 
   const XPoint = radius <= 90 ? x - radius : x - (180 - radius) / 2;
 

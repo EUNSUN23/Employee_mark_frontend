@@ -112,7 +112,7 @@ const NavItem = styled.li`
   }
   cursor: pointer;
 
-  a {
+  .link {
     text-decoration: none;
     color: #fff;
   }
@@ -166,13 +166,13 @@ const Home = () => {
       <Main>{main}</Main>
       <NavTab>
         <NavItem>
-          <NavLink to="/board" component="a">
+          <NavLink to="/board" className="link">
             <Svg name="EmployeeSearch" fontSize={iconSize} component="div" />
             <span>직원 검색</span>
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink to="/statistics" component="a">
+          <NavLink to="/statistics" className="link">
             <Svg name="SalaryStatistics" fontSize={iconSize} component="div" />
             <span>연봉 통계</span>
           </NavLink>

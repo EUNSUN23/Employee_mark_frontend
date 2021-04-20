@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useMemo, memo, useRef } from "react";
+import React, { useCallback, useState, memo } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer, Cell } from "recharts";
 import SalaryFilter from "./SalaryFilter";
 import styled from "styled-components";
