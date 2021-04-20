@@ -47,6 +47,7 @@ const DeptEmpRadar = ({ deptEmp }) => {
         />
 
         <Radar
+          isAnimationActive={false}
           name="Employees"
           dataKey="count"
           stroke="#8884d8"

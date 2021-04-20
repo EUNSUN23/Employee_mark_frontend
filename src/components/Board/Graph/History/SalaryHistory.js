@@ -65,6 +65,7 @@ const SalaryHistory = (props) => {
           />
 
           <Line
+            isAnimationActive={false}
             type="monotone"
             dataKey="salary"
             stroke="#4caf50"

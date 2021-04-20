@@ -4,10 +4,9 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { setOptVal } from "../../../store/actions/searchBar";
 import { deleteKeyword } from "../../../store/actions/keywords";
 import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import { DefaultMenu, DefaultMenuItem } from "../../UI/SearchDetailMenu";
 import Svg from "../../../shared/svgIcons";
 import theme from "../../../shared/theme";
 
@@ -51,47 +50,22 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const StyledMenu = withStyles({
+const StyledMenu = withStyles((theme) => ({
   paper: {
-    border: "1px solid #d3d4d5",
-  },
-})((props) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "center",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center",
-    }}
-    {...props}
-  />
-));
-
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    position: "relative",
-    width: "100%",
-    transition: theme.transitions.create("width"),
-    textAlign: "center",
     [theme.breakpoints.up("sm")]: {
       width: "30ch",
     },
+  },
+}))(DefaultMenu);
 
-    "&:focus": {
-      backgroundColor: theme.palette.primary.main,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white,
-      },
-    },
-    "&.menu_disabled": {
-      textAlign: "center",
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "30ch",
     },
   },
-}))(MenuItem);
+}))(DefaultMenuItem);
 
 const SearchDetail = () => {
   const [anchorEl, setAnchorEl] = useState(null);

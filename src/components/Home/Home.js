@@ -39,9 +39,10 @@ const Header = styled.h1`
 
 const Employees = styled.div`
   position: absolute;
-  top: 3%;
+  top: 2%;
   right: 0;
   width: 20%;
+  height: 25%;
   display: grid;
   margin-right: 40px;
   justify-items: center;
@@ -72,25 +73,9 @@ const Total = styled.div`
   }
 `;
 
-const Left = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  text-align: center;
-  font-size: 1.8vw;
-  font-weight: bold;
+const Left = styled(Total)`
   div {
-    flex: 1%;
     color: #f71409;
-  }
-  h4 {
-    flex: 10%;
-  }
-  span {
-    flex: 20%;
-    margin-left: -10%;
-    font-size: 1.2vw;
   }
 `;
 

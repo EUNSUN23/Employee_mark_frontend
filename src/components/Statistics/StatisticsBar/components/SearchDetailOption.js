@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import { DefaultMenu, DefaultMenuItem } from "../../../UI/SearchDetailMenu";
 import Svg from "../../../../shared/svgIcons";
 import theme from "../../../../shared/theme";
 import { setSelected } from "../../../../store/actions/statBar";
@@ -56,48 +55,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const StyledMenu = withStyles({
-  paper: {
-    border: "1px solid #d3d4d5",
-  },
-})((props) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: "bottom",
-      horizontal: "center",
-    }}
-    transformOrigin={{
-      vertical: "top",
-      horizontal: "center",
-    }}
-    {...props}
-  />
-));
-
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    position: "relative",
-    transition: theme.transitions.create("width"),
-    width: "50vw",
-    [theme.breakpoints.up("md")]: {
-      width: "30vw",
-    },
-    height: "8vh",
-    [theme.breakpoints.up("xl")]: {
-      height: "4.5vh",
-      fontSize: "25px",
-    },
-    "&:focus": {
-      backgroundColor: theme.palette.primary.main,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white,
-      },
-    },
-  },
-}))(MenuItem);
-
 const SearchDetailOption = () => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -143,7 +100,7 @@ const SearchDetailOption = () => {
           className={classes.title_listItemText}
         />
       </Button>
-      <StyledMenu
+      <DefaultMenu
         id="customized-menu"
         anchorEl={anchorEl}
         keepMounted
@@ -151,29 +108,29 @@ const SearchDetailOption = () => {
         onClose={handleClose}
         className={classes.menu_container}
       >
-        <StyledMenuItem
+        <DefaultMenuItem
           onClick={() => {
             onSelectClick("emp");
           }}
         >
           <ListItemText primary="전사 연봉 분포" />
-        </StyledMenuItem>
-        <StyledMenuItem
+        </DefaultMenuItem>
+        <DefaultMenuItem
           onClick={() => {
             onSelectClick("dept");
           }}
         >
           <ListItemText primary="부서별 연봉 분포" />
-        </StyledMenuItem>
+        </DefaultMenuItem>
 
-        <StyledMenuItem
+        <DefaultMenuItem
           onClick={() => {
             onSelectClick("area");
           }}
         >
           <ListItemText primary="상세 연봉별 부서순위" />
-        </StyledMenuItem>
-      </StyledMenu>
+        </DefaultMenuItem>
+      </DefaultMenu>
     </div>
   );
 };
