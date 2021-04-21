@@ -13,32 +13,31 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "row",
   },
-  menuButton: {
+  menuButton: ({ theme }) => ({
     marginRight: theme.spacing(2),
-  },
-  searchContainer: {
+  }),
+  searchContainer: ({ theme }) => ({
     position: "relative",
     width: "100vw",
     height: "14vh",
     [theme.breakpoints.up("sm")]: {
       width: "48vw",
     },
-  },
+  }),
 
-  submit: {
+  submit: ({ selected, theme }) => ({
     color: "white",
     fontSize: "1.3vw",
     minWidth: "6vw",
     [theme.breakpoints.down("sm")]: {
       position: "absolute",
-      left: (props) =>
-        props.selected && props.selected.type === "area" ? "45vw" : "60vw",
+      left: selected && selected.type === "area" ? "45vw" : "60vw",
       top: "50%",
       transform: "translateY(-50%)",
       fontSize: "1.3vw",
       minWidth: "4vw",
     },
-  },
+  }),
 });
 
 const StatisticsBar = () => {
@@ -54,7 +53,7 @@ const StatisticsBar = () => {
     shallowEqual
   );
 
-  const classes = useStyles({ selected, theme });
+  const classes = useStyles({ selected: selected, theme: theme });
 
   const getBarData = (isSent) => {
     if (isSent) return;

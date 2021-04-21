@@ -203,7 +203,6 @@ const SearchDetail = () => {
         value={optionVal ? optionVal.value : null}
         initValue={optTitle}
         onClickHandler={handleClick}
-        barType="board"
       />
       <StyledMenu
         id="customized-menu"

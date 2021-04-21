@@ -51,7 +51,6 @@ const SearchDetailOption = () => {
         value={detailTitle}
         initValue="연봉 통계 그래프"
         onClickHandler={handleClick}
-        barType="statistics"
       />
       <DefaultMenu
         id="customized-menu"
