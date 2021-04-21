@@ -7,16 +7,16 @@ import DefaultMenuBtn from "../../../UI/DefaultMenuBtn";
 import theme from "../../../../shared/theme";
 import { setSelected } from "../../../../store/actions/statBar";
 
-const useStyles = makeStyles((theme) => ({
-  menu_container: {
+const useStyles = makeStyles({
+  menu_container: ({ theme }) => ({
     position: "relative",
     transition: theme.transitions.create("width"),
     width: "50vw",
     [theme.breakpoints.up("md")]: {
       width: "30vw",
     },
-  },
-}));
+  }),
+});
 
 const SearchDetailOption = () => {
   const dispatch = useDispatch();
@@ -51,6 +51,7 @@ const SearchDetailOption = () => {
         value={detailTitle}
         initValue="연봉 통계 그래프"
         onClickHandler={handleClick}
+        barType="statistics"
       />
       <DefaultMenu
         id="customized-menu"

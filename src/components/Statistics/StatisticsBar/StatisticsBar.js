@@ -89,13 +89,14 @@ const StatisticsBar = () => {
           direction="row"
           alignItems="center"
           justify="center"
+          spacing={1}
           className={classes.searchContainer}
           selected={selected}
         >
-          <Grid item sm={9} md={8}>
+          <Grid item xs={7} sm={2} md={7}>
             <SearchInput classes={classes} />
           </Grid>
-          <Grid item xs={1} md={1} selected={selected}>
+          <Grid item xs={1} selected={selected}>
             <Button
               selected={selected}
               variant="contained"

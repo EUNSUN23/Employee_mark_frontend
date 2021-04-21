@@ -121,7 +121,7 @@ const SearchBar = () => {
           alignItems="center"
           justify="center"
           className={classes.searchContainer}
-          spacing={2}
+          spacing={1}
         >
           <Grid item xs={2} className={classes.searchOption}>
             <SearchMenu />

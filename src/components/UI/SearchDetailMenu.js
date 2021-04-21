@@ -27,9 +27,9 @@ export const DefaultMenuItem = withStyles({
   root: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "50vw",
+    width: "40vw",
     [theme.breakpoints.up("md")]: {
-      width: "30vw",
+      width: "25vw",
     },
     height: "8vh",
     [theme.breakpoints.up("xl")]: {

@@ -3,43 +3,13 @@ import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { setOptVal } from "../../../store/actions/searchBar";
 import { deleteKeyword } from "../../../store/actions/keywords";
-import Button from "@material-ui/core/Button";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { DefaultMenu, DefaultMenuItem } from "../../UI/SearchDetailMenu";
+import DefaultMenuBtn from "../../UI/DefaultMenuBtn";
 import Svg from "../../../shared/svgIcons";
 import theme from "../../../shared/theme";
 
 const useStyles = makeStyles(() => ({
-  title_container: {
-    position: "relative",
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "35ch",
-    },
-    height: "35px",
-  },
-  title_listItemIcon: {
-    position: "absolute",
-    left: "0%",
-    color: "white",
-    height: "100%",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title_listItemText: {
-    position: "relative",
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
   clearBtn: {
     margin: "0 5%",
     transform: "translateX(70%)",
@@ -50,22 +20,38 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const StyledMenu = withStyles((theme) => ({
+const StyledMenuBtn = withStyles({
+  title_container: {
+    width: "35vw",
+    [theme.breakpoints.up("md")]: {
+      width: "25vw",
+    },
+  },
+
+  title_listItemText: {
+    width: "35vw",
+    [theme.breakpoints.up("md")]: {
+      width: "25vw",
+    },
+  },
+})(DefaultMenuBtn);
+
+const StyledMenu = withStyles({
   paper: {
     [theme.breakpoints.up("sm")]: {
       width: "30ch",
     },
   },
-}))(DefaultMenu);
+})(DefaultMenu);
 
-const StyledMenuItem = withStyles((theme) => ({
+const StyledMenuItem = withStyles({
   root: {
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       width: "30ch",
     },
   },
-}))(DefaultMenuItem);
+})(DefaultMenuItem);
 
 const SearchDetail = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -213,22 +199,12 @@ const SearchDetail = () => {
 
   return (
     <div>
-      <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
-        className={classes.title_container}
-      >
-        <ListItemIcon className={classes.title_listItemIcon}>
-          <Svg name="ArrowDown" fontSize="large" component="div" />
-        </ListItemIcon>
-        <ListItemText
-          primary={optionVal ? optionVal.value : optTitle}
-          className={classes.title_listItemText}
-        />
-      </Button>
+      <StyledMenuBtn
+        value={optionVal ? optionVal.value : null}
+        initValue={optTitle}
+        onClickHandler={handleClick}
+        barType="board"
+      />
       <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}
