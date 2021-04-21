@@ -199,7 +199,7 @@ const DefaultAppBar = (props) => {
           >
             <Typography className={classes.title}>Employee Mark</Typography>
             {children}
-            <Grid container xs={2} sm={2} md={3}>
+            <Grid container item xs={2} sm={2} md={3}>
               <Grid container className={classes.sectionDesktop}>
                 <Grid
                   item

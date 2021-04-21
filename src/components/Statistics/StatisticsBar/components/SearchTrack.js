@@ -96,16 +96,16 @@ const SalarySlider = withStyles((theme) => ({
     },
   },
   thumb: {
-    height: "15px",
-    width: "15px",
-    [theme.breakpoints.up("lg")]: {
+    height: "20px",
+    width: "20px",
+    marginTop: -8,
+    [theme.breakpoints.up("xl")]: {
       height: "25px",
       width: "25px",
       marginTop: -10,
     },
     backgroundColor: "#fff",
     boxShadow: BoxShadow,
-    marginTop: -6,
     marginLeft: -8,
     "&:focus, &:hover, &$active": {
       boxShadow:

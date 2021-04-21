@@ -7,7 +7,12 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
   width: 90%;
+  @media only screen and (max-width: 992px) and (min-width: 576px) {
+    width: 80%;
+    height: 50%;
+  }
   margin: 0 auto;
   text-align: center;
 `;
@@ -20,9 +25,17 @@ const RankItem = styled.div`
   .rank {
     font-weight: bold;
     font-size: 16px;
+    @media only screen and (max-width: 992px) and (min-width: 576px) {
+      margin-top: -10px;
+      font-size: 1.4vw;
+    }
   }
   .dots {
+    display: block;
     color: #4caf50;
+    @media only screen and (max-width: 992px) and (min-width: 576px) {
+      font-size: 12px;
+    }
   }
 `;
 
@@ -42,6 +55,9 @@ const Badge = styled.div`
   span {
     font-size: 12px;
     text-align: center;
+    @media only screen and (max-width: 992px) and (min-width: 576px) {
+      margin-top: -10px;
+    }
   }
 `;
 

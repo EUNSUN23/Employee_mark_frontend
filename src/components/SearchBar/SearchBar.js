@@ -96,6 +96,7 @@ const SearchBar = () => {
 
   const submitData = (e, option, inputVal, optionVal, page) => {
     e.preventDefault();
+    console.log("option", option);
     if (option === "이름검색") {
       isValid(inputVal);
       dispatch(getEmpData(inputVal, page, "noPage"));
@@ -111,7 +112,7 @@ const SearchBar = () => {
     <DefaultAppBar type="board">
       <form
         onSubmit={(e) => {
-          submitData(e);
+          submitData(e, option, inputVal, optionVal, page);
         }}
       >
         <Grid

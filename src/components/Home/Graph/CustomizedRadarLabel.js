@@ -9,7 +9,6 @@ const Label = styled.div`
 
 const InnerLabel = styled.div`
   font-size: 15px;
-
   font-weight: bold;
   position: absolute;
   display: ${(props) => (props.activeValue === props.name ? "block" : "none")};

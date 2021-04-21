@@ -1,8 +1,6 @@
-import { createMuiTheme } from "@material-ui/core/styles";
-import blue from "@material-ui/core/colors/blue";
-import green from "@material-ui/core/colors/green";
+import { unstable_createMuiStrictModeTheme } from "@material-ui/core/styles";
 
-const theme = createMuiTheme({
+const theme = unstable_createMuiStrictModeTheme({
   breakpoints: {
     values: {
       xs: 0,
@@ -15,13 +13,12 @@ const theme = createMuiTheme({
 
   palette: {
     primary: {
-      main: blue[500],
+      main: "#2196f3",
     },
     secondary: {
-      main: green[500],
+      main: "#35c265",
     },
   },
-  status: { danger: "orange" },
 });
 
 export default theme;

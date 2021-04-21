@@ -14,7 +14,6 @@ const CustomizedDot = (props) => {
 
   return (
     <g>
-      {" "}
       <circle cx={XPoint} cy={YPoint} r={r} fill={fill} />
     </g>
   );
