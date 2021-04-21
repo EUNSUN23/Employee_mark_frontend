@@ -30,10 +30,14 @@ const useStyles = makeStyles(() => ({
     left: "50%",
     top: "20%",
     transform: "translateX(-50%)",
+  },
+  deptTitle: {
     "& h1": {
       [theme.breakpoints.down("md")]: {
         fontSize: "30px",
-        marginTop: "-5px",
+      },
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "20px",
       },
     },
   },
@@ -166,7 +170,7 @@ const DeptChart = ({ deptData }) => {
         alignItems="center"
         className={classes.titleContainer}
       >
-        <Grid item>
+        <Grid item className={classes.deptTitle}>
           <h1 ref={paginationRef} className="swiperPagination"></h1>
         </Grid>
         <Grid item className={classes.salaryFilter}>

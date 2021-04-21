@@ -55,10 +55,15 @@ const DistBar = memo(({ data, type, salary }) => {
               fill="#666"
               tick={<CustomizedTick data={data} />}
               tickLine={false}
+              allowDataOverflow={true}
             />
-            <YAxis dataKey="cnt" allowDataOverflow={true} />
+            <YAxis dataKey="cnt" />
 
-            <Bar dataKey="cnt" label={<CustomizedLabel />}>
+            <Bar
+              dataKey="cnt"
+              label={<CustomizedLabel />}
+              allowDataOverflow={true}
+            >
               {data.map((entry, index) => {
                 const color = setChartColor(entry.name);
                 return (
@@ -85,10 +90,9 @@ const DistBar = memo(({ data, type, salary }) => {
       direction="column"
       justify="center"
       alignItems="center"
-      spacing={2}
+      spacing={5}
     >
       <Grid item>
-        {" "}
         <h1 className={classes.salary}>{`Salary ${compare} ${salary}`}</h1>
       </Grid>
       {makeDistBar(data)}
