@@ -9,7 +9,7 @@ import DefaultMenuBtn from "../../UI/DefaultMenuBtn";
 import Svg from "../../../shared/svgIcons";
 import theme from "../../../shared/theme";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
   clearBtn: {
     margin: "0 5%",
     transform: "translateX(70%)",
@@ -18,17 +18,16 @@ const useStyles = makeStyles(() => ({
       color: "red",
     },
   },
-}));
+});
 
 const StyledMenuBtn = withStyles({
-  title_container: {
+  root: {
     width: "35vw",
     [theme.breakpoints.up("md")]: {
       width: "25vw",
     },
   },
-
-  title_listItemText: {
+  text: {
     width: "35vw",
     [theme.breakpoints.up("md")]: {
       width: "25vw",

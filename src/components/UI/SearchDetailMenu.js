@@ -6,6 +6,10 @@ import theme from "../../shared/theme";
 export const DefaultMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
+    width: "35vw",
+    [theme.breakpoints.up("md")]: {
+      width: "25vw",
+    },
   },
 })((props) => (
   <Menu
@@ -26,6 +30,7 @@ export const DefaultMenu = withStyles({
 export const DefaultMenuItem = withStyles({
   root: {
     position: "relative",
+
     transition: theme.transitions.create("width"),
     width: "40vw",
     [theme.breakpoints.up("md")]: {

@@ -1,28 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
 import ListItemText from "@material-ui/core/ListItemText";
 import { DefaultMenu, DefaultMenuItem } from "../../../UI/SearchDetailMenu";
 import DefaultMenuBtn from "../../../UI/DefaultMenuBtn";
-import theme from "../../../../shared/theme";
 import { setSelected } from "../../../../store/actions/statBar";
-
-const useStyles = makeStyles({
-  menu_container: ({ theme }) => ({
-    position: "relative",
-    transition: theme.transitions.create("width"),
-    width: "50vw",
-    [theme.breakpoints.up("md")]: {
-      width: "30vw",
-    },
-  }),
-});
 
 const SearchDetailOption = () => {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const [detailTitle, setDetailTitle] = useState(null);
-  const classes = useStyles({ theme });
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -58,7 +44,6 @@ const SearchDetailOption = () => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        className={classes.menu_container}
       >
         <DefaultMenuItem
           onClick={() => {

@@ -8,7 +8,7 @@ import theme from "../../shared/theme";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
-  title_container: {
+  root: {
     position: "relative",
     transition: theme.transitions.create("width"),
     width: "40vw",
@@ -21,7 +21,7 @@ const styles = {
       fontSize: "25px",
     },
   },
-  title_listItemIcon: {
+  arrowIcon: {
     position: "absolute",
     left: "0%",
     color: "#fff",
@@ -31,7 +31,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
   },
-  title_listItemText: {
+  text: {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
     transition: theme.transitions.create("width"),
@@ -54,14 +54,14 @@ const DefaultMenuBtn = (props) => {
       variant="contained"
       color="primary"
       onClick={onClickHandler}
-      className={classes.title_container}
+      className={classes.root}
     >
-      <ListItemIcon className={classes.title_listItemIcon}>
+      <ListItemIcon className={classes.arrowIcon}>
         <Svg name="ArrowDown" fontSize="large" component="div" />
       </ListItemIcon>
       <ListItemText
         primary={value ? value : initValue}
-        className={classes.title_listItemText}
+        className={classes.text}
       />
     </Button>
   );
