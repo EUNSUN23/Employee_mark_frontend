@@ -75,7 +75,7 @@ const CardContainer = () => {
         <Grid
           key={"employee" + idx}
           item
-          xs={12}
+          xs={10}
           sm={12}
           md={6}
           ref={lastEl ? target : null}
@@ -90,7 +90,7 @@ const CardContainer = () => {
 
   return (
     <>
-      <Grid container spacing={4}>
+      <Grid container spacing={4} justify="center">
         {createEmployeeList(employeeData, currentEmp)}
       </Grid>
       {isNextLoading ? <Loader type="medium" /> : null}

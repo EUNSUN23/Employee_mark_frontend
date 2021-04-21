@@ -48,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
   award: {
     cursor: "pointer",
     position: "relative",
-    width: "100px",
     height: "50px",
     color: "red",
 
@@ -58,26 +57,21 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "-1px",
       "&::before": {
         position: "absolute",
-        top: "-150%",
-        left: "-120%",
+        top: "-10%",
+        left: "120%",
+        width: "400%",
         display: "block",
         fontSize: "1%",
-        width: "12vw",
-        [theme.breakpoints.up("lg")]: {
+        [theme.breakpoints.up("sm")]: {
           width: "8vw",
-          top: "0%",
-          left: "120%",
         },
-        height: "18px",
-        lineHeight: "18px",
         content: '"임원급 연봉 수령자"',
-        padding: "2px",
+        padding: "3px",
         boxShadow:
           "rgba(0, 0, 0, 0.3) 2px 1px 2px 0px, rgba(0, 0, 0, 0.14) 1px 0px 0px 0px",
         backgroundColor: "beige ",
         color: "#000",
         fontWeight: "bold",
-
         opacity: 0,
         transition: "all 0.5s",
       },
