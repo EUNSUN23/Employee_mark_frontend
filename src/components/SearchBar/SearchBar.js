@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import SearchMenu from "./components/SearchMenu";
@@ -82,13 +82,18 @@ const useStyles = makeStyles({
 
 const SearchBar = () => {
   const classes = useStyles({ theme });
-
   const dispatch = useDispatch();
-  const keywords = useSelector((state) => state.keywords.keywords);
-  const page = useSelector((state) => state.searchEmp.page);
-  const option = useSelector((state) => state.searchBar.option);
-  const inputVal = useSelector((state) => state.searchBar.inputVal);
-  const optionVal = useSelector((state) => state.searchBar.optionVal);
+
+  const { keywords, page, option, inputVal, optionVal } = useSelector(
+    (state) => ({
+      keywords: state.keywords.keywords,
+      page: state.searchEmp.page,
+      option: state.searchBar.option,
+      inputVal: state.searchBar.inputVal,
+      optionVal: state.searchBar.optionVal,
+    }),
+    shallowEqual
+  );
 
   useEffect(() => {
     if (keywords.length === 1) dispatch(initKeywords());

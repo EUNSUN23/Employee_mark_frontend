@@ -12,7 +12,6 @@ const useInput = (initValue) => {
 
   const onChangeHandler = (e) => {
     const { value } = e.target;
-    console.log(value);
     setValue(value);
     save(value);
   };

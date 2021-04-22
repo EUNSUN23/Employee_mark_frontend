@@ -345,3 +345,44 @@ export const setSearchEmpApi = (selected, page_no) => {
       return;
   }
 };
+
+// ** 시간 순으로 최근검색어 리스트 5개 만들기 **
+
+export const createRecentList = (arr) => {
+  if (arr.length <= 1) return [{ index: 0, value: "최근 검색내역이 없습니다" }];
+
+  const recentItems = arr.slice(1);
+
+  const sortedArr = recentItems.sort((a, b) => {
+    return b.index - a.index;
+  });
+
+  const valueArr = sortedArr.map((el, idx) => {
+    return el.value;
+  });
+
+  const reducedArr = valueArr.reduce((accumulator, current) => {
+    const length = accumulator.length;
+    if (length === 0 || accumulator.indexOf(current) <= -1) {
+      current && accumulator.push(current);
+    }
+    return accumulator;
+  }, []);
+
+  return reducedArr.slice(0, 5).map((el, idx) => {
+    const index = valueArr.indexOf(el);
+    return {
+      category: recentItems[index].category,
+      value: el,
+      index: recentItems[index].index,
+    };
+  });
+};
+
+// ** 최근검색어 외 메뉴리스트 만들기 **
+
+export const createOptions = (arr) => {
+  return arr
+    .map((el, idx) => ({ category: arr[0], index: idx, value: el }))
+    .slice(1);
+};

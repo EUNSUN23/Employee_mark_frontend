@@ -1,49 +1,40 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import ListItemText from "@material-ui/core/ListItemText";
 import { DefaultMenu, DefaultMenuItem } from "../../../UI/SearchDetailMenu";
 import DefaultMenuBtn from "../../../UI/DefaultMenuBtn";
 import { setSelected } from "../../../../store/actions/statBar";
+import useMenuBtn from "../../../../hooks/useMenuBtn";
+import ListItemText from "@material-ui/core/ListItemText";
 
 const SearchDetailOption = () => {
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [detailTitle, setDetailTitle] = useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const [menu, setMenu] = useMenuBtn(null);
 
   const onSelectClick = (type) => {
+    if (type === "area") return;
+
+    type === "emp"
+      ? setMenu.onMenuItemClick("전사 연봉 분포")
+      : setMenu.onMenuItemClick("부서별 연봉 분포");
+
     dispatch(setSelected({ type: type, salary: "default" }));
-    handleClose();
-    switch (type) {
-      case "emp":
-        return setDetailTitle("전사 연봉 분포");
-      case "dept":
-        return setDetailTitle("부서별 연봉 분포");
-      default:
-        return;
-    }
+
+    setMenu.onClose();
   };
 
   return (
     <div>
       <DefaultMenuBtn
-        value={detailTitle}
+        value={menu.title}
         initValue="연봉 통계 그래프"
-        onClickHandler={handleClick}
+        onClickHandler={setMenu.onClickAnchor}
       />
       <DefaultMenu
         id="customized-menu"
-        anchorEl={anchorEl}
+        anchorEl={menu.anchorEl}
         keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
+        open={Boolean(menu.anchorEl)}
+        onClose={setMenu.onClose}
       >
         <DefaultMenuItem
           onClick={() => {
