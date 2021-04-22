@@ -346,7 +346,7 @@ export const setSearchEmpApi = (selected, page_no) => {
   }
 };
 
-// ** 시간 순으로 최근검색어 리스트 5개 만들기 **
+// * 시간 순으로 최근검색어 리스트 5개 만들기 *
 
 export const createRecentList = (arr) => {
   if (arr.length <= 1) return [{ index: 0, value: "최근 검색내역이 없습니다" }];
@@ -379,10 +379,12 @@ export const createRecentList = (arr) => {
   });
 };
 
-// ** 최근검색어 외 메뉴리스트 만들기 **
+// * 최근검색어 외 메뉴리스트 만들기 *
 
 export const createOptions = (arr) => {
   return arr
     .map((el, idx) => ({ category: arr[0], index: idx, value: el }))
     .slice(1);
 };
+
+// * Bar의 navLink 바꾸기 *
