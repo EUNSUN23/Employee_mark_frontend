@@ -1,5 +1,5 @@
 import axios from "axios";
-import { saveCurrent } from "../../shared/utility";
+import { saveCurrent, setSearchEmpApi } from "../../shared/utility";
 import * as actionTypes from "./actionTypes";
 
 export const updateObject = (oldObject, updatedProperties) => {
@@ -35,17 +35,11 @@ const fetchFail = (message) => {
 
 export const getEmpData = (selected, page, isIntersected) => {
   let employees;
-  const intersecting = isIntersected === "intersected";
-  const isOptionVal =
-    selected.category && selected.category !== "name" ? true : false;
-  const page_no = intersecting ? page + 1 : page;
-  const url = isOptionVal
-    ? `http://localhost:3008/api/emp/${selected.category}/${selected.value}/${page_no}`
-    : `http://localhost:3008/api/emp/${selected}/${page_no}`;
 
-  const current = isOptionVal
-    ? selected
-    : { category: "name", value: selected };
+  const intersecting = isIntersected === "intersected";
+  const page_no = intersecting ? page + 1 : page;
+  const url = setSearchEmpApi(selected, page_no);
+  const current = selected;
 
   return async (dispatch) => {
     dispatch(fetchStart(intersecting));

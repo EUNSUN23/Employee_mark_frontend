@@ -30,7 +30,6 @@ export const DefaultMenu = withStyles({
 export const DefaultMenuItem = withStyles({
   root: {
     position: "relative",
-
     transition: theme.transitions.create("width"),
     width: "40vw",
     [theme.breakpoints.up("md")]: {

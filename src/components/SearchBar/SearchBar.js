@@ -96,16 +96,11 @@ const SearchBar = () => {
 
   const submitData = (e, option, inputVal, optionVal, page) => {
     e.preventDefault();
-    console.log("option", option);
-    if (option === "이름검색") {
-      isValid(inputVal);
-      dispatch(getEmpData(inputVal, page, "noPage"));
-      dispatch(addKeywords("name", inputVal));
-    } else {
-      isValid(optionVal.value);
-      dispatch(getEmpData(optionVal, page, "noPage"));
-      dispatch(addKeywords(optionVal.category, optionVal.value));
-    }
+    const dataObj =
+      option === "이름검색" ? { category: "name", value: inputVal } : optionVal;
+    isValid(dataObj.value);
+    dispatch(getEmpData(dataObj, page, "noPage"));
+    dispatch(addKeywords(dataObj.category, dataObj.value));
   };
 
   return (

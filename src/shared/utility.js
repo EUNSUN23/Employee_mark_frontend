@@ -330,3 +330,18 @@ export const setTotal = (state, total, left, loading) => {
   const updatedTotal = { total: total, left: left, loading: loading };
   return updateObject(state, updatedTotal);
 };
+
+//<------ 기타 ---------->
+
+export const setSearchEmpApi = (selected, page_no) => {
+  switch (selected.category) {
+    case "name":
+      return `http://localhost:3008/api/emp/${selected.value}/${page_no}`;
+    case "dept":
+      return `http://localhost:3008/api/emp/${selected.category}/${selected.value}/${page_no}`;
+    case "title":
+      return `http://localhost:3008/api/emp/${selected.category}/${selected.value}/${page_no}`;
+    default:
+      return;
+  }
+};

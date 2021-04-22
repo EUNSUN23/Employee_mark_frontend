@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     minWidth: "6vw",
     [theme.breakpoints.down("sm")]: {
       position: "absolute",
-      left: selected && selected.type === "area" ? "45vw" : "60vw",
+      left: `${selected && selected.type === "area" ? "45vw" : "60vw"}`,
       top: "50%",
       transform: "translateY(-50%)",
       fontSize: "1.3vw",
@@ -92,7 +92,7 @@ const StatisticsBar = () => {
           className={classes.searchContainer}
           selected={selected}
         >
-          <Grid item xs={7} sm={2} md={7}>
+          <Grid item xs={8} sm={2} md={7}>
             <SearchInput classes={classes} />
           </Grid>
           <Grid item xs={1} selected={selected}>
