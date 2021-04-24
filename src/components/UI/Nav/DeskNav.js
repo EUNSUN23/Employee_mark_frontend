@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import styled from "styled-components";
-import Svg from "../../shared/svgIcons";
+import Svg from "../../../shared/svgIcons";
 import NavLink from "./NavLink";
 
 export const Container = styled.ul`

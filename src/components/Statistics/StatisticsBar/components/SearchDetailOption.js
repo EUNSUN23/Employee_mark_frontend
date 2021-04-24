@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { DefaultMenu, DefaultMenuItem } from "../../../UI/SearchDetailMenu";
-import DefaultMenuBtn from "../../../UI/DefaultMenuBtn";
+import {
+  DefaultMenu,
+  DefaultMenuItem,
+} from "../../../UI/AppBar/SearchDetailMenu";
+import DefaultMenuBtn from "../../../UI/AppBar/DefaultMenuBtn";
 import { setSelected } from "../../../../store/actions/statBar";
 import useMenuBtn from "../../../../hooks/useMenuBtn";
 import ListItemText from "@material-ui/core/ListItemText";

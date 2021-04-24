@@ -9,7 +9,7 @@ import { initKeywords, addKeywords } from "../../store/actions/keywords";
 import { getEmpData } from "../../store/actions/searchEmp";
 import { isValid } from "../../shared/utility";
 import theme from "../../shared/theme";
-import DefaultAppBar from "../UI/DefaultAppBar";
+import DefaultAppBar from "../UI/AppBar/DefaultAppBar";
 
 const useStyles = makeStyles({
   searchContainer: {

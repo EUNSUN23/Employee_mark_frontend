@@ -1,7 +1,7 @@
 import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import theme from "../../shared/theme";
+import theme from "../../../shared/theme";
 
 export const DefaultMenu = withStyles({
   paper: {

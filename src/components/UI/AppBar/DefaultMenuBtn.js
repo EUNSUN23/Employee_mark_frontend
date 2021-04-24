@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import Svg from "../../shared/svgIcons";
-import theme from "../../shared/theme";
+import Svg from "../../../shared/svgIcons";
+import theme from "../../../shared/theme";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {

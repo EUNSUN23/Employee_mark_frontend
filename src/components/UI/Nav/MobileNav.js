@@ -3,10 +3,10 @@ import styled from "styled-components";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import IconButton from "@material-ui/core/IconButton";
-import Svg from "../../shared/svgIcons";
+import Svg from "../../../shared/svgIcons";
 import NavLink from "./NavLink";
 
-import useMenuBtn from "../../hooks/useMenuBtn";
+import useMenuBtn from "../../../hooks/useMenuBtn";
 
 const StyledMenu = styled(Menu)`
   padding: 0;

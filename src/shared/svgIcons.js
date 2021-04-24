@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { SvgIcon } from "@material-ui/core";
 
 const Staff = ({ fontSize, component }) => {
@@ -2119,6 +2119,7 @@ const ExpandMore = ({ fontSize, component }) => {
 };
 
 const Svg = ({ name, fontSize, component }) => {
+  console.log("SVG RENDER");
   const makeIcon = (name, fontSize, component) => {
     const size = fontSize ? fontSize : "default";
     const element = component ? component : "svg";
@@ -2203,4 +2204,7 @@ const Svg = ({ name, fontSize, component }) => {
   return makeIcon(name, fontSize, component);
 };
 
-export default Svg;
+export default memo(
+  Svg,
+  (prevProps, nextProps) => prevProps.fontSize !== nextProps.fontSize
+);

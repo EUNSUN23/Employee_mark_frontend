@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { DefaultMenuItem } from "../../UI/SearchDetailMenu";
+import { DefaultMenuItem } from "../../UI/AppBar/SearchDetailMenu";
 import ListItemText from "@material-ui/core/ListItemText";
 import ClearBtn from "../../UI/ClearBtn";
 import theme from "../../../shared/theme";

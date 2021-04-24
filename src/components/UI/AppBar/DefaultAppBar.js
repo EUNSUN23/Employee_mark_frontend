@@ -4,9 +4,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import DeskNav from "../UI/DeskNav";
-import MobileNav from "../UI/MobileNav";
-import theme from "../../shared/theme";
+import DeskNav from "../Nav/DeskNav";
+import MobileNav from "../Nav/MobileNav";
+import theme from "../../../shared/theme";
 
 const useStyles = makeStyles({
   grow: {
