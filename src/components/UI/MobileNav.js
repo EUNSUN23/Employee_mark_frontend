@@ -1,58 +1,46 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import styled from "styled-components";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import Svg from "../../shared/svgIcons";
+import NavLink from "./NavLink";
+
 import useMenuBtn from "../../hooks/useMenuBtn";
 
-// home: {
-//     cursor: "pointer",
-//     width: 80,
-//     height: 30,
-//     "& .icon_home": {
-//       width: 28,
-//       height: 28,
-//     },
-//     "&:hover": {
-//       "& span": {
-//         fontWeight: "bold",
-//       },
-//     },
-//   },
-//   secondNav: {
-//     cursor: "pointer",
-//     width: 100,
-//     height: 30,
-//     "& .icon_secondNav": {
-//       width: 28,
-//       height: 28,
-//     },
-//     "&:hover": {
-//       "& span": {
-//         fontWeight: "bold",
-//       },
-//     },
-//   },
+const StyledMenu = styled(Menu)`
+  padding: 0;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 5fr 5fr;
+  justify-items: flex-end;
+  align-content: center;
+`;
 
-// link_mobile: {
-//     color: "black",
-//     textDecoration: "none",
-//     "& span": {
-//       paddingLeft: "5px",
-//     },
-//   },
+const StyledMenuItem = styled(MenuItem)`
+  display: grid;
+  grid-gap: 5px;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr auto;
+  align-content: center;
+  justify-items: center;
+  list-style: none;
+`;
 
 const renderSecond = (type) =>
   type === "statistics" ? (
     <>
       <Svg name="EmployeeSearch" />
-      <span>직원 검색</span>
+      <NavLink endPoint="/board" color="#000">
+        직원 검색
+      </NavLink>
     </>
   ) : (
     <>
       <Svg name="SalaryStatistics" />
-      <span>연봉 통계</span>
+      <NavLink endPoint="/statistics" color="#000">
+        연봉 통계
+      </NavLink>
     </>
   );
 
@@ -60,8 +48,6 @@ const MobileNav = ({ type }) => {
   const [navBtn, setNavBtn] = useMenuBtn(null);
 
   const isOpen = Boolean(navBtn.anchorEl);
-
-  const secondLink = type === "statistics" ? "/board" : "/statistics";
 
   return (
     <>
@@ -74,7 +60,7 @@ const MobileNav = ({ type }) => {
       >
         <Svg name="More" />
       </IconButton>
-      <Menu
+      <StyledMenu
         anchorEl={navBtn.anchorEl}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         id="search-employee-menu-mobile"
@@ -83,16 +69,14 @@ const MobileNav = ({ type }) => {
         open={isOpen}
         onClose={setNavBtn.onClose}
       >
-        <Link to="/" className={classes.link_mobile}>
-          <MenuItem>
-            <Svg name="Home" size="large" />
-            <span>홈으로</span>
-          </MenuItem>
-        </Link>
-        <Link to={secondLink} className={classes.link_mobile}>
-          <MenuItem>{renderSecond(type)}</MenuItem>
-        </Link>
-      </Menu>
+        <StyledMenuItem>
+          <Svg name="Home" size="large" />
+          <NavLink endPoint="/" color="#000">
+            홈으로
+          </NavLink>
+        </StyledMenuItem>
+        <StyledMenuItem>{renderSecond(type)}</StyledMenuItem>
+      </StyledMenu>
     </>
   );
 };

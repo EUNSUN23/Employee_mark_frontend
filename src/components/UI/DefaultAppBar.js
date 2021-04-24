@@ -12,10 +12,7 @@ const useStyles = makeStyles({
   grow: {
     flexGrow: 1,
   },
-  menu: {
-    display: "flex",
-    flexDirection: "row",
-  },
+
   appBar: {
     height: "14vh",
     [theme.breakpoints.up("xl")]: {
@@ -72,11 +69,9 @@ const DefaultAppBar = (props) => {
             {children}
             <Grid container item xs={2} sm={2} md={3}>
               <Grid container className={classes.sectionDesktop}>
-                {/* DeskNav.js */}
                 <DeskNav type={type} />
               </Grid>
               <Grid item className={classes.sectionMobile}>
-                {/* MobileNav.js */}
                 <MobileNav type={type} />
               </Grid>
             </Grid>

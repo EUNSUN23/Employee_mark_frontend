@@ -1,109 +1,55 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import styled from "styled-components";
+import Svg from "../../shared/svgIcons";
+import NavLink from "./NavLink";
 
-// home: {
-//     cursor: "pointer",
-//     width: 80,
-//     height: 30,
-//     "& .icon_home": {
-//       width: 28,
-//       height: 28,
-//     },
-//     "&:hover": {
-//       "& span": {
-//         fontWeight: "bold",
-//       },
-//     },
-//   },
-//   secondNav: {
-//     cursor: "pointer",
-//     width: 100,
-//     height: 30,
-//     "& .icon_secondNav": {
-//       width: 28,
-//       height: 28,
-//     },
-//     "&:hover": {
-//       "& span": {
-//         fontWeight: "bold",
-//       },
-//     },
-//   },
+export const Container = styled.ul`
+  padding: 0;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 5fr 5fr;
+  justify-items: flex-end;
+  align-content: center;
+`;
 
-// link: {
-//     color: "white",
-//     textDecoration: "none",
-//     fontSize: "1.5vw",
-//   },
+export const Nav = styled.li`
+  display: grid;
+  grid-gap: 5px;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr auto;
+  align-content: center;
+  justify-items: center;
+  list-style: none;
+`;
 
 const secondNav = (type) =>
   type === "statistics" ? (
     <>
-      <Grid item className="icon_secondNav">
-        <Svg name="EmployeeSearch" size="large" />
-      </Grid>
-      <Grid item>
-        <Typography component="span" noWrap>
-          <Link to="/board" className={classes.link}>
-            직원 검색
-          </Link>
-        </Typography>
-      </Grid>
+      <Svg name="EmployeeSearch" size="large" component="div" />
+      <NavLink endPoint="/board" color="#fff">
+        직원 검색
+      </NavLink>
     </>
   ) : (
     <>
-      <Grid item className="icon_secondNav">
-        <Svg name="SalaryStatistics" size="large" />
-      </Grid>
-      <Grid item>
-        <Typography component="span" noWrap>
-          <Link to="/statistics" className={classes.link}>
-            연봉통계
-          </Link>
-        </Typography>
-      </Grid>
+      <Svg name="SalaryStatistics" size="large" component="div" />
+      <NavLink endPoint="/statistics" color="#fff">
+        연봉통계
+      </NavLink>
     </>
   );
 
 const DeskNav = ({ type }) => {
   return (
-    <Grid
-      item
-      container
-      className={classes.menu}
-      alignItems="center"
-      justify="flex-end"
-    >
-      <Grid
-        item
-        xs={5}
-        container
-        alignItems="center"
-        justify="center"
-        className={classes.home}
-      >
-        <Grid item className="icon_home">
-          <Svg name="Home" size="large" />
-        </Grid>
-        <Grid item>
-          <Typography component="span" noWrap>
-            <Link to="/" className={classes.link}>
-              홈으로
-            </Link>
-          </Typography>
-        </Grid>
-      </Grid>
-      <Grid
-        item
-        container
-        alignItems="center"
-        justify="center"
-        xs={5}
-        className={classes.secondNav}
-      >
-        {secondNav(type)}
-      </Grid>
-    </Grid>
+    <Container>
+      <Nav>
+        <Svg name="Home" size="large" component="div" />
+        <NavLink endPoint="/" color="#fff">
+          홈으로
+        </NavLink>
+      </Nav>
+      <Nav>{secondNav(type)}</Nav>
+    </Container>
   );
 };
 
