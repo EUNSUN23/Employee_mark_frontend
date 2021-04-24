@@ -387,4 +387,17 @@ export const createOptions = (arr) => {
     .slice(1);
 };
 
-// * Bar의 navLink 바꾸기 *
+// * 연봉통계 detail title *
+
+export const setStatTitle = (type) => {
+  switch (type) {
+    case "emp":
+      return "전사 연봉 분포";
+    case "dept":
+      return "부서별 연봉 분포";
+    case "area":
+      return "상세 연봉별 부서순위";
+    default:
+      return;
+  }
+};

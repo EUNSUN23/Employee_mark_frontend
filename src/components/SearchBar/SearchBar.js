@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { fade, makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import SearchMenu from "./components/SearchMenu";
 import SearchInput from "./components/SearchInput";
 import { Grid } from "@material-ui/core";
@@ -10,6 +9,7 @@ import { getEmpData } from "../../store/actions/searchEmp";
 import { isValid } from "../../shared/utility";
 import theme from "../../shared/theme";
 import DefaultAppBar from "../UI/AppBar/DefaultAppBar";
+import SubmitBtn from "../UI/AppBar/SubmitBtn";
 
 const useStyles = makeStyles({
   searchContainer: {
@@ -22,19 +22,6 @@ const useStyles = makeStyles({
     },
     [theme.breakpoints.only("sm")]: {
       width: "70vw",
-    },
-  },
-
-  submit: {
-    color: "white",
-    fontSize: "1.4vw",
-    minWidth: "10vw",
-    [theme.breakpoints.up("sm")]: {
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      fontSize: "1.2vw",
-      minWidth: "5vw",
     },
   },
   search_input: {
@@ -99,20 +86,26 @@ const SearchBar = () => {
     if (keywords.length === 1) dispatch(initKeywords());
   }, []);
 
-  const submitData = (e, option, inputVal, optionVal, page) => {
-    e.preventDefault();
-    const dataObj =
-      option === "이름검색" ? { category: "name", value: inputVal } : optionVal;
-    isValid(dataObj.value);
-    dispatch(getEmpData(dataObj, page, "noPage"));
-    dispatch(addKeywords(dataObj.category, dataObj.value));
-  };
+  const submitData = useCallback(
+    (e) => {
+      e.preventDefault();
+      const dataObj =
+        option === "이름검색"
+          ? { category: "name", value: inputVal }
+          : optionVal;
+      isValid(dataObj.value);
+      dispatch(getEmpData(dataObj, page, "noPage"));
+      dispatch(addKeywords(dataObj.category, dataObj.value));
+    },
+    [option, optionVal, isValid, dispatch, getEmpData, addKeywords]
+  );
 
   return (
     <DefaultAppBar type="board">
       <form
         onSubmit={(e) => {
-          submitData(e, option, inputVal, optionVal, page);
+          e.preventDefault();
+          submitData();
         }}
       >
         <Grid
@@ -130,16 +123,12 @@ const SearchBar = () => {
             <SearchInput classes={classes} />
           </Grid>
           <Grid item xs={2}>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.submit}
-              onClick={(e) => {
-                submitData(e, option, inputVal, optionVal, page);
-              }}
+            <SubmitBtn
+              selected={{ selected: "board" }}
+              onSubmitHandler={submitData}
             >
               검색
-            </Button>
+            </SubmitBtn>
           </Grid>
         </Grid>
       </form>

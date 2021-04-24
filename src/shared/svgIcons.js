@@ -2119,7 +2119,7 @@ const ExpandMore = ({ fontSize, component }) => {
 };
 
 const Svg = ({ name, fontSize, component }) => {
-  console.log("SVG RENDER");
+  console.log("SVG RENDER", name);
   const makeIcon = (name, fontSize, component) => {
     const size = fontSize ? fontSize : "default";
     const element = component ? component : "svg";
@@ -2206,5 +2206,5 @@ const Svg = ({ name, fontSize, component }) => {
 
 export default memo(
   Svg,
-  (prevProps, nextProps) => prevProps.fontSize !== nextProps.fontSize
+  (prevProps, nextProps) => prevProps.name !== nextProps.name
 );

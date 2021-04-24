@@ -7,7 +7,7 @@ export const DefaultMenu = withStyles({
   paper: {
     border: "1px solid #d3d4d5",
     width: "35vw",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       width: "25vw",
     },
   },
@@ -32,7 +32,7 @@ export const DefaultMenuItem = withStyles({
     position: "relative",
     transition: theme.transitions.create("width"),
     width: "40vw",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       width: "25vw",
     },
     height: "8vh",

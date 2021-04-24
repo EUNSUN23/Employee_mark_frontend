@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       marginWidth: "3vw",
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       minWidth: "5vw",
       marginLeft: "6%",
     },

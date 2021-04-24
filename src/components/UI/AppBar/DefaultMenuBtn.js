@@ -11,8 +11,8 @@ const styles = {
   root: {
     position: "relative",
     transition: theme.transitions.create("width"),
-    width: "40vw",
-    [theme.breakpoints.up("md")]: {
+    width: "35vw",
+    [theme.breakpoints.up("lg")]: {
       width: "25vw",
     },
     height: "8vh",
@@ -35,8 +35,8 @@ const styles = {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
     transition: theme.transitions.create("width"),
-    width: "40vw",
-    [theme.breakpoints.up("md")]: {
+    width: "35vw",
+    [theme.breakpoints.up("lg")]: {
       width: "25vw",
     },
     [theme.breakpoints.up("xl")]: {

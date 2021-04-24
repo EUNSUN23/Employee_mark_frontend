@@ -9,6 +9,7 @@ import { setArea, initArea } from "../../../../store/actions/statBar";
 import { initDist } from "../../../../store/actions/statPage";
 import Button from "@material-ui/core/Button";
 import { setSelected } from "../../../../store/actions/statBar";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     left: 0,
     transform: "translateY(-50%)",
     height: "7vh",
-    width: "50vw",
+    width: "55vw",
     display: "flex",
   },
   track: {
@@ -27,9 +28,10 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: "50%",
     transform: "translateY(-50%)",
-    width: "10vw",
-    fontSize: "2vw",
-    [theme.breakpoints.up("md")]: {
+    width: "12vw",
+    height: "7vh",
+    fontSize: "15px",
+    [theme.breakpoints.up("lg")]: {
       width: "6.5vw",
       fontSize: "1.4vw",
     },
@@ -42,9 +44,9 @@ const useStyles = makeStyles((theme) => ({
     transform: "translateY(-50%)",
     display: "block",
     color: "#fff",
-    fontSize: "1.2vw",
+    fontSize: "2vw",
     width: "7vw",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       display: "none",
     },
     [theme.breakpoints.down("sm")]: {
@@ -52,23 +54,18 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   label: {
-    fontSize: "1.1vw",
+    fontSize: "1vw",
     color: "#222",
   },
   backBtn: {
     position: "absolute",
-    right: "-25%",
-    [theme.breakpoints.down("sm")]: {
-      right: "-50%",
-      width: "15vw",
-      fontSize: "1vw",
-    },
-    width: "11vw",
-    height: "5vh",
-    [theme.breakpoints.up("md")]: {
-      right: "-10%",
+    right: "-30vw",
+    width: "12vw",
+    fontSize: "15px",
+    height: "6vh",
+    [theme.breakpoints.up("lg")]: {
+      right: "0%",
       width: "9vw",
-      height: "6vh",
     },
     top: "50%",
     transform: "translateY(-50%)",
@@ -91,7 +88,7 @@ const SalarySlider = withStyles((theme) => ({
     height: 2,
     padding: "15px 0",
     display: "none",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       display: "block",
     },
   },
@@ -146,6 +143,10 @@ const SearchTrack = () => {
   const dispatch = useDispatch();
   const [range, setRange] = useState(null);
   const [value, setValue] = useState(0);
+
+  const underLg = useMediaQuery("(max-width:992px)");
+  const spacing = underLg ? 10 : 3;
+  const trackType = range === "above" ? "inverted" : true;
 
   useEffect(() => {
     if (range && value) {
@@ -240,8 +241,6 @@ const SearchTrack = () => {
     },
   ];
 
-  const trackType = range === "above" ? "inverted" : true;
-
   const onClickBackBtn = () => {
     dispatch(setSelected(null));
   };
@@ -249,8 +248,21 @@ const SearchTrack = () => {
   return (
     <div className={classes.container}>
       <div className={classes.track}>
-        <Grid container spacing={4} alignItems="center" justify="space-between">
-          <Grid item md={8}>
+        <Grid
+          container
+          spacing={spacing}
+          alignItems="center"
+          justify="space-between"
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.backBtn}
+            onClick={() => onClickBackBtn()}
+          >
+            돌아가기
+          </Button>
+          <Grid item lg={8}>
             <SalarySlider
               track={trackType}
               value={typeof value === "number" ? value : 0}
@@ -261,10 +273,7 @@ const SearchTrack = () => {
               marks={marks}
             />
           </Grid>
-          <Grid item xs={1} sm={1}>
-            <label htmlFor="salaryInput" className={classes.inputLabel}>
-              연봉 :
-            </label>
+          <Grid item xs={1}>
             <Input
               id="salaryInput"
               className={classes.input}
@@ -288,14 +297,6 @@ const SearchTrack = () => {
           </Grid>
         </Grid>
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.backBtn}
-        onClick={() => onClickBackBtn()}
-      >
-        돌아가기
-      </Button>
     </div>
   );
 };

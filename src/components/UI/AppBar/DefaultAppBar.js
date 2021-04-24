@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 
   title: {
     display: "none",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       display: "block",
       fontSize: "2vw",
     },

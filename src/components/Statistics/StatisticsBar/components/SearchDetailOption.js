@@ -8,17 +8,16 @@ import DefaultMenuBtn from "../../../UI/AppBar/DefaultMenuBtn";
 import { setSelected } from "../../../../store/actions/statBar";
 import useMenuBtn from "../../../../hooks/useMenuBtn";
 import ListItemText from "@material-ui/core/ListItemText";
+import { setStatTitle } from "../../../../shared/utility";
 
 const SearchDetailOption = () => {
   const dispatch = useDispatch();
   const [menu, setMenu] = useMenuBtn(null);
 
   const onSelectClick = (type) => {
-    if (type === "area") return;
+    const newTitle = setStatTitle(type);
 
-    type === "emp"
-      ? setMenu.onMenuItemClick("전사 연봉 분포")
-      : setMenu.onMenuItemClick("부서별 연봉 분포");
+    setMenu.onMenuItemClick(newTitle);
 
     dispatch(setSelected({ type: type, salary: "default" }));
 
