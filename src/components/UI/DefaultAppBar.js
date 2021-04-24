@@ -30,7 +30,7 @@ const useStyles = makeStyles({
 
   sectionDesktop: {
     display: "none",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       display: "block",
     },
   },
@@ -43,7 +43,7 @@ const useStyles = makeStyles({
     [theme.breakpoints.down("xs")]: {
       transform: "translate(-25%,-50%)",
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("lg")]: {
       display: "none",
     },
   },
@@ -52,8 +52,6 @@ const useStyles = makeStyles({
 const DefaultAppBar = (props) => {
   const { type, children } = props;
   const classes = useStyles();
-
-  console.log("DEFAULT_BAR_RENDER");
 
   return (
     <div className={classes.grow}>

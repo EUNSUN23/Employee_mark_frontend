@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -47,6 +47,7 @@ const styles = {
 
 const DefaultMenuBtn = (props) => {
   const { classes, value, initValue, onClickHandler } = props;
+
   return (
     <Button
       aria-controls="customized-menu"
@@ -71,4 +72,4 @@ DefaultMenuBtn.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(DefaultMenuBtn);
+export default memo(withStyles(styles)(DefaultMenuBtn));

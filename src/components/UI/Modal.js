@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Modal = memo((props) => {
+const Modal = (props) => {
   const classes = useStyles();
 
   const { message, open, handleClose } = props;
@@ -39,7 +39,7 @@ const Modal = memo((props) => {
       </DialogTitle>
     </Dialog>
   );
-});
+};
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
@@ -47,4 +47,4 @@ Modal.propTypes = {
   selectedValue: PropTypes.string.isRequired,
 };
 
-export default Modal;
+export default memo(Modal);

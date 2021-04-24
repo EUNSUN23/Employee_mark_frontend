@@ -22,7 +22,7 @@ const EmployeeSearch = styled.div`
     top: 50%;
     left: 46%;
     transform: translateY(-50%);
-    font-size: 2vw;
+    font-size: 1.3vw;
     color: grey;
     width: 46%;
     line-height: 170%;

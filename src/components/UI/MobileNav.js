@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -12,13 +12,15 @@ const StyledMenu = styled(Menu)`
   padding: 0;
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 5fr 5fr;
-  justify-items: flex-end;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
   align-content: center;
 `;
 
 const StyledMenuItem = styled(MenuItem)`
   display: grid;
+  height: 14vh;
+  line-height: 14vh;
   grid-gap: 5px;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr auto;
@@ -81,4 +83,4 @@ const MobileNav = ({ type }) => {
   );
 };
 
-export default MobileNav;
+export default memo(MobileNav);

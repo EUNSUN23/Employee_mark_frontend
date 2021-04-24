@@ -1,11 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const StyledLink = styled(Link)`
   text-decoration: none;
-  fontsize: 1.5vw;
-  line-height:2.5vw;
+  line-height:170%;
   :hover {
       font-weight: bold;
 `;
@@ -19,4 +18,4 @@ const NavLink = (props) => {
   );
 };
 
-export default NavLink;
+export default memo(NavLink);

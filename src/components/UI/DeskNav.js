@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 import Svg from "../../shared/svgIcons";
 import NavLink from "./NavLink";
@@ -6,8 +6,9 @@ import NavLink from "./NavLink";
 export const Container = styled.ul`
   padding: 0;
   display: grid;
+  grid-direction: column;
   grid-template-rows: 1fr;
-  grid-template-columns: 5fr 5fr;
+  grid-template-columns: 1fr 1fr;
   justify-items: flex-end;
   align-content: center;
 `;
@@ -18,7 +19,6 @@ export const Nav = styled.li`
   grid-template-rows: 1fr;
   grid-template-columns: 1fr auto;
   align-content: center;
-  justify-items: center;
   list-style: none;
 `;
 
@@ -53,4 +53,4 @@ const DeskNav = ({ type }) => {
   );
 };
 
-export default DeskNav;
+export default memo(DeskNav);

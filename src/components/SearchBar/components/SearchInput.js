@@ -6,7 +6,7 @@ import InputBase from "@material-ui/core/InputBase";
 import { openKeywords } from "../../../store/actions/keywords";
 import useInput from "../../../hooks/useInput";
 
-const SearchInput = memo((props) => {
+const SearchInput = (props) => {
   const { classes } = props;
   const [name, setName] = useInput("");
   const dispatch = useDispatch();
@@ -43,6 +43,6 @@ const SearchInput = memo((props) => {
     );
 
   return searchInput;
-});
+};
 
-export default SearchInput;
+export default memo(SearchInput);

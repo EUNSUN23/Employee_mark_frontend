@@ -43,4 +43,4 @@ const DetailMenuList = ({ arr, type, onClickList }) => {
   return detailList;
 };
 
-export default memo(DetailMenuList);
+export default DetailMenuList;
