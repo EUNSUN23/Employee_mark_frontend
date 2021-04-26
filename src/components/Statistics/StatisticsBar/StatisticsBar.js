@@ -19,16 +19,11 @@ const useStyles = makeStyles({
   }),
 
   submit: ({ selected, theme }) => ({
-    color: "white",
-    fontSize: "1.2vw",
-    minWidth: "6vw",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("md")]: {
       position: "absolute",
-      left: `${selected && selected.type === "area" ? "45vw" : "60vw"}`,
+      left: `${selected && selected.type === "area" ? "45vw" : "50vw"}`,
       top: "50%",
       transform: "translateY(-50%)",
-      fontSize: "1.3vw",
-      minWidth: "8vw",
     },
   }),
 });
@@ -82,15 +77,12 @@ const StatisticsBar = () => {
           justify="center"
           spacing={1}
           className={classes.searchContainer}
-          selected={selected}
         >
-          <Grid item xs={7} md={10} lg={7}>
+          <Grid item xs={7} md={7} lg={7}>
             <SearchInput classes={classes} />
           </Grid>
-          <Grid item xs={1} sm={1}>
-            <SubmitBtn selected={selected} onSubmitHandler={onSubmitHandler}>
-              검색
-            </SubmitBtn>
+          <Grid item xs={1} sm={1} className={classes.submit}>
+            <SubmitBtn onSubmitHandler={onSubmitHandler}>검색</SubmitBtn>
           </Grid>
         </Grid>
       </form>

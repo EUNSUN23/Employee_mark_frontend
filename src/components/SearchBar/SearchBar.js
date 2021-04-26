@@ -86,19 +86,22 @@ const SearchBar = () => {
     if (keywords.length === 1) dispatch(initKeywords());
   }, []);
 
-  const submitData = useCallback(
-    (e) => {
-      e.preventDefault();
-      const dataObj =
-        option === "이름검색"
-          ? { category: "name", value: inputVal }
-          : optionVal;
-      isValid(dataObj.value);
-      dispatch(getEmpData(dataObj, page, "noPage"));
-      dispatch(addKeywords(dataObj.category, dataObj.value));
-    },
-    [option, optionVal, isValid, dispatch, getEmpData, addKeywords]
-  );
+  const submitData = useCallback(() => {
+    const dataObj =
+      option === "이름검색" ? { category: "name", value: inputVal } : optionVal;
+    isValid(dataObj.value);
+    dispatch(getEmpData(dataObj, page, "noPage"));
+    dispatch(addKeywords(dataObj.category, dataObj.value));
+  }, [
+    option,
+    optionVal,
+    inputVal,
+    isValid,
+    dispatch,
+    page,
+    getEmpData,
+    addKeywords,
+  ]);
 
   return (
     <DefaultAppBar type="board">
@@ -123,12 +126,7 @@ const SearchBar = () => {
             <SearchInput classes={classes} />
           </Grid>
           <Grid item xs={2}>
-            <SubmitBtn
-              selected={{ selected: "board" }}
-              onSubmitHandler={submitData}
-            >
-              검색
-            </SubmitBtn>
+            <SubmitBtn onSubmitHandler={submitData}>검색</SubmitBtn>
           </Grid>
         </Grid>
       </form>
