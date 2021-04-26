@@ -40,7 +40,6 @@ const DistBar = memo(({ data, type, salary }) => {
   const classes = useStyles();
 
   const makeDistBar = (data) => {
-    console.log("makeDeptBar", data);
     return (
       <Grid item xs={11} className={classes.barChartGrid}>
         <ResponsiveContainer width="100%" height={400}>

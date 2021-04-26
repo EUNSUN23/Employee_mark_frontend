@@ -1,5 +1,5 @@
-import React, { useState, memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { memo } from "react";
+import { useDispatch } from "react-redux";
 import { setOption, initOptVal } from "../../../store/actions/searchBar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -8,6 +8,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Svg from "../../../shared/svgIcons";
+import useMenuBtn from "../../../hooks/useMenuBtn";
 
 const useStyles = makeStyles(() => ({
   title_container: {
@@ -72,23 +73,14 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 const SearchMenu = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [menuBtn, setMenuBtn] = useMenuBtn("이름검색");
   const classes = useStyles();
   const dispatch = useDispatch();
-  const title = useSelector((state) => state.searchBar.option);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleMenuClick = (option) => {
     dispatch(initOptVal());
     dispatch(setOption(option));
-    handleClose();
+    setMenuBtn.onMenuItemClick(option);
   };
 
   return (
@@ -97,20 +89,23 @@ const SearchMenu = () => {
         aria-controls="customized-menu"
         variant="contained"
         color="primary"
-        onClick={handleClick}
+        onClick={setMenuBtn.onClickAnchor}
         className={classes.title_container}
       >
         <ListItemIcon className={classes.title_listItemIcon}>
           <Svg name="ArrowDown" component="div" />
         </ListItemIcon>
-        <ListItemText className={classes.title_listItemText} primary={title} />
+        <ListItemText
+          className={classes.title_listItemText}
+          primary={menuBtn.title}
+        />
       </Button>
       <StyledMenu
         id="customized-menu"
-        anchorEl={anchorEl}
+        anchorEl={menuBtn.anchorEl}
         keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
+        open={Boolean(menuBtn.anchorEl)}
+        onClose={setMenuBtn.onClose}
       >
         <StyledMenuItem
           className={classes.menu_container}

@@ -32,8 +32,6 @@ const CustomizedPieLabel = (props) => {
 
   if (activeIndex === index || !overSm) return null;
 
-  console.log("label render");
-
   return (
     <g>
       <path

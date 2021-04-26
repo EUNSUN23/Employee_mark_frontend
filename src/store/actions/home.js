@@ -44,7 +44,6 @@ export const getEmpAPI = async () => {
 
 export const getTotalAPI = async () => {
   const res = await Promise.all([getTotalEmp(), getLeftEmp()]);
-  console.log("RES", res);
   const total = res[0].data.packet[0].count;
   const left = res[1].data.packet[0].count;
   return {
@@ -58,7 +57,6 @@ const setEmp = (emp) => {
 };
 
 const setTotal = (total) => {
-  console.log("total", total);
   return {
     type: actionTypes.HOME_SET_TOTAL,
     total: total.total,

@@ -48,15 +48,11 @@ export const setCategory = () => {
     }
 
     if (res) {
-      console.log(res.dept);
       const deptList = res.dept.map((obj, idx) => {
-        // console.log(obj.dept_name);
         return obj.dept_name;
       });
 
-      console.log(res.title);
       const titleList = res.title.map((obj, idx) => {
-        console.log(obj.title);
         return obj.title;
       });
 
@@ -64,7 +60,6 @@ export const setCategory = () => {
         dept: deptList,
         title: titleList,
       };
-      console.log("CATEGORY", category);
       dispatch(initCategory(category));
     } else {
       return;
@@ -75,7 +70,6 @@ export const setCategory = () => {
 // <-- setOption -->
 
 export const setOption = (option) => {
-  console.log("SET_OPTION", actionTypes.BAR_SET_OPTION);
   return { type: actionTypes.BAR_SET_OPTION, option: option };
 };
 

@@ -2119,7 +2119,6 @@ const ExpandMore = ({ fontSize, component }) => {
 };
 
 const Svg = ({ name, fontSize, component }) => {
-  console.log("SVG RENDER", name);
   const makeIcon = (name, fontSize, component) => {
     const size = fontSize ? fontSize : "default";
     const element = component ? component : "svg";

@@ -4,7 +4,6 @@ import { getKeywords, setKeywords } from "../../shared/utility";
 export const initKeywords = () => {
   return (dispatch) => {
     const storage = getKeywords();
-    console.log("storage", storage);
     if (!storage) return;
     dispatch({ type: actionTypes.KEYWORDS_INIT, storage: storage });
   };

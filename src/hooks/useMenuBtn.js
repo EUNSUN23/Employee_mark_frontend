@@ -8,7 +8,10 @@ const useMenuBtn = (initValue) => {
 
   const onClose = () => setAnchorEl(null);
 
-  const onMenuItemClick = (value) => setMenuTitle(value);
+  const onMenuItemClick = (value) => {
+    setMenuTitle(value);
+    onClose();
+  };
 
   return [
     { anchorEl: anchorEl, title: title },

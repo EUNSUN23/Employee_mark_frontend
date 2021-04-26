@@ -26,7 +26,6 @@ const CardContainer = () => {
   const loadItems = debounce(
     (entry, observer) => {
       const currentData = getCurrent();
-      console.log("currentData", currentData);
       dispatch(getEmpData(currentData, page, "intersected"));
       nextPage.current = page;
       observer.unobserve(entry.target);
@@ -36,7 +35,6 @@ const CardContainer = () => {
   );
 
   const handleIntersection = (entries, observer) => {
-    console.log("intersection");
     entries.forEach((entry) => {
       if (!entry.isIntersecting) {
         return;
@@ -50,7 +48,6 @@ const CardContainer = () => {
   };
 
   useEffect(() => {
-    console.log("card container useEffect");
     let io;
     if (isNextLoading) {
       return;

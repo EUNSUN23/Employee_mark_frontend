@@ -46,7 +46,6 @@ const swiper = new Swiper("makeStyles-swiperContainer-46-container", {
     el: ".swiperPagination",
     type: "custom",
     renderCustom: (swiper, current, total) => {
-      console.log("swiper", swiper, "current", current, "total", total);
       const dept = [
         "Customer Service",
         "Development",
@@ -66,8 +65,6 @@ const swiper = new Swiper("makeStyles-swiperContainer-46-container", {
 const CustomSwiper = (props) => {
   const classes = useStyles();
   const { deptData, value } = props;
-
-  console.log("swiper", swiper);
 
   return (
     <div className="swiperContainer">

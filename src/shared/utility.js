@@ -10,7 +10,6 @@ export const updateObject = (oldObject, updatedProperties) => {
 export const addPage = (state) => {
   const prevPage = state.page;
   const updatedPage = { page: prevPage + 1 };
-  console.log("updatedPage", updatedPage);
   return updateObject(state, updatedPage);
 };
 
@@ -99,7 +98,6 @@ export const initKeywords = (state, storage) => {
 
 export const addKeywords = (state, keywords) => {
   const updatedKeywords = { keywords: keywords };
-  console.log("addedKeywords", updatedKeywords);
   return updateObject(state, updatedKeywords);
 };
 

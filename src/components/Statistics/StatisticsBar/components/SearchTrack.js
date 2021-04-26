@@ -150,7 +150,6 @@ const SearchTrack = () => {
 
   useEffect(() => {
     if (range && value) {
-      console.log("range", range, "value", value);
       const area = { type: range, salary: value };
       dispatch(setArea(area));
     } else {
@@ -168,9 +167,7 @@ const SearchTrack = () => {
 
   const handleSliderChange = (event, newValue) => {
     const left = parseInt(event.target.style.left);
-    console.log(left);
     setRange(null);
-    // dispatch(initArea());
     switch (left) {
       case 0:
         return setValue(40000);

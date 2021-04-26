@@ -55,7 +55,6 @@ const compareFunc = (a, b) => {
 const TransferHistory = ({ data }) => {
   const makeHistory = (data) => {
     data.sort((a, b) => compareFunc(a, b));
-    console.log("arranged", data);
     return data.map((info, idx) => {
       const cssClass = idx === data.length - 1 ? "last-item" : null;
       return (
