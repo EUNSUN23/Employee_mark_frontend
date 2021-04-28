@@ -1,12 +1,11 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
+import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper/core";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
-import Svg from "../../../../shared/svgIcons";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+
 import {
   BarChart,
   Bar,
@@ -19,92 +18,54 @@ import {
 import { setChartColor } from "../../../../shared/utility";
 import CustomizedLabel from "../SalaryDist/CustomizedLabel";
 import SalaryFilter from "./SalaryFilter";
-import theme from "../../../../shared/theme";
+import SlideNav from "../../../UI/SlideNav";
+
+const Container = styled.div`
+  width: 100%;
+  height: 500px;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 10% 70%;
+  align-content: top;
+  grid-gap: 50px;
+  .chartSwiper {
+    width: 80%;
+    height: 400px;
+  }
+  .chartSlide {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+    grid-template-rows: auto;
+  }
+  .resContainer {
+    margin: 0 auto;
+  }
+`;
+
+const Header = styled.div`
+  display: grid;
+  height: 100px;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-template-rows: auto;
+  justify-items: center;
+  align-content: center;
+  h1 {
+    font-size: 30px;
+    text-align: center;
+  }
+  @media only screen and (max-width: 992px) {
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+    grid-template-rows: auto;
+    font-size: 25px;
+    h1 {
+      font-size: 25px;
+    }
+  }
+`;
 
 SwiperCore.use([Navigation, Pagination]);
 
-const useStyles = makeStyles(() => ({
-  titleContainer: {
-    position: "absolute",
-    width: "50%",
-    left: "50%",
-    top: "20%",
-    transform: "translateX(-50%)",
-  },
-  deptTitle: {
-    "& h1": {
-      [theme.breakpoints.down("md")]: {
-        fontSize: "30px",
-      },
-      [theme.breakpoints.down("sm")]: {
-        fontSize: "20px",
-      },
-    },
-  },
-  salaryFilter: {
-    [theme.breakpoints.down("sm")]: {
-      position: "absolute",
-      top: "70%",
-    },
-  },
-  root: {
-    width: "65%",
-    position: "absolute",
-    left: "50%",
-    top: "40%",
-    transform: "translateX(-50%)",
-  },
-  swiperSlide: {
-    display: "grid",
-    gridTemplateColumns: "auto auto auto auto auto auto auto auto auto auto",
-    listStyle: "none",
-    position: "relative",
-    height: 430,
-  },
-  chartContainer: {
-    position: "absolute",
-    left: 0,
-  },
-  backward: {
-    position: "absolute",
-    top: "16%",
-    [theme.breakpoints.up("md")]: {
-      left: "15%",
-    },
-    left: "10%",
-    cursor: "pointer",
-    zIndex: 500,
-    "& div": {
-      width: "50px",
-      height: "50px",
-    },
-  },
-  forward: {
-    position: "absolute",
-    top: "16%",
-    [theme.breakpoints.up("md")]: {
-      right: "15%",
-    },
-    right: "10%",
-    cursor: "pointer",
-    zIndex: 500,
-    "& div": {
-      width: "50px",
-      height: "50px",
-    },
-  },
-  moveInner: {
-    fontSize: 80,
-    color: "#333",
-  },
-  disabled: {
-    fontSize: 80,
-    color: "grey",
-  },
-}));
-
 const DeptChart = ({ deptData }) => {
-  const classes = useStyles();
   const [value, setValue] = useState(40000);
   const [disabledNav, setDisabledNav] = useState("backward");
 
@@ -140,55 +101,84 @@ const DeptChart = ({ deptData }) => {
     [value]
   );
 
-  const onClickForward = (chartSwiper) => {
-    if (chartSwiper.isEnd) return;
+  const onClickForward = useCallback(() => {
+    if (chartSwiper.isEnd) return setDisabledNav("forward");
     if (disabledNav === "backward") setDisabledNav(null);
     chartSwiper.slideNext();
-  };
+  }, [chartSwiper, disabledNav]);
 
-  const onClickBackward = (chartSwiper) => {
-    if (chartSwiper.isBeginning) return;
+  const onClickBackward = useCallback(() => {
+    if (chartSwiper.isBeginning) return setDisabledNav("backward");
     if (disabledNav === "forward") setDisabledNav(null);
     chartSwiper.slidePrev();
-  };
-
-  const disableNav = (chartSwiper) => {
-    if (!chartSwiper.isEnd && !chartSwiper.isBeginning) return;
-    chartSwiper.isEnd && setDisabledNav("forward");
-    chartSwiper.isBeginning && setDisabledNav("backward");
-  };
-  const forwardClass = disabledNav === "forward" ? "disabled" : "moveInner";
-  const backwardClass = disabledNav === "backward" ? "disabled" : "moveInner";
+  }, [chartSwiper, disabledNav]);
 
   if (!deptData) return null;
 
+  const result = Object.keys(deptData).map((dept, idx) => {
+    const data = deptData[dept];
+    return (
+      <SwiperSlide key={`chart-${dept}`} className="charSlide">
+        <ResponsiveContainer width="90%" height={380} className="resContainer">
+          <BarChart data={data} margin={{ top: 50 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="sal" tick={false} />
+            <YAxis dataKey="cnt" type="number" domain={[0, "dataMax+100"]} />
+
+            <Bar
+              dataKey="cnt"
+              fill="#8884d8"
+              label={<CustomizedLabel currentVal={value} />}
+            >
+              {data.map((entry, index) => {
+                const highlight = entry.sal === value;
+                const color = setChartColor(entry.dept_name, highlight);
+                return (
+                  <Cell
+                    fill={color}
+                    key={`cell-${index}`}
+                    stroke="false"
+                    strokeDasharray="5,5"
+                  />
+                );
+              })}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </SwiperSlide>
+    );
+  });
+
   return (
-    <>
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        className={classes.titleContainer}
-      >
-        <Grid item className={classes.deptTitle}>
-          <h1 ref={paginationRef} className="swiperPagination"></h1>
-        </Grid>
-        <Grid item className={classes.salaryFilter}>
-          <SalaryFilter
-            onClickFilter={onClickFilter}
-            value={value}
-            className={classes.title}
-          />
-        </Grid>
-      </Grid>
+    <Container>
+      <Header>
+        <SlideNav
+          disabled={disabledNav}
+          direction="backward"
+          onClickNav={onClickBackward}
+          ref={navigationPrevRef}
+        />
+        <h1 ref={paginationRef} className="swiperPagination"></h1>
+        <SalaryFilter onClickFilter={onClickFilter} value={value} />
+        <SlideNav
+          disabled={disabledNav}
+          direction="forward"
+          onClickNav={onClickForward}
+          ref={navigationNextRef}
+        />
+      </Header>
       <Swiper
+        className="chartSwiper"
         ref={swiperRef}
         slidesPerView={1}
         id="main"
         spaceBetween={40}
+        cssMode={true}
+        centeredSlides={true}
         pagination={{
           el: ".swiperPagination",
           type: "custom",
+          clickable: true,
           renderCustom: (swiper, current, total) => {
             const deptName = deptList[current - 1];
             return deptName;
@@ -203,73 +193,11 @@ const DeptChart = ({ deptData }) => {
           swiper.params.navigation.nextEl = navigationNextRef.current;
           swiper.params.pagination.el = paginationRef.current;
         }}
-        onSlideChange={() => {
-          disableNav(chartSwiper);
-        }}
         scrollbar={{ draggable: true }}
-        className={classes.root}
       >
-        {Object.keys(deptData).map((dept, idx) => {
-          const data = deptData[dept];
-          return (
-            <SwiperSlide key={`chart-${dept}`} className={classes.swiperSlide}>
-              <ResponsiveContainer
-                width="100%"
-                height={380}
-                className={classes.chartContainer}
-              >
-                <BarChart data={data} margin={{ top: 50 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="sal" tick={false} />
-                  <YAxis
-                    dataKey="cnt"
-                    type="number"
-                    domain={[0, "dataMax+100"]}
-                  />
-
-                  <Bar
-                    dataKey="cnt"
-                    fill="#8884d8"
-                    label={<CustomizedLabel currentVal={value} />}
-                  >
-                    {data.map((entry, index) => {
-                      const highlight = entry.sal === value;
-                      const color = setChartColor(entry.dept_name, highlight);
-                      return (
-                        <Cell
-                          fill={color}
-                          key={`cell-${index}`}
-                          stroke="false"
-                          strokeDasharray="5,5"
-                        />
-                      );
-                    })}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </SwiperSlide>
-          );
-        })}
+        {result}
       </Swiper>
-      <div
-        ref={navigationPrevRef}
-        onClick={() => onClickBackward(chartSwiper)}
-        className={classes.backward}
-      >
-        <div className={classes[backwardClass]}>
-          <Svg name="ArrowLeft" component="div" />
-        </div>
-      </div>
-      <div
-        ref={navigationNextRef}
-        onClick={() => onClickForward(chartSwiper)}
-        className={classes.forward}
-      >
-        <div className={classes[forwardClass]}>
-          <Svg name="ArrowRight" component="div" />
-        </div>
-      </div>
-    </>
+    </Container>
   );
 };
 

@@ -1,126 +1,102 @@
 import React, { memo } from "react";
 import Svg from "../../../../shared/svgIcons";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
-import theme from "../../../../shared/theme";
+import styled from "styled-components";
 
-const useStyles = makeStyles(() => ({
-  root: {
-    [theme.breakpoints.up("sm")]: {
-      width: "210px",
-    },
-    [theme.breakpoints.only("xs")]: {
-      width: "180px",
-    },
-    backgroundColor: "#fff",
-  },
-  salary: {
-    textAlign: "right",
-  },
-  value: {
-    "& span:nth-child(1)": {
-      [theme.breakpoints.up("sm")]: {
-        fontSize: "18px",
-      },
-      [theme.breakpoints.only("xs")]: {
-        fontSize: "15px",
-      },
-      color: "#222",
-      fontWeight: "bold",
-    },
-    "& span:nth-child(2)": {
-      [theme.breakpoints.up("sm")]: {
-        fontSize: "26px",
-      },
-      [theme.breakpoints.only("xs")]: {
-        fontSize: "20px",
-      },
-      color: "#222",
-      fontWeight: "bold",
-    },
-  },
-  button: {
-    height: "50px",
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  grid-template-rows: auto;
+  align-content: center;
+  justify-items: space-evenly;
+  width: 210px;
+  background-color: #fff;
+  @media only screen and (max-width: 992px) {
+    width: 180px;
+  }
+`;
 
-    position: "relative",
+const SalaryLabel = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+  grid-template-rows: auto;
+  grid-gap: 5px;
+  align-content: center;
+  justify-items: flex-end;
+  color: #222;
+  font-weight: bold;
+  .title {
+    text-align: right;
+    font-size: 18px;
+    line-height: 200%;
+  }
+  .value {
+    font-size: 26px;
+  }
+  @media only screen and (max-width: 992px) {
+    .title {
+      font-size: 15px;
+    }
+    .value {
+      font-size: 20px;
+    }
+  }
+`;
 
-    "& div:nth-child(1)": {
-      top: "8%",
-      paddingTop: "1px",
-    },
-    "& div:nth-child(2)": {
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%,0%)",
-      boxShadow: "2px 1px 2px 0px #CECECE",
+const Filter = styled.div`
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 1fr;
+  padding: 0;
+  position: relative;
+  height: 50px;
+  .up {
+    top: 8%;
+    padding-top: 1px;
+  }
+  .down {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    box-shadow: 2px 1px 2px 0px #cecece;
+  }
+`;
 
-      zIndex: 500,
-    },
-  },
-  icon: {
-    position: "absolute",
-    cursor: "pointer",
-    left: "50%",
-    transform: "translateX(-50%)",
-    width: "20px",
-    height: "20px",
-    borderTop: "1px solid #EFEFF0",
-    borderLeft: "1px solid #EFEFF0",
-    backgroundColor: "#ffffff",
-    boxShadow: "2px 1px 2px 0px #CECECE",
-    "& div": {
-      paddingLeft: "3px",
-    },
-  },
-}));
+const Button = styled.div`
+  position: absolute;
+  cursor: pointer;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  border-top: 1px solid #efeff0;
+  border-left: 1px solid #efeff0;
+  background-color: #ffffff;
+  box-shadow: 2px 1px 2px 0px #cecece;
+  div {
+    padding-left: 3px;
+  }
+`;
 
 const SalaryFilter = memo(({ onClickFilter, value }) => {
-  const classes = useStyles();
-
   const onClickHandler = (icon) => {
     onClickFilter(icon);
   };
+
   return (
-    <Grid item container className={classes.root} justify="flex-end">
-      <Grid
-        item
-        container
-        className={classes.value}
-        xs={9}
-        justify="center"
-        alignItems="center"
-        spacing={1}
-      >
-        <Grid item component="span">
-          연봉 :
-        </Grid>
-        <Grid item component="span">
-          {value}
-        </Grid>
-      </Grid>
-      <Grid
-        item
-        xs={2}
-        direction="column"
-        container
-        className={classes.button}
-        component="div"
-        justify="flex-start"
-      >
-        <div
-          className={classes.icon}
-          onClick={() => onClickHandler("up", value)}
-        >
+    <Container>
+      <SalaryLabel>
+        <span className="title">연봉 :</span>
+        <span className="value">{value}</span>
+      </SalaryLabel>
+      <Filter>
+        <Button className="up" onClick={() => onClickHandler("up")}>
           <Svg name="ArrowUp" component="div" fontSize="small" />
-        </div>
-        <div
-          className={classes.icon}
-          onClick={() => onClickHandler("down", value)}
-        >
+        </Button>
+        <Button className="down" onClick={() => onClickHandler("down")}>
           <Svg name="ArrowDown" component="div" fontSize="small" />
-        </div>
-      </Grid>
-    </Grid>
+        </Button>
+      </Filter>
+    </Container>
   );
 });
 

@@ -67,9 +67,11 @@ const Statistics = () => {
       case "dept":
         return deptData ? (
           <Grid item container>
+            <Grid item xs={false} sm={1} />
             <Grid item container xs={12} sm={10}>
               <DeptChart deptData={deptData} />
             </Grid>
+            <Grid item xs={false} sm={1} />
           </Grid>
         ) : (
           <StatBackground />
