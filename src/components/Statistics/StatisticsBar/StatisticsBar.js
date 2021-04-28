@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   submit: ({ selected, theme }) => ({
     [theme.breakpoints.down("md")]: {
       position: "absolute",
-      left: `${selected && selected.type === "area" ? "45vw" : "50vw"}`,
+      left: `${selected && selected.type === "area" ? "45vw" : "52vw"}`,
       top: "50%",
       transform: "translateY(-50%)",
     },

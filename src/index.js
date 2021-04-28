@@ -4,8 +4,6 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@material-ui/core/styles";
-// import { unstable_createMuiStrictModeTheme } from '@material-ui/core/styles';
-// const theme = unstable_createMuiStrictModeTheme();
 import theme from "./shared/theme";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";

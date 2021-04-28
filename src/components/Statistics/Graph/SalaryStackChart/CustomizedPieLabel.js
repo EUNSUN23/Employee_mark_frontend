@@ -9,16 +9,7 @@ const PieLabel = styled.span`
 
 const CustomizedPieLabel = (props) => {
   const RADIAN = Math.PI / 180;
-  const {
-    cx,
-    cy,
-    midAngle,
-    outerRadius,
-    payload,
-    activeIndex,
-    index,
-    overSm,
-  } = props;
+  const { cx, cy, midAngle, outerRadius, payload } = props;
 
   const cos = Math.cos(-RADIAN * midAngle);
   const sin = Math.sin(-RADIAN * midAngle);
@@ -29,8 +20,6 @@ const CustomizedPieLabel = (props) => {
   const ex = mx + (cos >= 0 ? 1 : -1) * 10;
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
-
-  if (activeIndex === index || !overSm) return null;
 
   return (
     <g>

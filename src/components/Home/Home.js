@@ -97,9 +97,6 @@ const NavItem = styled.li`
   font-size: 1.8vw;
   border-radius: 5px;
   background-color: #2196f3;
-  :hover {
-    background-color: #35c265;
-  }
   padding: 2% 20%;
   list-style: none;
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px,
@@ -109,6 +106,7 @@ const NavItem = styled.li`
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
       rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
       rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    background-color: #35c265;
   }
   cursor: pointer;
 
@@ -146,6 +144,7 @@ const Home = () => {
   const iconSize = overMd ? "large" : null;
 
   const main = emp ? <EmpRadar data={emp} /> : null;
+
   const home = loading ? (
     <Loader type="main" />
   ) : (

@@ -47,23 +47,21 @@ export const setCategory = () => {
       dispatch(fetchCategoryFail(err.response.status));
     }
 
-    if (res) {
-      const deptList = res.dept.map((obj, idx) => {
-        return obj.dept_name;
-      });
+    if (!res) return;
 
-      const titleList = res.title.map((obj, idx) => {
-        return obj.title;
-      });
+    const deptList = res.dept.map((obj, idx) => {
+      return obj.dept_name;
+    });
 
-      category = {
-        dept: deptList,
-        title: titleList,
-      };
-      dispatch(initCategory(category));
-    } else {
-      return;
-    }
+    const titleList = res.title.map((obj, idx) => {
+      return obj.title;
+    });
+
+    category = {
+      dept: deptList,
+      title: titleList,
+    };
+    dispatch(initCategory(category));
   };
 };
 

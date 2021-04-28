@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   backBtn: {
     position: "absolute",
-    right: "-30vw",
+    right: "-25vw",
     width: "12vw",
     fontSize: "15px",
     height: "6vh",

@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     display: "block",
     position: "absolute",
     top: "50%",
-    right: 0,
+    right: "5%",
     transform: "translate(-50%,-50%)",
     [theme.breakpoints.down("xs")]: {
       transform: "translate(-25%,-50%)",

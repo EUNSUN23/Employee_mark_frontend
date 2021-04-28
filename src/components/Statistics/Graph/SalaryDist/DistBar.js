@@ -89,7 +89,7 @@ const DistBar = memo(({ data, type, salary }) => {
       direction="column"
       justify="center"
       alignItems="center"
-      spacing={5}
+      spacing={2}
     >
       <Grid item>
         <h1 className={classes.salary}>{`Salary ${compare} ${salary}`}</h1>

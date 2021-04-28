@@ -152,7 +152,7 @@ const ActiveShape = (props) => {
 const EmpPie = memo(({ empData }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [value, setValue] = useState(null);
-  const overSm = useMediaQuery("(min-width:576px)");
+  const overLg = useMediaQuery("(min-width:992px)");
 
   const onClickFilter = useCallback(
     (icon) => {
@@ -198,9 +198,9 @@ const EmpPie = memo(({ empData }) => {
         <ResponsiveContainer width="100%" height={500}>
           <PieChart margin={{ top: 60, bottom: 60 }}>
             <Pie
-              overSm={overSm}
+              overLg={overLg}
               activeIndex={activeIndex}
-              activeShape={<ActiveShape overSm={overSm} />}
+              activeShape={<ActiveShape overLg={overLg} />}
               data={empData}
               dataKey="emp"
               innerRadius="65%"
@@ -210,7 +210,7 @@ const EmpPie = memo(({ empData }) => {
               label={
                 <CustomizedPieLabel
                   activeIndex={activeIndex}
-                  overSm={overSm}
+                  overLg={overLg}
                   salary={value}
                 />
               }

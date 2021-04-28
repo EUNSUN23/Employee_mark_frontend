@@ -1,6 +1,6 @@
-import { unstable_createMuiStrictModeTheme } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core";
 
-const theme = unstable_createMuiStrictModeTheme({
+const theme = createMuiTheme({
   breakpoints: {
     values: {
       xs: 0,
