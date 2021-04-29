@@ -5,7 +5,6 @@ import SwiperCore, { Navigation, Pagination } from "swiper/core";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
-import { validateCurrentIndex } from "../../../../shared/utility";
 
 import {
   BarChart,
@@ -113,12 +112,8 @@ const DeptChart = ({ deptData }) => {
     if (chartSwiper.isBeginning) return setDisabledNav("backward");
     if (disabledNav === "forward") setDisabledNav(null);
 
-    const currentIndex = chartSwiper.snapIndex;
-    const isCurrentIndexValid = validateCurrentIndex(chartSwiper);
-
-    isCurrentIndexValid
-      ? chartSwiper.slidePrev()
-      : chartSwiper.slideTo(currentIndex - 1);
+    const snappedIndex = chartSwiper.snapIndex;
+    chartSwiper.slideTo(snappedIndex - 1);
   }, [chartSwiper, disabledNav]);
 
   if (!deptData) return null;
