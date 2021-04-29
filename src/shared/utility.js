@@ -399,3 +399,18 @@ export const setStatTitle = (type) => {
       return;
   }
 };
+
+// * DeptChart의 current slide index가  정확한지 확인
+
+export const validateCurrentIndex = (swiper) => {
+  const translate = swiper.rtlTranslate ? swiper.translate : -swiper.translate;
+  const normalizedSnapGrid = swiper.snapGrid.map((val) =>
+    val < 0 ? -Math.floor(Math.abs(val)) : Math.floor(val)
+  );
+  const normalizedTranslate =
+    translate < 0 ? -Math.floor(Math.abs(translate)) : Math.floor(translate);
+
+  const currentSnapIndex = normalizedSnapGrid.indexOf(normalizedTranslate);
+
+  return currentSnapIndex >= 0;
+};

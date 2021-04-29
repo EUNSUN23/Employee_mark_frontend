@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import PropTypes from "prop-types";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Slider from "@material-ui/core/Slider";
 import { Grid } from "@material-ui/core";
@@ -97,7 +96,7 @@ const mark = [
   },
 ];
 
-const PrettoSlider = withStyles({
+const SalarySlider = withStyles({
   root: {
     color: "#303F99 ",
     height: "20%",
@@ -146,9 +145,9 @@ const CustomizedFilter = memo((props) => {
     <foreignObject width="100%" height={80}>
       <Grid item className={classes.root}>
         <h6 className={classes.subTitle}>단위 : 만(10,000)</h6>
-        <PrettoSlider
+        <SalarySlider
           valueLabelDisplay="off"
-          aria-label="pretto slider"
+          aria-label="salary slider"
           defaultValue={40000}
           step={10000}
           marks={mark}
