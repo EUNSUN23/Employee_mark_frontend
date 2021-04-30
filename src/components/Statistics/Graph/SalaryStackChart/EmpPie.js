@@ -82,14 +82,14 @@ const ActiveShape = (props) => {
     ? cx - 30
     : cx + 40;
   const percentY = overLg ? ey : cy + 50;
-  const sectorFill = overLg ? fill : "#E20830";
+  const activeFill = "#E20830";
 
   const circle = overLg ? (
     <circle
       cx={ex}
       cy={ey}
       r={4.5}
-      fill={fill}
+      fill={activeFill}
       stroke="#FFF"
       strokeWidth={2}
       textAnchor={textAnchor}
@@ -118,13 +118,13 @@ const ActiveShape = (props) => {
         outerRadius={outerRadius}
         startAngle={startAngle}
         endAngle={endAngle}
-        fill={sectorFill}
+        fill={activeFill}
         filter="url(#f1)"
       />
 
       <path
         d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-        stroke={fill}
+        stroke={activeFill}
         strokeWidth={2}
         fill="none"
       />
