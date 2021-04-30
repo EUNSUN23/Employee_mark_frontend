@@ -22,8 +22,6 @@ const Forward = styled(Backward)``;
 const SlideNav = forwardRef((props, ref) => {
   const { disabled, direction, onClickNav } = props;
 
-  console.log("disabled", disabled);
-
   const navArrow =
     direction === "backward" ? (
       <Backward

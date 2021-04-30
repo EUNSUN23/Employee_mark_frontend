@@ -9,8 +9,12 @@ const Filter = styled.div`
   position: absolute;
   height: 50px;
   left: 50%;
-  top: 50%;
+  top: ${(props) => (props.overLg ? "50%" : "45%")};
   transform: translate(-50%, -50%);
+  .value,
+  .title {
+    color: ${(props) => (props.overLg ? "#222" : "#E20830")};
+  }
 `;
 
 const ChartContainer = styled.div`
@@ -24,7 +28,6 @@ const EmpLabel = styled.span`
   width: 120px;
   text-align: center;
   color: #333;
-  top: 0;
   padding-left: ${(props) => props.cos < 0 && "100px"};
   text-shadow: 1px 2px 0px #d6d6dd;
 `;
@@ -59,28 +62,29 @@ const ActiveShape = (props) => {
     fill,
     payload,
     percent,
-    overSm,
+    overLg,
   } = props;
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (overSm ? outerRadius - 10 : outerRadius) * cos;
-  const sy = cy + (overSm ? outerRadius - 10 : outerRadius) * sin;
-  const mx = cx + (overSm ? outerRadius + 20 : outerRadius) * cos;
-  const my = cy + (overSm ? outerRadius + 30 : outerRadius) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * (overSm ? 35 : -2);
+  const sx = cx + (overLg ? outerRadius - 10 : outerRadius) * cos;
+  const sy = cy + (overLg ? outerRadius - 10 : outerRadius) * sin;
+  const mx = cx + (overLg ? outerRadius + 20 : outerRadius) * cos;
+  const my = cy + (overLg ? outerRadius + 30 : outerRadius) * sin;
+  const ex = mx + (cos >= 0 ? 1 : -1) * (overLg ? 35 : -2);
   const ey = my;
   const textAnchor = cos >= 0 ? "start" : "end";
 
-  const empX = overSm ? ex + (cos > 0 ? 0.8 : -9) * 12 : cx - 30;
-  const empY = overSm ? ey - 25 : cy + 20;
-  const percentX = overSm
+  const empX = overLg ? ex + (cos > 0 ? 0.8 : -9) * 12 : cx - 30;
+  const empY = overLg ? ey - 25 : cy + 20;
+  const percentX = overLg
     ? ex + (cos > 0 ? 2 : -2) * 12
     : cos > 0
     ? cx - 30
     : cx + 40;
-  const percentY = overSm ? ey : cy + 50;
+  const percentY = overLg ? ey : cy + 50;
+  const sectorFill = overLg ? fill : "#E20830";
 
-  const circle = overSm ? (
+  const circle = overLg ? (
     <circle
       cx={ex}
       cy={ey}
@@ -114,7 +118,7 @@ const ActiveShape = (props) => {
         outerRadius={outerRadius}
         startAngle={startAngle}
         endAngle={endAngle}
-        fill={fill}
+        fill={sectorFill}
         filter="url(#f1)"
       />
 
@@ -198,7 +202,6 @@ const EmpPie = memo(({ empData }) => {
         <ResponsiveContainer width="100%" height={500}>
           <PieChart margin={{ top: 60, bottom: 60 }}>
             <Pie
-              overLg={overLg}
               activeIndex={activeIndex}
               activeShape={<ActiveShape overLg={overLg} />}
               data={empData}
@@ -210,8 +213,8 @@ const EmpPie = memo(({ empData }) => {
               label={
                 <CustomizedPieLabel
                   activeIndex={activeIndex}
-                  overLg={overLg}
                   salary={value}
+                  overLg={overLg}
                 />
               }
               labelLine={false}
@@ -220,7 +223,7 @@ const EmpPie = memo(({ empData }) => {
             </Pie>
           </PieChart>
         </ResponsiveContainer>
-        <Filter>
+        <Filter overLg={overLg}>
           <SalaryFilter
             value={value ? value : 40000}
             onClickFilter={onClickFilter}

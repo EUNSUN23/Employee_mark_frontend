@@ -14,6 +14,7 @@ import {
   CartesianGrid,
   Cell,
   ResponsiveContainer,
+  Label,
 } from "recharts";
 import { setChartColor } from "../../../../shared/utility";
 import CustomizedLabel from "../SalaryDist/CustomizedLabel";
@@ -30,6 +31,9 @@ const Container = styled.div`
   grid-gap: 50px;
   .chartSwiper {
     width: 80%;
+    @media only screen and (max-width: 992px) {
+      width: 90%;
+    }
     height: 400px;
   }
   .chartSlide {
@@ -39,6 +43,10 @@ const Container = styled.div`
   }
   .resContainer {
     margin: 0 auto;
+  }
+  .y-label {
+    font-size: 14px;
+    font-weight: bold;
   }
 `;
 
@@ -122,11 +130,18 @@ const DeptChart = ({ deptData }) => {
     const data = deptData[dept];
     return (
       <SwiperSlide key={`chart-${dept}`} className="charSlide">
-        <ResponsiveContainer width="90%" height={380} className="resContainer">
-          <BarChart data={data} margin={{ top: 50 }}>
+        <ResponsiveContainer width="100%" height={380} className="resContainer">
+          <BarChart data={data} margin={{ top: 30 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="sal" tick={false} />
-            <YAxis dataKey="cnt" type="number" domain={[0, "dataMax+100"]} />
+            <YAxis dataKey="cnt" type="number" domain={[0, "dataMax+1000"]}>
+              <Label
+                value="*직원 수"
+                offset={15}
+                position="top"
+                className="y-label"
+              />
+            </YAxis>
 
             <Bar
               dataKey="cnt"

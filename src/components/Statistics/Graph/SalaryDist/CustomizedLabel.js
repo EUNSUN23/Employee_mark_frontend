@@ -2,62 +2,61 @@ import React from "react";
 import styled from "styled-components";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const Label = styled.div`
-  color: #222;
+const Title = styled.span`
   position: absolute;
-  font-size: 10px;
-  padding: 5px;
-  border-radius: 1px;
-  text-align: center;
-`;
-
-const Title = styled.h6`
-  padding: 0px;
-  margin: 0 0 2px 0;
-`;
-
-const Highlight = styled.div`
-  color: #222;
-  text-shadow: 1px 2px 0px #d6d6dd;
-  font-size: ${(props) => (props.underLg ? "16px" : "20px")};
+  color: #000;
+  font-size: ${(props) =>
+    props.underLg || !props.highlight ? "12px" : "14px"};
+  font-weight: ${(props) => props.highlight && "bold"};
+  background-color: ${(props) => (props.highlight ? "#fff" : "none")};
+  text-shadow: ${(props) => (props.highlight ? "1px 2px 0px #d6d6dd" : "none")};
+  transform: ${(props) => props.highlight && "translateY(-20%)"};
 `;
 
 const CustomizedLabel = (props) => {
-  const { x, y, value, index, currentVal } = props;
+  const { x, y, value, index, currentVal, width } = props;
   const underLg = useMediaQuery("(max-width:992px)");
 
-  const makeLabel = (value, index, currentVal) => {
-    const salary = 40000 + 10000 * index;
-    const highlight = salary === currentVal;
+  const salary = 40000 + 10000 * index;
+  const highlight = salary === currentVal;
+  const lineXPoint = x + width / 2;
 
-    let label;
-    if (highlight) {
-      label = (
-        <foreignObject x={x - 5} y={y - 25} width="100" height="50">
-          <Highlight xmlns="http://www.w3.org/1999/xhtml" underLg={underLg}>
-            <Title xmlns="http://www.w3.org/1999/xhtml">{`${value}명`}</Title>
-          </Highlight>
-        </foreignObject>
-      );
-    } else {
-      label = (
-        <foreignObject x={x - 5} y={y - 25} width="100" height="50">
-          <Label xmlns="http://www.w3.org/1999/xhtml">
-            <Title
-              xmlns="http://www.w3.org/1999/xhtml"
-              underLg={underLg}
-            >{`${value}명`}</Title>
-          </Label>
-        </foreignObject>
-      );
-    }
+  const YPoint = highlight ? y - 35 : y - 25;
 
-    return label;
-  };
+  const indicator = highlight ? (
+    <>
+      <path
+        d={`M${lineXPoint},${y}L${lineXPoint},${y - 12}L${lineXPoint},${
+          y - 10
+        }`}
+        stroke="#E20830"
+        strokeWidth={1.5}
+        fill="none"
+      />
+      <circle
+        cx={lineXPoint}
+        cy={y - 15}
+        r={3}
+        fill="#E20830"
+        stroke="#FFF"
+        strokeWidth={2}
+      />
+    </>
+  ) : null;
 
   return (
     <>
-      <g>{makeLabel(value, index, currentVal)}</g>
+      <g>
+        {" "}
+        <foreignObject x={x} y={YPoint} width="100" height="50">
+          <Title
+            xmlns="http://www.w3.org/1999/xhtml"
+            highlight={highlight}
+            underLg={underLg}
+          >{`${value}명`}</Title>
+        </foreignObject>
+        {indicator}
+      </g>
     </>
   );
 };

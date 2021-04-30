@@ -200,7 +200,6 @@ const setZeroData = (dataArr) => {
 
 const arrangeDist = (data) => {
   const dataObj = setZeroData(data);
-  console.log("dataObj", dataObj);
   const arrangedData = Object.keys(dataObj).map((dept, idx) => ({
     name: dept,
     cnt: dataObj[dept],

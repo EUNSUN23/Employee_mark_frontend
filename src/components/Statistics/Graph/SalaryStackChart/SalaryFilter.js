@@ -73,6 +73,9 @@ const Button = styled.div`
   background-color: #ffffff;
   box-shadow: 2px 1px 2px 0px #cecece;
   div {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     padding-left: 3px;
   }
 `;
