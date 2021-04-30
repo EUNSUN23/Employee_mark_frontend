@@ -1,5 +1,5 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
   DefaultMenu,
   DefaultMenuItem,
@@ -13,6 +13,20 @@ import { setStatTitle } from "../../../../shared/utility";
 const SearchDetailOption = () => {
   const dispatch = useDispatch();
   const [menu, setMenu] = useMenuBtn(null);
+
+  const { area, selected } = useSelector(
+    (state) => ({
+      area: state.statBar.area,
+      selected: state.statBar.selected,
+    }),
+    shallowEqual
+  );
+
+  useEffect(() => {
+    if (!area && !selected) return;
+    const initTitle = area ? setStatTitle("area") : setStatTitle(selected.type);
+    setMenu.onMenuItemClick(initTitle);
+  }, []);
 
   const onSelectClick = (type) => {
     const newTitle = setStatTitle(type);
