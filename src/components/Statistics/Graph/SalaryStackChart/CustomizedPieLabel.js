@@ -31,6 +31,7 @@ const CustomizedPieLabel = (props) => {
   const textAnchor = cos >= 0 ? "start" : "end";
 
   const active = index === activeIndex;
+  const labelColor = active && !overLg ? "#E20830" : "#999";
 
   if (active && overLg) return null;
 
@@ -38,7 +39,7 @@ const CustomizedPieLabel = (props) => {
     <g>
       <path
         d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-        stroke="#BFBFBF"
+        stroke={labelColor}
         strokeWidth={1}
         fill="none"
       />
@@ -49,7 +50,10 @@ const CustomizedPieLabel = (props) => {
         height="20"
         textAnchor={textAnchor}
       >
-        <PieLabel color="#BFBFBF" active={active}>{`${payload.sal}`}</PieLabel>
+        <PieLabel
+          color={labelColor}
+          active={active}
+        >{`${payload.sal}`}</PieLabel>
       </foreignObject>
     </g>
   );

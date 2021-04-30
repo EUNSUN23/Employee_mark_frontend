@@ -13,7 +13,7 @@ const Container = styled.div`
   position: fixed;
   right: 20px;
   @media only screen and (max-width: 992px) {
-    right: 10%;
+    right: 5%;
   }
   bottom: 40px;
   transition: all 0.2s;

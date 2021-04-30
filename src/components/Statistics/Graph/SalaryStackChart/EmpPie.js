@@ -13,7 +13,7 @@ const Filter = styled.div`
   transform: translate(-50%, -50%);
   .value,
   .title {
-    color: ${(props) => (props.overLg ? "#222" : "#E20830")};
+    color: "#222" : "#E20830";
   }
 `;
 
