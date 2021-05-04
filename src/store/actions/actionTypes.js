@@ -7,7 +7,7 @@ export const EMP_INIT_BOARD = "EMP_INIT_BOARD";
 export const EMP_INIT_ERR = "EMP_INIT_ERR";
 export const EMP_INIT_CATEGORY = "EMP_INIT_CATEGORY";
 export const EMP_ADD_PAGE = "EMP_ADD_PAGE";
-export const EMP_LEFT_ERROR = "EMP_LEFT_ERROR";
+export const EMP_SEARCH_ERROR = "EMP_SEARCH_ERROR";
 export const EMP_SET_OPENED = "EMP_SET_OPENED";
 
 export const BAR_INIT_CATEGORY = " BAR_INIT_CATEGORY";

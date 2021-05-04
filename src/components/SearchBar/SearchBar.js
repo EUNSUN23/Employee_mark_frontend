@@ -10,6 +10,7 @@ import { isValid } from "../../shared/utility";
 import theme from "../../shared/theme";
 import DefaultAppBar from "../UI/AppBar/DefaultAppBar";
 import SubmitBtn from "../UI/AppBar/SubmitBtn";
+import { searchError } from "../../store/actions/searchEmp";
 
 const useStyles = makeStyles({
   searchContainer: {
@@ -89,7 +90,8 @@ const SearchBar = () => {
   const submitData = useCallback(() => {
     const dataObj =
       option === "이름검색" ? { category: "name", value: inputVal } : optionVal;
-    isValid(dataObj.value);
+    if (!dataObj || !dataObj.value)
+      return dispatch(searchError("검색어를 입력하세요"));
     dispatch(getEmpData(dataObj, page, "noPage"));
     dispatch(addKeywords(dataObj.category, dataObj.value));
   }, [

@@ -60,8 +60,8 @@ export const initError = () => {
   return { type: actionTypes.EMP_INIT_ERR };
 };
 
-export const leftError = (message) => {
-  return { type: actionTypes.EMP_LEFT_ERROR, message: message };
+export const searchError = (message) => {
+  return { type: actionTypes.EMP_SEARCH_ERROR, message: message };
 };
 
 export const setOpenedEmp = (info) => {

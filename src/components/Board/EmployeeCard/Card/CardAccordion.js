@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import History from "./History/History";
 import useEmployeeData from "../../../../hooks/useEmployeeData";
 import Rank from "./Rank/Rank";
-import { leftError, setOpenedEmp } from "../../../../store/actions/searchEmp";
+import { searchError, setOpenedEmp } from "../../../../store/actions/searchEmp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +33,7 @@ const CardAccordion = memo((props) => {
   const { emp_no, dept_name, title, left } = props;
 
   const onChangeAccordion = (panel) => (event, isExpanded) => {
-    if (left) return dispatch(leftError("퇴사자입니다"));
+    if (left) return dispatch(searchError("퇴사자입니다"));
 
     dispatch(setOpenedEmp({ emp_no, dept_name, title }));
     if (isExpanded) {
