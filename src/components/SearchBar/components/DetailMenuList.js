@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { DefaultMenuItem } from "../../UI/AppBar/SearchDetailMenu";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -9,7 +9,7 @@ const StyledMenuItem = withStyles({
   root: {
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "25vw",
+      width: "30vw",
     },
     "& .menu_disabled": {
       color: "#e8e8e8",

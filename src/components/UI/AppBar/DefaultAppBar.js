@@ -15,6 +15,7 @@ const useStyles = makeStyles({
 
   appBar: {
     height: "14vh",
+
     [theme.breakpoints.up("xl")]: {
       height: "10vh",
     },

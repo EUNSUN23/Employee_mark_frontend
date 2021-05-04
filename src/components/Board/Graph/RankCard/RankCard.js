@@ -27,7 +27,7 @@ const RankItem = styled.div`
     font-size: 16px;
     @media only screen and (max-width: 992px) and (min-width: 576px) {
       margin-top: -10px;
-      font-size: 1.4vw;
+      // font-size: 1.6vw;
     }
   }
   .dots {
@@ -56,7 +56,7 @@ const Badge = styled.div`
     font-size: 12px;
     text-align: center;
     @media only screen and (max-width: 992px) and (min-width: 576px) {
-      margin-top: -10px;
+      margin-top: 3px;
     }
   }
 `;

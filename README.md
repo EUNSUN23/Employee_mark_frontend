@@ -1,59 +1,33 @@
-### feature : 직원관리 application
+# 👨🏻‍🤝‍👨🏻 Employee Mark (front-end)
 
-### tools/library : material-ui, react-chart, etc..
+<br/>
+## MySQL employee DB를 활용한 웹앱 프로젝트
+가상 직원 30만명의 이름,부서,직급,연봉변동,부서변동,각종랭킹을 한눈에 파악하고, 직원 전체의 연봉 분포도를 다양한 검색 조건에 따라 확인할 수 있는 웹앱 입니다.  
+<br/>
+## 🎞 시연 영상
 
----
+전체 - https://www.youtube.com/watch?v=WgHL5GV_e0A  
+반응형 - https://www.youtube.com/watch?v=u8g0WH378vQ
+<br/>
 
-#note
+## ⚙️ 개발 기능
 
-###21.02.24 수
+![개발 컨텐츠](readmeImg/개발.png)
 
--contextAPI로 키워드 관리를 하고 있지만 다른 State 관리를 위해서 리덕스를 설치해야할것같다.
+<br/>
 
-###21.03.03 목
+## 🛠️ 기술 스택
 
--직원카드 페이지를 완성했다. 추가적인 아이디어가 생각났다.
+![105710587-a97a6c00-5f5a-11eb-8203-2f134e74c053](readmeImg/기술스택.jpg)
+<br/>
 
-1. 검색결과가 좀 더 정리되어 보이면 좋겠다. 결과를 정렬하는 옵션이 있으면 좋을 것 같다.
+## 📝 개발노트
 
-\*직급검색 - 특정 직급만 보여주는 정렬
+프로젝트를 만드는 과정에서 배운 것과 주요 에러를 정리했습니다.
 
-\*부서검색 - 직급위계에 따른 정렬(조직도?....), 특정 직급만 보여주는 정렬
+👉[개발노트 보러가기](./developeNote.md)
 
-\*직원카드 내에서도 볼 수 있는 정보를 선택적으로 볼 수 있게끔.
-
-2. 전체 검색결과 수를 보여줄 수 있으면 좋겠다. (서버와 컴케할것)
-
-3. 이름검색 시 정확한 당사자를 찾을 수 있으면 좋겠다(firstname, lastname 합쳐서. 이 역시 서버와 컴케)
-
-4. 한 번 조회한 직원카드는 조회표시가 되었으면 좋겠다(서버와 컴케. post요청?..)
-
-###21.03.04 목
-
-1. Home 화면 디자인
-
-background )
-
-- SearchBar와 같은 색상 background
-
-header )
-
-- Employee mark 로고
-
-main )
-
-- 현재 전체 사원 수, 퇴사자 수, 업데이트 날짜
-- 각 부서별 사원 수 입체그래프
-  :사원 이모티콘 + 부서명
-
-- nav버튼
-  :사원검색 / 통계 보기 / 로그인
-
-###21.03.09 화
-
-1. redux, redux-thunk 설치 & state관리
-
-2. 앞으로 추가할 것
-
-- Statistics > 조직 > 부서 검색결과 그래프 yAix label추가
-- 그래프 클릭 시 해당 그래프 ui변화
+<br/>
+## 👩🏻 Developers
+[김은선](https://github.com/EUNSUN23)(FRONT-END), [정주혁](https://github.com/tachyon83)(BACK-END)
+<br/>

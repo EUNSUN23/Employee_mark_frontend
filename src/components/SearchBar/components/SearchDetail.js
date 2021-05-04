@@ -27,7 +27,7 @@ const StyledMenuBtn = withStyles({
 const StyledMenu = withStyles({
   paper: {
     [theme.breakpoints.up("sm")]: {
-      width: "25vw",
+      width: "30vw",
     },
   },
 })(DefaultMenu);
