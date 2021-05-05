@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import { setOptVal } from "../../../store/actions/searchBar";
@@ -31,6 +32,11 @@ const StyledMenu = withStyles({
     },
   },
 })(DefaultMenu);
+
+const Container = styled.section`
+  border-radius: ${(props) => props.theme.shape.borderRadius};
+  margin-left: ${(props) => props.theme.spacing(3)};
+`;
 
 const SearchDetail = () => {
   const [menuBtn, setMenuBtn] = useMenuBtn(null);
@@ -100,7 +106,7 @@ const SearchDetail = () => {
   };
 
   return (
-    <div>
+    <Container theme={theme}>
       <StyledMenuBtn
         value={optionVal ? optionVal.value : null}
         initValue={menuBtn.title}
@@ -115,7 +121,7 @@ const SearchDetail = () => {
       >
         {createSearchDetail(menuBtn.title, category)}
       </StyledMenu>
-    </div>
+    </Container>
   );
 };
 

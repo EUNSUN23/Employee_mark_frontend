@@ -8,10 +8,10 @@ const Rank = (props) => {
   const { expanded, onChangeAccordion, type, data, getData, isLoading } = props;
 
   const rankCard = isLoading ? (
-    <Grid container justify="center">
-      <Grid />
+    <Grid container justify="center" component="section">
+      <Grid component="article" />
       <Loader type="small" />
-      <Grid />
+      <Grid component="article" />
     </Grid>
   ) : (
     <RankCard data={data} />

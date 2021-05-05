@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { setOption, initOptVal } from "../../../store/actions/searchBar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -9,6 +10,10 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Svg from "../../../shared/svgIcons";
 import useMenuBtn from "../../../hooks/useMenuBtn";
+
+const Container = styled.article`
+  position: relative;
+`;
 
 const useStyles = makeStyles(() => ({
   title_container: {
@@ -84,7 +89,7 @@ const SearchMenu = () => {
   };
 
   return (
-    <div>
+    <Container>
       <Button
         aria-controls="customized-menu"
         variant="contained"
@@ -152,7 +157,7 @@ const SearchMenu = () => {
           />
         </StyledMenuItem>
       </StyledMenu>
-    </div>
+    </Container>
   );
 };
 

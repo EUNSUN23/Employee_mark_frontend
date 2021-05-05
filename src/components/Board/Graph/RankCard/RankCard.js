@@ -3,7 +3,7 @@ import { shallowEqual, useSelector } from "react-redux";
 import styled from "styled-components";
 import Svg from "../../../../shared/svgIcons";
 
-const Container = styled.div`
+const Container = styled.section`
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr;
@@ -14,7 +14,7 @@ const Container = styled.div`
   text-align: center;
 `;
 
-const RankItem = styled.div`
+const RankItem = styled.article`
   display: grid;
   justify-items: center;
   align-content: space-between;
