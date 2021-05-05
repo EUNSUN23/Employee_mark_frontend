@@ -1,12 +1,27 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { Grid } from "@material-ui/core";
 import SearchBar from "../SearchBar/SearchBar";
 import CardContainer from "./EmployeeCard/Card/CardContainer";
 import ScrollToTop from "../UI/ScrollToTop";
 import Modal from "../UI/Modal";
 import Loader from "../UI/Loader";
 import { initError } from "../../store/actions/searchEmp";
+
+const EmployeeBoard = styled.section`
+  display: grid;
+  grid-direction: column;
+  grid-template-columns: auto;
+  grid-template-rows: 20vh auto;
+  align-items: space-between;
+  justify-content: space-between;
+`;
+
+const SectionCard = styled.section`
+  display: grid;
+  grid-template-columns: 2fr 8fr 2fr;
+  grid-template-rows: auto;
+`;
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -51,31 +66,33 @@ const Board = () => {
   const content = isLoading ? (
     <Loader type="large" />
   ) : (
-    <Grid container direction="column" spacing={10}>
+    <>
       <Modal message={message} open={open} handleClose={handleClose} />
-      <Grid item></Grid>
-      <Grid item container ref={viewport}>
-        <Grid item xs={false} sm={2} />
-        <Grid item xs={12} sm={8}>
-          <CardContainer />
-        </Grid>
-        <Grid item xs={false} sm={2} />
-      </Grid>
-      <ScrollToTop
-        onScroll={(e) => handleScroll(e)}
-        show={scrollToTop}
-        handleOnScrollBtn={handleOnScrollBtn}
-      />
-    </Grid>
+      <aside />
+      <SectionCard ref={viewport}>
+        <aside />
+        <CardContainer />
+        <aside />
+      </SectionCard>
+      <aside>
+        <ScrollToTop
+          onScroll={(e) => handleScroll(e)}
+          show={scrollToTop}
+          handleOnScrollBtn={handleOnScrollBtn}
+        />
+      </aside>
+    </>
   );
 
   const board = categoryObj ? (
     <>
       <SearchBar />
-      {content}
+      <EmployeeBoard>{content}</EmployeeBoard>
     </>
   ) : (
-    <Loader type="main" />
+    <EmployeeBoard>
+      <Loader type="main" />
+    </EmployeeBoard>
   );
 
   return board;

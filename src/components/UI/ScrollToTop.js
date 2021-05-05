@@ -11,10 +11,7 @@ const Container = styled.div`
   border-radius: 100%;
   opacity: ${(props) => (props.show ? 1 : 0)};
   position: fixed;
-  right: 20px;
-  @media only screen and (max-width: 992px) {
-    right: 8%;
-  }
+  right: 5%;
   bottom: 40px;
   transition: all 0.2s;
   cursor: pointer;
