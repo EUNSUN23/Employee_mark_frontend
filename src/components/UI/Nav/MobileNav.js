@@ -5,8 +5,20 @@ import Menu from "@material-ui/core/Menu";
 import IconButton from "@material-ui/core/IconButton";
 import Svg from "../../../shared/svgIcons";
 import NavLink from "./NavLink";
-
 import useMenuBtn from "../../../hooks/useMenuBtn";
+
+const Container = styled.section`
+display: block;
+position: absolute;
+top: 50%;
+right: 5%;
+transform: translate(-50%,-50%);
+@media only screen and (max-width:576px){
+  transform: translate(-25%,-50%);
+}
+@media only screen and (min-width:992px){
+  display: none;
+`;
 
 const StyledMenu = styled(Menu)`
   padding: 0;
@@ -31,19 +43,19 @@ const StyledMenuItem = styled(MenuItem)`
 
 const renderSecond = (type) =>
   type === "statistics" ? (
-    <>
+    <nav>
       <Svg name="EmployeeSearch" />
       <NavLink endPoint="/board" color="#000">
         직원 검색
       </NavLink>
-    </>
+    </nav>
   ) : (
-    <>
+    <nav>
       <Svg name="SalaryStatistics" />
       <NavLink endPoint="/statistics" color="#000">
         연봉 통계
       </NavLink>
-    </>
+    </nav>
   );
 
 const MobileNav = ({ type }) => {
@@ -52,7 +64,7 @@ const MobileNav = ({ type }) => {
   const isOpen = Boolean(navBtn.anchorEl);
 
   return (
-    <>
+    <Container>
       <IconButton
         aria-label="show more"
         aria-controls="search-employee-menu-mobile"
@@ -72,14 +84,16 @@ const MobileNav = ({ type }) => {
         onClose={setNavBtn.onClose}
       >
         <StyledMenuItem>
-          <Svg name="Home" size="large" />
-          <NavLink endPoint="/" color="#000">
-            홈으로
-          </NavLink>
+          <nav>
+            <Svg name="Home" size="large" />
+            <NavLink endPoint="/" color="#000">
+              홈으로
+            </NavLink>
+          </nav>
         </StyledMenuItem>
         <StyledMenuItem>{renderSecond(type)}</StyledMenuItem>
       </StyledMenu>
-    </>
+    </Container>
   );
 };
 

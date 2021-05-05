@@ -3,17 +3,21 @@ import styled from "styled-components";
 import Svg from "../../../shared/svgIcons";
 import NavLink from "./NavLink";
 
-export const Container = styled.ul`
-  padding: 0;
-  display: grid;
-  grid-direction: column;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr;
-  justify-items: flex-end;
-  align-content: center;
+export const Container = styled.div`
+  display: none;
+  @media only screen and (min-width: 992px) {
+    padding: 0;
+    display: grid;
+    grid-gap: 20px;
+    grid-direction: column;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    justify-items: flex-end;
+    align-content: center;
+  }
 `;
 
-export const Nav = styled.li`
+export const Nav = styled.nav`
   display: grid;
   grid-gap: 5px;
   grid-template-rows: 1fr;

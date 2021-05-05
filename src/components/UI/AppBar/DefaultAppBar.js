@@ -1,83 +1,57 @@
 import React from "react";
+import styled from "styled-components";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import DeskNav from "../Nav/DeskNav";
 import MobileNav from "../Nav/MobileNav";
-import theme from "../../../shared/theme";
 
-const useStyles = makeStyles({
-  grow: {
-    flexGrow: 1,
-  },
+const Bar = styled(AppBar)`
+  position: fixed;
+  height: 14vh;
+`;
 
-  appBar: {
-    height: "14vh",
+const ToolBar = styled(Toolbar)`
+  display: grid;
+  grid-template-columns: auto 2fr auto;
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: auto 3fr auto;
+    grid-template-rows: auto;
+  }
+  align-items: center;
+  justify-content: space-between;
+`;
 
-    [theme.breakpoints.up("xl")]: {
-      height: "10vh",
-    },
-  },
+const Logo = styled.section`
+display: none;
+@media only screen and (min-width:992px){
+  display: block;
+  font-size: 2vw;
+},
+`;
 
-  title: {
-    display: "none",
-    [theme.breakpoints.up("lg")]: {
-      display: "block",
-      fontSize: "2vw",
-    },
-  },
+const NavSection = styled.section`
+  display: grid;
+`;
 
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("lg")]: {
-      display: "block",
-    },
-  },
-  sectionMobile: {
-    display: "block",
-    position: "absolute",
-    top: "50%",
-    right: "5%",
-    transform: "translate(-50%,-50%)",
-    [theme.breakpoints.down("xs")]: {
-      transform: "translate(-25%,-50%)",
-    },
-    [theme.breakpoints.up("lg")]: {
-      display: "none",
-    },
-  },
-});
+const SearchSection = styled(Typography)`
+  display: grid;
+`;
 
 const DefaultAppBar = (props) => {
   const { type, children } = props;
-  const classes = useStyles();
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="space-between"
-          >
-            <Typography className={classes.title}>Employee Mark</Typography>
-            {children}
-            <Grid container item xs={2} sm={2} md={3}>
-              <Grid container className={classes.sectionDesktop}>
-                <DeskNav type={type} />
-              </Grid>
-              <Grid item className={classes.sectionMobile}>
-                <MobileNav type={type} />
-              </Grid>
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <Bar component="header">
+      <ToolBar>
+        <Logo component="section">Employee Mark</Logo>
+        <SearchSection>{children}</SearchSection>
+        <NavSection>
+          <DeskNav type={type} />
+          <MobileNav type={type} />
+        </NavSection>
+      </ToolBar>
+    </Bar>
   );
 };
 
