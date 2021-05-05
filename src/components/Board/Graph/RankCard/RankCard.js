@@ -7,12 +7,9 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 10px;
+  align-items: center;
+  justify-content: space-between;
   width: 90%;
-  @media only screen and (max-width: 992px) and (min-width: 576px) {
-    width: 80%;
-    height: 50%;
-  }
   margin: 0 auto;
   text-align: center;
 `;
@@ -20,22 +17,16 @@ const Container = styled.div`
 const RankItem = styled.div`
   display: grid;
   justify-items: center;
-  grid-template-rows: 2fr 2fr 1fr;
+  align-content: space-between;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: auto;
   .rank {
     font-weight: bold;
-    font-size: 16px;
-    @media only screen and (max-width: 992px) and (min-width: 576px) {
-      margin-top: -10px;
-      // font-size: 1.6vw;
-    }
+    font-size: 14px;
   }
   .dots {
     display: block;
     color: #4caf50;
-    @media only screen and (max-width: 992px) and (min-width: 576px) {
-      font-size: 12px;
-    }
   }
 `;
 
@@ -48,16 +39,14 @@ const Title = styled(RankItem)``;
 const Badge = styled.div`
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr;
-  grid-template-rows: 2fr 1fr;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 1fr;
   justify-items: center;
-
+  align-content: space-between;
   span {
     font-size: 12px;
+    margin-top: 3px;
     text-align: center;
-    @media only screen and (max-width: 992px) and (min-width: 576px) {
-      margin-top: 3px;
-    }
   }
 `;
 

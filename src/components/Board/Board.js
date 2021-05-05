@@ -14,7 +14,7 @@ const EmployeeBoard = styled.section`
   grid-template-columns: auto;
   grid-template-rows: 20vh auto;
   align-items: space-between;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 const SectionCard = styled.section`

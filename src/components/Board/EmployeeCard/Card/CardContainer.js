@@ -1,12 +1,29 @@
 import React, { useEffect, useRef } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import EmployeeCard from "../EmployeeCard";
 import { debounce } from "lodash";
-import { Grid } from "@material-ui/core";
 import Loader from "../../../UI/Loader";
 import { getEmpData } from "../../../../store/actions/searchEmp";
 import { getCurrent } from "../../../../shared/utility";
 import BoardBackground from "../../BoardBackground";
+
+const EmployeeContainer = styled.article`
+  display: grid;
+  align-items: space-between;
+  justify-content: space-between;
+  grid-gap: 20px;
+  grid-template-rows: 1fr;
+  @media only screen and (max-width: 786px) {
+    grid-template-columns: 60vw;
+  }
+  @media only screen and (min-width: 786px) {
+    grid-template-columns: 40vw 40vw;
+  }
+  @media only screen and (min-width: 992px) {
+    grid-template-columns: 30vw 30vw;
+  }
+`;
 
 const CardContainer = () => {
   const dispatch = useDispatch();
@@ -69,16 +86,9 @@ const CardContainer = () => {
       const lastEl = idx === employeeData[employeeData.length - 1].id;
 
       return (
-        <Grid
-          key={"employee" + idx}
-          item
-          xs={10}
-          sm={12}
-          md={6}
-          ref={lastEl ? target : null}
-        >
+        <article key={"employee" + idx} ref={lastEl ? target : null}>
           <EmployeeCard {...el.employee} currentEmp={current} />
-        </Grid>
+        </article>
       );
     });
 
@@ -87,9 +97,9 @@ const CardContainer = () => {
 
   return (
     <>
-      <Grid container spacing={4} justify="center">
+      <EmployeeContainer>
         {createEmployeeList(employeeData, currentEmp)}
-      </Grid>
+      </EmployeeContainer>
       {isNextLoading ? <Loader type="medium" /> : null}
     </>
   );
