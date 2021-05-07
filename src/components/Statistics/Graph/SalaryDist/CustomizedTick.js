@@ -1,19 +1,26 @@
+import { useRef, useEffect } from "react";
 import styled from "styled-components";
 import Svg from "../../../../shared/svgIcons";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { setChartColor } from "../../../../shared/utility";
 
 const Tick = styled.span`
   position: absolute;
+  cursor: pointer;
   padding: ${(props) => (props.value.length <= 8 ? "0 15px" : "0 12px")};
   margin: 0 20px;
   font-size: ${(props) => (props.value.length <= 8 ? "14px" : "12px")};
-  color: ${(props) => (props.emp === 0 ? "#999" : "#222")};
+  color: ${(props) => (props.emp === 0 ? "#999" : props.tickColor)};
   text-align: center;
   font-weight: bold;
+  &:hover {
+    text-shadow: 1px 3px 1px #e8e8e8;
+  }
+
   @media only screen and (max-width: 768px) {
     div {
       position: absolute;
-      color: ${(props) => (props.emp === 0 ? "#999" : "#222")};
+      color: ${(props) => (props.emp === 0 ? "#999" : props.tickColor)};
       text-align: center;
       font-weight: normal;
       cursor: pointer;
@@ -43,15 +50,31 @@ const Tick = styled.span`
 `;
 
 const CustomizedTick = (tickProps) => {
-  const { x, y, payload, data, width } = tickProps;
+  const {
+    x,
+    y,
+    payload,
+    data,
+    width,
+    onChangeTick,
+    index,
+    activeIndex,
+  } = tickProps;
   const { value } = payload;
+  const tickRef = useRef();
   const underMd = useMediaQuery("(max-width:768px)");
 
-  const emp = data[value];
+  useEffect(() => {
+    tickRef.current.addEventListener("click", () => onChangeTick(index));
 
+    return () => {
+      window.removeEventListener("click", () => onChangeTick(index));
+    };
+  }, [data]);
+
+  const emp = data[value];
   const normalTickVal =
     typeof value === "string" ? value : `${value / 10000}만`;
-
   const smallTickVal =
     typeof value === "string" ? (
       <Svg name={value} component="div" />
@@ -64,6 +87,8 @@ const CustomizedTick = (tickProps) => {
   const YPoint = underMd ? y + 10 : y;
   const tickWidth = 140;
   const tickHeight = underMd ? 80 : 50;
+  const highlight = index === activeIndex;
+  const tickColor = highlight ? setChartColor(data[index].name) : "#000";
 
   return (
     <foreignObject x={XPoint} y={YPoint} width={tickWidth} height={tickHeight}>
@@ -72,6 +97,8 @@ const CustomizedTick = (tickProps) => {
         value={value}
         emp={emp}
         width={width}
+        ref={tickRef}
+        tickColor={tickColor}
       >
         {tickVal}
       </Tick>

@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState, useCallback } from "react";
 import styled from "styled-components";
 import {
   BarChart,
@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import { setChartColor } from "../../../../shared/utility";
 import CustomizedTick from "./CustomizedTick";
-import CustomizedLabel from "./CustomizedLabel";
+import Label from "./Label";
 
 const ChartContainer = styled.article`
   width: 100%;
@@ -39,28 +39,48 @@ const Title = styled.h1`
 `;
 
 const DistBar = memo(({ data, type, salary }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const onChangeTick = useCallback(
+    (index) => {
+      console.log("click");
+      setActiveIndex(index);
+    },
+    [setActiveIndex]
+  );
+
   const makeDistBar = (data) => {
     return (
       <ChartContainer>
         <ResponsiveContainer width="100%" height={400}>
           <BarChart
             data={data}
-            margin={{ top: 60, right: 5, bottom: 30, left: 5 }}
+            margin={{ top: 60, right: 30, bottom: 30, left: 5 }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
+            <CartesianGrid strokeDasharray="1 1" />
             <XAxis
               dataKey="name"
               interval={0}
               fill="#666"
-              tick={<CustomizedTick data={data} />}
+              tick={
+                <CustomizedTick
+                  data={data}
+                  onChangeTick={onChangeTick}
+                  activeIndex={activeIndex}
+                />
+              }
               tickLine={false}
               allowDataOverflow={true}
             />
-            <YAxis dataKey="cnt" />
+            <YAxis
+              dataKey="cnt"
+              type="number"
+              domain={[0, (dataMax) => dataMax + parseInt(dataMax / 10)]}
+            />
 
             <Bar
               dataKey="cnt"
-              label={<CustomizedLabel />}
+              label={<Label activeIndex={activeIndex} />}
               allowDataOverflow={true}
             >
               {data.map((entry, index) => {

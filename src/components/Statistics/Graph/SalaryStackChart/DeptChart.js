@@ -17,7 +17,7 @@ import {
   Label,
 } from "recharts";
 import { setChartColor } from "../../../../shared/utility";
-import CustomizedLabel from "../SalaryDist/CustomizedLabel";
+import CustomizedLabel from "./CustomizedLabel";
 import SalaryFilter from "./SalaryFilter";
 import SlideNav from "../../../UI/SlideNav";
 
