@@ -28,7 +28,7 @@ const Submit = styled.section`
   position: ${(props) =>
     props.selected && props.selected.type === "area" && "absolute"};
   right: ${(props) =>
-    props.selected && props.selected.type === "area" && "6vw"};
+    props.selected && props.selected.type === "area" && "5vw"};
   @media only screen and (max-width: 992px) {
     right: ${(props) =>
       props.selected && props.selected.type === "area" && "0vw"};
