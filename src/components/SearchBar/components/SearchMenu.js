@@ -6,45 +6,51 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Svg from "../../../shared/svgIcons";
 import useMenuBtn from "../../../hooks/useMenuBtn";
+import theme from "../../../shared/theme";
 
 const Container = styled.article`
   position: relative;
+  display: grid;
 `;
 
-const useStyles = makeStyles(() => ({
-  title_container: {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%,-50%)",
-    width: "100px",
-    height: "30px",
-  },
-  title_listItemIcon: {
-    position: "relative",
-    left: "-25%",
-    top: "-50%",
-    color: "white",
-  },
-  title_listItemText: {
-    position: "absolute",
-    left: "25%",
-  },
+const useStyles = makeStyles({
   menu_container: {
     position: "relative",
-    width: "120px",
+    width: "100px",
     height: "30px",
+    [theme.breakpoints.between("xs", "sm")]: {
+      width: "14vw",
+    },
   },
   menu_listItemText: {
     position: "absolute",
     left: "50%",
     transform: "translateX(-50%)",
   },
-}));
+});
+
+const StyledButton = withStyles({
+  contained: {
+    display: "grid",
+    position: "relative",
+    width: "100px",
+    fontSize: "14px",
+    "& .titleText": {
+      transform: "translateX(20%)",
+    },
+    [theme.breakpoints.between("xs", "sm")]: {
+      width: "14vw",
+      fontSize: "12px",
+    },
+  },
+  startIcon: {
+    position: "absolute",
+    left: "15%",
+  },
+})(Button);
 
 const StyledMenu = withStyles({
   paper: {
@@ -90,21 +96,15 @@ const SearchMenu = () => {
 
   return (
     <Container>
-      <Button
+      <StyledButton
         aria-controls="customized-menu"
         variant="contained"
         color="primary"
         onClick={setMenuBtn.onClickAnchor}
-        className={classes.title_container}
+        startIcon={<Svg name="ArrowDown" component="div" />}
       >
-        <ListItemIcon className={classes.title_listItemIcon}>
-          <Svg name="ArrowDown" component="div" />
-        </ListItemIcon>
-        <ListItemText
-          className={classes.title_listItemText}
-          primary={menuBtn.title}
-        />
-      </Button>
+        <span className="titleText">{menuBtn.title}</span>
+      </StyledButton>
       <StyledMenu
         id="customized-menu"
         anchorEl={menuBtn.anchorEl}

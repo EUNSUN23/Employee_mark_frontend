@@ -1,32 +1,39 @@
 import React, { useCallback } from "react";
+import styled from "styled-components";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import theme from "../../../shared/theme";
 import { getStatAPI } from "../../../store/actions/statPage";
 import DefaultAppBar from "../../UI/AppBar/DefaultAppBar";
 import SearchInput from "./components/SearchInput";
 import SubmitBtn from "../../UI/AppBar/SubmitBtn";
 
-const useStyles = makeStyles({
-  searchContainer: ({ theme }) => ({
-    position: "relative",
-    width: "100vw",
-    height: "14vh",
-    [theme.breakpoints.up("sm")]: {
-      width: "50vw",
-    },
-  }),
+const SearchContainer = styled.section`
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+  grid-template-rows: auto;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: ${(props) =>
+    props.selected && props.selected.type === "area" ? "50vw" : "40vw"};
+  height: 14vh;
+  @media only screen and (max-width: 992px) {
+    margin-left: ${(props) =>
+      props.selected && props.selected.type === "area" ? 0 : "20%"};
+    width: ${(props) =>
+      props.selected && props.selected.type === "area" ? "50vw" : "60vw"};
+  }
+`;
 
-  submit: ({ selected, theme }) => ({
-    [theme.breakpoints.down("md")]: {
-      position: "absolute",
-      left: `${selected && selected.type === "area" ? "45vw" : "52vw"}`,
-      top: "50%",
-      transform: "translateY(-50%)",
-    },
-  }),
-});
+const Submit = styled.section`
+  position: ${(props) =>
+    props.selected && props.selected.type === "area" && "absolute"};
+  right: ${(props) =>
+    props.selected && props.selected.type === "area" && "6vw"};
+  @media only screen and (max-width: 992px) {
+    right: ${(props) =>
+      props.selected && props.selected.type === "area" && "0vw"};
+  }
+`;
 
 const StatisticsBar = () => {
   const dispatch = useDispatch();
@@ -40,8 +47,6 @@ const StatisticsBar = () => {
     }),
     shallowEqual
   );
-
-  const classes = useStyles({ selected: selected, theme: theme });
 
   const getBarData = (isSent) => {
     if (isSent) return;
@@ -70,21 +75,12 @@ const StatisticsBar = () => {
           onSubmitHandler();
         }}
       >
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          justify="center"
-          spacing={1}
-          className={classes.searchContainer}
-        >
-          <Grid item xs={7} md={7} lg={7}>
-            <SearchInput classes={classes} />
-          </Grid>
-          <Grid item xs={1} sm={1} className={classes.submit}>
+        <SearchContainer selected={selected}>
+          <SearchInput />
+          <Submit selected={selected}>
             <SubmitBtn onSubmitHandler={onSubmitHandler}>검색</SubmitBtn>
-          </Grid>
-        </Grid>
+          </Submit>
+        </SearchContainer>
       </form>
     </DefaultAppBar>
   );

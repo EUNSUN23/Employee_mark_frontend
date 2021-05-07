@@ -11,18 +11,24 @@ import BoardBackground from "../../BoardBackground";
 const EmployeeContainer = styled.article`
   display: grid;
   align-items: space-between;
-  justify-content: space-between;
+  justify-content: center;
   grid-gap: 20px;
   grid-template-rows: 1fr;
   @media only screen and (max-width: 786px) {
-    grid-template-columns: 60vw;
+    grid-template-columns: 70vw;
   }
   @media only screen and (min-width: 786px) {
-    grid-template-columns: 40vw 40vw;
+    grid-template-columns: ${(props) =>
+      props.employeeData ? "40vw 40vw" : "70vw"};
   }
   @media only screen and (min-width: 992px) {
-    grid-template-columns: 30vw 30vw;
+    grid-template-columns: ${(props) =>
+      props.employeeData ? "30vw 30vw" : "60vw"};
   }
+`;
+
+const SectionLoader = styled.section`
+  transform: translateX(50%);
 `;
 
 const CardContainer = () => {
@@ -97,10 +103,14 @@ const CardContainer = () => {
 
   return (
     <>
-      <EmployeeContainer>
+      <EmployeeContainer employeeData={employeeData}>
         {createEmployeeList(employeeData, currentEmp)}
+        {isNextLoading ? (
+          <SectionLoader>
+            <Loader type="medium" />
+          </SectionLoader>
+        ) : null}
       </EmployeeContainer>
-      {isNextLoading ? <Loader type="medium" /> : null}
     </>
   );
 };

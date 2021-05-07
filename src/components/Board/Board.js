@@ -64,15 +64,17 @@ const Board = () => {
   }, []);
 
   const content = isLoading ? (
-    <Loader type="large" />
-  ) : (
     <>
+      <Loader type="large" />
+    </>
+  ) : (
+    <EmployeeBoard>
       <Modal message={message} open={open} handleClose={handleClose} />
-      <aside />
+      <div />
       <SectionCard ref={viewport}>
-        <aside />
+        <div />
         <CardContainer />
-        <aside />
+        <div />
       </SectionCard>
       <aside>
         <ScrollToTop
@@ -81,18 +83,18 @@ const Board = () => {
           handleOnScrollBtn={handleOnScrollBtn}
         />
       </aside>
-    </>
+    </EmployeeBoard>
   );
 
   const board = categoryObj ? (
     <>
       <SearchBar />
-      <EmployeeBoard>{content}</EmployeeBoard>
+      {content}
     </>
   ) : (
-    <EmployeeBoard>
+    <>
       <Loader type="main" />
-    </EmployeeBoard>
+    </>
   );
 
   return board;

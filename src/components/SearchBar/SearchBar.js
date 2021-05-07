@@ -13,19 +13,14 @@ import { searchError } from "../../store/actions/searchEmp";
 
 const SearchContainer = styled.section`
   display: grid;
-  grid-template-columns: 2fr 7fr 2fr;
+  grid-template-columns: 2fr 6fr 1fr;
   grid-template-rows: auto;
   align-items: center;
   justify-content: center;
-  grid-gap: 1vw;
   position: relative;
-  margin-left: 8%;
-  width: 70vw;
+  width: 50vw;
   height: 14vh;
-  @media only screen and (min-width: 786px) {
-    width: 50vw;
-  }
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 992px) {
     width: 70vw;
   }
 `;

@@ -54,10 +54,10 @@ const Statistics = () => {
     switch (selected.type) {
       case "emp":
         return empData ? (
-          <Grid item container>
+          <Grid item container component="section">
             <Grid item xs={false} sm={1}></Grid>
-            <Grid item xs={12} sm={10}>
-              <EmpPie empData={empData} />{" "}
+            <Grid item xs={12} sm={10} component="article">
+              <EmpPie empData={empData} />
             </Grid>
             <Grid item xs={false} sm={1}></Grid>
           </Grid>
@@ -66,9 +66,9 @@ const Statistics = () => {
         );
       case "dept":
         return deptData ? (
-          <Grid item container>
+          <Grid item container component="section">
             <Grid item xs={false} sm={1} />
-            <Grid item container xs={12} sm={10}>
+            <Grid item container xs={12} sm={10} component="article">
               <DeptChart deptData={deptData} />
             </Grid>
             <Grid item xs={false} sm={1} />
@@ -80,9 +80,9 @@ const Statistics = () => {
         if (!area) return <StatBackground />;
         const data = area.type === "below" ? belowData : aboveData;
         return data ? (
-          <Grid item container>
+          <Grid item container component="section">
             <Grid item xs={false} lg={1}></Grid>
-            <Grid item xs={12} lg={10}>
+            <Grid item xs={12} lg={10} component="article">
               <DistBar data={data} type={area.type} salary={area.salary} />
             </Grid>
             <Grid item xs={false} lg={1}></Grid>
@@ -99,7 +99,7 @@ const Statistics = () => {
   const statistics = isLoading ? (
     <Loader type="large" />
   ) : (
-    <Grid container direction="column" spacing={6}>
+    <Grid container direction="column" spacing={6} component="section">
       <Modal open={openErrorMs} message={errorMs} handleClose={handleCloseMs} />
       <Grid item></Grid>
       <Grid item></Grid>

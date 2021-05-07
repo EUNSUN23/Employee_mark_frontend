@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Large = styled.article`
+const Large = styled.div`
   border-radius: 50%;
   width: 10em;
   height: 10em;
@@ -149,7 +149,7 @@ const Loader = ({ type }) => {
         return (
           <Main>
             <h1 className="info">Employee 데이터를 불러오고 있습니다</h1>
-            <article className="loader"></article>
+            <div className="loader"></div>
           </Main>
         );
       default:

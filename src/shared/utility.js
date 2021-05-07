@@ -398,3 +398,37 @@ export const setStatTitle = (type) => {
       return;
   }
 };
+
+export const setSearchTitle = (type) => {
+  switch (type) {
+    case "부서검색":
+      return "dept";
+    case "직급검색":
+      return "title";
+    case "최근검색":
+      return "recent keywords";
+    default:
+      return;
+  }
+};
+
+export const setSalary = (left, newValue) => {
+  switch (left) {
+    case 0:
+      return 40000;
+    case 16:
+      return 60000;
+    case 33:
+      return 80000;
+    case 50:
+      return 100000;
+    case 66:
+      return 120000;
+    case 83:
+      return 140000;
+    case 100:
+      return 160000;
+    default:
+      return newValue;
+  }
+};

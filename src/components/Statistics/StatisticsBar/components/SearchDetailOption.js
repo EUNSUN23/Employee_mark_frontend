@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
+  DetailMenuBtn,
   DefaultMenu,
   DefaultMenuItem,
 } from "../../../UI/AppBar/SearchDetailMenu";
-import DefaultMenuBtn from "../../../UI/AppBar/DefaultMenuBtn";
 import { setSelected } from "../../../../store/actions/statBar";
 import useMenuBtn from "../../../../hooks/useMenuBtn";
-import ListItemText from "@material-ui/core/ListItemText";
 import { setStatTitle } from "../../../../shared/utility";
+import Svg from "../../../../shared/svgIcons";
 
 const SearchDetailOption = () => {
   const dispatch = useDispatch();
-  const [menu, setMenu] = useMenuBtn(null);
+  const [menuBtn, setMenuBtn] = useMenuBtn(null);
 
   const { area, selected } = useSelector(
     (state) => ({
@@ -25,46 +25,48 @@ const SearchDetailOption = () => {
   useEffect(() => {
     if (!area && !selected) return;
     const initTitle = area ? setStatTitle("area") : setStatTitle(selected.type);
-    setMenu.onMenuItemClick(initTitle);
+    setMenuBtn.onMenuItemClick(initTitle);
   }, []);
 
   const onSelectClick = (type) => {
     const newTitle = setStatTitle(type);
 
-    setMenu.onMenuItemClick(newTitle);
-
+    setMenuBtn.onMenuItemClick(newTitle);
     dispatch(setSelected({ type: type, salary: "default" }));
-
-    setMenu.onClose();
   };
+
+  const title = menuBtn.title || "연봉 통계";
 
   return (
     <div>
-      <DefaultMenuBtn
-        value={menu.title}
-        initValue="연봉 통계 그래프"
-        onClickHandler={setMenu.onClickAnchor}
-      />
+      <DetailMenuBtn
+        variant="contained"
+        color="primary"
+        onClick={setMenuBtn.onClickAnchor}
+        startIcon={<Svg name="ArrowDown" size="large" component="div" />}
+      >
+        {title}
+      </DetailMenuBtn>
       <DefaultMenu
         id="customized-menu"
-        anchorEl={menu.anchorEl}
+        anchorEl={menuBtn.anchorEl}
         keepMounted
-        open={Boolean(menu.anchorEl)}
-        onClose={setMenu.onClose}
+        open={Boolean(menuBtn.anchorEl)}
+        onClose={setMenuBtn.onClose}
       >
         <DefaultMenuItem
           onClick={() => {
             onSelectClick("emp");
           }}
         >
-          <ListItemText primary="전사 연봉 분포" />
+          전사 연봉 분포
         </DefaultMenuItem>
         <DefaultMenuItem
           onClick={() => {
             onSelectClick("dept");
           }}
         >
-          <ListItemText primary="부서별 연봉 분포" />
+          부서별 연봉 분포
         </DefaultMenuItem>
 
         <DefaultMenuItem
@@ -72,7 +74,7 @@ const SearchDetailOption = () => {
             onSelectClick("area");
           }}
         >
-          <ListItemText primary="상세 연봉별 부서순위" />
+          상세 연봉별 부서순위
         </DefaultMenuItem>
       </DefaultMenu>
     </div>

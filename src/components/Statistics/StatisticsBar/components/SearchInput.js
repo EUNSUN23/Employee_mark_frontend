@@ -3,8 +3,7 @@ import { useSelector } from "react-redux";
 import SearchDetailOption from "../components/SearchDetailOption";
 import SearchTrack from "../components/SearchTrack";
 
-const SearchInput = memo((props) => {
-  const { classes } = props;
+const SearchInput = memo(() => {
   const selected = useSelector((state) => state.statBar.selected);
 
   const createSearchInput = (selected) => {
@@ -13,7 +12,7 @@ const SearchInput = memo((props) => {
       selected && selected.type === "area" ? (
         <SearchTrack />
       ) : (
-        <SearchDetailOption className={classes.search_select} />
+        <SearchDetailOption />
       );
 
     return searchInput;

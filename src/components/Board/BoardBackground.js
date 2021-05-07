@@ -2,12 +2,11 @@ import React from "react";
 import Svg from "../../shared/svgIcons";
 import styled from "styled-components";
 
-const EmployeeSearch = styled.div`
+const EmployeeSearch = styled.section`
   position: relative;
   margin: 0 auto;
   width: 100%;
   height: 80vh;
-
   div {
     position: absolute;
     left: -10%;
@@ -18,13 +17,13 @@ const EmployeeSearch = styled.div`
   }
   span {
     position: absolute;
-    width: 50%;
+    width: 100%;
     top: 50%;
-    left: 46%;
+    left: 50%;
     transform: translateY(-50%);
     font-size: 1.3vw;
     color: grey;
-    width: 46%;
+    width: 50%;
     line-height: 170%;
   }
 `;

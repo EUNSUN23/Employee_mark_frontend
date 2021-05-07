@@ -1,7 +1,43 @@
 import { withStyles } from "@material-ui/core/styles";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
 import theme from "../../../shared/theme";
+
+export const DetailMenuBtn = withStyles({
+  contained: {
+    position: "relative",
+    transition: theme.transitions.create("width"),
+    width: "42vw",
+    [theme.breakpoints.up("lg")]: {
+      width: "28vw",
+    },
+    height: "8vh",
+
+    "& .titleText": {
+      padding: theme.spacing(1, 1, 1, 0),
+      paddingLeft: `calc(1em + ${theme.spacing(2)}px)`,
+      transition: theme.transitions.create("width"),
+      width: "35vw",
+      [theme.breakpoints.up("lg")]: {
+        width: "25vw",
+      },
+      [theme.breakpoints.up("xl")]: {
+        fontSize: "25px",
+      },
+    },
+  },
+  iconSizeLarge: {
+    position: "absolute",
+    left: "0%",
+    color: "#fff",
+    height: "100%",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+})(Button);
 
 export const DefaultMenu = withStyles({
   paper: {

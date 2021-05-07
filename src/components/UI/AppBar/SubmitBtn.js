@@ -1,14 +1,19 @@
 import { memo } from "react";
-import styled from "styled-components";
-import { Button } from "@material-ui/core";
+import { Button, withStyles } from "@material-ui/core";
+import theme from "../../../shared/theme";
 
-const StyledButton = styled(Button)`
-  fontsize: 1.3vw;
-  min-width: 4vw;
-  .MuiButton-label {
-    color: #fff;
-  }
-`;
+const StyledButton = withStyles({
+  contained: {
+    fontSize: "14px",
+    width: "4vw",
+    height: "7vh",
+    [theme.breakpoints.down("md")]: {
+      marginLeft: "-20px",
+    },
+    marginLeft: "-40px",
+    color: "#fff",
+  },
+})(Button);
 
 const SubmitBtn = (props) => {
   const { onSubmitHandler, children } = props;

@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import styled from "styled-components";
 import {
   BarChart,
   Bar,
@@ -8,40 +9,39 @@ import {
   YAxis,
   ResponsiveContainer,
 } from "recharts";
-import { Grid } from "@material-ui/core";
 import { setChartColor } from "../../../../shared/utility";
-import { makeStyles } from "@material-ui/core/styles";
 import CustomizedTick from "./CustomizedTick";
 import CustomizedLabel from "./CustomizedLabel";
 
-const useStyles = makeStyles((theme) => ({
-  barChartGrid: {
-    width: "100%",
-    height: 380,
-    [theme.breakpoints.only("sm")]: {
-      width: "80%",
-    },
-    [theme.breakpoints.only("xs")]: {
-      width: "60%",
-    },
-  },
-  salary: {
-    position: "absolute",
-    top: "15%",
-    left: "50%",
-    transform: "translateX(-50%)",
-    textShadow: "2px 6px 4px #CECECE ",
-    zIndex: 500,
-    color: "#000",
-  },
-}));
+const ChartContainer = styled.article`
+  width: 100%;
+  height: 380;
+  @media only screen and (min-width: 576px) and (max-width: 786px) {
+    width: 80%;
+  }
+  @media only screen and (max-width: 576px) {
+    width: 60%;
+  }
+`;
+
+const Title = styled.h1`
+  position: absolute;
+  top: 8%;
+  @media only screen and (max-width: 786px) {
+    top: 15%;
+  }
+  left: 50%;
+  transform: translateX(-50%);
+  text-shadow: 2px 6px 4px #cecece;
+  z-index: 500;
+  color: #000;
+  font-size: 3vw;
+`;
 
 const DistBar = memo(({ data, type, salary }) => {
-  const classes = useStyles();
-
   const makeDistBar = (data) => {
     return (
-      <Grid item xs={11} className={classes.barChartGrid}>
+      <ChartContainer>
         <ResponsiveContainer width="100%" height={400}>
           <BarChart
             data={data}
@@ -77,25 +77,17 @@ const DistBar = memo(({ data, type, salary }) => {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
-      </Grid>
+      </ChartContainer>
     );
   };
 
   const compare = type === "below" ? "<" : ">";
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="center"
-      alignItems="center"
-      spacing={2}
-    >
-      <Grid item>
-        <h1 className={classes.salary}>{`Salary ${compare} ${salary}`}</h1>
-      </Grid>
+    <>
+      <Title>{`Salary ${compare} ${salary}`}</Title>
       {makeDistBar(data)}
-    </Grid>
+    </>
   );
 });
 
